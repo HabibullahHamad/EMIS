@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CorrespondenceManagement\InboxController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -84,8 +85,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::get('/CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
 
-
-Route::get('/CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
+Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
     ->name('inbox.index');
+
+
+
