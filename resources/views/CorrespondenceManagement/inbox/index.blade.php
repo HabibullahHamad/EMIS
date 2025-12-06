@@ -1,40 +1,45 @@
-use Illuminate\Support\Facades\DB;
-
 
 @extends('Welcome')
 @section('content')
 
+<h2>Inbox Letters</h2>
 
+<a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
 
-<div class="container">
-    <h2>Inbox Letters</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Subject</th>
-                <th>Sender</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($letters as $letter)
-                <tr>
-                <td>{{ $letter->id }}</td>
-                <td>{{ $letter->subject }}</td>
-                <td>{{ $letter->sender_id }}</td>
-                <td>{{ $letter->created_at }}</td>
-                    <td>
-                        @if($letter->attachment)
-                            <a href="{{ asset('attachments/' . $letter->attachment) }}" target="_blank">View</a>
-                        @else
-                            No Attachment
-                        @endif
-                    </td>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Letter No</th>
+            <th>Subject</th>
+            <th>Sender</th>
+            <th>Received</th>
+            <th>Status</th>
+            <th width="180">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach($inbox as $letter)
+        <tr>
+            <td>{{ $letter->letter_no }}</td>
+            <td>{{ $letter->subject }}</td>
+            <td>{{ $letter->sender }}</td>
+            <td>{{ $letter->received_date }}</td>
+            <td>{{ $letter->status }}</td>
+            <td>
+                <a href="{{ route('inbox.show',$letter->id) }}" class="btn btn-sm btn-info">View</a>
+                <a href="{{ route('inbox.edit',$letter->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <form action="{{ route('inbox.destroy', $letter->id) }}" method="POST" style="display:inline;">
+                    @csrf @method('DELETE')
+                    <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
 
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+{{ $inbox->links() }}
+
 @endsection
+
+
