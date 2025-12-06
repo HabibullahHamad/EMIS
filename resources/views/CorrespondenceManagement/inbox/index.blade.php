@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($inbox as $letter)
+    @foreach($index as $letter)
         <tr>
             <td>{{ $letter->letter_no }}</td>
             <td>{{ $letter->subject }}</td>
