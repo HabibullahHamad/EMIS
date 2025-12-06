@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class InboxController extends Controller
 {
-    public function index()
-    {
-        $inbox = Inbox::orderBy('id','desc')->paginate(10);
-        return view('CorrespondenceManagement.inbox.index', compact('inbox'));
-    }
+   
+public function index()
+{
+    $inbox = Inbox::orderBy('id', 'desc')->get();
+
+    return view('CorrespondenceManagement.inbox.index', compact('inbox'));
+}
 
     public function create()
     {
