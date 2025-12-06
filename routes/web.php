@@ -81,6 +81,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::prefix('correspondence')->group(function () {
-    Route::resource('inbox', App\Http\Controllers\CorrespondenceManagement\InboxController::class);
-});
+
+
+
+Route::get('/CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
+
+
+Route::get('/CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
+    ->name('inbox.index');
