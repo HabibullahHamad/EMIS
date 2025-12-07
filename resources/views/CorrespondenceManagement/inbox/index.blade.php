@@ -6,9 +6,9 @@
 
 <a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
 
-<table class="table mt-3">
-       <thead style="background-color: #04AA6D; color: #fbfcfcff;">
-               <tr style="color:#0d6efd; font-weight:bold;">
+<table class="table table-bordered mt-3 border-radiused-table">
+    <thead style="background-color:#e3f2fd;">
+          <tr style="background-color:#0d6efd; color:white; text-align:center;">  
             <th>Letter No</th>
             <th>Subject</th>
             <th>Sender</th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     @foreach($inbox as $letter)
-        <tr>
+         <tbody style="color:#0d6efd; text-align:center; font-weight:bold; color: #3b86f6ff;">
             <td>{{ $letter->letter_no }}</td>
             <td>{{ $letter->subject }}</td>
             <td>{{ $letter->sender }}</td>
