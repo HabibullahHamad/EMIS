@@ -30,9 +30,6 @@ Route::get('/CorrespondenceManagement/inbox/index', function () {
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('Layout.dashboard');
@@ -91,3 +88,14 @@ Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
 
 
 
+
+
+
+Route::get('CorrespondenceManagement/inbox/create', function () {
+    return view('create');
+});
+
+
+route::get('CorrespondenceManagement/inbox/form', function(){
+    return view('form');
+});

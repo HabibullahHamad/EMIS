@@ -1,19 +1,13 @@
 
 @extends('Welcome')
 @section('content')
-   <head>
-<style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
- 
-</style>
-</head>
 <h2>Inbox Letters</h2>
 
 <a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
 
 <table class="table mt-3">
-   <thead class="custom-thead">
+      <thead class="table-primary">
         <tr>
             <th>Letter No</th>
             <th>Subject</th>

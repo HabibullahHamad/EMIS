@@ -6,13 +6,13 @@
 <h3 class="mb-4">Add New Letter</h3>
 
 <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
-@csrf
+    @csrf
 
-@include('correspondence.inbox.form')
+    @include('CorrespondenceManagement.inbox.form')
 
-<button class="btn btn-primary mt-3">Save</button>
-
+    <button class="btn btn-primary mt-3">Save</button>
 </form>
+
 
 </div>
 @endsection

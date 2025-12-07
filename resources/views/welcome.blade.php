@@ -73,10 +73,13 @@
     <div id="sidebar">
         
         <div class="sidebar-header d-flex flex-column align-items-center" style="position: sticky; top: 0; background: #0664e6ff; z-index: 1001;">
-              <i class="fa-solid fa-layer-group mb-1 fa-1x text-white">
-                <a href="{{ url('/') }}" class="text-decoration-none text-white"> 
-              
-            <span class="text-whit">EOMIS</span>
+
+                <div class="sidebar-logo text-center p-0">
+        <a href="{{ url('/') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Organization Logo" style="max-width: 100px; align:left">
+        </a>
+    </div>
+            <span class="text-whit">EMIS</span>
             </a></i>
               <hr class="w-100 text-white mt-1 mb-0">
         </div>
