@@ -3,12 +3,22 @@
 
 @extends('Welcome')
 @section('content')
-
+<style>
+    thead.custom-blue {
+        background-color: #0d6efd;
+        color: white;
+    }
+    tbody.custom-blue-text tr {
+        color: #0d6efd;
+        font-weight: bold;
+    }
+</style>
 <div class="container mt-4">
     <h2>Inbox</h2>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
+ <table class="table table-bordered">
+    <thead style="background-color:#0d6efd; color:white;">
+                   <tr style="color:#0d6efd; font-weight:bold;">
+
                 <th>Sender</th>
                 <th>Subject</th>
                 <th>Date Received</th>

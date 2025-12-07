@@ -223,8 +223,6 @@
             </div>
         </div>
     </nav>
-
-
     <!-- Main Content (yield area for child views) -->
     <main id="main-content">
 
