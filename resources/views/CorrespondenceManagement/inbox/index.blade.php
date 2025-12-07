@@ -7,8 +7,8 @@
 <a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
 
 <table class="table mt-3">
-      <thead class="table-primary">
-        <tr>
+       <thead style="background-color: #04AA6D; color: #fbfcfcff;">
+               <tr style="color:#0d6efd; font-weight:bold;">
             <th>Letter No</th>
             <th>Subject</th>
             <th>Sender</th>

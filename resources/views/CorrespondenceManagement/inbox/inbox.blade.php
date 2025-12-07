@@ -16,10 +16,11 @@
 <div class="container mt-4">
     <h2>Inbox</h2>
  <table class="table table-bordered">
-    <thead style="background-color:#0d6efd; color:white;">
-                   <tr style="color:#0d6efd; font-weight:bold;">
 
-                <th>Sender</th>
+    <thead style="background-color: #04AA6D; color: #fbfcfcff;">
+               <tr style="color:#0d6efd; font-weight:bold;">
+
+                <th>Sender</th> 
                 <th>Subject</th>
                 <th>Date Received</th>
                 <th>Actions</th>
