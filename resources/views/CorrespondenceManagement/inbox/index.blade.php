@@ -5,7 +5,37 @@
 <h2>Inbox Letters</h2>
 
 <a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
+<style>
+/* table font & color */
+.border-radiused-table,
+.border-radiused-table th,
+.border-radiused-table td {
+    font-family: "B Nazanin", "BNazanin", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: #0d6efd;
+}
 
+/* table head: blue background, white text */
+.border-radiused-table thead th {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* body cells styling */
+.border-radiused-table tbody td {
+    text-align: center;
+    color: #0d6efd;
+    vertical-align: middle;
+}
+
+/* rounded corners */
+.border-radiused-table {
+    border-radius: 6px;
+    overflow: hidden;
+}
+</style>
 <table class="table table-bordered mt-3 border-radiused-table">
     <thead class="bg-primary text-white">
 
