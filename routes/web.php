@@ -99,3 +99,17 @@ Route::get('CorrespondenceManagement/inbox/create', function () {
 route::get('CorrespondenceManagement/inbox/form', function(){
     return view('form');
 });
+
+
+
+
+
+route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
+
+
+
+route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
+route::get('CorrespondenceManagement/inbox/edit/{inbox}', [InboxController::class, 'edit'])->name('inbox.edit');
+route::post('CorrespondenceManagement/inbox/update/{inbox}', [InboxController::class, 'update'])->name('inbox.update');
+route::get('CorrespondenceManagement/inbox/show/{inbox}', [InboxController::class, 'show'])->name('inbox.show');
+route::post('CorrespondenceManagement/inbox/destroy/{inbox}', [InboxController::class, 'destroy'])->name('inbox.destroy');

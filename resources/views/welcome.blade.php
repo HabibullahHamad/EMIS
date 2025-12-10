@@ -12,13 +12,13 @@
         body { background-color: #f8f9fa; overflow-x: hidden; font-family: 'Inter', sans-serif; }
 
         /* Sidebar base */
-        #sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 300px; background: #0a5acaff; color: #0c0c0cff; transition: all 0.3s ease; overflow-y: auto; z-index: 1000; }
+        #sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 220px; background: #0a5acaff; color: #0c0c0cff; transition: all 0.3s ease; overflow-y: auto; z-index: 1040; }
         #sidebar.collapsed { width: 80px; }
-        #sidebar .sidebar-header { padding: 1rem; text-align: center; font-size: 2.3rem; background: #021744ff; color: #fff; font-weight: 600; }
+        #sidebar .sidebar-header { padding: 1rem; text-align: center; font-size: 1.1rem; background: #0f8febff; color: #fff; font-weight: 200; }
 
         /* Nav links */
         #sidebar .nav-link { color: #cbd5e1; display:flex; align-items:center; justify-content:space-between; padding:0.8rem 1rem; transition: all 0.3s ease; border-left:3px solid transparent; }
-        #sidebar .nav-link:hover { background:#02112aff; color:#fff; border-left:3px solid #05f121ff; }
+        #sidebar .nav-link:hover { background:#02112aff; color:#fff; border-left:5px solid #c0bd05ff; }
         #sidebar .nav-link i { margin-right:10px; transition: transform 0.3s ease; }
         #sidebar .nav-link:hover i { transform: rotate(15deg) scale(1.2); }
         #sidebar .submenu { display:flex; flex-direction:column; background:#1556c6ff; color:#f9f9f9ff; max-height:0; overflow:hidden; transition:max-height 0.28s ease; }
@@ -26,42 +26,73 @@
         #sidebar .nav-item.open > .submenu { max-height:480px; }
         .menu-arrow { margin-left:auto; transition: transform 0.3s; }
         .nav-item.open .menu-arrow { transform: rotate(90deg); }
+        :root{
+            --sidebar-expanded: 250px;
+            --sidebar-collapsed: 80px;
+        }
 
+        /* Ensure CSS sizes align with JS measurements */
+        #sidebar { width: var(--sidebar-expanded); }
+        #sidebar.collapsed { width: var(--sidebar-collapsed); }
+
+        /* Make top navbar and main content follow the sidebar width */
+        #top-navbar { left: var(--sidebar-expanded); transition: left .3s ease, right .3s ease; }
+        #sidebar.collapsed ~ #top-navbar { left: var(--sidebar-collapsed); }
+
+        #main-content { margin-left: var(--sidebar-expanded); transition: margin-left .3s ease; padding: 1.25rem; }
+        #sidebar.collapsed ~ #main-content { margin-left: var(--sidebar-collapsed); }
+
+        /* Fixed toggle button at the top-left corner (adjusts with sidebar) */
+        #sidebarToggle{
+            position: fixed;
+            top: 10px;
+            left: calc(var(--sidebar-expanded) + 12px);
+            z-index: 1101;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: left .3s ease, transform .15s ease;
+        }
+
+        /* When sidebar is collapsed, move toggle closer to the edge */
+        #sidebar.collapsed ~ #top-navbar #sidebarToggle {
+            left: calc(var(--sidebar-collapsed) + 12px);
+        }
+
+        /* Mobile / small screens: treat sidebar as off-canvas and keep toggle accessible */
+        @media (max-width: 768px) {
+            /* Let JS manage open state; CSS will assume sidebar off-canvas by default */
+            #sidebar { transform: translateX(-100%); width: var(--sidebar-collapsed); transition: transform .25s ease; }
+            #sidebar.open { transform: translateX(0); } /* optional if you add an "open" class for mobile */
+            #top-navbar, #main-content { left: 0 !important; margin-left: 0 !important; }
+            #sidebarToggle { left: 10px !important; }
+        }
         /* Top Navbar and main content */
-        #top-navbar { position: fixed; left: 300px; right: 0; top: 0; background: #fff; border-bottom: 1px solid #ddd; height: 60px; transition: left 0.3s; z-index:1040; }
-        #sidebar.collapsed ~ #top-navbar { left: 80px; }
-        #main-content { margin-left: 300px; margin-top: 60px; transition: margin-left 0.3s; padding: 20px; }
-        #sidebar.collapsed ~ #main-content { margin-left: 80px; }
+        #top-navbar { position: fixed; left: var(--sidebar-expanded); right: 0; top: 0; background: #fff; border-bottom: 1px solid #ddd; height: 60px; transition: left 0.3s; z-index:1050; }
+        #sidebar.collapsed ~ #top-navbar { left: var(--sidebar-collapsed); }
+        #main-content { margin-left: var(--sidebar-expanded); margin-top: 60px; transition: margin-left 0.3s; padding: 1.25rem; }
+        #sidebar.collapsed ~ #main-content { margin-left: var(--sidebar-collapsed); }
+
 
         /* Toggle button */
-        #sidebarToggle { border: none; background: none; color: #374151; font-size: 1.3rem; margin-left: 10px; }
+        #sidebarToggle { border: none; background: none; color: #374151; font-size: 1.3rem; margin-left: 1px; }
 
         /* Scrollbar */
         #sidebar::-webkit-scrollbar { width:5px; }
         #sidebar::-webkit-scrollbar-thumb { background-color: #4b5563; border-radius: 10px; }
 
         /* Top navbar small tweaks */
-        #top-navbar .form-control[type="search"] { max-width: 260px; transition: max-width 0.2s ease; }
+        #top-navbar .form-control[type="search"] { max-width: 250px; transition: max-width 0.2s ease; }
         #top-navbar .form-control.form-control-sm { padding: .25rem .5rem; font-size: .85rem; height: calc(1.5em + .5rem); }
         #top-navbar .nav-link .badge { font-size: 0.65rem; padding: 0.2em 0.35em; }
         /* Fixed area for notifications and language selector */
-        #top-navbar.fixed {
-            position: fixed;
-            top: 0;
-            left: 300px; /* Adjust based on sidebar width */
-            right: 0;
-            z-index: 1040;
-            right: 22px;
-            background: #fff;
-            border-bottom: 1px solid #ddd;
-            height: 60px;
-        }
+      
 
 
 
         /* Ensure main content adjusts for fixed navbar */
         #main-content.fixed {
-            margin-top: 60px; /* Height of the fixed navbar */
+            margin-top: 50px; /* Height of the fixed navbar */
         }
     
     </style>
@@ -271,7 +302,7 @@
             const nav = document.getElementById('top-navbar');
             const main = document.getElementById('main-content');
 
-            const EXPANDED_WIDTH = 300;
+            const EXPANDED_WIDTH = 250;
             const COLLAPSED_WIDTH = 80;
 
             function syncPositions() {

@@ -17,7 +17,7 @@
 
 /* table head: blue background, white text */
 .border-radiused-table thead th {
-    background-color: #0d6efd !important;
+    background-color: #0a48a5ff !important;
     color: #ffffff !important;
     font-weight: bold;
     text-align: center;
@@ -26,7 +26,7 @@
 /* body cells styling */
 .border-radiused-table tbody td {
     text-align: center;
-    color: #0d6efd;
+    color:  #0a48a5ff;
     vertical-align: middle;
 }
 
@@ -61,7 +61,30 @@
                 <a href="{{ route('inbox.edit',$letter->id) }}" class="btn btn-sm btn-warning">Edit</a>
                 <form action="{{ route('inbox.destroy', $letter->id) }}" method="POST" style="display:inline;">
                     @csrf @method('DELETE')
-                    <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this)">Delete</button>
+
+                    <!-- SweetAlert2 CDN (add once in the page) -->
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                    function confirmDelete(btn){
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "This action cannot be undone.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // submit the surrounding form
+                                btn.closest('form').submit();
+                            }
+                        });
+                        return false;
+                    }
+                    </script>
                 </form>
             </td>
         </tr>
