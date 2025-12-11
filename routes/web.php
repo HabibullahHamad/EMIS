@@ -3,33 +3,21 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-
-
-
 // WEB ROUTES for inbox module//
-
-
 Route::get('/CorrespondenceManagement/inbox/inbox', function () {
     return view ('CorrespondenceManagement.inbox.inbox');
 });
-
 
 Route::get('/CorrespondenceManagement/inbox/index', function () {
     return view ('CorrespondenceManagement.inbox.index');
 });
 // WEB ROUTES//end of inbox
-
-
-
-
-
-
-
 
 Route::get('/dashboard', function () {
     return view('Layout.dashboard');
@@ -41,15 +29,8 @@ Route::get('/new', function () {
 })->name('new');
 
 
-
-
-
 route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
-
-
 Route::resource('inbox', InboxController::class);
-
-
 
 //USER MANAGEMENT//
 Route::middleware(['auth'])->group(function () {
@@ -108,8 +89,15 @@ route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'cr
 
 
 
+
+Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
+Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
+Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
+route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
+route::get('/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit');
+route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
+
 route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
-route::get('CorrespondenceManagement/inbox/edit/{inbox}', [InboxController::class, 'edit'])->name('inbox.edit');
-route::post('CorrespondenceManagement/inbox/update/{inbox}', [InboxController::class, 'update'])->name('inbox.update');
-route::get('CorrespondenceManagement/inbox/show/{inbox}', [InboxController::class, 'show'])->name('inbox.show');
-route::post('CorrespondenceManagement/inbox/destroy/{inbox}', [InboxController::class, 'destroy'])->name('inbox.destroy');
+route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
+
+ // Optional for listing all letters

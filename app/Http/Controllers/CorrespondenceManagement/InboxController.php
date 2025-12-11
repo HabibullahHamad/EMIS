@@ -12,16 +12,17 @@ class InboxController extends Controller
 {
     public function __construct()
     {
-        // Ensure the 'inboxes' table exists so validation and queries do not fail
-        if (!Schema::hasTable('inboxes')) {
-            Schema::create('inboxes', function (Blueprint $table) {
+        // Ensure the 'inbox' table exists so validation and queries do not fail
+        if (!Schema::hasTable('inbox')) {
+            Schema::create('inbox', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('letter_no')->unique();
                 $table->string('subject', 255);
                 $table->string('sender', 255);
                 $table->date('received_date');
                 $table->enum('priority', ['high', 'medium', 'low'])->nullable();
-                $table->enum('status', ['new', 'in_review', 'completed'])->nullable();
+                // Match MySQL enum values: Unread, Read, Assigned, Completed
+                $table->enum('status', ['Unread', 'Read', 'Assigned', 'Completed'])->nullable();
                 $table->string('attachment')->nullable();
                 $table->timestamps();
             });
@@ -42,12 +43,13 @@ class InboxController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'letter_no'      => 'required|unique:inboxes,letter_no',
+            'letter_no'      => 'required|unique:inbox,letter_no',
             'subject'        => 'required|string|max:255',
             'sender'         => 'required|string|max:255',
             'received_date'  => 'required|date',
             'priority'       => 'nullable|in:high,medium,low',
-            'status'         => 'nullable|in:new,in_review,completed',
+            // Updated status validation to match DB enum
+            'status'         => 'nullable|in:Unread,Read,Assigned,Completed',
             'attachment'     => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
@@ -64,6 +66,7 @@ class InboxController extends Controller
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
 
+        
         Inbox::create($data);
 
         return redirect()->route('inbox.index')->with('success', 'Letter added to Inbox!');
@@ -86,12 +89,13 @@ class InboxController extends Controller
         $letter = Inbox::findOrFail($id);
 
         $request->validate([
-            'letter_no'      => 'required|unique:inboxes,letter_no,' . $id,
+            'letter_no'      => 'required|unique:inbox,letter_no,' . $id,
             'subject'        => 'required|string|max:255',
             'sender'         => 'required|string|max:255',
             'received_date'  => 'required|date',
             'priority'       => 'nullable|in:high,medium,low',
-            'status'         => 'nullable|in:new,in_review,completed',
+            // Updated status validation to match DB enum
+            'status'         => 'nullable|in:Unread,Read,Assigned,Completed',
             'attachment'     => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 

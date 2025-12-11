@@ -1,16 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* Use Inter for toasts so they match the layout font */
+.swal2-popup { font-family: 'Inter', sans-serif; }
+/* Toast container tweaks to match the screenshot */
+.swal2-toast {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    min-width: 360px;
+    align-items: center;
+}
+/* Header layout: icon + title aligned like image */
+.swal2-toast .swal2-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0;
+}
+/* Title styling */
+.swal2-toast .swal2-title {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #374151; /* gray-700 */
+    margin: 0;
+    line-height: 1;
+}
+/* Make the success icon look like a green circle with white check */
+.swal2-icon.swal2-success {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #10b981; /* green */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Tweak the check mark color and stroke (works for SVG inside Swal) */
+.swal2-icon.swal2-success .swal2-success-circular-line,
+.swal2-icon.swal2-success .swal2-success-fix,
+.swal2-icon.swal2-success .swal2-success-line-tip,
+.swal2-icon.swal2-success .swal2-success-line-long {
+    stroke: #ffffff;
+    background: transparent;
+}
+/* Progress bar (timer) styling */
+.swal2-toast .swal2-timer-progress-bar {
+    height: 8px;
+    border-radius: 6px;
+    background: #16a34a; /* darker green */
+    margin-top: 10px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+}
+/* Reduce default padding around the icon/title for compact look */
+.swal2-toast .swal2-content {
+    padding: 0;
+}
+/* Optional: make confirm / action buttons hidden for pure toast */
+.swal2-toast .swal2-actions {
+    display: none;
+}
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'EMIS Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <style>
         body { background-color: #f8f9fa; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-
         /* Sidebar base */
         #sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 220px; background: #0a5acaff; color: #0c0c0cff; transition: all 0.3s ease; overflow-y: auto; z-index: 1040; }
         #sidebar.collapsed { width: 80px; }
@@ -30,18 +93,14 @@
             --sidebar-expanded: 250px;
             --sidebar-collapsed: 80px;
         }
-
         /* Ensure CSS sizes align with JS measurements */
         #sidebar { width: var(--sidebar-expanded); }
         #sidebar.collapsed { width: var(--sidebar-collapsed); }
-
         /* Make top navbar and main content follow the sidebar width */
         #top-navbar { left: var(--sidebar-expanded); transition: left .3s ease, right .3s ease; }
         #sidebar.collapsed ~ #top-navbar { left: var(--sidebar-collapsed); }
-
         #main-content { margin-left: var(--sidebar-expanded); transition: margin-left .3s ease; padding: 1.25rem; }
         #sidebar.collapsed ~ #main-content { margin-left: var(--sidebar-collapsed); }
-
         /* Fixed toggle button at the top-left corner (adjusts with sidebar) */
         #sidebarToggle{
             position: fixed;
@@ -53,12 +112,10 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
             transition: left .3s ease, transform .15s ease;
         }
-
         /* When sidebar is collapsed, move toggle closer to the edge */
         #sidebar.collapsed ~ #top-navbar #sidebarToggle {
             left: calc(var(--sidebar-collapsed) + 12px);
         }
-
         /* Mobile / small screens: treat sidebar as off-canvas and keep toggle accessible */
         @media (max-width: 768px) {
             /* Let JS manage open state; CSS will assume sidebar off-canvas by default */
@@ -72,39 +129,26 @@
         #sidebar.collapsed ~ #top-navbar { left: var(--sidebar-collapsed); }
         #main-content { margin-left: var(--sidebar-expanded); margin-top: 60px; transition: margin-left 0.3s; padding: 1.25rem; }
         #sidebar.collapsed ~ #main-content { margin-left: var(--sidebar-collapsed); }
-
-
         /* Toggle button */
         #sidebarToggle { border: none; background: none; color: #374151; font-size: 1.3rem; margin-left: 1px; }
-
         /* Scrollbar */
         #sidebar::-webkit-scrollbar { width:5px; }
         #sidebar::-webkit-scrollbar-thumb { background-color: #4b5563; border-radius: 10px; }
-
         /* Top navbar small tweaks */
         #top-navbar .form-control[type="search"] { max-width: 250px; transition: max-width 0.2s ease; }
         #top-navbar .form-control.form-control-sm { padding: .25rem .5rem; font-size: .85rem; height: calc(1.5em + .5rem); }
         #top-navbar .nav-link .badge { font-size: 0.65rem; padding: 0.2em 0.35em; }
         /* Fixed area for notifications and language selector */
-      
-
-
-
         /* Ensure main content adjusts for fixed navbar */
         #main-content.fixed {
             margin-top: 50px; /* Height of the fixed navbar */
         }
-    
     </style>
 </head>
-
 <body>
-
     <!-- Sidebar -->
     <div id="sidebar">
-        
         <div class="sidebar-header d-flex flex-column align-items-center" style="position: sticky; top: 0; background: #0664e6ff; z-index: 1001;">
-
                 <div class="sidebar-logo text-center p-0">
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Organization Logo" style="max-width: 100px; align:left">
@@ -120,7 +164,6 @@
                     <div><i class="fa-solid fa-gauge"></i><span class="sidebar-text"> Dashboard</span></div>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center justify-content-between">
                     <div><i class="fa-solid fa-envelope"></i><span class="sidebar-text"> Correspondence</span></div>
@@ -132,7 +175,6 @@
                     <a href="{{ route('Administrations.create') }}" class="nav-link">Drafts</a>
                 </div>
             </li>
-
             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center justify-content-between">
                     <div><i class="fa-solid fa-list-check"></i><span class="sidebar-text"> Tasks</span></div>
@@ -143,7 +185,6 @@
                     <a href="#" class="nav-link">Completed</a>
                 </div>
             </li>
-
             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center justify-content-between">
                     <div><i class="fa-solid fa-folder-open"></i><span class="sidebar-text"> Documents</span></div>
@@ -154,7 +195,6 @@
                     <a href="#" class="nav-link">Upload</a>
                 </div>
             </li>
-
             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center justify-content-between">
                     <div><i class="fa-solid fa-gear"></i><span class="sidebar-text"> Settings</span></div>
@@ -167,25 +207,16 @@
             </li>
         </ul>
     </div>
-
     <!-- Top Navbar -->
     <nav id="top-navbar" class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top px-3 py-2">
         <div class="container-fluid">
-
             <!-- Brand / Logo -->
-           
-
             <button id="sidebarToggle" class="btn btn-outline-primary btn-sm me-2 d-flex align-items-center" type="button" aria-label="Toggle sidebar" aria-expanded="true">
                 <i class="fa-solid fa-bars"></i>
             </button>
-
-            
             <!-- Toggle button (for mobile view) -->
-
-
             <!-- Navbar content -->
             <div class="collapse navbar-collapse" id="navbarMain">
-
                 <!-- Search Bar -->
                 <form class="d-flex ms-lg-3 my-2 my-lg-0 flex-grow-1" action="#" method="GET">
                     <div class="input-group">
@@ -214,7 +245,6 @@
                             <li><a class="dropdown-item text-center" href="{{ url('/notifications') }}">View all notifications</a></li>
                         </ul>
                     </li>
-
                     <!-- Language Selector -->
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle text-secondary d-flex align-items-center" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -331,6 +361,59 @@
         // Optional: dynamic notification badge update (placeholder for your ajax)
         // Example: fetch('/api/notifications/count').then(r=>r.json()).then(j=>{ document.getElementById('notifBadge').textContent = j.count; });
     });
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // SUCCESS TOAST
+    @if(session('success'))
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    @endif
+
+    // ERROR TOAST
+    @if(session('error'))
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    @endif
+
+    // VALIDATION ERROR LIST TOAST
+    @if ($errors->any())
+        let errorMessages = `
+            <ul style='text-align: left; margin:0; padding-left:18px;'>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        `;
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Please fix the following errors:',
+            html: errorMessages,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#d33'
+        });
+    @endif
+
+});
+</script>
+    <script>
+        // Optional: Add any additional JavaScript functionality here
     </script>
 </body>
 </html>
