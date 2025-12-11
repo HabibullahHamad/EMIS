@@ -27,9 +27,9 @@
         border-radius: 16px;
         color: #fff;
         margin-bottom: 30px;
-        font-size: 24px;
-        font-weight: 600;
-        letter-spacing: .7px;
+        font-size: 15px;
+        font-weight: 200;
+        letter-spacing: .2px;
         animation: fadeIn 1s ease-out;
     }
 
@@ -72,6 +72,9 @@
         background: linear-gradient(90deg, #0056b3, #004599);
     }
 </style>
+<form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <!-- All your input fields here -->
 
 <div class="container mt-4 mb-4">
 
@@ -160,7 +163,6 @@
                     </select>
                 </div>
             </div>
-
             {{-- File --}}
             <div class="col-md-12 mb-3">
                 <label class="form-label">Attachment</label>
@@ -181,5 +183,5 @@
         </div>
     </div>
 </div>
-
+</form>
 @endsection

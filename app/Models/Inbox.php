@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Inbox extends Model
 {
-    protected $table = 'inbox';
+    protected $table = 'inbox'; // FIXED
 
     protected $fillable = [
         'letter_no', 'subject', 'sender', 'receiver',
