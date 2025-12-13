@@ -101,3 +101,7 @@ route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'st
 route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
 
  // Optional for listing all letters
+
+ route::get('/Main', function () {
+    return view('Main');
+})->name('Main');

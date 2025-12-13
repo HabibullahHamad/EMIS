@@ -160,20 +160,60 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="{{ url('/dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                    <div><i class="fa-solid fa-gauge"></i><span class="sidebar-text"> Dashboard</span></div>
-                </a>
+            <a href="{{ url('/dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                <div><i class="fa-solid fa-gauge"></i><span class="sidebar-text"> Dashboard</span></div>
+            </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center justify-content-between">
-                    <div><i class="fa-solid fa-envelope"></i><span class="sidebar-text"> Correspondence</span></div>
-                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+            <a href="#" class="nav-link d-flex align-items-center justify-content-between">
+                <div><i class="fa-solid fa-envelope"></i><span class="sidebar-text"> Correspondence</span></div>
+                <i class="fa-solid fa-chevron-right menu-arrow"></i>
+            </a>
+            <div class="submenu">
+                <a href="{{ url('CorrespondenceManagement/inbox/index') }}" class="nav-link has-submenu">
+                <i class="fa-solid fa-inbox me-2"></i>Inbox
                 </a>
-                <div class="submenu">
-                    <a href="{{ url('CorrespondenceManagement/inbox/index') }}" class="nav-link">Inbox</a>
-                    <a href="{{ route('Administrations.User Management') }}" class="nav-link">Outbox</a>
-                    <a href="{{ route('Administrations.create') }}" class="nav-link">Drafts</a>
+                <div class="submenu-inner">
+                <a href="#" class="nav-link"><i class="fa-solid fa-arrow-down-tray me-2"></i>Incommming Letters</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-star me-2"></i>Starred</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-circle-exclamation me-2"></i>Important</a>
                 </div>
+                <a href="{{ route('Administrations.User Management') }}" class="nav-link has-submenu">
+                <i class="fa-solid fa-paper-plane me-2"></i>Outbox
+                </a>
+                <div class="submenu-inner">
+                <a href="#" class="nav-link"><i class="fa-solid fa-paper-plane me-2"></i>Sent</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-clock me-2"></i>Pending</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-triangle-exclamation me-2"></i>Failed</a>
+                </div>
+                <a href="{{ route('Administrations.create') }}" class="nav-link has-submenu">
+                <i class="fa-solid fa-file-pen me-2"></i>Drafts
+                </a>
+                <div class="submenu-inner">
+                <a href="#" class="nav-link"><i class="fa-solid fa-floppy-disk me-2"></i>Saved</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check me-2"></i>Scheduled</a>
+                <a href="{{ route('Main') }}" class="nav-link"><i class="fa-solid fa-file-lines me-2"></i>Main</a>
+                </div>
+            </div>
+                <style>
+                /* Show submenu-inner on hover */
+                .submenu .has-submenu + .submenu-inner {
+                    display: none;
+                    background: #1e40af;
+                    padding-left: 1.5rem;
+                }
+                .submenu .has-submenu:hover + .submenu-inner,
+                .submenu .submenu-inner:hover {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .submenu .submenu-inner .nav-link {
+                    font-size: 0.95rem;
+                    padding-left: 2.5rem;
+                    background: #2563eb;
+                    color: #fff;
+                }
+                </style>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center justify-content-between">
