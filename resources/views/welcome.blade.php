@@ -153,48 +153,65 @@
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Organization Logo" style="max-width: 100px; align:left">
         </a>
-    </div>
-            <span class="text-whit">EMIS</span>
-            </a></i>
-              <hr class="w-100 text-white mt-1 mb-0">
+        </div>
+        <span class="text-white">EMIS</span>
+        <hr class="w-100 text-white mt-1 mb-0">
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-            <a href="{{ url('/dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                <div><i class="fa-solid fa-gauge"></i><span class="sidebar-text"> Dashboard</span></div>
-            </a>
+                <a href="{{ url('/dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <div><i class="fa-solid fa-gauge"></i><span class="sidebar-text"> Dashboard</span></div>
+                </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link d-flex align-items-center justify-content-between">
-                <div><i class="fa-solid fa-envelope"></i><span class="sidebar-text"> Correspondence</span></div>
-                <i class="fa-solid fa-chevron-right menu-arrow"></i>
-            </a>
-            <div class="submenu">
-                <a href="{{ url('CorrespondenceManagement/inbox/index') }}" class="nav-link has-submenu">
-                <i class="fa-solid fa-inbox me-2"></i>Inbox
+                <a href="#" class="nav-link d-flex align-items-center justify-content-between">
+                    <div><i class="fa-solid fa-envelope"></i><span class="sidebar-text"> Correspondence</span></div>
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
                 </a>
-                <div class="submenu-inner">
-                <a href="#" class="nav-link"><i class="fa-solid fa-arrow-down-tray me-2"></i>Incommming Letters</a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-star me-2"></i>Starred</a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-circle-exclamation me-2"></i>Important</a>
+                <div class="submenu">
+                    <a href="#" class="nav-link has-submenu">
+                        <i class="fa-solid fa-inbox me-2"></i>Inbox
+                    </a>
+                    <div class="submenu-inner">
+                        <a href="{{ url('CorrespondenceManagement/inbox/index') }}" class="nav-link submenu-link">
+                            <i class="fa-solid fa-arrow-down-tray me-2"></i>Incommming Letters
+                        </a>
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-star me-2"></i>Starred
+                        </a>
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-circle-exclamation me-2"></i>Important
+                        </a>
+                    </div>
+                    <a href="{{ route('Administrations.User Management') }}" class="nav-link has-submenu">
+                        <i class="fa-solid fa-paper-plane me-2"></i>Outbox
+                    </a>
+                    <div class="submenu-inner">
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-paper-plane me-2"></i>Sent
+                        </a>
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-clock me-2"></i>Pending
+                        </a>
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i>Failed
+                        </a>
+                    </div>
+                    <a href="{{ route('Administrations.create') }}" class="nav-link has-submenu">
+                        <i class="fa-solid fa-file-pen me-2"></i>Drafts
+                    </a>
+                    <div class="submenu-inner">
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-floppy-disk me-2"></i>Saved
+                        </a>
+                        <a href="#" class="nav-link submenu-link">
+                            <i class="fa-solid fa-calendar-check me-2"></i>Scheduled
+                        </a>
+                        <a href="{{ route('Main') }}" class="nav-link submenu-link">
+                            <i class="fa-solid fa-file-lines me-2"></i>Main
+                        </a>
+                    </div>
                 </div>
-                <a href="{{ route('Administrations.User Management') }}" class="nav-link has-submenu">
-                <i class="fa-solid fa-paper-plane me-2"></i>Outbox
-                </a>
-                <div class="submenu-inner">
-                <a href="#" class="nav-link"><i class="fa-solid fa-paper-plane me-2"></i>Sent</a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-clock me-2"></i>Pending</a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-triangle-exclamation me-2"></i>Failed</a>
-                </div>
-                <a href="{{ route('Administrations.create') }}" class="nav-link has-submenu">
-                <i class="fa-solid fa-file-pen me-2"></i>Drafts
-                </a>
-                <div class="submenu-inner">
-                <a href="#" class="nav-link"><i class="fa-solid fa-floppy-disk me-2"></i>Saved</a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check me-2"></i>Scheduled</a>
-                <a href="{{ route('Main') }}" class="nav-link"><i class="fa-solid fa-file-lines me-2"></i>Main</a>
-                </div>
-            </div>
                 <style>
                 /* Show submenu-inner on hover */
                 .submenu .has-submenu + .submenu-inner {
