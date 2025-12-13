@@ -2,9 +2,14 @@
 @extends('Welcome')
 @section('content')
 
-<h2>Inbox Letters</h2>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<div >
 <a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
+<h4 style="">inbox Letters</h4>
+</div>
+
 <style>
     .custom-pagination .page-link {
         color: #0d6efd;
@@ -25,43 +30,58 @@
         background-color: #e9f0ff;
     }
 </style>
-
-
 <style>
-/* table font & color */
-.border-radiused-table,
-.border-radiused-table th,
-.border-radiused-table td {
-    font-family: "B Nazanin", "BNazanin", Tahoma, Arial, sans-serif;
-    font-size: 12px;
-    color: #0d6efd;
-}
+    .table1 {
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        width: 100%;
+        margin-top: 20px;
 
-/* table head: blue background, white text */
-.border-radiused-table thead th {
-    background-color: #0a48a5ff !important;
-    color: #ffffff !important;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* body cells styling */
-.border-radiused-table tbody td {
-    text-align: center;
-    color:  #0a48a5ff;
-    vertical-align: middle;
-}
-
-/* rounded corners */
-.border-radiused-table {
-    border-radius: 6px;
-    overflow: hidden;
-}
+    }
+    .table1 thead tr th:first-child {
+        border-top-left-radius: 12px;
+    }
+    .table1 thead tr th:last-child {
+        border-top-right-radius: 12px;
+    }
+    .table1 tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 12px;
+    }
+    .table1 tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 12px;
+    }
+  
+    .table1 {
+        border: 2px solid #064e96ff;
+        border-radius: 12px;
+        margin-top: 20px;
+        padding: auto;
+        width: 100%;
+        background: white;
+    }
+    .table1 thead tr {
+        background: #064e96ff;
+        color:white;
+        font-weight: bold;
+    }
+    .table1 tbody tr {
+        transition: background 0.2s, color 0.2s, border-radius 0.2s;
+    }
+    .table1 tbody tr:hover {
+        background: #04419dff !important;
+        color: #fcfcfcff !important;
+        border-radius: 12px;
+    }
+    .table1 th, .table1 td {
+        vertical-align: middle;
+        text-align: center;
+    }
 </style>
-<table class="table table-bordered mt-3 border-radiused-table">
-    <thead class="bg-primary text-white">
-
-        <tr style="text-align:center; font-weight:bold; color: #0d6efd; background-color:#e3f2fd;"> 
+<table class="table1">
+<thead>
+        <tr> 
            <th>Letter No</th>
             <th>Subject</th>
             <th>Sender</th>
@@ -72,7 +92,7 @@
     </thead>
     <tbody>
     @foreach($inbox as $letter)
-         <tbody style="color:#0d6efd; text-align:center; font-weight:bold; color: #3b86f6ff;">
+        <tr>
             <td>{{ $letter->letter_no }}</td>
             <td>{{ $letter->subject }}</td>
             <td>{{ $letter->sender }}</td>
@@ -84,7 +104,6 @@
                 <form action="{{ route('inbox.destroy', $letter->id) }}" method="POST" style="display:inline;">
                     @csrf @method('DELETE')
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this)">Delete</button>
-
                     <!-- SweetAlert2 CDN (add once in the page) -->
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>

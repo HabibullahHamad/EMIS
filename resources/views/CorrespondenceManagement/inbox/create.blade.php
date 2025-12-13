@@ -1,10 +1,30 @@
 @extends('Welcome')
 
 @section('content')
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script>
+// SVG fallback for icons if FontAwesome is not loaded
+function svgFor(name, type, tag) {
+    // Use FontAwesome classes for icons
+    const iconMap = {
+        letter_no: '<i class="fa-solid fa-hashtag"></i>',
+        subject: '<i class="fa-solid fa-file-lines"></i>',
+        sender: '<i class="fa-solid fa-user"></i>',
+        received_date: '<i class="fa-solid fa-calendar-day"></i>',
+        priority: '<i class="fa-solid fa-arrow-up"></i>',
+        read_status: '<i class="fa-solid fa-eye"></i>',
+        attachment: '<i class="fa-solid fa-paperclip"></i>'
+    };
+    return iconMap[name] || '<i class="fa-solid fa-pen"></i>';
+}
+</script>
 <style>
 /* Rounded, animated form container */
 .styled-form{
-    background: #ffffff;
+    background: #cfcdcdff;
     padding: 18px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(18, 38, 63, 0.08);
@@ -50,8 +70,6 @@
 /* make file & full-width items span both columns */
 .full-span{ grid-column: 1 / -1; }
 
-<<<<<<< HEAD
-=======
 /* Submit styling & small lift animation */
 .form-actions{
     display: flex;
@@ -97,23 +115,6 @@ document.addEventListener('DOMContentLoaded', function(){
         attachment: 'Choose file'
     };
 
-    function svgFor(key, type, tag){
-        // simple inline SVG icons by logical field
-        if(/letter|subject|attachment|file/.test(key)){
-            return '<svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M3 7c0-1.1.9-2 2-2h9l5 5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        }
-        if(/sender|user/.test(key)){
-            return '<svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>';
-        }
-        if(/date|received|calendar/.test(key) || type==='date'){
-            return '<svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
-        }
-        if(/priority|flag/.test(key)){
-            return '<svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M19 7l-7 4 0 0-7-4V3l7 4 7-4v4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        }
-        // default input icon
-        return '<svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>';
-    }
 
     // Process each .mb-3: add icon wrapper, placeholders, and decide full-span
     blocks.forEach(function(block){
@@ -263,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function(){
     <!-- end soat -->
     
     </form>
->>>>>>> aaaa6a1dad0b381eb43974f8cc4f434705f2b903
 </div>
 
 

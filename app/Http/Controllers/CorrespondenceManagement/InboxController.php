@@ -31,7 +31,7 @@ class InboxController extends Controller
 
     public function index()
     {
-        $inbox = Inbox::orderBy('id', 'desc')->paginate(10);
+        $inbox = Inbox::orderBy('id', 'desc')->paginate(11);
         return view('CorrespondenceManagement.inbox.index', compact('inbox'));
     }
 
@@ -122,6 +122,6 @@ class InboxController extends Controller
         $letter = Inbox::findOrFail($id);
         $letter->delete();
 
-        return redirect()->route('inbox.index')->with('success', 'Inbox deleted!');
+        return redirect()->route('inbox.index')->with('success', 'one Record is deleted!');
     }
 }
