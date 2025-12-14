@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 
+use App\Http\Controllers\TaskController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -105,3 +107,7 @@ route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
  route::get('/Main', function () {
     return view('Main');
 })->name('Main');
+
+
+
+Route::resource('tasks', TaskController::class);
