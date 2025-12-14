@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 
 
@@ -56,11 +56,13 @@ Route::get('/login', function () {
 // Additional routes can be added below as needed
 
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
+});
 
 
 
@@ -119,12 +121,11 @@ Route::get('Task Management/create', [TaskController::class, 'create'])
 Route::post('Task Management/store', [TaskController::class, 'store'])
     ->name('Task Management.store');
 
-Route::middleware(['auth'])->group(function () {
-    Route::post('/Task Management/store', [TaskController::class, 'store'])->name('Task Management.store');
-    Route::get('/Task Management', [TaskController::class, 'index'])->name('Task Management.index');
-    Route::get('/Task Management/create', [TaskController::class, 'create'])->name('Task Management.create');
+Route::get('Task Management/{task}/edit', [TaskController::class, 'edit'])
 
-});
+    ->name('Task Management.edit'); 
+Route::put('Task Management/{task}', [TaskController::class, 'update'])
+    ->name('Task Management.update');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class);

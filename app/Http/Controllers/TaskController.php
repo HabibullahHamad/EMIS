@@ -1,12 +1,34 @@
+
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use App\Models\Task;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
+class Task extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'assigned_by',
+        'assigned_to',
+        'priority',
+        'due_date',
+    ];
+
+    public function assigner()
+    {
+        return $this->belongsTo(User::class, 'assigned_by');
+    }
+
+    public function assignee()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+}
 class TaskController extends Controller
 {
     public function index()
@@ -25,23 +47,19 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
+            'assigned_to' => 'required',
             'priority' => 'required',
-            'status' => 'required',
-            'due_date' => 'required|date',
-            'assigned_to' => 'required|exists:users,id',
         ]);
 
-       
         Task::create([
             'title' => $request->title,
             'description' => $request->description,
-            'assigned_by' => $request->input('assigned_by'),
-            'assigned_to' => $request->input('assigned_to'),
+            'assigned_by' => $request->assigned_by,
+            'assigned_to' => $request->assigned_to,
             'priority' => $request->priority,
-            'status' => $request->status,
             'due_date' => $request->due_date,
         ]);
+
         return redirect()->route('tasks.index')
             ->with('success','Task delegated successfully');
     }
@@ -66,4 +84,3 @@ class TaskController extends Controller
         return back()->with('success','Task deleted');
     }
 }
-

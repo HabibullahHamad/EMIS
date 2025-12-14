@@ -12,23 +12,24 @@
     <label for="description" class="form-label">Description</label>
     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
 </div>
-<select name="assigned_to" class="form-control" required>
-    <option value="">-- Select User --</option>
-    @foreach($users as $user)
-        <option value="{{ $user->id }}">
-            {{ $user->name }}
-        </option>
-    @endforeach
-</select>
-
-<select name="assigned_to" class="form-control" required>
-    <option value="">-- Select User --</option>
-    @foreach($users as $user)
-        <option value="{{ $user->id }}">
-            {{ $user->name }}
-        </option>
-    @endforeach
-</select>
+<div class="mb-3">
+    <label for="assigned_by" class="form-label">Assigned By</label>
+    <select class="form-select" id="assigned_by" name="assigned_by" required>
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+    </select>
+</div>
+<div class="mb-3">
+    <label for="assigned_to" class="form-label">Assigned To</label>
+    <select class="form-select" id="assigned_to" name="assigned_to" required>
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+    </select>
+</div>
 
 <div class="mb-3">
     <label for="priority" class="form-label">Priority</label>
