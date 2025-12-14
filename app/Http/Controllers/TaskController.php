@@ -12,32 +12,36 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with(['assigner','assignee'])->latest()->get();
-        return view('tasks.index', compact('tasks'));
+        return view('Task Management.index', compact('tasks'));
     }
 
     public function create()
     {
         $users = User::all();
-        return view('tasks.create', compact('users'));
+        return view('Task Management.create', compact('users'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required',
-            'assigned_to' => 'required',
+            'description' => 'required',
             'priority' => 'required',
+            'status' => 'required',
+            'due_date' => 'required|date',
+            'assigned_to' => 'required|exists:users,id',
         ]);
 
+       
         Task::create([
             'title' => $request->title,
             'description' => $request->description,
-            'assigned_by' => Auth::id(),
-            'assigned_to' => $request->assigned_to,
+            'assigned_by' => $request->input('assigned_by'),
+            'assigned_to' => $request->input('assigned_to'),
             'priority' => $request->priority,
+            'status' => $request->status,
             'due_date' => $request->due_date,
         ]);
-
         return redirect()->route('tasks.index')
             ->with('success','Task delegated successfully');
     }

@@ -183,6 +183,7 @@
                             <i class="fa-solid fa-circle-exclamation me-2"></i>Important
                         </a>
                     </div>
+                 
                     <a href="{{ route('Administrations.User Management') }}" class="nav-link has-submenu">
                         <i class="fa-solid fa-paper-plane me-2"></i>Outbox
                     </a>
@@ -211,6 +212,7 @@
                             <i class="fa-solid fa-file-lines me-2"></i>Main
                         </a>
                     </div>
+                    
                 </div>
                 <style>
                 /* Show submenu-inner on hover */
@@ -238,7 +240,8 @@
                     <i class="fa-solid fa-chevron-right menu-arrow"></i>
                 </a>
                 <div class="submenu">
-                    <a href="#" class="nav-link">Assigned</a>
+                    <a href="{{ route('Task Management.index') }}" class="nav-link">Index Page</a>
+                    <a href="#" class="nav-link">Completed</a>
                     <a href="#" class="nav-link">Completed</a>
                 </div>
             </li>

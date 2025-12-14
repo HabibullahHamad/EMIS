@@ -16,13 +16,5 @@ class Task extends Model
         'due_date'
     ];
 
-    public function assigner()
-    {
-        return $this->belongsTo(User::class, 'assigned_by');
-    }
 
-    public function assignee()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
 }

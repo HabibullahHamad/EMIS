@@ -2,43 +2,57 @@
 
 @section('content')
 <div class="container">
-<form method="POST" action="{{ route('tasks.store') }}">
+<form method="POST" action="{{ route('Task Management.store') }}">
 @csrf
-
 <div class="mb-3">
-    <label>Task Title</label>
-    <input type="text" name="title" class="form-control">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required>
 </div>
-
 <div class="mb-3">
-    <label>Description</label>
-    <textarea name="description" class="form-control"></textarea>
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
 </div>
+<select name="assigned_to" class="form-control" required>
+    <option value="">-- Select User --</option>
+    @foreach($users as $user)
+        <option value="{{ $user->id }}">
+            {{ $user->name }}
+        </option>
+    @endforeach
+</select>
+
+<select name="assigned_to" class="form-control" required>
+    <option value="">-- Select User --</option>
+    @foreach($users as $user)
+        <option value="{{ $user->id }}">
+            {{ $user->name }}
+        </option>
+    @endforeach
+</select>
 
 <div class="mb-3">
-    <label>Assign To</label>
-    <select name="assigned_to" class="form-control">
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-        @endforeach
+    <label for="priority" class="form-label">Priority</label>
+    <select class="form-select" id="priority" name="priority" required>
+        <option value="">Select Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
     </select>
 </div>
-
 <div class="mb-3">
-    <label>Priority</label>
-    <select name="priority" class="form-control">
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select" id="status" name="status" required>
+        <option value="">Select Status</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
     </select>
 </div>
-
 <div class="mb-3">
-    <label>Due Date</label>
-    <input type="date" name="due_date" class="form-control">
+    <label for="due_date" class="form-label">Due Date</label>
+    <input type="date" class="form-control" id="due_date" name="due_date" required>
 </div>
-
-<button class="btn btn-success">Save Task</button>
+<button type="submit" class="btn btn-primary">Create Task</button>
 </form>
 </div>
 @endsection

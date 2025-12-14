@@ -2,9 +2,7 @@
 @section('content')
 <div class="container">
     <h2 class="mb-4">
-        
-
-    
+        Task Delegation
     </h2>
     <div class="card">
         <div class="card-header">
@@ -52,7 +50,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($tasks as $task)
+            @forelse($request as $task)
                 <tr>
                     <td>{{ $task->title }}</td>
                     <td>{{ $task->assignee->name ?? 'N/A' }}</td>

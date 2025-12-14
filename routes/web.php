@@ -109,5 +109,27 @@ route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
 })->name('Main');
 
 
+Route::get('Task Management/index', [TaskController::class, 'index'])
+    ->name('Task Management.index');
 
-Route::resource('tasks', TaskController::class);
+
+Route::get('Task Management/create', [TaskController::class, 'create'])
+    ->name('Task Management.create');
+
+Route::post('Task Management/store', [TaskController::class, 'store'])
+    ->name('Task Management.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/Task Management/store', [TaskController::class, 'store'])->name('Task Management.store');
+    Route::get('/Task Management', [TaskController::class, 'index'])->name('Task Management.index');
+    Route::get('/Task Management/create', [TaskController::class, 'create'])->name('Task Management.create');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('tasks', TaskController::class);
+});
+
+
+
+

@@ -1,8 +1,8 @@
 @extends('welcome')
-
 @section('content')
+
 <div class="container">
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3">
+    <a href="{{ route('Task Management.create') }}" class="btn btn-primary mb-3">
         + Delegate Task
     </a>
 
