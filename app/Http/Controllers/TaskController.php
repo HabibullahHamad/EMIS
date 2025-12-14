@@ -1,39 +1,13 @@
-
 <?php
+namespace App\Http\Controllers;
 
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Task extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'title',
-        'description',
-        'assigned_by',
-        'assigned_to',
-        'priority',
-        'due_date',
-    ];
-
-    public function assigner()
-    {
-        return $this->belongsTo(User::class, 'assigned_by');
-    }
-
-    public function assignee()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
-}
+use App\Models\Task;
+use App\Models\User;
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with(['assigner','assignee'])->latest()->get();
+      $tasks = Task::with(['assignedBy', 'assignedTo'])->latest()->get();
         return view('Task Management.index', compact('tasks'));
     }
 

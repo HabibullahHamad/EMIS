@@ -127,9 +127,8 @@ Route::get('Task Management/{task}/edit', [TaskController::class, 'edit'])
 Route::put('Task Management/{task}', [TaskController::class, 'update'])
     ->name('Task Management.update');
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('tasks', TaskController::class);
-});
+Route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
+    ->name('Task Management.destroy');
 
 
 

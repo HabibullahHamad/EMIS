@@ -19,14 +19,17 @@
         </thead>
         <tbody>
         @foreach($tasks as $task)
-            <tr>
-                <td>{{ $task->title }}</td>
-                <td>{{ $task->assignee->name }}</td>
-                <td>{{ $task->priority }}</td>
-                <td>{{ $task->status }}</td>
-                <td>{{ $task->due_date }}</td>
-                <td>
-                    <a href="{{ route('tasks.edit',$task) }}" class="btn btn-sm btn-warning">Edit</a>
+          @foreach($tasks as $task)
+    <tr>
+        <td>{{ $task->title }}</td>
+        <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
+        <td>{{ $task->assignedTo->name ?? 'N/A' }}</td>
+        <td>{{ $task->priority }}</td>
+        <td>{{ $task->due_date }}</td>
+    </tr>
+@endforeach
+            
+                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
                 </td>
             </tr>
         @endforeach
