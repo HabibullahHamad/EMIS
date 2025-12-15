@@ -5,11 +5,18 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 class TaskController extends Controller
+
+
 {
     public function index()
     {
       $tasks = Task::with(['assignedBy', 'assignedTo'])->latest()->get();
         return view('Task Management.index', compact('tasks'));
+    }
+
+    public function show(Task $task)
+    {
+        return view('Task Management.show', compact('task'));
     }
 
     public function create()
@@ -22,7 +29,10 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'description' => 'required',
+            'assigned_by' => 'required',
             'assigned_to' => 'required',
+            'due_date' => 'required',
             'priority' => 'required',
         ]);
 
@@ -42,7 +52,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $users = User::all();
-        return view('tasks.edit', compact('task','users'));
+        return view('Task Management.edit', compact('task','users'));
     }
 
     public function update(Request $request, Task $task)
@@ -50,13 +60,14 @@ class TaskController extends Controller
         $task->update($request->all());
 
         return redirect()->route('tasks.index')
-            ->with('success','Task updated');
+            ->with('success','Task updated Successfully');
     }
 
-    
+
     public function destroy(Task $task)
     {
         $task->delete();
-        return back()->with('success','Task deleted');
+        
+        return back()->with('success','Task deleted Successfully');
     }
 }

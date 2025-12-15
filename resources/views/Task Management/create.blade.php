@@ -17,14 +17,23 @@
 </div>
 <div class="mb-3">
     <label for="assigned_by" class="form-label">Assigned By</label>
-    <input type="text" class="form-control" id="assigned_by" name="assigned_by" required>
+    <select class="form-select" id="assigned_by" name="assigned_by" required>
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+    </select>
 </div>
-</div>
+
 
 <div class="mb-3">
     <label for="assigned_to" class="form-label">Assigned To</label>
-    <input type="text" class="form-control" id="assigned_to" name="assigned_to" required>
-</div>
+    <select class="form-select" id="assigned_to" name="assigned_to" required>
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+    </select>
 </div>
 
 <div class="mb-3">

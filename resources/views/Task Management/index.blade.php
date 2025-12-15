@@ -12,7 +12,9 @@
         <table class="table table-bordered">
             <thead class="table-primary">
                 <tr>
+                 <th>ID</th>
                     <th>Title</th>
+                    <th>Assigned By</th>
                     <th>Assigned To</th>
                     <th>Priority</th>
                     <th>Status</th>
@@ -23,7 +25,9 @@
             <tbody>
             @foreach($tasks as $task)
                 <tr>
+                    <td>{{$task->id}} </td>
                     <td>{{ $task->title }}</td>
+                    <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
                     <td>{{ $task->assignedTo->name ?? 'N/A' }}</td>
                     <td>{{ $task->priority }}</td>
                     <td>{{ $task->status ?? 'N/A' }}</td>

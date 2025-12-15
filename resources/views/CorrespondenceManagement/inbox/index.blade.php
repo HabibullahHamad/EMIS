@@ -99,6 +99,34 @@
             <td>{{ $letter->received_date }}</td>
             <td>{{ $letter->status }}</td>
             <td>
+                <script>
+                document.addEventListener('submit', function(e){
+                    const form = e.target;
+                    if (form.tagName !== 'FORM') return;
+                    if (!form.querySelector('input[name="_method"][value="DELETE"]')) return;
+                    e.preventDefault();
+                    const btn = form.querySelector('button, input[type="submit"]');
+                    if (btn) btn.disabled = true;
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        body: new FormData(form)
+                    })
+                    .then(async resp => {
+                        if (!resp.ok) throw await resp.text();
+                        const tr = form.closest('tr');
+                        if (tr) tr.remove();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Delete failed');
+                    })
+                    .finally(() => { if (btn) btn.disabled = false; });
+                });
+                </script>
                 <a href="{{ route('inbox.show',$letter->id) }}" class="btn btn-sm btn-info">View</a>
                 <a href="{{ route('inbox.edit',$letter->id) }}" class="btn btn-sm btn-warning">Edit</a>
                 <form action="{{ route('inbox.destroy', $letter->id) }}" method="POST" style="display:inline;">
@@ -158,6 +186,7 @@
                     <a class="page-link" href="{{ $inbox->nextPageUrl() }}">»</a>
                 </li>
             @else
+
                 <li class="page-item disabled"><span class="page-link">»</span></li>
             @endif
         </ul>
