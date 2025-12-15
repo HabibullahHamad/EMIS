@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CorrespondenceManagement\LetterController;
+use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 
 
 Route::get('/', function () {
@@ -103,6 +105,12 @@ route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.updat
 
 route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
 route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
+route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit'); 
+route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');    
+Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
+
+
+
 
  // Optional for listing all letters
 
