@@ -127,9 +127,10 @@ Route::get('Task Management/{task}/edit', [TaskController::class, 'edit'])
 Route::put('Task Management/{task}', [TaskController::class, 'update'])
     ->name('Task Management.update');
 
-Route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
+route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
     ->name('Task Management.destroy');
 
-
+route::get('Task Management/{task}', [TaskController::class, 'show'])
+    ->name('Task Management.show');
 
 

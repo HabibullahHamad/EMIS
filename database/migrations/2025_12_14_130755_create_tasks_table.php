@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->foreignId('assigned_by')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('assigned_to')->constrained('users')->cascadeOnDelete();
+            $table->text('assigned_by')->nullable();
+            $table->text('assigned_to')->nullable();
             $table->enum('priority', ['Low','Medium','High'])->default('Medium');
             $table->enum('status', ['Pending','In Progress','Completed'])->default('Pending');
             $table->date('due_date')->nullable();

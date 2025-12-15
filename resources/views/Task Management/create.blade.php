@@ -1,6 +1,9 @@
 @extends('welcome')
 
 @section('content')
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 <div class="container">
 <form method="POST" action="{{ route('Task Management.store') }}">
 @csrf
@@ -14,21 +17,14 @@
 </div>
 <div class="mb-3">
     <label for="assigned_by" class="form-label">Assigned By</label>
-    <select class="form-select" id="assigned_by" name="assigned_by" required>
-        <option value="">Select User</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-        @endforeach
-    </select>
+    <input type="text" class="form-control" id="assigned_by" name="assigned_by" required>
 </div>
+</div>
+
 <div class="mb-3">
     <label for="assigned_to" class="form-label">Assigned To</label>
-    <select class="form-select" id="assigned_to" name="assigned_to" required>
-        <option value="">Select User</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-        @endforeach
-    </select>
+    <input type="text" class="form-control" id="assigned_to" name="assigned_to" required>
+</div>
 </div>
 
 <div class="mb-3">

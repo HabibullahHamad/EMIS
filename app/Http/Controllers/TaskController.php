@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Models\Task;
 use App\Models\User;
@@ -34,7 +35,7 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
         ]);
 
-        return redirect()->route('tasks.index')
+        return redirect()->route('Task Management.index')
             ->with('success','Task delegated successfully');
     }
 
@@ -52,6 +53,7 @@ class TaskController extends Controller
             ->with('success','Task updated');
     }
 
+    
     public function destroy(Task $task)
     {
         $task->delete();
