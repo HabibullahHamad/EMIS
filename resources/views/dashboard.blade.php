@@ -21,26 +21,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background: #f4f6f9;
-        }
+      
 
         /* HEADER */
-        .topbar {
-            background: #0b5ed7;
-            color: white;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+     
 
-        .topbar h1 {
-            font-size: 20px;
-            margin: 0;
-        }
+      
 
         .breadcrumb {
             font-size: 13px;
@@ -49,7 +35,14 @@
 
         /* MAIN CONTAINER */
         .container {
-            padding: 20px;
+            padding: 0px;
+            margin-left:4px;
+            margin-right:4px;
+            margin-top: 20px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            
+          
         }
 
         /* KPI CARDS */
@@ -124,7 +117,7 @@
         }
 
         /* RESPONSIVE */
-        @media(max-width: 992px) {
+        @media(max-width:1000px) {
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
             .dashboard-grid { grid-template-columns: 1fr; }
             .charts { grid-template-columns: 1fr; }

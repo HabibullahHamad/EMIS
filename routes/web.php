@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CorrespondenceManagement\LetterController;
 use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
@@ -150,3 +151,24 @@ route::get('new', function () {
 route::get('dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+
+// for Addministrations module
+route::get('/Administrations/Role management', function () {
+    return view('Administrations.Role management');
+})->name('Administrations.Role management');
+
+route::get('/Administrations/login', function () {
+    return view('Administrations.login');
+})->name('Administrations.login');
+
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.process');
+
+
+route::get(' Administrations/User Management', function () {
+    return view('Administrations.User Management');
+})->name('Administrations.User Management');
+
+route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');

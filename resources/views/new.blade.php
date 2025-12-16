@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <meta charset="UTF-8">
     <title>EMIS | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,15 +15,16 @@
     top:0;
     left: 200px;px;
     right:0;
-    height:50px;
+    height:40px;
     background:#ffffff;
     border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
+    padding:0 2px;
     z-index:999;
     transition:left 0.3s ease;
+    background: #b7bbbbff;
 }
 
 /* Adjust when sidebar collapsed */
@@ -101,7 +104,7 @@
     text-decoration:none;
 }
 .dropdown-menu a:hover{
-    background:#f1f5f9;
+    background: #f1f5f9;
 }
 .dropdown-title{
     font-weight:bold;
@@ -215,6 +218,10 @@
             transition: 0.3s ease;
             display: flex;
             flex-direction: column;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 1000;
         }
 
         .sidebar.collapsed {
@@ -257,28 +264,34 @@
         .menu {
             list-style: none;
             padding: 10px;
-            flex-grow: 1;
+            flex-grow: 3;
         }
 
         .menu li {
-            margin-bottom: 5px;
+            margin-bottom: 1px;
+
         }
 
         .menu a {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 3px;
             color: #cbd5e1;
             padding: 12px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 5px;
             transition: 0.3s;
             position: relative;
+            spacing :1px;
+           
+
         }
 
         .menu a:hover {
-            background: #1e293b;
+            background: #c76c05ff;
             color: #fff;
+             border-radius: 8px;
+            border-left: 6px solid #51f604ff;
         }
 
         .menu span {
@@ -483,69 +496,25 @@ document.addEventListener('DOMContentLoaded', function () {
             <ul class="sub-menu">
                 <li><a href="{{route('inbox.index')}}">Users</a></li>
                 <li><a href="#">Roles</a></li>
+                <li><a href="{{ route('Administrations.login') }}">Login</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}">Role Management</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}">User Management</a></li>
                 <li><a href="#">Permissions</a></li>
             </ul>
         </li>
+        <li>
+            <a href="#" data-title="Analytics">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+        <li>
+            <a href="#" data-title="Reports">
+                <i class="fa-solid fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
 
-        <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Reports">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-            </ul>
-        </li>
-         <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Reports">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-            </ul>
-        </li>
-         <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Reports">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-            </ul>
-        </li>
-         <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Reports">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-            </ul>
-        </li>
-         <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Reports">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Reports</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-                  <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
-                  <li><a href="#">Monthly</a></li>
-                <li><a href="#">Annual</a></li>
 
-            </ul>
+     
         </li>
 
         <li>
@@ -677,5 +646,66 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // ✅ SUCCESS MESSAGE
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false
+        });
+        @endif
+
+        // ❌ ERROR MESSAGE
+        @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+        });
+        @endif
+
+        // ⚠️ WARNING MESSAGE
+        @if(session('warning'))
+        Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: "{{ session('warning') }}",
+        });
+        @endif
+
+        // ❗ VALIDATION ERRORS
+        @if ($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            html: `{!! implode('<br>', $errors->all()) !!}`,
+        });
+        @endif
+
+    });
+</script>
+<script>
+function confirmDelete(formId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(formId).submit();
+        }
+    });
+}
+</script>
 </body>
 </html>

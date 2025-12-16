@@ -11,13 +11,14 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     // List users
     public function index()
     {
         $users = User::latest()->get();
-        return view('users.index', compact('users'));
+        return view('Administrations.User Management', compact('users'));
     }
 
     // Show create form
