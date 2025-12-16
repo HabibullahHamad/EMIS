@@ -11,7 +11,7 @@
 .top-navbar{
     position:fixed;
     top:0;
-    left:240px;
+    left: 200px;px;
     right:0;
     height:50px;
     background:#ffffff;
@@ -30,29 +30,10 @@
 }
 
 /* LEFT */
-.nav-left{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
 
-.nav-toggle{
-    background:none;
-    border:none;
-    font-size:20px;
-    cursor:pointer;
-    color:#0f172a;
-}
 
-.page-title h4{
-    margin:0;
-    font-size:16px;
-    color:#0f172a;
-}
-.page-title span{
-    font-size:12px;
-    color:#64748b;
-}
+
+
 
 /* RIGHT */
 .nav-right{
@@ -226,8 +207,8 @@
         }
         /* Sidebar */
         .sidebar {
-            width: 240px;px;
-            height: 100vh;
+            width: 200px;
+            height:100%;
             background: #081e51ff;
             color: #fff;
             position: fixed;
@@ -484,6 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
     <!-- Menu -->
+
     <ul class="menu">
         <li>
             <a href="{{ route('dashboard') }}" data-title="Dashboard">
@@ -580,7 +562,6 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
         
     </ul>
-
     <!-- User -->
     <div class="sidebar-footer">
 
@@ -595,6 +576,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </div>
 <!-- Navbar -->
+
 <!-- TOP NAVBAR -->
 <div class="top-navbar" id="topNavbar">
 
@@ -655,6 +637,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     </div>
 </div>
+
 
 <!-- end navbar -->
 
