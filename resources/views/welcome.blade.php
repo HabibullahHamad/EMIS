@@ -78,7 +78,7 @@
     </style>
 
     <div class="sidebar-top">
-        <img class="avatar" src="https://via.placeholder.com/80" alt="avatar">
+        <img class="avatar" src="public/images/logo.png" alt="avatar">
         <div class="user-info">
             <span class="user-name">Admin User</span>
             <span class="user-role">Administrator</span>
@@ -400,7 +400,7 @@
                     <i class="fa-solid fa-chevron-right menu-arrow"></i>
                 </a>
                 <div class="submenu">
-                    <a href="#" class="nav-link">Users</a>
+                    <a href="{{route('new')}}" class="nav-link">Users</a>
                     <a href="#" class="nav-link">Roles</a>
                 </div>
             </li>

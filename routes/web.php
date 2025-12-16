@@ -143,4 +143,10 @@ route::get('Task Management/{task}', [TaskController::class, 'show'])
 
     
 
+route::get('new', function () {
+    return view('new');
+})->name('new');
 
+route::get('dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

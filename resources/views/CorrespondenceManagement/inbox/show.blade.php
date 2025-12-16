@@ -1,5 +1,4 @@
-@extends('Welcome')
-
+@extends('new')
 @section('content')
 
 <div class="container" style="margin-top: 20px; background-color: #cfe0f1ff; padding: 20px; border-radius: 11px;">

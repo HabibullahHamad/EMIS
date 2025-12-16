@@ -1,7 +1,7 @@
 
 
 
-@extends('Welcome')
+@extends('new')
 @section('content')
 <style>
     thead.custom-blue {
