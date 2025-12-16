@@ -2,8 +2,8 @@
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<div >
-<a href="{{ route('inbox.create') }}" class="btn btn-primary">+ New Letter</a>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+<a href="{{ route('inbox.create') }}" style="color: #fefefeff; text-decoration: none; font-size: 11px; background-color: #274993ff; border-radius: 4px;padding: top 2px;">+ New Letter</a>
 <h4 style="">inbox Letters</h4>
 </div>
 <style>
@@ -33,7 +33,7 @@
         overflow: hidden;
         border-radius: 10px;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 2px;
 
     }
     .table1 thead tr th:first-child {
@@ -52,7 +52,7 @@
     .table1 {
         border: 2px solid #064e96ff;
         border-radius: 12px;
-        margin-top: 20px;
+        margin-top: 2px;
         padding: auto;
         width: 100%;
         background: white;
