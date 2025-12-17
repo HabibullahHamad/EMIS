@@ -167,12 +167,21 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
             return view('Administrations.login');
         })->name('Administrations.login');
 
+        route::get('Administrations/Role Management', function () {
+            return view('Administrations.Role Management');
+        })->name('Administrations.Role Management');
+
+
+        Route::get('/roles-page', fn () =>
+    view('Administrations.Roles')
+)->name('Administration.Roles');
+
+
+// end roles management
+
 Route::middleware(['auth'])->group(function () {
 
     Route::prefix('administrations')->group(function () {
-
-      
-
 
         Route::get('/user-management/create', [UserController::class, 'create'])
             ->name('users.create');
@@ -189,5 +198,4 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/user-management/{user}', [UserController::class, 'destroy'])
             ->name('users.destroy');
     });
-
 });

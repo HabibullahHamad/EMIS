@@ -279,7 +279,7 @@
             align-items: center;
             gap: 3px;
             color: #cbd5e1;
-            padding: 12px;
+            padding: 10px;
             text-decoration: none;
             border-radius: 5px;
             transition: 0.3s;
@@ -293,9 +293,9 @@
             background: #c76c05ff;
             color: #fff;
              border-radius: 8px;
-            border-left: 6px solid #51f604ff;
+            border-left: 4px solid #51f604ff;
+            padding-top: 7px;
         }
-
         .menu span {
             white-space: nowrap;
         }
@@ -312,7 +312,7 @@
             left: 90px;
             background: #1e293b;
             color: #fff;
-            padding: 5px 10px;
+            padding: 5px 5px;
             border-radius: 6px;
             font-size: 13px;
             white-space: nowrap;
@@ -320,67 +320,69 @@
             pointer-events: none;
             transition: 0.2s;
         }
-
         .sidebar.collapsed .menu a:hover::after {
             opacity: 1;
         }
-
         /* Sub menu */
         .has-sub .sub-menu {
             list-style: none;
-            padding-left: 45px;
+            padding-left: 22px;
             display: none;
+            flex-direction: column;
         }
-
         .has-sub.active .sub-menu {
             display: block;
+            padding-left: 5px;
+            background: #02121f86;
+            border-radius: 4px;
+            margin-top: 1px;
+            margin-bottom: 1px;
         }
 
         .sub-menu a {
-            font-size: 14px;
-            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 12px;
+            color: #cbd5e1;
         }
 
         /* Footer */
         .sidebar-footer {
+            border-top: 1px solid #343435ff;
+            margin-top: 2px;
+            height: 50px;
+            display: flex;
+            align-items: center;
             border-top: 1px solid #1e293b;
-            margin-top: auto;
-            height: 40px;
-            padding: 5px;
-            border-top: 1px solid #1e293b;
+            background: #131314ff;   
+            padding-bottom: 1px;
+            transition: 0.3s;   
         }
 
         .user-info {
             height: 40px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding-bottom: 4px;
+            padding-left: 1px;
         }
-
         .user-info img {
             border-radius: 50%;
             width: 40px;
             height: 40px;
 
         }
-
         .sidebar.collapsed .user-info div {
             display: none;
         }
-
         /* Page Content (optional) */
         .content {
-
             margin-left: 260px;
             padding: 20px;
             transition: 0.3s;
-
         }
-
         .sidebar.collapsed ~ .content {
             margin-left: 80px;
-
-
         }
     </style>
 </head>
@@ -496,12 +498,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="{{route('inbox.index')}}">Users</a></li>
-                <li><a href="#">Roles</a></li>
-                <li><a href="{{ route('Administrations.login') }}">Login</a></li>
-                <li><a href="{{ route('Administrations.User Management')}}">Role Management</a></li>
-                <li><a href="{{ route('Administrations.User Management')}}">User Management</a></li>
-                <li><a href="#">Permissions</a></li>
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Users</a></li>
+
+                <li><a href="{{ route('Administration.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
+                <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
+                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
             </ul>
         </li>
         <li>
@@ -514,11 +517,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chart-bar"></i>
                 <span>Reports</span>
             </a>
-
-
-     
         </li>
-
         <li>
             <a href="#" data-title="Settings">
                 <i class="fa-solid fa-gear"></i>
@@ -530,8 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
             </a>
-        </li>
-        
+        </li> 
     </ul>
     <!-- User -->
     <div class="sidebar-footer">
@@ -540,36 +538,29 @@ document.addEventListener('DOMContentLoaded', function () {
             <img src="/images/logo.png" alt="user">
             <div>
                 <strong>{{ Auth::user()->name ?? 'User' }}</strong>
+                
                 <small>Logged In</small>
+                <i class="fa-solid fa-sign-in-alt"></i>
             </div>
         </div>
     </div>
-
 </div>
 <!-- Navbar -->
-
-<!-- TOP NAVBAR -->
+ <!-- TOP NAVBAR -->
 <div class="top-navbar" id="topNavbar">
-
     <!-- LEFT -->
     <div class="nav-left">
-    
         </button>
-
-        <div class="page-title">
-          
+        <div class="page-title">  
         </div>
     </div>
-
     <!-- RIGHT -->
     <div class="nav-right">
-
         <!-- SEARCH -->
         <div class="nav-search">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search EMIS...">
         </div>
-
         <!-- LANGUAGE -->
         <div class="nav-item dropdown">
             <i class="fa-solid fa-globe"></i>
@@ -579,7 +570,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a href="#">دری</a>
             </div>
         </div>
-
         <!-- NOTIFICATIONS -->
         <div class="nav-item dropdown">
             <i class="fa-solid fa-bell"></i>
@@ -591,7 +581,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a href="#">⚠ Budget alert</a>
             </div>
         </div>
-
         <!-- USER -->
         <div class="nav-item dropdown user">
             <img src="/images/logo.png">
@@ -608,15 +597,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     </div>
 </div>
-
-
 <!-- end navbar -->
-
  <main class="content">
         @yield('content')
     </main>
 <!-- Content -->
-
 <style>
     /* Custom style for the sidebar toggle ">" icon */
     .toggle-btn {
@@ -642,12 +627,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("collapsed");
     }
-
     function toggleSubMenu(el) {
         el.parentElement.classList.toggle("active");
     }
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

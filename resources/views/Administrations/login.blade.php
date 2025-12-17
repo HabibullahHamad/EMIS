@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <meta charset="UTF-8">
     <title>EMIS | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,7 +134,7 @@
             text-align: center;
             margin-top: 20px;
             font-size: 10px;
-            color: #0538efff;
+            color: #5d5e63ff;
         }
 
         @media (max-width: 480px) {
@@ -181,7 +180,7 @@
     </form>
 
     <div class="footer-text">
-        © {{ date('Y') }} EMIS – Authorized Access Only , Developed Hamad
+        © {{ date('Y') }} EMIS – Authorized Access Only , Developed By DGB IT Team
     </div>
 
 </div>
