@@ -9,6 +9,7 @@ use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -155,20 +156,38 @@ route::get('dashboard', function () {
 
 
 // for Addministrations module
-route::get('/Administrations/Role management', function () {
-    return view('Administrations.Role management');
-})->name('Administrations.Role management');
 
-route::get('/Administrations/login', function () {
-    return view('Administrations.login');
-})->name('Administrations.login');
+route::get('Administrations/User Management', [UserController::class, 'index'])
+    ->name('Administrations.User Management');
 
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login.process');
+    route::get('Administrations/User Management/create', [UserController::class, 'create'])
+        ->name('Administrations.User Management.create');
+
+        route::get('Administrations/login', function () {
+            return view('Administrations.login');
+        })->name('Administrations.login');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::prefix('administrations')->group(function () {
+
+      
 
 
-route::get(' Administrations/User Management', function () {
-    return view('Administrations.User Management');
-})->name('Administrations.User Management');
+        Route::get('/user-management/create', [UserController::class, 'create'])
+            ->name('users.create');
 
-route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
+        Route::post('/user-management', [UserController::class, 'store'])
+            ->name('users.store');
+
+        Route::get('/user-management/{user}/edit', [UserController::class, 'edit'])
+            ->name('users.edit');
+
+        Route::put('/user-management/{user}', [UserController::class, 'update'])
+            ->name('users.update');
+
+        Route::delete('/user-management/{user}', [UserController::class, 'destroy'])
+            ->name('users.destroy');
+    });
+
+});

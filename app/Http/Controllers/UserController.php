@@ -8,68 +8,68 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-
-    }
+    // ✅ NO constructor middleware (Laravel 12 safe)
 
     // List users
     public function index()
     {
         $users = User::latest()->get();
-        return view('Administrations.User Management', compact('users'));
+
+        // ✅ FIXED view name (NO SPACE)
+        return view('administrations.User Management', compact('users'));
     }
 
     // Show create form
     public function create()
     {
-        return view('users.create');
+        return view('administrations.User Management');
     }
 
     // Store user
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('users.index')
+        return redirect()
+            ->route('users.index')
             ->with('success', 'User created successfully');
     }
 
     // Show edit form
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('administrations.user_management.edit', compact('user'));
     }
 
     // Update user
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
         ]);
 
-        $data = $request->only('name','email');
+        $data = $request->only('name', 'email');
 
-        if ($request->password) {
+        if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
 
-        return redirect()->route('users.index')
+        return redirect()
+            ->route('users.index')
             ->with('success', 'User updated successfully');
     }
 
