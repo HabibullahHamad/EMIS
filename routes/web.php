@@ -157,6 +157,10 @@ route::get('dashboard', function () {
 
 // for Addministrations module
 
+route::get('Administartions/create',[UserController::class, 'create'])
+ ->name('Administrations.create');
+
+
 route::get('Administrations/User Management', [UserController::class, 'index'])
     ->name('Administrations.User Management');
 
@@ -174,7 +178,7 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
 
         Route::get('/roles-page', fn () =>
     view('Administrations.Roles')
-)->name('Administration.Roles');
+)->name('Administrations.Roles');
 
 
 // end roles management

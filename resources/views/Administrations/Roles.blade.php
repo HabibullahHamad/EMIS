@@ -135,6 +135,7 @@
             <select>
                 <option>Active</option>
                 <option>Inactive</option>
+                <option>Delayed</option>
             </select>
         </div>
 
