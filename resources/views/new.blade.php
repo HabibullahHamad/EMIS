@@ -217,7 +217,6 @@
             background: #081e51ff;
             color: #fff;
             position: fixed;
-            transition: 0.3s ease;
             display: flex;
             flex-direction: column;
             top: 0;
@@ -270,11 +269,17 @@
             flex-grow: 3;
         }
         .menu li {
+<<<<<<< HEAD
             margin-bottom: 8px;
+=======
+            margin-bottom: 6px;
+
+>>>>>>> fad0001aa506dc255aaa40a2ff6aa145d37ac633
         }
         .menu a {
             display: flex;
             align-items: center;
+<<<<<<< HEAD
             gap: 14px;
             color: #fbfdffff;
             padding-top: 5px;
@@ -287,9 +292,21 @@
             spacing :20px;
             transition: 0.3s;
 
+=======
+            gap: 3px;
+            color: #cbd5e1;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-decoration: none;
+            border-radius: 3px;
+            spacing :0px;
+            padding-left:10px;
+           
+>>>>>>> fad0001aa506dc255aaa40a2ff6aa145d37ac633
 
         }
         .menu a:hover {
+<<<<<<< HEAD
          
             background: #c76c05ff;
               display: flex;
@@ -311,6 +328,15 @@
              
             /* border-left: 4px solid #51f604ff; */
             
+=======
+            background: #9a7307ff;
+            opacity: 1.9;
+            color: #fff;
+             border-radius: 3px;
+             padding-left: 12px;
+                transition: 0.2s;
+             
+>>>>>>> fad0001aa506dc255aaa40a2ff6aa145d37ac633
         }
         .menu span {
             white-space: nowrap;
@@ -521,9 +547,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Users</a></li>
+                <li><a href="{{route('Administrations.create')}}"><i class="fa-solid fa-users"></i>Craete Users</a></li>
 
-                <li><a href="{{ route('Administration.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
+                <li><a href="{{ route('Administrations.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
                 <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
                 <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
                 <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
