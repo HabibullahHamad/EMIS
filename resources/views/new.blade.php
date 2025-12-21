@@ -224,6 +224,8 @@
             left: 0;
             bottom: 0;
             z-index: 1000;
+            overflow: auto;
+            box-shadow: 2px 0 5px rgba(255, 252, 252, 0.98);
         }
 
         .sidebar.collapsed {
@@ -232,10 +234,10 @@
 
         /* Header */
         .sidebar-header {
-            display: flex;
+            display: fixed;
             align-items: center;
             justify-content: space-between;
-            padding: 15px;
+            padding: 0px;
         }
 
         .logo {
@@ -258,43 +260,57 @@
             background: none;
             border: none;
             color: #fff;
-            font-size: 18px;
+            font-size: 14px;
             cursor: pointer;
         }
-
         /* Menu */
         .menu {
             list-style: none;
-            padding: 10px;
+            padding: 8px;
             flex-grow: 3;
         }
-
         .menu li {
-            margin-bottom: 1px;
-
+            margin-bottom: 8px;
         }
-
         .menu a {
             display: flex;
             align-items: center;
-            gap: 3px;
-            color: #cbd5e1;
-            padding: 10px;
+            gap: 14px;
+            color: #fbfdffff;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            font-size: 14px;
             text-decoration: none;
             border-radius: 5px;
-            transition: 0.3s;
             position: relative;
-            spacing :1px;
-           
+            spacing :20px;
+            transition: 0.3s;
+
 
         }
-
         .menu a:hover {
+         
             background: #c76c05ff;
-            color: #fff;
-             border-radius: 8px;
-            border-left: 4px solid #51f604ff;
-            padding-top: 7px;
+              display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fbfdffff;
+            
+             
+            /* border-left: 4px solid #51f604ff; */
+            
+        }
+     .li active a {
+            background: #c76c05ff;
+              display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fbfdffff;
+            
+             
+            /* border-left: 4px solid #51f604ff; */
+            
         }
         .menu span {
             white-space: nowrap;
@@ -377,27 +393,34 @@
         }
         /* Page Content (optional) */
         .content {
-            margin-left: 260px;
-            padding: 20px;
+            margin-left: 200px;
+            padding: 15px;
             transition: 0.3s;
         }
         .sidebar.collapsed ~ .content {
-            margin-left: 80px;
+            margin-left: 100px;
         }
     </style>
 </head>
 <body>
 
 <div class="sidebar" id="sidebar">
+    <div position:start>
+      <button class="toggle-btn" onclick="toggleSidebar()">
+        <!-- <i class="fa-solid fa-chevron-left"></i> -->
+        <i class="fa-solid fa-bars"></i>
+        <span class="arrow"></span>
+
+    </button>
+   
 <!-- Flexible Logo on Top -->
 <div class="sidebar-header" style="justify-content: center;">
     <div class="logo" style="width:100%;justify-content:center;">
         <img src="/images/45.png" alt="Logo" style="width:36px;height:36px;">
         <span class="logo-text">EMIS</span>
-    </div>
-    <button class="toggle-btn" onclick="toggleSidebar()">
-        <i class="fa-solid fa-chevron-right"></i>
-    </button>
+    
+ </div>
+  </div>
 </div>
 <style>
     .sidebar.collapsed .logo-text {
@@ -507,6 +530,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
             </ul>
         </li>
+       <!-- Task Manage,ent -->
+
+<li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-tasks"></i>
+                <span>Task Management</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Users</a></li>
+
+                <li><a href="{{ route('Administration.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
+                <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
+                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+            </ul>
+        </li>
+
+       <!-- end task ma -->
+
         <li>
             <a href="#" data-title="Analytics">
                 <i class="fa-solid fa-chart-line"></i>
