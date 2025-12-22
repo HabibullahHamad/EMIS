@@ -203,3 +203,15 @@ Route::middleware(['auth'])->group(function () {
             ->name('users.destroy');
     });
 });
+
+
+
+// admin settings route
+route::get('admin/settings', function () {
+    return view('admin.settings');
+})->name('admin.settings');
+
+
+
+// end admin settings route
+
