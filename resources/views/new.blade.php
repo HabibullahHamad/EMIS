@@ -549,9 +549,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <ul class="sub-menu">
                 <li><a href="{{route('Administrations.create')}}"><i class="fa-solid fa-users"></i>Craete Users</a></li>
 
-                <li><a href="{{ route('Administrations.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
                 <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
-                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="{{ route('Administrations.Roles')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
                 <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
             </ul>

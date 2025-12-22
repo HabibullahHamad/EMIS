@@ -176,9 +176,9 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
         })->name('Administrations.Role Management');
 
 
-        Route::get('/roles-page', fn () =>
-    view('Administrations.Roles')
-)->name('Administrations.Roles');
+  route::get('Administrations/Roles', function () {
+    return view('Administrations.Roles');
+})->name('Administrations.Roles');
 
 
 // end roles management
