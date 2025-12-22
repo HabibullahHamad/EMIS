@@ -799,11 +799,13 @@ function confirmDelete(formId) {
                 <h5 class="mt-3 mb-4">Hamad</h5>
 
                 <hr>
-
+              
+              <a href="{{ route('admin.settings') }}" class="btn btn-outline-dark w-100 mb-2">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </a>    
                 <button class="btn btn-outline-dark w-100 mb-2">
                     <i class="fa-solid fa-settings"></i> Settings
                 </button>
-
                 <form method="POST" action="#">
                     @csrf
                     <button class="btn btn-outline-danger w-100">
