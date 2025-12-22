@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -10,6 +17,28 @@
     <title>EMIS | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom scrollbar: smaller and smarter -->
+
+<style>
+.modal-dialog-bottom-left {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    max-width:500px;
+}
+
+/* Smooth slide-up animation */
+.modal.fade .modal-dialog-bottom-left {
+    transform: translateY(100%);
+}
+
+.modal.show .modal-dialog-bottom-left {
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+}
+
+</style>
+
     <style>
         /* ========== TOP NAVBAR ========== */
 .top-navbar{
@@ -576,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </ul>
     <!-- User -->
 
-    <div class="sidebar-footer">
+    <!-- <div class="sidebar-footer">
 
         <div class="user-info">
             <img src="/images/logo.png" alt="user">
@@ -589,7 +618,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
         </div>
-    </div>
+    </div> -->
+<!-- sss -->
+<!-- User logged in link -->
+<a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:flex; align-items:center; gap:10px; padding:10px;">
+    {{ Auth::user()->name ?? 'User' }}
+
+</a>
+    <!-- end user -->
 </div>
 
 <!-- Navbar -->
@@ -739,5 +775,53 @@ function confirmDelete(formId) {
     });
 }
 </script>
+
+
+<!-- model  -->
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-bottom-left" style="width:250px; height:300px;">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body text-center p-4">
+
+                <!-- Avatar -->
+                <div class="mx-auto mb-2"
+                     style="width:80px;height:80px;border-radius:50%;
+                     background:#0b7c8f;display:flex;align-items:center;
+                     justify-content:center;color:#fff;font-size:44px;">
+                    H
+                </div>
+
+                <span class="badge rounded-pill border border-info text-info px-3 py-1">
+                    Admin
+                </span>
+
+                <h5 class="mt-3 mb-4">Hamad</h5>
+
+                <hr>
+
+                <button class="btn btn-outline-dark w-100 mb-2">
+                    <i class="fa-solid fa-settings"></i> Settings
+                </button>
+
+                <form method="POST" action="#">
+                    @csrf
+                    <button class="btn btn-outline-danger w-100">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- stye -->
+
+<!-- end  -->
+
+
+<!-- end model -->
 </body>
 </html>
