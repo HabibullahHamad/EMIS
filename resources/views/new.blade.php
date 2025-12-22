@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>    
+
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -393,8 +397,8 @@
         /* Footer */
         .sidebar-footer {
             border-top: 1px solid #343435ff;
-            margin-top: 2px;
-            height: 50px;
+            margin-top: 1px;
+            height: 20px;
             display: flex;
             align-items: center;
             border-top: 1px solid #1e293b;
@@ -404,10 +408,10 @@
         }
 
         .user-info {
-            height: 40px;
+            height: 20px;
             display: flex;
             align-items: center;
-            padding-bottom: 4px;
+            padding-bottom: 2px;
             padding-left: 1px;
         }
         .user-info img {
@@ -457,8 +461,10 @@
         transition: width 0.3s, height 0.3s;
     }
     .sidebar.collapsed .logo img {
-        width: 36px;
-        height: 36px;
+        width: 30px;
+        height: 20px;
+        position: center;
+
     }
 </style>
 <script>
@@ -589,7 +595,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
         </li>
         <li>
-            <a href="#" data-title="Settings">
+            
+            <a href="{{ route('admin.settings') }}" data-title="Settings">
                 <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
             </a>
@@ -604,27 +611,21 @@ document.addEventListener('DOMContentLoaded', function () {
         </li> 
     </ul>
     <!-- User -->
-
-    <!-- <div class="sidebar-footer">
-
+       <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">
         <div class="user-info">
             <img src="/images/logo.png" alt="user">
             <div>
                     <strong>{{ Auth::user()->name ?? 'User' }}</strong>
-              
                 <small>Logged In</small>
                 <i class="fa-solid fa-sign-in-alt"></i>
-            </div>
-    
-
         </div>
-    </div> -->
-<!-- sss -->
-<!-- User logged in link -->
-<a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:flex; align-items:center; gap:10px; padding:10px;">
-    {{ Auth::user()->name ?? 'User' }}
+    </div>
 
 </a>
+   
+<!-- sss -->
+<!-- User logged in link -->
+
     <!-- end user -->
 </div>
 
@@ -667,7 +668,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- USER -->
         <div class="nav-item dropdown user">
             <img src="/images/logo.png">
-            <span>{{ Auth::user()->name ?? 'User' }}</span>
+            <span>#</span>
             <div class="dropdown-menu">
                 <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
                 <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
@@ -803,9 +804,7 @@ function confirmDelete(formId) {
               <a href="{{ route('admin.settings') }}" class="btn btn-outline-dark w-100 mb-2">
                     <i class="fa-solid fa-gear"></i> Settings
                 </a>    
-                <button class="btn btn-outline-dark w-100 mb-2">
-                    <i class="fa-solid fa-settings"></i> Settings
-                </button>
+               
                 <form method="POST" action="#">
                     @csrf
                     <button class="btn btn-outline-danger w-100">
@@ -825,5 +824,34 @@ function confirmDelete(formId) {
 
 
 <!-- end model -->
+
+
+
+<!-- SETTINGS MODEL  -->
+<!-- Button trigger modal -->
+ 
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     @include('admin.settings')
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END MODEL USER  -->
 </body>
 </html>
