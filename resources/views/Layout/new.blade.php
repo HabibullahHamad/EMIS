@@ -1,7 +1,7 @@
-@extends('welcome')
 
 
-@section('content')
+
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top px-3 py-2">

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
@@ -7,9 +8,17 @@ use App\Http\Controllers\CorrespondenceManagement\LetterController;
 use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
+
+
 Route::get('/', function () {
     return view('new');
 });
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+
 
 
 // WEB ROUTES for inbox module//
@@ -22,14 +31,8 @@ Route::get('/CorrespondenceManagement/inbox/index', function () {
 });
 // WEB ROUTES//end of inbox
 
-Route::get('/dashboard', function () {
-    return view('Layout.dashboard');
-})->name('dashboard');
 
 
-// Route::get('/new', function () {
-//     return view('Layout.new');
-// })->name('new');
 
 
 route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
@@ -86,15 +89,7 @@ route::get('CorrespondenceManagement/inbox/form', function(){
     return view('form');
 });
 
-
-
-
-
 route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-
-
-
-
 Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
 Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
@@ -142,13 +137,6 @@ route::get('Task Management/{task}', [TaskController::class, 'show'])
 
     
 
-route::get('new', function () {
-    return view('new');
-})->name('new');
-
-route::get('dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 
 
 

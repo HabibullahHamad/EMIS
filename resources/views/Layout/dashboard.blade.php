@@ -1,6 +1,4 @@
-@extends('welcome')
-@section('title', 'Dashboard')
-@section('content')
+
 <div class="container-fluid">
     <h2 class="mb-4">Welcome to EOMIS Dashboard</h2>
     <div class="row">

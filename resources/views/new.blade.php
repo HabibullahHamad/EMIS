@@ -1,6 +1,4 @@
-@extends('welcome')
 
-@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -544,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <ul class="menu">
         <li>
-            <a href="{{ route('dashboard') }}" data-title="Dashboard">
+            <a href="#" data-title="Dashboard">
                 <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
@@ -857,5 +855,3 @@ function confirmDelete(formId) {
 <!-- END MODEL USER  -->
 </body>
 </html>
-
-@endsection
