@@ -810,7 +810,6 @@ function confirmDelete(formId) {
                         <i class="bi bi-box-arrow-right"></i> Logout
                     </button>
                 </form>
-
             </div>
         </div>
     </div>
