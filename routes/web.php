@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
@@ -8,10 +7,8 @@ use App\Http\Controllers\CorrespondenceManagement\LetterController;
 use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
-
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('new');
 });
 
 
@@ -30,9 +27,9 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 
-Route::get('/new', function () {
-    return view('Layout.new');
-})->name('new');
+// Route::get('/new', function () {
+//     return view('Layout.new');
+// })->name('new');
 
 
 route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
