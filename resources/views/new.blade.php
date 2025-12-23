@@ -1,4 +1,6 @@
-@
+@extends('welcome')
+@section('title', 'new')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -855,3 +857,5 @@ function confirmDelete(formId) {
 <!-- END MODEL USER  -->
 </body>
 </html>
+
+@endsection
