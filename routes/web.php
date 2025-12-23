@@ -14,6 +14,8 @@ Route::get('/', function () {
     return view('new');
 });
 
+
+
 Route::get('dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
