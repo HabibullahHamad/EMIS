@@ -11,14 +11,14 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
-    return view('1');
+    return view('new');
 });
 
 
 
-// Route::get('dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
+Route::get('dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 
 

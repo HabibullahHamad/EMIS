@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <ul class="menu">
         <li>
-            <a href="{{ route('dashboard') }}" data-title="Dashboard">
+            <a href="#" data-title="Dashboard">
                 <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
@@ -813,7 +813,7 @@ function confirmDelete(formId) {
     </div>
 </div>
 
-<h1>SALAM</h1>
+
 <!-- stye -->
 
 <!-- end  -->
