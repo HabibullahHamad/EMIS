@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('title', 'new')
+
 @section('content')
 <!DOCTYPE html>
 <html lang="en">

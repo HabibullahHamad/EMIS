@@ -1,6 +1,6 @@
 @extends('welcome')
 
-@section('title', 'new  Layout')
+
 @section('content')
 
 
