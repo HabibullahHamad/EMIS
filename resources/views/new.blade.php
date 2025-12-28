@@ -311,10 +311,11 @@
             padding-left: 15px;
             font-size: 14px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 0px;
             position: relative;
             spacing :20px;
             transition: 0.3s;
+            border-left:5px;
 
 
         }
@@ -325,9 +326,7 @@
             align-items: center;
             gap: 8px;
             color: #fbfdffff;
-            
-             
-            /* border-left: 4px solid #51f604ff; */
+            border-left: 4px solid #0b8bf4ff;
             
         }
      .li active a {
@@ -338,7 +337,7 @@
             color: #fbfdffff;
             
              
-            /* border-left: 4px solid #51f604ff; */
+             border-left: 4px solid #089ae3ff; 
             
         }
         .menu span {
@@ -849,5 +848,7 @@ function confirmDelete(formId) {
   </div>
 </div>
 <!-- END MODEL USER  -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

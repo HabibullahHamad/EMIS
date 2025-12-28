@@ -200,6 +200,9 @@ route::get('admin/settings', function () {
 
 
 
+route::get('settings/tabs/createroles',function (){
+return view('settings.tabs.createroles');
+})->name('settings.tabs.createroles');
 
 
 

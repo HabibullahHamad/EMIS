@@ -82,6 +82,9 @@
 {{-- ROLES LIST --}}
 <div id="roles" class="tab-content active">
     <h2>Roles List</h2>
+ <a href="{{ route('settings.tabs.createroles') }}" class="btn btn-outline-primary w-6 mb-1">
+                    <i class="fa-solid fa-user-check"></i> Add New Role
+                </a> 
     <table class="table">
         <thead style="background-color: #064e96ff; color: white;">
             <tr>
