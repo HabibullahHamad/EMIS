@@ -311,7 +311,7 @@
             padding-left: 15px;
             font-size: 14px;
             text-decoration: none;
-            border-radius: 0px;
+            border-radius: 2px;
             position: relative;
             spacing :20px;
             transition: 0.3s;
