@@ -212,3 +212,13 @@ return view('settings.tabs.createroles');
 
 
 // end admin settings route
+
+route::get('lang/ps',function (){
+return view('lang.ps');
+})->name('lang.ps');
+
+
+route::get('lang/fa',function (){
+return view('lang.fa');
+})->name('lang.fa');
+

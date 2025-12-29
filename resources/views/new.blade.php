@@ -328,6 +328,7 @@
             gap: 8px;
             color: #fbfdffff;
             border-left: 4px solid #0b8bf4ff;
+            border-radius: 0px 10px 10px 0px;
             
         }
      .li active a {
@@ -648,9 +649,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="nav-item dropdown">
             <i class="fa-solid fa-globe"></i>
             <div class="dropdown-menu">
-                <a href="#">English</a>
-                <a href="#">پښتو</a>
-                <a href="#">دری</a>
+                <a href="{{ route('admin.settings') }}">English</a>
+                <a href="{{ route('lang.ps') }}">پښتو</a>
+                <a href="{{ route('lang.fa') }}">دری</a>
             </div>
         </div>
         <!-- NOTIFICATIONS -->
@@ -815,7 +816,7 @@ function confirmDelete(formId) {
     </div>
 </div>
 
-<h1>SALAM</h1>
+
 <!-- stye -->
 
 <!-- end  -->
@@ -828,28 +829,7 @@ function confirmDelete(formId) {
 <!-- SETTINGS MODEL  -->
 <!-- Button trigger modal -->
  
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!--  -->
 <!-- END MODEL USER  -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
