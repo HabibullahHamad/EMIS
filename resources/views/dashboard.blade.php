@@ -147,15 +147,15 @@
         </div>
 
         <div class="kpi-card">
-            <div class="kpi-title">Non-Productive Time</div>
-            <div class="kpi-value">13.7%</div>
-            <small>Downtime</small>
+            <div class="kpi-title">System Users</div>
+            <div class="kpi-value">132</div>
+            <small>Staff</small>
         </div>
 
         <div class="kpi-card warning">
-            <div class="kpi-title">Safety Incidents</div>
+            <div class="kpi-title">Pending Tasks</div>
             <div class="kpi-value">3.8%</div>
-            <small>Incident Frequency</small>
+            <small>Number</small>
         </div>
     </div>
 
