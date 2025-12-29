@@ -258,7 +258,8 @@
         }
 
         .sidebar.collapsed {
-            width: 80px;
+            width: 70px;
+            border-radius:10px;
         }
 
         /* Header */
@@ -391,6 +392,8 @@
         }
 
         /* Footer */
+
+
         .sidebar-footer {
             border-top: 1px solid #343435ff;
             margin-top: 1px;
@@ -425,7 +428,7 @@
             transition: 0.3s;
         }
         .sidebar.collapsed ~ .content {
-            margin-left: 100px;
+            margin-left: 70px;
         }
     </style>
 </head>
@@ -457,7 +460,7 @@
         transition: width 0.3s, height 0.3s;
     }
     .sidebar.collapsed .logo img {
-        width: 30px;
+        width: 20px;
         height: 20px;
         position: center;
 
