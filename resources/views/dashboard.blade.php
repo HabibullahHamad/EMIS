@@ -1,7 +1,5 @@
 @extends('new')
-
 @section('title', 'EMIS Dashboard')
-
 @section('content')
 
 <link rel="stylesheet" href="public/resources/css/dashboard.css">
