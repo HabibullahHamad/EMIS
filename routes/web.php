@@ -222,3 +222,23 @@ route::get('lang/fa',function (){
 return view('lang.fa');
 })->name('lang.fa');
 
+// for coming new documents 
+
+Route::get('/CorrespondenceManagement/inbox/coming', function () {
+    return view ('CorrespondenceManagement.inbox.coming');
+});
+
+
+Route::prefix('CorrespondenceManagement/inbox')
+    ->name('CorrespondenceManagement.inbox.')
+    ->group(function () {
+
+        Route::get('coming', [InboxController::class, 'coming'])
+            ->name('coming');
+
+    });
+
+
+
+// end of Coming 
+

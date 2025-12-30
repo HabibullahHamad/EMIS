@@ -582,7 +582,28 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
 
        <!-- end task ma -->
+        <!-- start documentation -->
 
+<li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-tasks"></i>
+                <span>Documnets Management</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
+
+     <li><a href="{{ route('CorrespondenceManagement.inbox.coming') }}"><i class="fa-solid fa-sign-in-alt"></i>Coming</a></li>
+                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+            </ul>
+        </li>
+
+
+
+
+       <!-- end documentation -->
         <li>
             <a href="#" data-title="Analytics">
                 <i class="fa-solid fa-chart-line"></i>

@@ -94,65 +94,73 @@
             <td>{{ $letter->sender }}</td>
             <td>{{ $letter->received_date }}</td>
             <td>{{ $letter->status }}</td>
-            <td>
-                <script>
-                document.addEventListener('submit', function(e){
-                    const form = e.target;
-                    if (form.tagName !== 'FORM') return;
-                    if (!form.querySelector('input[name="_method"][value="DELETE"]')) return;
-                    e.preventDefault();
-                    const btn = form.querySelector('button, input[type="submit"]');
-                    if (btn) btn.disabled = true;
-                    fetch(form.action, {
-                        method: 'POST',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json'
-                        },
-                        body: new FormData(form)
-                    })
-                    .then(async resp => {
-                        if (!resp.ok) throw await resp.text();
-                        const tr = form.closest('tr');
-                        if (tr) tr.remove();
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert('Delete failed');
-                    })
-                    .finally(() => { if (btn) btn.disabled = false; });
-                });
-                </script>
-                <a href="{{ route('inbox.show',$letter->id) }}" class="btn btn-sm btn-info">View</a>
-                <a href="{{ route('inbox.edit',$letter->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                <form action="{{ route('inbox.destroy', $letter->id) }}" method="POST" style="display:inline;">
-                    @csrf @method('DELETE')
-                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this)">Delete</button>
-                    <!-- SweetAlert2 CDN (add once in the page) -->
-                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                    <script>
-                    function confirmDelete(btn){
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "This action cannot be undone.",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d33',
-                            cancelButtonColor: '#3085d6',
-                            confirmButtonText: 'Yes, delete it!',
-                            cancelButtonText: 'Cancel'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // submit the surrounding form
-                                btn.closest('form').submit();
-                            }
-                        });
-                        return false;
-                    }
-                    </script>
-                </form>
-            </td>
-        </tr>
+         <td class="text-center">
+    <!-- View -->
+    <a href="{{ route('inbox.show', $letter->id) }}"
+       title="View"
+       class="text-info me-2">
+        <i class="fa-solid fa-eye"></i>
+    </a>|
+    <!-- Edit -->
+    <a href="{{ route('inbox.edit', $letter->id) }}"
+       title="Edit"
+       class="text-warning me-2">
+        <i class="fa-solid fa-pen"></i>
+    </a>|
+    <!-- Delete -->
+    <form action="{{ route('inbox.destroy', $letter->id) }}"
+          method="POST"
+          class="d-inline delete-form">
+        @csrf
+        @method('DELETE')
+        <a href="javascript:void(0)"
+           title="Delete"
+           class="text-danger delete-btn">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+    </form>
+</td>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.delete-btn');
+    if (!btn) return;
+
+    const form = btn.closest('form');
+    const row  = btn.closest('tr');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: new FormData(form)
+            })
+            .then(res => {
+                if (!res.ok) throw 'Delete failed';
+                row.remove();
+                Swal.fire('Deleted!', 'Record has been deleted.', 'success');
+            })
+            .catch(() => {
+                Swal.fire('Error', 'Something went wrong.', 'error');
+            });
+        }
+    });
+});
+</script>
+
     @endforeach
     </tbody>
 </table>

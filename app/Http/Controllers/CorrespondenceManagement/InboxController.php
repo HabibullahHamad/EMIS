@@ -125,3 +125,7 @@ class InboxController extends Controller
         return redirect()->route('inbox.index')->with('success', 'one Record is deleted!');
     }
 }
+
+
+
+// new controller 
