@@ -258,7 +258,8 @@
         }
 
         .sidebar.collapsed {
-            width: 80px;
+            width: 70px;
+            border-radius:10px;
         }
 
         /* Header */
@@ -311,10 +312,11 @@
             padding-left: 15px;
             font-size: 14px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 2px;
             position: relative;
             spacing :20px;
             transition: 0.3s;
+            border-left:5px;
 
 
         }
@@ -325,9 +327,8 @@
             align-items: center;
             gap: 8px;
             color: #fbfdffff;
-            
-             
-            /* border-left: 4px solid #51f604ff; */
+            border-left: 4px solid #0b8bf4ff;
+            border-radius: 0px 10px 10px 0px;
             
         }
      .li active a {
@@ -338,7 +339,7 @@
             color: #fbfdffff;
             
              
-            /* border-left: 4px solid #51f604ff; */
+             border-left: 4px solid #089ae3ff; 
             
         }
         .menu span {
@@ -392,6 +393,8 @@
         }
 
         /* Footer */
+
+
         .sidebar-footer {
             border-top: 1px solid #343435ff;
             margin-top: 1px;
@@ -426,7 +429,7 @@
             transition: 0.3s;
         }
         .sidebar.collapsed ~ .content {
-            margin-left: 100px;
+            margin-left: 70px;
         }
     </style>
 </head>
@@ -458,7 +461,7 @@
         transition: width 0.3s, height 0.3s;
     }
     .sidebar.collapsed .logo img {
-        width: 30px;
+        width: 20px;
         height: 20px;
         position: center;
 
@@ -543,7 +546,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Dashboard</span>
             </a>
         </li>
-
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
@@ -579,7 +581,51 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
 
        <!-- end task ma -->
+        <!-- start documentation -->
 
+<li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-tasks"></i>
+                <span>Documnets Management</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
+<li>
+    <a href="#">
+        <i class="fa-solid fa-sign-in-alt"></i>Coming
+    </a>
+</li>           
+<li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+            </ul>
+        </li>
+
+<!-- Tasks  -->
+<li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-tasks"></i>
+                <span>Tasks Management</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{{ route('Task Management.tasks')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
+<li>
+    <a href="#">
+        <i class="fa-solid fa-sign-in-alt"></i>Coming
+    </a>
+          </li>           
+               <li><a href="{{ route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+            </ul>
+        </li>
+
+<!-- end tasks -->
+
+
+       <!-- end documentation -->
         <li>
             <a href="#" data-title="Analytics">
                 <i class="fa-solid fa-chart-line"></i>
@@ -653,9 +699,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="nav-item dropdown">
             <i class="fa-solid fa-globe"></i>
             <div class="dropdown-menu">
-                <a href="#">English</a>
-                <a href="#">پښتو</a>
-                <a href="#">دری</a>
+                <a href="{{ route('admin.settings') }}">English</a>
+                <a href="{{ route('lang.ps') }}">پښتو</a>
+                <a href="{{ route('lang.fa') }}">دری</a>
             </div>
         </div>
         <!-- NOTIFICATIONS -->
@@ -669,6 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a href="#">⚠ Budget alert</a>
             </div>
         </div>
+        <a href="{{ route('clock')}}"><i class="fa-solid fa-clock"></i>Clock</a>
         <!-- USER -->
         <div class="nav-item dropdown user">
             <img src="/images/logo.png">
@@ -685,6 +732,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     </div>
 </div>
+
 <!-- end navbar -->
  <main class="content">
         @yield('content')
@@ -820,7 +868,7 @@ function confirmDelete(formId) {
     </div>
 </div>
 
-<h1>SALAM</h1>
+
 <!-- stye -->
 
 <!-- end  -->

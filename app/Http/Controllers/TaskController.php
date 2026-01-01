@@ -7,6 +7,7 @@ use App\Models\User;
 class TaskController extends Controller
 
 
+
 {
     public function index()
     {
@@ -70,4 +71,16 @@ class TaskController extends Controller
         
         return back()->with('success','Task deleted Successfully');
     }
+
+
+    public function delegation()
+{
+    $users = User::select('id', 'name')->get();
+
+    return view('Task Management.Task Delegation', compact('users'));
+}
+
+
+
+
 }

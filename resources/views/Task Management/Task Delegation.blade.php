@@ -1,4 +1,4 @@
-@extends('Welcome')
+@extends('new')
 @section('content')
 <div class="container">
     <h2 class="mb-4">
@@ -9,7 +9,7 @@
             Assign a New Task
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('tasks.store') }}">
+            <form method="POST" action="#">
                 @csrf
                 <div class="mb-3">
                     <label for="task_title" class="form-label">Task Title</label>
@@ -23,9 +23,8 @@
                     <label for="assignee" class="form-label">Assign To</label>
                     <select class="form-select" id="assignee" name="assignee_id" required>
                         <option value="">Select User</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
+                            <option value="#">#</option>
+                    
                     </select>
                 </div>
                 <div class="mb-3">
@@ -50,18 +49,22 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($request as $task)
-                <tr>
-                    <td>{{ $task->title }}</td>
-                    <td>{{ $task->assignee->name ?? 'N/A' }}</td>
-                    <td>{{ $task->due_date ? $task->due_date->format('Y-m-d') : '-' }}</td>
-                    <td>{{ ucfirst($task->status) }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center">No tasks delegated yet.</td>
-                </tr>
-            @endforelse
+      
+    <tr>
+        <td>#</td>
+        <td>#</td>
+        <td>#</td>
+        <td>#</td>
+    </tr>
+
+    <tr>
+        <td colspan="4" class="text-center">No tasks delegated yet.</td>
+    </tr>
+
+        <tr>
+     <hr>
+      </tr>
+
         </tbody>
     </table>
 </div>

@@ -10,6 +10,20 @@ use App\Http\Controllers\AuthController;
 
 
 
+// coming
+Route::prefix('CorrespondenceManagement/inbox')
+    ->name('CorrespondenceManagement.inbox.')
+    ->group(function () {
+
+        Route::get('coming', [InboxController::class, 'coming'])
+            ->name('coming');
+
+    });
+
+// end
+
+
+
 Route::get('/', function () {
     return view('new');
 });
@@ -200,6 +214,9 @@ route::get('admin/settings', function () {
 
 
 
+route::get('settings/tabs/createroles',function (){
+return view('settings.tabs.createroles');
+})->name('settings.tabs.createroles');
 
 
 
@@ -210,16 +227,54 @@ route::get('admin/settings', function () {
 
 // end admin settings route
 
+route::get('lang/ps',function (){
+return view('lang.ps');
+})->name('lang.ps');
 
-Route::post('/settings/general', [SettingsController::class,'general'])
-    ->name('settings.general.save');
 
-Route::post('/settings/user', [SettingsController::class,'user'])
-    ->name('settings.user.save');
+route::get('lang/fa',function (){
+return view('lang.fa');
+})->name('lang.fa');
 
-Route::post('/settings/password', [SettingsController::class,'password'])
-    ->name('settings.password.save');
+// for coming new documents 
 
-   route::get('demo', function () {
-    return view('demo');
-})->name('demo');
+
+Route::get('CorrespondenceManagement/inbox/coming', function () {
+    return view('CorrespondenceManagement.inbox.coming');
+});
+
+// end of Coming 
+
+// tasks
+
+Route::get('Task-management/tasks', function () {
+    return view('Task Management.tasks');
+})->name('Task Management.tasks');
+
+
+
+
+      
+route::post('Task-management/Task Deligation', function (){
+    return view('Task Management.store');
+
+})->name('Task Management.store');
+
+// tasks
+
+
+Route::get('Task-management/Task Delegation', function () {
+    return view('Task Management.Task Delegation');
+})->name('Task Management.Task Delegation');
+// end tasks
+
+route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
+
+
+
+
+
+ 
+Route::get('clock', function () {
+    return view('clock');
+})->name('clock');

@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>System Name</label>
-                            <input type="text" class="form-control" value="EMIS - Ministry of Education">
+                            <input type="text" class="form-control" value="EMIS - DGB">
                         </div>
                         <div class="col-md-6">
                             <label>Academic Year</label>
@@ -201,7 +201,7 @@
 
                     <p><strong>Version:</strong> 1.0.0</p>
                     <p><strong>Developed By:</strong> EMIS Technical Team</p>
-                    <p><strong>Support:</strong> support@emis.gov</p>
+                    <p><strong>Support:</strong>habib.hamad@mof.gov.af</p>
                 </div>
 
             </div>

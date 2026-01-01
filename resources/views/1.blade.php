@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Database Settings</h2>
+    <h1>page</h1>
 </body>
 </html>

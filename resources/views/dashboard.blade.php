@@ -1,7 +1,5 @@
 @extends('new')
-
 @section('title', 'EMIS Dashboard')
-
 @section('content')
 
 <link rel="stylesheet" href="public/resources/css/dashboard.css">
@@ -135,27 +133,27 @@
     <!-- KPI SECTION -->
     <div class="kpi-grid">
         <div class="kpi-card success">
-            <div class="kpi-title">Efficiency</div>
+            <div class="kpi-title">Tasks</div>
             <div class="kpi-value">96.6%</div>
             <small>Productive Time</small>
         </div>
 
         <div class="kpi-card info">
-            <div class="kpi-title">Operational Cost</div>
-            <div class="kpi-value">$1,066,041</div>
-            <small>Total Cost</small>
+            <div class="kpi-title">Time & Dtae</div>
+            <div class="kpi-value">0.0.0</div>
+            <small>0.0.0.0</small>
         </div>
 
         <div class="kpi-card">
-            <div class="kpi-title">Non-Productive Time</div>
-            <div class="kpi-value">13.7%</div>
-            <small>Downtime</small>
+            <div class="kpi-title">System Users</div>
+            <div class="kpi-value">132</div>
+            <small>Staff</small>
         </div>
 
         <div class="kpi-card warning">
-            <div class="kpi-title">Safety Incidents</div>
+            <div class="kpi-title">Pending Tasks</div>
             <div class="kpi-value">3.8%</div>
-            <small>Incident Frequency</small>
+            <small>Number</small>
         </div>
     </div>
 
@@ -171,28 +169,26 @@
             </div>
 
             <div class="card">
-                <h3>Quality Performance</h3>
+                <h3>Jobs Graph</h3>
                 <canvas id="qualityChart"></canvas>
             </div>
-
         </div>
-
         <!-- ASSETS -->
         <div class="card">
-            <h3>Assets Status</h3>
+            <h3>Tasks Assigned </h3>
 
             <div class="asset-item">
-                <span>Asset A</span>
+                <span>Team A</span>
                 <span class="asset-value">96.0%</span>
             </div>
 
             <div class="asset-item">
-                <span>Asset B</span>
+                <span>Team B</span>
                 <span class="asset-value">89.8%</span>
             </div>
 
             <div class="asset-item">
-                <span>Asset C</span>
+                <span>Team C</span>
                 <span class="asset-value">99.0%</span>
             </div>
         </div>
