@@ -546,7 +546,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Dashboard</span>
             </a>
         </li>
-
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
@@ -611,14 +610,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="#"><i class="fa-solid fa-users"></i>Inbox</a></li>
+                <li><a href="{{ route('Task Management.tasks')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
 <li>
     <a href="#">
         <i class="fa-solid fa-sign-in-alt"></i>Coming
     </a>
-</li>           
-<li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+          </li>           
+               <li><a href="{{ route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
             </ul>
         </li>
@@ -709,6 +708,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <a href="#">⚠ Budget alert</a>
             </div>
         </div>
+        <a href="{{ route('clock')}}"><i class="fa-solid fa-clock"></i>Clock</a>
         <!-- USER -->
         <div class="nav-item dropdown user">
             <img src="/images/logo.png">
@@ -725,6 +725,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     </div>
 </div>
+
 <!-- end navbar -->
  <main class="content">
         @yield('content')

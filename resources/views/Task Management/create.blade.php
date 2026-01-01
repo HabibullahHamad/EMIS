@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('new')
 
 @section('content')
 

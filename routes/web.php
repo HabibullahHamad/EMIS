@@ -247,6 +247,34 @@ Route::get('CorrespondenceManagement/inbox/coming', function () {
 
 // tasks
 
+Route::get('Task-management/tasks', function () {
+    return view('Task Management.tasks');
+})->name('Task Management.tasks');
 
 
+
+
+      
+route::post('Task-management/Task Deligation', function (){
+    return view('Task Management.store');
+
+})->name('Task Management.store');
+
+// tasks
+
+
+Route::get('Task-management/Task Delegation', function () {
+    return view('Task Management.Task Delegation');
+})->name('Task Management.Task Delegation');
 // end tasks
+
+route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
+
+
+
+
+
+ 
+Route::get('clock', function () {
+    return view('clock');
+})->name('clock');
