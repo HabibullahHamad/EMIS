@@ -209,3 +209,17 @@ route::get('admin/settings', function () {
 
 
 // end admin settings route
+
+
+Route::post('/settings/general', [SettingsController::class,'general'])
+    ->name('settings.general.save');
+
+Route::post('/settings/user', [SettingsController::class,'user'])
+    ->name('settings.user.save');
+
+Route::post('/settings/password', [SettingsController::class,'password'])
+    ->name('settings.password.save');
+
+   route::get('demo', function () {
+    return view('demo');
+})->name('demo');

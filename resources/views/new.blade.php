@@ -606,6 +606,13 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
            
         </li> 
+
+        <li>
+            <a href="{{route('demo')}}" data-bs-toggle="model" data-bs-target="#myModel">
+            <i class ="fa-solid fa-model"></i>
+            <span>demp</span>
+            </a>
+        </li>
     </ul>
     <!-- User -->
        <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">
@@ -840,6 +847,10 @@ function confirmDelete(formId) {
       </div>
       <div class="modal-body">
     
+      <script>
+        
+      </script>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -849,5 +860,8 @@ function confirmDelete(formId) {
   </div>
 </div>
 <!-- END MODEL USER  -->
+
+
+
 </body>
 </html>
