@@ -616,9 +616,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <i class="fa-solid fa-sign-in-alt"></i>Coming
     </a>
           </li>           
-               <li><a href="{{ route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+               <li><a href="{{route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Task Delegation</a></li>
+                <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
+                <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>
             </ul>
         </li>
 
@@ -881,41 +881,12 @@ function confirmDelete(formId) {
 <!-- SETTINGS MODEL  -->
 <!-- Button trigger modal -->
  
-<<<<<<< HEAD
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-    
-      <script>
-        
-      </script>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
   </div>
 </div>
 <!-- END MODEL USER  -->
 
 
-=======
-<!--  -->
-<!-- END MODEL USER  -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> 2b0771bf983854dcda41ed693aa196ddad37647a
 
 </body>
 </html>

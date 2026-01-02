@@ -274,6 +274,13 @@ route::post('Task-management/Task Delegation/create', [TaskController::class, 'c
 
 
 
+Route::get('Task-management/main', function () {
+    return view('Task Management.main');
+})->name('Task Management.main');
+// end task
+
+
+
  
 Route::get('clock', function () {
     return view('clock');

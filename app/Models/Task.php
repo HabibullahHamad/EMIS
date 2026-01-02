@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 namespace App\Models;
 
@@ -39,4 +37,3 @@ class Task extends Model
 }
 
 }
->>>>>>> 2b0771bf983854dcda41ed693aa196ddad37647a

@@ -1,73 +1,71 @@
 @extends('new')
+
 @section('content')
+<div class="container my-5">
+    <h1 class="mb-4 text-primary fw-bold">Latest Tasks</h1>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-<div class="container">
-    <a href="{{ route('Task Management.create') }}" class="btn btn-primary mb-3">
-        + Delegate Task
-    </a>
-
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="table-primary">
-                <tr>
-                 <th>ID</th>
-                    <th>Title</th>
-                    <th>Assigned By</th>
-                    <th>Assigned To</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Due Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($tasks as $task)
-                <tr>
-                    <td>{{$task->id}} </td>
-                    <td>{{ $task->title }}</td>
-                    <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Assighned By</th>
+                        <th>Assigned To</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Progress</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($tasks as $task)
+                        <tr>
+                             <td>{{ $loop->iteration + ($tasks->currentPage()-1) * $tasks->perPage(10) }}</td>
+                             <td>{{ $task->title }}</td>
+                                 <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
                     <td>{{ $task->assignedTo->name ?? 'N/A' }}</td>
-                    <td>{{ $task->priority }}</td>
-                    <td>{{ $task->status ?? 'N/A' }}</td>
-                    <td>{{ $task->due_date }}</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Actions">
-                            <a href="{{ route('Task Management.show', $task->id) }}" class="btn btn-info btn-sm">View</a>
-                            <a href="{{ route('Task Management.edit', $task->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <td>{{ $task->priority }}</td>
+                            <td>{{ $task->status }}</td>
+                            <td>{{ $task->due_date}}</td>
+                            <td>{{ $task->progress }}%</td>
+                            <td>
+                                <a href="{{ route('Task Management.show', $task->id) }}" class="btn btn-sm btn-info">View</a>
+                                <a href="{{ route('Task Management.edit', $task->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No tasks found</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
 
-                            <form id="deleteForm{{ $task->id }}" action="{{ route('Task Management.destroy', $task->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                            <button type="button" onclick="confirmDelete('deleteForm{{ $task->id }}')" class="btn btn-danger btn-sm">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+            <!-- Pagination: Previous / Next -->
+            <div class="d-flex justify-content-between mt-3">
+                @if ($tasks->onFirstPage())
+                    <button class="btn btn-secondary" disabled>Previous</button>
+                @else
+                    <a href="{{ $tasks->previousPageUrl() }}" class="btn btn-secondary">Previous</a>
+                @endif
+
+                @if ($tasks->hasMorePages())
+                    <a href="{{ $tasks->nextPageUrl() }}" class="btn btn-secondary">Next</a>
+                @else
+                    <button class="btn btn-secondary" disabled>Next</button>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function confirmDelete(formId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById(formId).submit();
-            }
-        });
-    }
-</script>
+<style>
+.table-hover tbody tr:hover {
+    background-color: #e9f5ff;
 
+}
+</style>
 @endsection
