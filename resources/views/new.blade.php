@@ -881,6 +881,7 @@ function confirmDelete(formId) {
 <!-- SETTINGS MODEL  -->
 <!-- Button trigger modal -->
  
+<<<<<<< HEAD
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   Launch static backdrop modal
 </button>
@@ -910,6 +911,11 @@ function confirmDelete(formId) {
 <!-- END MODEL USER  -->
 
 
+=======
+<!--  -->
+<!-- END MODEL USER  -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+>>>>>>> 2b0771bf983854dcda41ed693aa196ddad37647a
 
 </body>
 </html>
