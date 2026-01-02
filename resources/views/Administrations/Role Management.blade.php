@@ -3,9 +3,6 @@
 @section('title', 'Role Management')
 
 @section('content')
-
-
-
 <style>
 .page-desc {
     color: #777;

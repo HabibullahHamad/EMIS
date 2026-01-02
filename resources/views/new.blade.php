@@ -654,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </li> 
 
         <li>
-            <a href="{{route('demo')}}" data-bs-toggle="model" data-bs-target="#myModel">
+            <a href="#" data-bs-toggle="model" data-bs-target="#myModel">
             <i class ="fa-solid fa-model"></i>
             <span>demp</span>
             </a>
