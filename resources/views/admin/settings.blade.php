@@ -11,7 +11,7 @@
         <!-- SETTINGS SIDEBAR -->
         <div class="col-md-3 col-lg-2 bg-light border-end min-vh-100 p-0">
             <div class="list-group list-group-flush">
-                <a href="#account" class="list-group-item list-group-item-action active" data-bs-toggle="tab">
+                <a href="{{ route('settings.partials.account') }}" class="list-group-item list-group-item-action active">
                     <i class="bi bi-person"></i> Account
                 </a>
                 <a href="#system" class="list-group-item list-group-item-action" data-bs-toggle="tab">

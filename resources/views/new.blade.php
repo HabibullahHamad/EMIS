@@ -590,15 +590,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
-<li>
-    <a href="#">
-        <i class="fa-solid fa-sign-in-alt"></i>Coming
-    </a>
-</li>           
-<li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-box-archive"></i>Inbox</a></li>
+
+                <li><a href="{{route('.coming')}}"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>S</a></li>
             </ul>
         </li>
 
@@ -610,12 +607,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="{{ route('Task Management.tasks')}}"><i class="fa-solid fa-users"></i>Inbox</a></li>
-<li>
-    <a href="#">
-        <i class="fa-solid fa-sign-in-alt"></i>Coming
-    </a>
-          </li>           
+                <li><a href="{{ route('Task Management.tasks')}}"><i class="fa-solid fa-users"></i>Inbox</a></li><li>
+                 <a href="#"><i class="fa-solid fa-sign-in-alt"></i>Coming</a></li>           
                <li><a href="{{route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Task Delegation</a></li>
                 <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
                 <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>

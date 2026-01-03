@@ -8,25 +8,27 @@ use App\Http\Controllers\CorrespondenceManagement\LetterController;
 use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\CorrespondenceManagement\DocumentController;
 
 
 // coming
+
+
 Route::prefix('CorrespondenceManagement/inbox')
     ->name('CorrespondenceManagement.inbox.')
     ->group(function () {
 
-        Route::get('coming', [InboxController::class, 'coming'])
+        Route::get('/coming', [InboxController::class, 'coming'])
             ->name('coming');
 
+        Route::get('/index', [InboxController::class, 'index'])
+            ->name('index');
     });
 
 // end
 
 
 
-Route::get('/', function () {
-    return view('new');
-});
 
 
 
@@ -116,8 +118,16 @@ route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.updat
 route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
 route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
 route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit'); 
-route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');    
+route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');   
+
+
 Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
+
+// documens
+
+
+
+
 
 
 
@@ -220,6 +230,9 @@ return view('settings.tabs.createroles');
 
 
 
+route::get('settings/partials/account', function(){
+    return view('settings.partials.account');
+})->name('settings.partials.account');
 
 
 
