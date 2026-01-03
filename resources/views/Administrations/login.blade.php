@@ -23,25 +23,28 @@
             justify-content: center;
             align-items: center;
         }
-
         .login-box {
-            height: 400px;
-            width: 100%;
-            max-width: 400px;
+            height: 500px;
+            width: 80%;
+            max-width: 500px;
             background: #ffffff;
-            padding: 30px 30px ;
-            border-radius: 30px 0px 30px 0px;
+            padding: 60px 60px ;
+            border-radius: 50% ;
             margin: 14px;
             position: relative;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 12 12px 16px rgba(0,0,0,0.2);
+            border-style:  dashed;
+            border-color:rgba(1, 58, 181, 1);
+
         }
 
         .logo {
            
             display: block;
-            margin: 0 auto 1px auto;
+            margin: 0 auto  auto;
             width: 90px;
             position:top 0px;
+            shadow:22px;
 
         }
 
@@ -71,6 +74,7 @@
         }
 
         .form-group input {
+
             width: 100%;
             padding: 8px 8px;
             border: 1px solid #ccc;

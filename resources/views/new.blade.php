@@ -637,7 +637,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Settings</span>
             </a>
         </li>
-        
            <li>
             <a href="{{ route('admin.settings') }}" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-gear"></i>
