@@ -25,12 +25,12 @@
         }
         .login-box {
             height: 500px;
-            width: 80%;
+            width: 100%;
             max-width: 500px;
             background: #ffffff;
             padding: 60px 60px ;
             border-radius: 50% ;
-            margin: 14px;
+            margin: 15px;
             position: relative;
             box-shadow: 12 12px 16px rgba(0,0,0,0.2);
             border-style:  dashed;
@@ -69,24 +69,26 @@
         .form-group label {
             display: block;
             font-size: 14px;
-            color: #444;
+            color: #040404ff;
             
         }
 
         .form-group input {
 
-            width: 100%;
+            width:100%;
             padding: 8px 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 14px;
             transition: 0.2s;
             
+            
         }
 
         .form-group input:focus {
-            border-color: #2a5298;
+            border-color: #065ef7ff;
             outline: none;
+            shadow:22px;
         }
 
         .btn-login {
