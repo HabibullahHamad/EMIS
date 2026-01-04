@@ -18,8 +18,7 @@ Route::prefix('CorrespondenceManagement/inbox')
     ->name('CorrespondenceManagement.inbox.')
     ->group(function () {
 
-        Route::get('/coming', [InboxController::class, 'coming'])
-            ->name('.coming');
+        
 
         Route::get('/index', [InboxController::class, 'index'])
             ->name('index');

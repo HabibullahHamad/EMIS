@@ -242,7 +242,7 @@
         }
         /* Sidebar */
         .sidebar {
-            width: 200px;
+            width: 230px;
             height:100%;
             background: #081e51ff;
             color: #fff;
@@ -424,7 +424,7 @@
         }
         /* Page Content (optional) */
         .content {
-            margin-left: 200px;
+            margin-left: 230px;
             padding: 15px;
             transition: 0.3s;
         }
@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <ul class="sub-menu">
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-box-archive"></i>Inbox</a></li>
 
-                <li><a href="{{route('.coming')}}"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
+                <li><a href="#"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>S</a></li>
