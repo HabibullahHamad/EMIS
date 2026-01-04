@@ -8,19 +8,12 @@ class TaskController extends Controller
 
 
 
-
-
-// List tasks (show only latest 10 records)
- 
-
-
 {
-   public function index()
-{
-    // Use paginate instead of get
-    $tasks = Task::latest()->paginate(20); // <-- 10 records per page
-    return view('Task Management.index', compact('tasks'));
-}
+    public function index()
+    {
+      $tasks = Task::with(['assignedBy', 'assignedTo'])->latest()->get();
+        return view('Task Management.index', compact('tasks'));
+    }
 
     public function show(Task $task)
     {
@@ -86,7 +79,6 @@ class TaskController extends Controller
 
     return view('Task Management.Task Delegation', compact('users'));
 }
-
 
 
 

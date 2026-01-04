@@ -300,7 +300,7 @@
             flex-grow: 3;
         }
         .menu li {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         .menu a {
             display: flex;
@@ -333,24 +333,19 @@
         }
      .li active a {
             background: #c76c05ff;
-              display: flex;
+            display: flex;
             align-items: center;
             gap: 8px;
             color: #fbfdffff;
-            
-             
-             border-left: 4px solid #089ae3ff; 
-            
+            border-left: 4px solid #089ae3ff; 
         }
         .menu span {
             white-space: nowrap;
         }
-
         .sidebar.collapsed .menu span,
         .sidebar.collapsed .arrow {
             display: none;
         }
-
         /* Tooltip on collapse */
         .sidebar.collapsed .menu a::after {
             content: attr(data-title);
@@ -439,17 +434,14 @@
     <div position:start>
       <button class="toggle-btn" onclick="toggleSidebar()">
         <!-- <i class="fa-solid fa-chevron-left"></i> -->
-        <i class="fa-solid fa-bars"></i>
-        <span class="arrow"></span>
+        <i class="fa-sharp fa-solid fa-align-left" style="color: #e4b301;"></i>
 
     </button>
-   
 <!-- Flexible Logo on Top -->
 <div class="sidebar-header" style="justify-content: center;">
     <div class="logo" style="width:100%;justify-content:center;">
         <img src="/images/45.png" alt="Logo" style="width:36px;height:36px;">
         <span class="logo-text">EMIS</span>
-    
  </div>
   </div>
 </div>
@@ -464,7 +456,6 @@
         width: 20px;
         height: 20px;
         position: center;
-
     }
 </style>
 <script>
