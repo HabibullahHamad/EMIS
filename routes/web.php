@@ -11,14 +11,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CorrespondenceManagement\DocumentController;
 
 
-// coming
-
+// coming///////////////////////////////////
 
 Route::prefix('CorrespondenceManagement/inbox')
     ->name('CorrespondenceManagement.inbox.')
     ->group(function () {
-
-        
 
         Route::get('/index', [InboxController::class, 'index'])
             ->name('index');
@@ -26,17 +23,9 @@ Route::prefix('CorrespondenceManagement/inbox')
 
 // end
 
-
-
-
-
-
 Route::get('dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-
-
 
 // WEB ROUTES for inbox module//
 Route::get('/CorrespondenceManagement/inbox/inbox', function () {
@@ -48,13 +37,8 @@ Route::get('/CorrespondenceManagement/inbox/index', function () {
 });
 // WEB ROUTES//end of inbox
 
-
-
-
-
 route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
 Route::resource('inbox', InboxController::class);
-
 //USER MANAGEMENT//
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
@@ -62,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('admin/users/create', [UserController::class, 'create'])->name('Administrations.create');
-
 
 route::post('/Administrations/store', [UserController::class, 'store'])->name('Administrations.store');
 
@@ -76,31 +59,15 @@ Route::get('/login', function () {
 
 // Additional routes can be added below as needed
 
-
-
-
-
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
-
-
-
-
 Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
     ->name('inbox.index');
-
-
-
-
-
-
 Route::get('CorrespondenceManagement/inbox/create', function () {
     return view('create');
 });
-
 
 route::get('CorrespondenceManagement/inbox/form', function(){
     return view('form');
@@ -119,28 +86,15 @@ route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
 route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit'); 
 route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');   
 
-
 Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
 
 // documens
-
-
-
-
-
-
-
-
- // Optional for listing all letters
-
+ // Optional for listing all letters //////////////////////////-----
  route::get('/Main', function () {
     return view('Main');
 })->name('Main');
-
-
 Route::get('Task Management/index', [TaskController::class, 'index'])
     ->name('Task Management.index');
-
 
 Route::get('Task Management/create', [TaskController::class, 'create'])
     ->name('Task Management.create');
@@ -160,16 +114,10 @@ route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
 
-    
-
-
-
-
-// for Addministrations module
+// for Addministrations module ////////////////////////////////////////////////////////////////
 
 route::get('Administartions/create',[UserController::class, 'create'])
  ->name('Administrations.create');
-
 
 route::get('Administrations/User Management', [UserController::class, 'index'])
     ->name('Administrations.User Management');
@@ -185,13 +133,11 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
             return view('Administrations.Role Management');
         })->name('Administrations.Role Management');
 
-
   route::get('Administrations/Roles', function () {
     return view('Administrations.Roles');
 })->name('Administrations.Roles');
 
-
-// end roles management
+// end roles management ////////////////////////////////////////////////////////////////
 
 Route::middleware(['auth'])->group(function () {
 
@@ -214,48 +160,36 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-
-
-// admin settings route
+// admin settings route/////////////////////////////////////////////////////////////////
 route::get('admin/settings', function () {
     return view('admin.settings');
 })->name('admin.settings');
-
-
 
 route::get('settings/tabs/createroles',function (){
 return view('settings.tabs.createroles');
 })->name('settings.tabs.createroles');
 
-
-
 route::get('settings/partials/account', function(){
     return view('settings.partials.account');
 })->name('settings.partials.account');
 
-
-
-
-
-// end admin settings route
+// end admin settings route//////////////////////////////////////
 
 route::get('lang/ps',function (){
 return view('lang.ps');
 })->name('lang.ps');
 
-
 route::get('lang/fa',function (){
 return view('lang.fa');
 })->name('lang.fa');
 
-// for coming new documents 
-
+// for coming new documents //////////////////////////////////////////////////////
 
 Route::get('CorrespondenceManagement/inbox/coming', function () {
     return view('CorrespondenceManagement.inbox.coming');
 });
 
-// end of Coming 
+// end of Coming ///////////////////////////////////////////////////////////////////
 
 // tasks
 
@@ -263,37 +197,30 @@ Route::get('Task-management/tasks', function () {
     return view('Task Management.tasks');
 })->name('Task Management.tasks');
 
-
-
-
-      
+    
 route::post('Task-management/Task Deligation', function (){
     return view('Task Management.store');
 
 })->name('Task Management.store');
 
-// tasks
-
+// tasks routes and submissions ///////////////////////////////////////////////////////
 
 Route::get('Task-management/Task Delegation', function () {
     return view('Task Management.Task Delegation');
 })->name('Task Management.Task Delegation');
-// end tasks
+
+// end tasks///////////////////////////////////////////////////////////////////
 
 route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
-
-
-
-
 
 Route::get('Task-management/main', function () {
     return view('Task Management.main');
 })->name('Task Management.main');
-// end task
+
+// end task//////////////////////////////////////////////////////////
 
 
-
- 
+// Start Clock//////////////////////////////////////////////////
 Route::get('clock', function () {
     return view('clock');
 })->name('clock');
