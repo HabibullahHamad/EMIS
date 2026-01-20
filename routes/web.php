@@ -22,6 +22,9 @@ Route::prefix('CorrespondenceManagement/inbox')
     });
 
 // end
+Route::get('/', function () {
+    return view('new');
+})->name('new');
 
 Route::get('dashboard', function () {
     return view('dashboard');
@@ -68,11 +71,9 @@ Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
 Route::get('CorrespondenceManagement/inbox/create', function () {
     return view('create');
 });
-
 route::get('CorrespondenceManagement/inbox/form', function(){
     return view('form');
 });
-
 route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
