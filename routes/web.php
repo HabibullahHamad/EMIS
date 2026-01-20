@@ -226,3 +226,9 @@ Route::get('Task-management/main', function () {
 Route::get('clock', function () {
     return view('clock');
 })->name('clock');
+
+
+// End Clock////////////////////////////////////////////////////
+route::get('/Document Management/Search & Filter', function () {
+    return view('Document Management.Search & Filter');
+})->name('Document Management.Search & Filter');    
