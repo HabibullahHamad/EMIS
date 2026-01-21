@@ -22,6 +22,9 @@ Route::prefix('CorrespondenceManagement/inbox')
     });
 
 // end
+Route::get('/', function () {
+    return view('new');
+})->name('new');
 
 Route::get('dashboard', function () {
     return view('dashboard');
