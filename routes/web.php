@@ -72,11 +72,9 @@ Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'ind
 Route::get('CorrespondenceManagement/inbox/create', function () {
     return view('create');
 });
-
 route::get('CorrespondenceManagement/inbox/form', function(){
     return view('form');
 });
-
 route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
@@ -227,3 +225,9 @@ Route::get('Task-management/main', function () {
 Route::get('clock', function () {
     return view('clock');
 })->name('clock');
+
+
+// End Clock////////////////////////////////////////////////////
+route::get('/Document Management/Search & Filter', function () {
+    return view('Document Management.Search & Filter');
+})->name('Document Management.Search & Filter');    

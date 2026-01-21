@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="#"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>S</a></li>
+                <li><a href="{{route('Document Management.Search & Filter')}}"><i class="fa-solid fa-file-export"></i>Search and filter</a></li>
             </ul>
         </li>
 
