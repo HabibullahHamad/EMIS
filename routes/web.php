@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
+
 Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
     ->name('inbox.index');
 Route::get('CorrespondenceManagement/inbox/create', function () {
@@ -213,13 +214,11 @@ Route::get('Task-management/Task Delegation', function () {
 // end tasks///////////////////////////////////////////////////////////////////
 
 route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
-
 Route::get('Task-management/main', function () {
     return view('Task Management.main');
 })->name('Task Management.main');
 
 // end task//////////////////////////////////////////////////////////
-
 
 // Start Clock//////////////////////////////////////////////////
 Route::get('clock', function () {
