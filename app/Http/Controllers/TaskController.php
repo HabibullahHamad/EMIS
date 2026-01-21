@@ -11,9 +11,9 @@ class TaskController extends Controller
 {
     public function index()
     {
-      $tasks = Task::with(['assignedBy', 'assignedTo'])->latest()->get();
-        return view('Task Management.index', compact('tasks'));
-    }
+    $tasks = Task::with(['assignedBy', 'assignedTo'])->paginate(10); // Use paginate() here
+    return view('Task Management.index', compact('tasks'));
+}
 
     public function show(Task $task)
     {

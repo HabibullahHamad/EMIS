@@ -23,8 +23,7 @@
                 <tbody>
                     @forelse($tasks as $task)
                         <tr>
-                             <td>{{ $loop->iteration + ($tasks->currentPage()-1) * $tasks->perPage(10) }}</td>
-                             <td>{{ $task->title }}</td>
+<td>{{ $loop->iteration + ($tasks->currentPage() - 1) * $tasks->perPage() }}</td>                             <td>{{ $task->title }}</td>
                                  <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
                     <td>{{ $task->assignedTo->name ?? 'N/A' }}</td>
                             <td>{{ $task->priority }}</td>

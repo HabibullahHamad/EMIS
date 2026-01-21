@@ -1,104 +1,106 @@
 @extends('new')
+
 @section('content')
-{{-- resources/views/documents/index.blade.php --}}
-<div class="container">
-
-    <h4 class="mb-3">Search & Filter Documents</h4>
-
-    {{-- Search Panel --}}
-    <form method="GET" action="#" class="card card-body mb-4">
-
-        <div class="row g-3">
-
-            <div class="col-md-3">
-                <input type="text" name="title" class="form-control"
-                       placeholder="Document Title"
-                       value="{{ request('title') }}">
-            </div>
-
-            <div class="col-md-2">
-                <select name="document_type" class="form-select">
-                    <option value="">Document Type</option>
-                    <option value="Form">Form</option>
-                    <option value="Report">Report</option>
-                    <option value="Letter">Letter</option>
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <select name="status" class="form-select">
-                    <option value="">Status</option>
-                    <option value="Draft">Draft</option>
-                    <option value="Submitted">Submitted</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <input type="date" name="date_from" class="form-control"
-                       value="{{ request('date_from') }}">
-            </div>
-
-            <div class="col-md-2">
-                <input type="date" name="date_to" class="form-control"
-                       value="{{ request('date_to') }}">
-            </div>
-
-            <div class="col-md-1 d-grid">
-                <button class="btn btn-primary">Search</button>
-            </div>
-
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Search & Filter</h1>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">Search and Filter Records</h5>
         </div>
-    </form>
+        <div class="card-body">
+            <form method="GET" action="#">
+                <div class="row g-3">
+                    <!-- Search Field -->
+                    <div class="col-md-4">
+                        <label for="search" class="form-label fw-bold">Search</label>
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Enter keyword" value="{{ request('search') }}">
+                    </div>
 
-    {{-- Results Table --}}
-    <div class="card">
-        <div class="card-body p-0">
-            <table class="table table-bordered table-striped mb-0">
+                    <!-- Filter by Date -->
+                    <div class="col-md-4">
+                        <label for="start_date" class="form-label fw-bold">Start Date</label>
+                        <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="end_date" class="form-label fw-bold">End Date</label>
+                        <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request('end_date') }}">
+                    </div>
+
+                    <!-- Filter by Category -->
+                    <div class="col-md-4">
+                        <label for="category" class="form-label fw-bold">Category</label>
+                        <select name="category" id="category" class="form-select">
+                            <option value="">Select Category</option>
+                            <option value="category1" {{ request('category') == 'category1' ? 'selected' : '' }}>Category 1</option>
+                            <option value="category2" {{ request('category') == 'category2' ? 'selected' : '' }}>Category 2</option>
+                            <option value="category3" {{ request('category') == 'category3' ? 'selected' : '' }}>Category 3</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter by Status -->
+                    <div class="col-md-4">
+                        <label for="status" class="form-label fw-bold">Status</label>
+                        <select name="status" id="status" class="form-select">
+                            <option value="">Select Status</option>
+                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                    <a href="#" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-clockwise"></i> Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h5 class="mb-3">Search Results</h5>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Directorate</th>
-                        <th>Created Date</th>
-                        <th>Action</th>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-
-                @forelse($table as $doc)
+                    <!-- Loop through results -->
+                    @forelse ($results ?? [] as $result)
                     <tr>
-                        <td>{{ $doc->id }}</td>
-                        <td>{{ $doc->title }}</td>
-                        <td>{{ $doc->document_type }}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $result->column1 ?? '#' }}</td>
+                        <td>{{ $result->column2 ?? '#' }}</td>
+                        <td>{{ $result->column3 ?? '#' }}</td>
                         <td>
-                            <span class="badge bg-secondary">{{ $doc->status }}</span>
-                        </td>
-                        <td>{{ $doc->directorate }}</td>
-                        <td>{{ $doc->created_at->format('Y-m-d') }}</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-outline-info">View</a>
+                            <a href="#" class="btn btn-sm btn-info text-white">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a href="#" class="btn btn-sm btn-warning text-white">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a href="#" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
                         </td>
                     </tr>
-                @empty
+                    @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted">
-                            No records found
-                        </td>
+                        <td colspan="5" class="text-center text-muted">No records found.</td>
                     </tr>
-                @endforelse
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="mt-3">
-        {{ $documents->links() }}
-    </div>
-
 </div>
 @endsection
-
