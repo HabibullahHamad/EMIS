@@ -113,8 +113,17 @@ Route::put('Task Management/{task}', [TaskController::class, 'update'])
 route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
     ->name('Task Management.destroy');
 
+
+
+
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
+
+route::put('Task Management/{task}/status/{status}', [TaskController::class, 'updateStatus'])
+    ->name('Task Management.updateStatus');
+
+
+// end of documents ////////////////////////////////////////////////////////
 
 // for Addministrations module ////////////////////////////////////////////////////////////////
 
@@ -219,6 +228,8 @@ Route::get('Task-management/main', function () {
     return view('Task Management.main');
 })->name('Task Management.main');
 
+
+route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
 // end task//////////////////////////////////////////////////////////
 
 

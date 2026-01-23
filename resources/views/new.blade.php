@@ -603,6 +603,7 @@ document.addEventListener('DOMContentLoaded', function () {
                <li><a href="{{route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Task Delegation</a></li>
                 <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
                 <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>
+                <li><a href="{{route('Task Management.index')}}"><i class="fa-solid fa-user-shield"></i>index</a></li>
             </ul>
         </li>
 

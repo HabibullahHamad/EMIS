@@ -1,85 +1,50 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
 use App\Models\Task;
-use App\Models\User;
+use Illuminate\Http\Request;
 class TaskController extends Controller
-
-
-
 {
-    public function index()
+    public function index(Request $request)
     {
-      $tasks = Task::with(['assignedBy', 'assignedTo'])->latest()->get();
+
+
+        $tasks = Task::with('assignee')
+            ->when($request->status, fn($q) =>
+                $q->where('status', $request->status))
+
+            ->latest()
+            ->paginate(10);
+
+
         return view('Task Management.index', compact('tasks'));
-    }
-
-    public function show(Task $task)
-    {
-        return view('Task Management.show', compact('task'));
-    }
-
-    public function create()
-    {
-        $users = User::all();
-        return view('Task Management.create', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'assigned_by' => 'required',
-            'assigned_to' => 'required',
-            'due_date' => 'required',
-            'priority' => 'required',
-        ]);
-
         Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'assigned_by' => $request->assigned_by,
-            'assigned_to' => $request->assigned_to,
-            'priority' => $request->priority,
-            'due_date' => $request->due_date,
+            'task_code'  => 'TSK-' . now()->format('Ymd-His'),
+            'title'      => $request->title,
+            'description'=> $request->description,
+            'assigned_to'=> $request->assigned_to,
+            'assigned_by'=> $request->assigned_by,
+            'priority'   => $request->priority,
+            'due_date'   => $request->due_date,
         ]);
 
-        return redirect()->route('Task Management.index')
-            ->with('success','Task delegated successfully');
+        return back()->with('success','Task assigned successfully');
     }
 
-    public function edit(Task $task)
+    public function updateStatus(Task $task, $status)
     {
-        $users = User::all();
-        return view('Task Management.edit', compact('task','users'));
+        $task->update(['status'=>$status]);
+        return back();
     }
-
-    public function update(Request $request, Task $task)
-    {
-        $task->update($request->all());
-
-        return redirect()->route('tasks.index')
-            ->with('success','Task updated Successfully');
-    }
-
 
     public function destroy(Task $task)
     {
         $task->delete();
-        
-        return back()->with('success','Task deleted Successfully');
+        return back()->with('success','Task deleted successfully');
     }
-
-
-    public function delegation()
-{
-    $users = User::select('id', 'name')->get();
-
-    return view('Task Management.Task Delegation', compact('users'));
-}
-
-
-
 }
