@@ -8,7 +8,8 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-<<<<<<< HEAD
+
+
 
 
         $tasks = Task::with('assignee')
@@ -21,11 +22,6 @@ class TaskController extends Controller
 
         return view('Task Management.index', compact('tasks'));
     }
-=======
-    $tasks = Task::with(['assignedBy', 'assignedTo'])->paginate(10); // Use paginate() here
-    return view('Task Management.index', compact('tasks'));
-}
->>>>>>> 0176b2a309565435c4779e6e0a6df2212c792896
 
     public function store(Request $request)
     {
