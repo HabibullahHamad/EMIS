@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
+
 Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
     ->name('inbox.index');
 Route::get('CorrespondenceManagement/inbox/create', function () {
@@ -223,7 +224,6 @@ Route::get('Task-management/Task Delegation', function () {
 // end tasks///////////////////////////////////////////////////////////////////
 
 route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
-
 Route::get('Task-management/main', function () {
     return view('Task Management.main');
 })->name('Task Management.main');
@@ -231,7 +231,6 @@ Route::get('Task-management/main', function () {
 
 route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
 // end task//////////////////////////////////////////////////////////
-
 
 // Start Clock//////////////////////////////////////////////////
 Route::get('clock', function () {
@@ -243,3 +242,27 @@ Route::get('clock', function () {
 route::get('/Document Management/Search & Filter', function () {
     return view('Document Management.Search & Filter');
 })->name('Document Management.Search & Filter');    
+
+route::get('/Document Management/Documents', function () {
+    return view('Document Management.Documents');
+})->name('Document Management.Documents');
+route::get('/Document Management/Upload Document', function () {
+    return view('Document Management.Upload Document');
+})->name('Document Management.Upload Document');
+route::get('/Document Management/Document Details', function () {
+    return view('Document Management.Document Details');
+})->name('Document Management.Document Details');
+route::get('/Document Management/Edit Document', function () {
+    return view('Document Management.Edit Document');
+})->name('Document Management.Edit Document');
+Route::resource('documents', DocumentController::class);
+route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
+route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
+route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');    
+route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
+route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
+
+Route::get('/Document Management/Search', [DocumentController::class, 'search'])->name('documents.search');
+// end document management routes /////////////////////////////////////////////////

@@ -2,6 +2,7 @@
 @section('content')
 <style>
 
+<<<<<<< HEAD
 </style>
 <div class="container-fluid">
 <!-- ================= HEADER ================= -->
@@ -10,6 +11,46 @@
         <h4 class="mb-0">Task Management</h4>
         <small class="text-muted">Assigned, Managed, Controlled & Followed-up Tasks</small>
     </div>
+=======
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Assighned By</th>
+                        <th>Assigned To</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Progress</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($tasks as $task)
+                        <tr>
+<td>{{ $loop->iteration + ($tasks->currentPage() - 1) * $tasks->perPage() }}</td>                             <td>{{ $task->title }}</td>
+                                 <td>{{ $task->assignedBy->name ?? 'N/A' }}</td>
+                    <td>{{ $task->assignedTo->name ?? 'N/A' }}</td>
+                            <td>{{ $task->priority }}</td>
+                            <td>{{ $task->status }}</td>
+                            <td>{{ $task->due_date}}</td>
+                            <td>{{ $task->progress }}%</td>
+                            <td>
+                                <a href="{{ route('Task Management.show', $task->id) }}" class="btn btn-sm btn-info">View</a>
+                                <a href="{{ route('Task Management.edit', $task->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No tasks found</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+>>>>>>> 0176b2a309565435c4779e6e0a6df2212c792896
 
     <div class="d-flex gap-1">
         <a href="{{ route('Task Management.index') }}" class="btn btn-outline-primary">
