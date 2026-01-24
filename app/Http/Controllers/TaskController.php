@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Task;
 use Illuminate\Http\Request;
 class TaskController extends Controller
@@ -14,8 +13,6 @@ class TaskController extends Controller
                 $q->where('status', $request->status))
             ->paginate(10);
             
-
-
         return view('Task Management.index', compact('tasks'));
     }
 
@@ -44,13 +41,5 @@ class TaskController extends Controller
     {
         $task->delete();
         return back()->with('success','Task deleted successfully');
-    }
-
-
-    
-
-    public function show(Task $task)
-    {
-        return view('Task Management.show', compact('task'));
     }
 }

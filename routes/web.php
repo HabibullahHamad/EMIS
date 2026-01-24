@@ -99,6 +99,9 @@ Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.d
 Route::get('Task Management/index', [TaskController::class, 'index'])
     ->name('Task Management.index');
 
+route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
+
+
 Route::get('Task Management/create', [TaskController::class, 'create'])
     ->name('Task Management.create');
 
@@ -114,11 +117,24 @@ Route::put('Task Management/{task}', [TaskController::class, 'update'])
 route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
     ->name('Task Management.destroy');
 
+
+
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
 
-route::get('Task Management/dashboard', [TaskController::class, 'dashboard'])
-    ->name('Task Management.dashboard');
+
+    route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::get('Task-management/main', function () {
+    return view('Task Management.main');
+})->name('Task Management.main');
+
+Route::get('Task-management/Task Delegation', function () {
+    return view('Task Management.Task Delegation');
+})->name('Task Management.Task Delegation');
+
+route::get('Task-management/tasks', function () {
+    return view('Task Management.tasks');
+})->name('Task Management.tasks');
 
 
 // end of documents ////////////////////////////////////////////////////////
@@ -204,35 +220,15 @@ Route::get('CorrespondenceManagement/inbox/coming', function () {
 
 // tasks
 
-Route::get('Task-management/tasks', function () {
-    return view('Task Management.tasks');
-})->name('Task Management.tasks');
 
-    
-route::post('Task-management/Task Deligation', function (){
-    return view('Task Management.store');
-
-})->name('Task Management.store');
 
 // tasks routes and submissions ///////////////////////////////////////////////////////
 
-Route::get('Task-management/Task Delegation', function () {
-    return view('Task Management.Task Delegation');
-})->name('Task Management.Task Delegation');
+
 
 // end tasks///////////////////////////////////////////////////////////////////
 
-route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::get('Task-management/main', function () {
-    return view('Task Management.main');
-})->name('Task Management.main');
 
-
-route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
-route::get('Task-management/dashboard', [TaskController::class, 'dashboard'])->name('Task Management.dashboard');   
-
-Route::get('/tasks/{task}', [TaskController::class, 'show'])
-    ->name('tasks.show');
 
 // end task//////////////////////////////////////////////////////////
 
