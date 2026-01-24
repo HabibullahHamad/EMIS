@@ -2,24 +2,54 @@
 @section('content')
 
 <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
     .tablel{
-        font-size: 14px;
-        height: 30px;
         width: 100%;
-        padding: 1px;
-        margin: 0;
-        border: 1px solid #dee2e6;
-        border-collapse: collapse;
-        margin: 0;
-        font-family: Times New Roman, Times, serif;
-    
+         font-size:15px;
+      color: #1169ec;
+      height: inherit;
+      width:100%;
+        margin-bottom: 0px; 
+        font-style: bold;     
+    }
+    .tablel th, .tablel td {
+        padding: 0px;
+        text-align: center;
+    }
+    .tablel th {
+        background-color: #1674d1ff;
+        color: white;
     }
 </style>
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Task Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('Task Management.index') }}">Refresh</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                        + New Task
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <!-- ================= HEADER ================= -->
 <div style="margin: 0px; padding: 0px;" class="container-fluid">
 <div class="d-flex justify-content-between align-items-center mb-0 p-0 bg-light border-bottom shadow-sm">
@@ -140,18 +170,21 @@
 </div>
 
 <!-- ================= TASK TABLE ================= -->
-<div class="card shadow-sm">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <Medium>All Tasks</Medium>
-        <span class="badge bg-secondary">Total: {{ $tasks->total() }}</span>
-    </div>
+<div class="mt-3 mb-3 items center justify-center fixed">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+            <Medium>All Tasks</Medium>
+            <span class="badge bg-secondary">Total: {{ $tasks->total() }}</span>
+            </div>
 
-    <div>
+    <div class="card-body p-0">
         <style>
         /* Compact table rows for Task Management table */
-  
+        .tablel th, .tablel td {
+            padding: 0px 1px; /* Reduced padding for compactness */
+        }
         </style>
-<div class="container mt-3">
+        <div class="container mt-1 mb-1 p-0 content-center content-middle-fixed">
       <table class="tablel">
           <thead style="font-size: 0.8rem; text-transform: uppercase; background-color:#1674d1ff; color: white;">
             <tr>
@@ -176,7 +209,7 @@
                      <td>{{ $task->priority }}</td>
                       <td>{{ $task->status }}</td>
                        <td>{{ $task->due_date}}</td>
-                <td>
+                       <td style="text-align: center;">
                     <a href="{{ route('Task Management.show', $task->id) }}" class="btn btn-sm btn-info" title="View">
                         <i class="bi bi-eye"></i>
                     </a>
@@ -186,7 +219,7 @@
                     <a href="{{ route('Task Management.destroy', $task->id) }}" class="btn btn-sm btn-danger" title="Delete" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $task->id }}').submit();">
                         <i class="bi bi-trash"></i>
                     </a>
-                    
+
                     <form id="delete-form-{{ $task->id }}" action="{{ route('Task Management.destroy', $task->id) }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
