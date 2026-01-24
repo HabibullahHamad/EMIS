@@ -8,16 +8,11 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-
-
-
-
         $tasks = Task::with('assignee')
             ->when($request->status, fn($q) =>
                 $q->where('status', $request->status))
-
-            ->latest()
             ->paginate(10);
+            
 
 
         return view('Task Management.index', compact('tasks'));

@@ -1,11 +1,13 @@
 @extends('new')
 @section('content')
-<style>
 
-</style>
-<div class="container-fluid">
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <!-- ================= HEADER ================= -->
-<div class="d-flex justify-content-between align-items-center mb-0 mt-0">
+<div style="margin: 0px; padding: 0px;" class="container-fluid">
+<div class="d-flex justify-content-between align-items-center mb-0 p-0 bg-light border-bottom shadow-sm">
     <div>
         <h4 class="mb-0">Task Management</h4>
         <small class="text-muted">Assigned, Managed, Controlled & Followed-up Tasks</small>
@@ -22,13 +24,11 @@
 </div>
 
 <!-- ================= SYSTEM STATUS BAR ================= -->
-<div class="alert alert-info d-flex justify-content-between align-items-center">
-    <div>
-        <span class="badge bg-success">System Active</span>
+    <div class="bg-info text-green p-1 d-flex justify-content-between align-items-center mb-1 rounded">
+        <span class="badge bg-info ">System Active</span>
         Last Update: {{ now()->format('h:i A') }}
     </div>
-
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-0">
         <span class="badge bg-warning">
             Assigned: {{ \App\Models\Task::where('status','Assigned')->count() }}
         </span>
@@ -42,7 +42,7 @@
 </div>
 
 <!-- ================= SUMMARY CARDS ================= -->
-<div class="row g-1 mb-1">
+<div class="row g-1 mb-0 PB-0">
     <div class="col-md-3">
         <div class="card bg-warning text-white shadow-sm">
             <div class="card-body">
@@ -81,8 +81,8 @@
 </div>
 
 <!-- ================= FILTER PANEL ================= -->
-<div class="card mb-2">
-    <div class="card-body">
+<div class="card mb-0 mt-0 pt-0 shadow-sm">
+    <div class="card-body"> 
         <form method="GET" action="{{ route('Task Management.index') }}" class="row g-2 align-items-end">
 
             <div class="col-md-3">
@@ -127,7 +127,7 @@
 <!-- ================= TASK TABLE ================= -->
 <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <strong>All Tasks</strong>
+        <Medium>All Tasks</Medium>
         <span class="badge bg-secondary">Total: {{ $tasks->total() }}</span>
     </div>
 
@@ -190,8 +190,9 @@
 </div>
  
     
-    <div class="card-footer d-flex justify-content-center">
-        {{ $tasks->withQueryString()->links() }}
+    <div class="paginationDiv mt-3 mb-3 d-flex justify-content-center">
+        {{ $tasks->links('pagination::bootstrap-5')}}
+
     </div>
 
 </div>
@@ -274,7 +275,11 @@
 <style>
 .table-hover tbody tr:hover {
     background-color: #e9f5ff;
+}
 
+/* Adjust the size of icons in the Actions column */
+.table .bi {
+    font-size: 1rem; /* Adjust the size as needed */
 }
 </style>
 @endsection
