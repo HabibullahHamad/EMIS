@@ -1,6 +1,21 @@
 @extends('new')
 @section('content')
 
+<style>
+    .tablel{
+        font-size: 14px;
+        height: 30px;
+        width: 100%;
+        padding: 1px;
+        margin: 0;
+        border: 1px solid #dee2e6;
+        border-collapse: collapse;
+        margin: 0;
+        font-family: Times New Roman, Times, serif;
+    
+    }
+</style>
+
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,10 +39,10 @@
 </div>
 
 <!-- ================= SYSTEM STATUS BAR ================= -->
-    <div class="bg-info text-green p-1 d-flex justify-content-between align-items-center mb-1 rounded">
-        <span class="badge bg-info ">System Active</span>
+<div class="d-flex justify-content-between align-items-center bg-white text-color-green">
+        <span class="badge bg-info text-green">System Active</span>
         Last Update: {{ now()->format('h:i A') }}
-    </div>
+  
     <div class="d-flex gap-0">
         <span class="badge bg-warning">
             Assigned: {{ \App\Models\Task::where('status','Assigned')->count() }}
@@ -136,8 +151,8 @@
         /* Compact table rows for Task Management table */
   
         </style>
-        <div class="table-responsive-sm">
-  <table class="table">
+<div class="container mt-3">
+      <table class="tablel">
           <thead style="font-size: 0.8rem; text-transform: uppercase; background-color:#1674d1ff; color: white;">
             <tr>
                 <th>#</th>
@@ -171,6 +186,7 @@
                     <a href="{{ route('Task Management.destroy', $task->id) }}" class="btn btn-sm btn-danger" title="Delete" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $task->id }}').submit();">
                         <i class="bi bi-trash"></i>
                     </a>
+                    
                     <form id="delete-form-{{ $task->id }}" action="{{ route('Task Management.destroy', $task->id) }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
