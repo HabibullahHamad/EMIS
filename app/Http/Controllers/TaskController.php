@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Task;
 use Illuminate\Http\Request;
 class TaskController extends Controller
@@ -45,10 +46,11 @@ class TaskController extends Controller
         return back()->with('success','Task deleted successfully');
     }
 
-    public function executiveDashboard()
-    {
-        $tasks = Task::with('assignee')->get();
-        return view('Task Management.dashboard', compact('tasks'));
-    }
+
     
+
+    public function show(Task $task)
+    {
+        return view('Task Management.show', compact('task'));
+    }
 }

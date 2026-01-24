@@ -114,19 +114,11 @@ Route::put('Task Management/{task}', [TaskController::class, 'update'])
 route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
     ->name('Task Management.destroy');
 
-
-
-
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
 
-    route::put('Task Management/{task}/status/{status}', [TaskController::class, 'updateStatus'])
-    ->name('Task Management.updateStatus');
-
-route::get('Task Management/dashboard', [TaskController::class, 'executiveDashboard'])
+route::get('Task Management/dashboard', [TaskController::class, 'dashboard'])
     ->name('Task Management.dashboard');
-
-    
 
 
 // end of documents ////////////////////////////////////////////////////////
@@ -141,6 +133,8 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
 
     route::get('Administrations/User Management/create', [UserController::class, 'create'])
         ->name('Administrations.User Management.create');
+
+
 
         route::get('Administrations/login', function () {
             return view('Administrations.login');
@@ -235,6 +229,11 @@ Route::get('Task-management/main', function () {
 
 
 route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
+route::get('Task-management/dashboard', [TaskController::class, 'dashboard'])->name('Task Management.dashboard');   
+
+Route::get('/tasks/{task}', [TaskController::class, 'show'])
+    ->name('tasks.show');
+
 // end task//////////////////////////////////////////////////////////
 
 // Start Clock//////////////////////////////////////////////////
