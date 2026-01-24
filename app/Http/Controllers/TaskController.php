@@ -44,4 +44,11 @@ class TaskController extends Controller
         $task->delete();
         return back()->with('success','Task deleted successfully');
     }
+
+    public function executiveDashboard()
+    {
+        $tasks = Task::with('assignee')->get();
+        return view('Task Management.dashboard', compact('tasks'));
+    }
+    
 }

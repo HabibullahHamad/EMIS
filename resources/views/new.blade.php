@@ -170,7 +170,7 @@
 
 /* CONTENT OFFSET */
 .content{
-    margin-top:64px;
+    margin-top:22px;
 }
 
 /* end navbar */
@@ -224,6 +224,7 @@
 
         body {
             background: #f4f6f9;
+            
         }
         /* Make menu scrollable so long sub-menus won't extend past the viewport */
         .sidebar {
@@ -604,6 +605,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
                 <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>
                 <li><a href="{{route('Task Management.index')}}"><i class="fa-solid fa-user-shield"></i>index</a></li>
+                <li><a href="{{route('Task Management.dashboard')}}"><i class="fa-solid fa-user-shield"></i>Dashboard</a></li>
+                
             </ul>
         </li>
 

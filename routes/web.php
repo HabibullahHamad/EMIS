@@ -120,8 +120,13 @@ route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
 
-route::put('Task Management/{task}/status/{status}', [TaskController::class, 'updateStatus'])
+    route::put('Task Management/{task}/status/{status}', [TaskController::class, 'updateStatus'])
     ->name('Task Management.updateStatus');
+
+route::get('Task Management/dashboard', [TaskController::class, 'executiveDashboard'])
+    ->name('Task Management.dashboard');
+
+    
 
 
 // end of documents ////////////////////////////////////////////////////////

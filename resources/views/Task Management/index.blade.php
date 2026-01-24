@@ -7,6 +7,7 @@
         background-color: #f8f9fa;
         margin: 0;
         padding: 0;
+        position: inherit;
     }
     .tablel{
         width: 100%;
@@ -25,33 +26,11 @@
         background-color: #1674d1ff;
         color: white;
     }
-</style>
-
-    
+</style>    
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Task Management</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('Task Management.index') }}">Refresh</a>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createTaskModal">
-                        + New Task
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <!-- ================= HEADER ================= -->
-<div style="margin: 0px; padding: 0px;" class="container-fluid">
+<div>
 <div class="d-flex justify-content-between align-items-center mb-0 p-0 bg-light border-bottom shadow-sm">
     <div>
         <h4 class="mb-0">Task Management</h4>
@@ -69,22 +48,6 @@
 </div>
 
 <!-- ================= SYSTEM STATUS BAR ================= -->
-<div class="d-flex justify-content-between align-items-center bg-white text-color-green">
-        <span class="badge bg-info text-green">System Active</span>
-        Last Update: {{ now()->format('h:i A') }}
-  
-    <div class="d-flex gap-0">
-        <span class="badge bg-warning">
-            Assigned: {{ \App\Models\Task::where('status','Assigned')->count() }}
-        </span>
-        <span class="badge bg-primary">
-            In Progress: {{ \App\Models\Task::where('status','In Progress')->count() }}
-        </span>
-        <span class="badge bg-success">
-            Completed: {{ \App\Models\Task::where('status','Completed')->count() }}
-        </span>
-    </div>
-</div>
 
 <!-- ================= SUMMARY CARDS ================= -->
 <div class="row g-1 mb-0 PB-0">
@@ -156,8 +119,8 @@
                 <input type="date" name="due_date" class="form-control">
             </div>
 
-            <div class="col-md-3 d-flex gap-2">
-                <button class="btn btn-primary w-100">
+            <div class="col-md-3 d-flex gap-1">
+                <button class="btn btn-primary w-100 font-weight-normal size:sm">
                     Apply Filters
                 </button>
                 <a href="{{ route('Task Management.index') }}" class="btn btn-outline-secondary w-100">
