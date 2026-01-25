@@ -136,6 +136,9 @@ route::get('Task-management/tasks', function () {
     return view('Task Management.tasks');
 })->name('Task Management.tasks');
 
+route::get('Task management/dashboard', function () {
+    return view('Task Management.dashboard');
+})->name('Task Management.dashboard');
 
 
 // end of documents ////////////////////////////////////////////////////////

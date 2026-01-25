@@ -605,8 +605,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
                 <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>
                 <li><a href="{{route('Task Management.index')}}"><i class="fa-solid fa-user-shield"></i>index</a></li>
-                <li><a href="{{route('Task Management.dashboard')}}"><i class="fa-solid fa-user-shield"></i>Dashboard</a></li>
-                
+                <li><a href="{{route('Task Management.dashboard')}}"><i class="fa-solid fa-user-shield"></i>dashboard</a></li>
             </ul>
         </li>
 
