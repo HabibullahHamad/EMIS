@@ -1,9 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>    
+    <!-- RTL + Pashto font -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap RTL -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- RTL fixed top navbar + content offsets -->
+    <style>
+        :root {
+            --sidebar-width: 230px;
+            --sidebar-collapsed-width: 70px;
+        }
+
+        /* Ensure document RTL */
+        html, body { direction: rtl !important; }
+
+        /* Fixed top navbar that spans from left page edge to the sidebar on the right (RTL) */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: var(--sidebar-width);
+            height: 40px;
+            background: #b7bbbbff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            z-index: 9999;
+            transition: right 0.25s ease;
+        }
+
+        /* Adjust when sidebar collapsed */
+        .sidebar.collapsed ~ .top-navbar {
+            right: var(--sidebar-collapsed-width);
+        }
+
+        /* Main content offset to leave room for the right sidebar (RTL) */
+        main.content {
+            margin-top: 48px; /* space for fixed navbar */
+            margin-right: var(--sidebar-width);
+            margin-left: 4px;
+            transition: margin-right 0.25s ease;
+        }
+        .sidebar.collapsed ~ main.content {
+            margin-right: var(--sidebar-collapsed-width);
+        }
+
+        /* Make search input align RTL inside navbar */
+        .top-navbar .nav-search input {
+            text-align: right;
+        }
+
+        /* Keep dropdowns aligned toward the sidebar (right edge) */
+        .top-navbar .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+    </style>
+
+    <script>
+        // Ensure top navbar reacts to sidebar state on load (in case of persisted collapsed state)
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const top = document.getElementById('topNavbar');
+            const adjust = () => {
+                if (!sidebar || !top) return;
+                if (sidebar.classList.contains('collapsed')) {
+                    top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width') || '70px';
+                } else {
+                    top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width') || '230px';
+                }
+            };
+            // run once and when sidebar class changes
+            adjust();
+            new MutationObserver(adjust).observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+        });
+    </script>
+    <style>
+        :root{
+            --sidebar-width:230px;
+            --sidebar-collapsed-width:70px;
+        }
+
+        html, body { direction: rtl !important; font-family: 'Noto Sans Arabic', sans-serif !important; }
+        /* flip common alignment helpers used in page if necessary */
+        .text-start { text-align: right !important; }
+        .text-end { text-align: left !important; }
+
+        /* Sidebar on the right for RTL layout */
+        .sidebar { right: 0; left: auto; }
+        .sidebar.collapsed { width: var(--sidebar-collapsed-width); }
+
+        /* Content offset for RTL (space on the right for the sidebar) */
+        .content { margin-right: var(--sidebar-width); margin-left: 15px; }
+        .sidebar.collapsed ~ .content { margin-right: var(--sidebar-collapsed-width); margin-left: 15px; }
+
+        /* Top navbar spans from left edge to sidebar (on the right) */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: var(--sidebar-width);
+            height: 40px;
+            background: #b7bbbbff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            z-index: 999;
+            transition: right 0.3s ease;
+        }
+        /* Adjust when sidebar collapsed */
+        .sidebar.collapsed ~ .top-navbar{
+            right: var(--sidebar-collapsed-width);
+        }
+
+        /* Navbar internal alignment for RTL:
+           nav-left sits at start (left side of the page), nav-right at end (near the sidebar) */
+        .nav-left { display:flex; align-items:center; gap:12px; }
+        .nav-right { display:flex; align-items:center; gap:18px; }
+
+        /* SEARCH alignment */
+        .nav-search{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            background:#f1f5f9;
+            padding:6px 10px;
+            border-radius:8px;
+        }
+        .nav-search input{
+            border:none;
+            background:none;
+            outline:none;
+            font-size:13px;
+            text-align: right; /* RTL input */
+        }
+
+        /* adjust some icon spacing for RTL */
+        .menu a { padding-right: 15px; padding-left: 0; }
+        .menu a .fa-solid, .menu a .fa-sharp { margin-left: 10px; margin-right: 0; }
+
+        /* Ensure dropdowns align toward the sidebar (right side) */
+        .top-navbar .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+
+        /* small tweaks to keep other RTL rules consistent */
+        .sidebar.collapsed .menu span,
+        .sidebar.collapsed .arrow {
+            display: none;
+        }
+
+    </style>
+
+    <script>
+        // set document language and direction
+        document.documentElement.lang = 'ps';
+        document.documentElement.dir = 'rtl';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // basic English -> Pashto translations for visible labels/attributes
+            const map = {
+                "Dashboard":"ډشبورډ",
+                "Management":"مدیریت",
+                "Task Management":"د دندو مدیریت",
+                "Documents Management":"د اسنادو مدیریت",
+                "Documnets Management":"د اسنادو مدیریت",
+                "Tasks Management":"د دندو مدیریت",
+                "Settings":"تنظیمات",
+                "Analytics":"تحلیلونه",
+                "Reports":"راپورونه",
+                "Search EMIS...":"د EMIS لټون...",
+                "Admin":"مدیر",
+                "Logged In":"ننووتی",
+                "Create Users":"کارن جوړ کړئ",
+                "Craete Users":"کارن جوړ کړئ",
+                "Roles":"رولونه",
+                "Login":"ننوتل",
+                "Role Management":"د رول مدیریت",
+                "User Management":"د کاروونکو مدیریت",
+                "Permissions":"اجازې",
+                "Inbox":"انباکس",
+                "Coming":"راتلونکی",
+                "Outgoing Dts":"صادر اسناد",
+                "Create":"جوړول",
+                "Search and filter":"لټون او فلټر",
+                "Task Delegation":"د دندو سپارل",
+                "Create Task":"دنده جوړول",
+                "Main Page":"اصلي مخ",
+                "index":"فهرست",
+                "dashboard":"ډشبورډ",
+                "Clock":"ساعت",
+                "Profile":"پروفایل",
+                "Logout":"وتل",
+                "Success":"بریالی",
+                "Error":"تېروتنه",
+                "Warning":"خبرداری",
+                "Validation Error":"د تصدیق تېروتنه",
+                "Are you sure?":"ایا تاسو ډاډمن یاست؟",
+                "This action cannot be undone!":"دا عمل بیرته نشي کیدی!",
+                "Yes, delete it!":"هو، حذف یې کړئ!",
+                "Cancel":"لغوه"
+            };
+
+            // translate text nodes
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let node;
+            const textNodes = [];
+            while (walker.nextNode()) textNodes.push(walker.currentNode);
+            textNodes.forEach(n => {
+                const t = n.nodeValue.trim();
+                if (t && map[t]) n.nodeValue = n.nodeValue.replace(t, map[t]);
+            });
+
+            // translate attributes: placeholders and data-title
+            document.querySelectorAll('[placeholder]').forEach(el => {
+                const p = el.getAttribute('placeholder');
+                if (p && map[p]) el.setAttribute('placeholder', map[p]);
+            });
+            document.querySelectorAll('[data-title]').forEach(el => {
+                const d = el.getAttribute('data-title');
+                if (d && map[d]) el.setAttribute('data-title', map[d]);
+            });
+
+            // translate common elements by exact innerText
+            document.querySelectorAll('a,button,span,small,strong,h1,h2,h3,h4,h5,label').forEach(el => {
+                const t = el.textContent.trim();
+                if (t && map[t]) el.textContent = map[t];
+            });
+
+            // Override Swal.fire to translate titles/text automatically when used later in page
+            if (window.Swal) {
+                const _fire = Swal.fire.bind(Swal);
+                Swal.fire = function (opts) {
+                    if (typeof opts === 'object') {
+                        if (opts.title && map[opts.title]) opts.title = map[opts.title];
+                        if (opts.text && map[opts.text]) opts.text = map[opts.text];
+                        if (opts.confirmButtonText && map[opts.confirmButtonText]) opts.confirmButtonText = map[opts.confirmButtonText];
+                        if (opts.cancelButtonText && map[opts.cancelButtonText]) opts.cancelButtonText = map[opts.cancelButtonText];
+                        if (opts.html && typeof opts.html === 'string') {
+                            Object.keys(map).forEach(k => { opts.html = opts.html.split(k).join(map[k]); });
+                        }
+                    }
+                    return _fire(opts);
+                };
+            }
+
+            // Override confirmDelete used in page to show Pashto confirm
+            window.confirmDelete = function (formId) {
+                if (window.Swal) {
+                    Swal.fire({
+                        title: 'ایا تاسو ډاډمن یاست؟',
+                        text: 'دا عمل بیرته نشي کیدی!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'هو، حذف یې کړئ!',
+                        cancelButtonText: 'لغوه'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(formId).submit();
+                        }
+                    });
+                } else {
+                    if (confirm('ایا تاسو ډاډمن یاست؟')) document.getElementById(formId).submit();
+                }
+            };
+        });
+    </script>
+</head>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -21,20 +296,20 @@
     <!-- Custom scrollbar: smaller and smarter -->
 
 <style>
-.modal-dialog-bottom-left {
+.modal-dialog-bottom-right{
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     margin: 0;
     max-width:500px;
 }
 
 /* Smooth slide-up animation */
-.modal.fade .modal-dialog-bottom-left {
+.modal.fade .modal-dialog-bottom-right {
     transform: translateY(100%);
 }
 
-.modal.show .modal-dialog-bottom-left {
+.modal.show .modal-dialog-bottom-right {
     transform: translateY(0);
     transition: transform 0.3s ease-out;
 }
@@ -46,8 +321,8 @@
 .top-navbar{
     position:fixed;
     top:0;
-    left: 200px;px;
-    right:0;
+    left: 0px;px;
+    right: 320px;;
     height:40px;
     background:#ffffff;
     border-bottom:1px solid #e5e7eb;
@@ -62,7 +337,7 @@
 
 /* Adjust when sidebar collapsed */
 .sidebar.collapsed ~ .top-navbar{
-    left:80px;
+    right:80px;
 }
 
 /* LEFT */
