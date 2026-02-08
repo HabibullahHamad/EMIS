@@ -67,27 +67,61 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
-    ->name('inbox.index');
-Route::get('CorrespondenceManagement/inbox/create', function () {
-    return view('create');
-});
-route::get('CorrespondenceManagement/inbox/form', function(){
-    return view('form');
-});
-route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
-Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
-route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
-route::get('/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit');
-route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
 
 
-route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
-route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
-route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit'); 
-route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');   
+// outbox routes
+route::get('correspondencemanagement/outbox/create', function(){
+    return view('correspondencemanagement.outbox.create');
+})->name('correspondencemanagement.outbox.create');
+
+route::get('correspondencemanagement/outbox/outbox', function(){
+    return view('correspondencemanagement.outbox.outbox');
+})->name('correspondencemanagement.outbox.outbox');
+
+route::get('correspondencemanagement/outbox/index', function(){
+    return view('correspondencemanagement.outbox.index');
+})->name('correspondencemanagement.outbox.index');  
+
+route::get('correspondencemanagement/outbox/edit', function(){
+    return view('correspondencemanagement.outbox.edit');
+})->name('correspondencemanagement.outbox.edit');
+
+route::get('correspondencemanagement/outbox/show', function(){
+    return view('correspondencemanagement.outbox.show');
+})->name('correspondencemanagement.outbox.show');
+route::get('correspondencemanagement/outbox/reports', function(){
+    return view('correspondencemanagement.outbox.reports');
+})->name('correspondencemanagement.outbox.reports');
+
+
+
+// inbox routes
+
+    
+route::get('CorrespondenceManagement/inbox/create', function(){
+    return view('CorrespondenceManagement.inbox.create');
+})->name('CorrespondenceManagement.inbox.create');
+
+route::get('CorrespondenceManagement/inbox/inbox', function(){
+    return view('CorrespondenceManagement.inbox.inbox');
+})->name('CorrespondenceManagement.inbox.inbox');
+
+route::get('CorrespondenceManagement/inbox/index', function(){
+    return view('CorrespondenceManagement.inbox.index');
+})->name('CorrespondenceManagement.inbox.index');
+
+route::get('CorrespondenceManagement/inbox/edit', function(){
+    return view('CorrespondenceManagement.inbox.edit');
+})->name('CorrespondenceManagement.inbox.edit');
+
+route::get('CorrespondenceManagement/inbox/show', function(){
+    return view('CorrespondenceManagement.inbox.show');
+})->name('CorrespondenceManagement.inbox.show');
+
+route::get('CorrecpondenceManagement/inbox/filter', function(){
+    return view('CorrespondenceManagement.inbox.filter');
+})->name('CorrespondenceManagement.inbox.filter');
+
 
 Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
 

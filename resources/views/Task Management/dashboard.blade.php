@@ -3,14 +3,13 @@
 <!-- start -->
 
 
-@section('title', 'EMIS | د اجرائیوي مدیریت KPI ډشبورډ')
 
 <div class="container-fluid py-4" dir="rtl" style="font-family: Tahoma, Arial;">
 
     {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold">د اجرائیوي مدیریت د فعالیتونو KPI ډشبورډ</h4>
+            <h4 class="fw-bold">د اجرائیوي مدیریت د فعالیتونو  </h4>
             <p class="text-muted mb-0">
                 د ملي بودیجې لوی ریاست – EMIS
             </p>
@@ -193,7 +192,7 @@
                     <tr class="table-info" style="cursor:pointer;" onclick="window.location='/tasks/101'">
                         <td>101</td>
                         <td>د بودیجې مسوده تایید</td>
-                        <td>احمد خان</td>
+                        <td>احمد </td>
                         <td>2026-02-10</td>
                         <td>په جریان کې</td>
                         <td>
@@ -204,7 +203,7 @@
                     <tr class="table-warning" style="cursor:pointer;" onclick="window.location='/tasks/102'">
                         <td>102</td>
                         <td>د راپور چمتو کول</td>
-                        <td>فاطمه</td>
+                        <td>اسد</td>
                         <td>2026-01-27</td>
                         <td>نږدې دمه</td>
                         <td>
@@ -215,7 +214,7 @@
                     <tr class="table-danger" style="cursor:pointer;" onclick="window.location='/tasks/103'">
                         <td>103</td>
                         <td>د اسنادو ترتیب</td>
-                        <td>ملا صیب</td>
+                        <td>کمال </td>
                         <td>2025-12-30</td>
                         <td>ځنډېدلی</td>
                         <td>

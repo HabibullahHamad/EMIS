@@ -303,7 +303,6 @@
     margin: 0;
     max-width:500px;
 }
-
 /* Smooth slide-up animation */
 .modal.fade .modal-dialog-bottom-right {
     transform: translateY(100%);
@@ -313,16 +312,14 @@
     transform: translateY(0);
     transition: transform 0.3s ease-out;
 }
-
 </style>
-
     <style>
         /* ========== TOP NAVBAR ========== */
 .top-navbar{
     position:fixed;
     top:0;
-    left: 0px;px;
-    right: 320px;;
+    left: 200px;px;
+    right:0;
     height:40px;
     background:#ffffff;
     border-bottom:1px solid #e5e7eb;
@@ -368,6 +365,7 @@
     outline:none;
     font-size:13px;
 }
+
 
 /* NAV ITEMS */
 .nav-item{
@@ -807,12 +805,53 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- Menu -->
 
     <ul class="menu">
+   
         <li>
             <a href="{{ route('dashboard') }}" data-title="Dashboard">
                 <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
         </li>
+        <li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Correspondence">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Correspondence</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Inbox">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>Inbox</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ route('CorrespondenceManagement.inbox.inbox') }}"><i class="fa-solid fa-list"></i> All Inbox</a></li>
+                        <li><a href="{{ route('CorrespondenceManagement.inbox.create') }}"><i class="fa-solid fa-plus"></i> Create Incoming</a></li>
+                        <li><a href="{{ route('CorrespondenceManagement.inbox.edit') }}"><i class="fa-solid fa-filter"></i> Search & Filter</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Outbox">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Outbox</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ route('correspondencemanagement.outbox.index') }}"><i class="fa-solid fa-list"></i> All Outbox</a></li>
+                        <li><a href="{{ route('correspondencemanagement.outbox.create') }}"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
+                        <li><a href="{{ route('correspondencemanagement.outbox.reports') }}"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+    
+
+        
+        <!-- User Management -->
+
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
