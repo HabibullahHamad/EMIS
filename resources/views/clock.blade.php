@@ -1,119 +1,106 @@
 @extends('new')
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Animated CSS Clock</title>
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at top, #1c1f3a, #0b0e1a);
-            font-family: 'Segoe UI', sans-serif;
-            color: #fff;
-        }
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #1c1f3a, #0b0e1a);
+        font-family: 'Segoe UI', sans-serif;
+        color: #fff;
+    }
 
-        .clock-wrapper {
-            text-align: center;
-        }
+    .clock-wrapper {
+        text-align: center;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-            background: linear-gradient(90deg, #5ee7df, #b490ca);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+    h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        background: linear-gradient(90deg, #5ee7df, #b490ca);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
 
-        .analog-clock {
-            position: relative;
-            width: 260px;
-            height: 260px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #1b3b6f, #0a1a2f);
-            box-shadow:
-                inset 0 0 20px rgba(0,0,0,.7),
-                0 0 30px rgba(0,0,0,.8);
-            margin: auto;
-        }
+    .analog-clock {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #1b3b6f, #0a1a2f);
+        box-shadow:
+            inset 0 0 20px rgba(0,0,0,.7),
+            0 0 30px rgba(0,0,0,.8);
+        margin: auto;
+    }
 
-        .number {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
+    .number {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
 
-        .number span {
-            position: absolute;
-            transform: translate(-50%, -50%);
-        }
+    .number span {
+        position: absolute;
+        transform: translate(-50%, -50%);
+    }
 
-        @for ($i = 1; $i <= 12; $i++)
-            .num{{ $i }} span {
-                top: {{ 50 - 40 * cos(deg2rad($i * 30 - 90)) }}%;
-                left: {{ 50 + 40 * sin(deg2rad($i * 30 - 90)) }}%;
-            }
-        @endfor
+    /* Number positions are set dynamically via JavaScript below */
+    .hand {
+        position: absolute;
+        width: 50%;
+        height: 2px;
+        background: white;
+        top: 50%;
+        transform-origin: 100% 50%;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease-in-out;
+    }
 
-        .hand {
-            position: absolute;
-            width: 50%;
-            height: 2px;
-            background: white;
-            top: 50%;
-            transform-origin: 100%;
-            transform: rotate(90deg);
-            transition: transform 0.5s ease-in-out;
-        }
+    .hour {
+        width: 35%;
+        height: 4px;
+    }
 
-        .hour {
-            width: 35%;
-            height: 4px;
-        }
+    .minute {
+        width: 45%;
+        height: 3px;
+    }
 
-        .minute {
-            width: 45%;
-            height: 3px;
-        }
+    .second {
+        background: #ff6b6b;
+        height: 2px;
+    }
 
-        .second {
-            background: #ff6b6b;
-            height: 2px;
-        }
+    .center-dot {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: #ff6b6b;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
 
-        .center-dot {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
-
-        .digital {
-            margin-top: 25px;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.05);
-            box-shadow: inset 0 0 10px rgba(0,0,0,.6);
-            color: #ff8f6b;
-        }
-    </style>
-</head>
-<body>
+    .digital {
+        margin-top: 25px;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        box-shadow: inset 0 0 10px rgba(0,0,0,.6);
+        color: #ff8f6b;
+    }
+</style>
 
 <div class="clock-wrapper">
     <h1>Animated CSS Clock</h1>
@@ -132,6 +119,21 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Position clock numbers around center: 12 at top, then clockwise 1..11
+    for (let i = 1; i <= 12; i++) {
+        const span = document.querySelector('.num' + i + ' span');
+        if (!span) continue;
+        const angleRad = (i * 30 - 90) * Math.PI / 180; // start from top (-90deg)
+        const radius = 40; // percent distance from center
+        const left = 50 + radius * Math.cos(angleRad);
+        const top = 50 + radius * Math.sin(angleRad);
+        span.style.left = left + '%';
+        span.style.top = top + '%';
+        span.style.position = 'absolute';
+        span.style.transform = 'translate(-50%, -50%)';
+    }
+
     function updateClock() {
         const now = new Date();
 
@@ -152,14 +154,14 @@
         const mm = String(minutes).padStart(2, '0');
         const ss = String(seconds).padStart(2, '0');
 
+        // show "HH:MM:SS AM/PM"
         document.getElementById('digitalClock').innerText =
             `${hh}:${mm}:${ss} ${ampm}`;
     }
 
     setInterval(updateClock, 1000);
     updateClock();
+});
 </script>
 
-</body>
-</html>
 @endsection
