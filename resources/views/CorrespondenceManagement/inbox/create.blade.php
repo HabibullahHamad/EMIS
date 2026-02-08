@@ -104,12 +104,14 @@ function svgFor(name, type, tag) {
 <style>
 /* Rounded, animated form container */
 .styled-form{
-    background: #cfcdcdff;
-    padding: 18px;
+    background: #cbc6c6ff;
+    padding: 33px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(18, 38, 63, 0.08);
     animation: fadeInUp .5s ease both;
     margin-top: 8px;
+    
+
 }
 
 /* Two-column layout (falls to one column on small screens) */
@@ -280,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function(){
     @endif
 
     {{-- Form --}}
-    <div style="margin-top: 2px; background-color: #9c8304ff; padding: 2px; border-radius: 10px 10px 0px 0px; text-align: center;"> <h2 style="color: #07079dff; align: center;">Add New Letter</h2></div>
+    <div style="margin-top: 2px; background-color: #ebebebff; padding: 2px; border-radius: 10px 10px 0px 0px; text-align: center;"> <h2 style="color: #07079dff; align: center;">Add New Letter</h2></div>
     <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
