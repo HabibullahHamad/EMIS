@@ -1,5 +1,87 @@
 @extends('new')
 @section('content')
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    // set page language and RTL direction
+    document.documentElement.lang = 'ps';
+    document.documentElement.dir = 'rtl';
+    document.body.style.direction = 'rtl';
+    document.body.style.textAlign = 'right';
+
+    // small RTL-friendly input alignment
+    document.querySelectorAll('.form-control, label, .form-label').forEach(el => {
+        el.style.textAlign = 'right';
+    });
+
+    // translations
+    const labels = {
+        letter_no: 'د لیک شمېره',
+        subject: 'موضوع',
+        sender: 'لیږونکی',
+        received_date: 'د ترلاسه کولو نېټه',
+        priority: 'لومړیتوب',
+        read_status: 'د لوستلو وضعیت',
+        attachment: 'ضمیمه'
+    };
+    const placeholders = {
+        letter_no: 'د لیک شمېره داخل کړئ',
+        subject: 'د موضوع متن داخل کړئ',
+        sender: 'د لیږونکي نوم داخل کړئ',
+        received_date: 'د نیټې ټاکنه',
+        priority: 'لومړیتوب وټاکئ',
+        read_status: 'وضعیت وټاکئ',
+        attachment: 'د فایل انتخاب'
+    };
+    const priorityOptions = {
+        '': 'لومړیتوب وټاکئ',
+        high: 'لوړ',
+        medium: 'منځنۍ',
+        low: 'ټیټ'
+    };
+    const statusOptions = {
+        '': 'وضعیت وټاکئ',
+        Unread: 'نه لوستل شوی',
+        Read: 'لوستل شوی',
+        Assigned: 'ټاکل شوی',
+        Completed: 'پای ته رسیدلی'
+    };
+
+    // translate labels and set placeholders
+    Object.keys(labels).forEach(id => {
+        const lbl = document.querySelector('label[for="' + id + '"]');
+        if (lbl) lbl.textContent = labels[id];
+        const ctl = document.getElementById(id);
+        if (ctl && (ctl.tagName.toLowerCase() === 'input' || ctl.tagName.toLowerCase() === 'textarea')) {
+            if (placeholders[id]) ctl.placeholder = placeholders[id];
+        }
+        if (ctl && ctl.tagName.toLowerCase() === 'select') {
+            // ensure first option text (if empty) is localized; and localize known option values
+            Array.from(ctl.options).forEach(opt => {
+                if (ctl.id === 'priority') {
+                    opt.text = priorityOptions[opt.value] || opt.text;
+                } else if (ctl.id === 'read_status') {
+                    opt.text = statusOptions[opt.value] || opt.text;
+                } else {
+                    if (opt.value === '') opt.text = placeholders[id] || opt.text;
+                }
+            });
+        }
+    });
+
+    // translate heading and submit button
+    const heading = document.querySelector('.container h2');
+    if (heading) heading.textContent = 'نوی لیک اضافه کړئ';
+    const submit = document.querySelector('button[type="submit"]');
+    if (submit) submit.textContent = 'لیک ثبت کړئ';
+
+    // make container and form RTL explicitly
+    const container = document.querySelector('.container');
+    if (container) container.setAttribute('dir', 'rtl');
+
+    const form = document.querySelector('.container form');
+    if (form) form.setAttribute('dir', 'rtl');
+});
+</script>
 <!-- Font Awesome CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
