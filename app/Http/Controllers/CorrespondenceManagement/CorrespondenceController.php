@@ -1,11 +1,8 @@
 <?php
 
+namespace App\Http\Controllers\CorrespondenceManagement;
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use App\Models\Correspondence;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 
 class CorrespondenceController extends Controller
 {
