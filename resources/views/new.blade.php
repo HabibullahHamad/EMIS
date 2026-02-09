@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
     <!-- RTL + Pashto font -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -173,6 +174,11 @@
             const map = {
                 "Dashboard":"ډشبورډ",
                 "Correspondence":"مکاتب",
+                
+                  "All Outbox":"ټول آوټ باکس",
+                  "Create Outgoing":"صادره ",
+                  "Sent Reports":"لیږل شوي راپورونه",
+                "Archive":"آرکایو",
                 "Management":"مدیریت",
                 "Task Management":"د دندو مدیریت",
                 "Documents Management":"د اسنادو مدیریت",
@@ -798,43 +804,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Dashboard</span>
             </a>
         </li>
+       
+          
+<!-- start COR -->
+    
+
         <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Correspondence">
-                <i class="fa-solid fa-envelope"></i>
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-folder"></i>
                 <span>Correspondence</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
-            <ul class="sub-menu">
-                <li class="has-sub">
-                    <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Inbox">
-                        <i class="fa-solid fa-inbox"></i>
-                        <span>Inbox</span>
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ route('CorrespondenceManagement.inbox.inbox') }}"><i class="fa-solid fa-list"></i> All Inbox</a></li>
-                        <li><a href="{{ route('CorrespondenceManagement.inbox.create') }}"><i class="fa-solid fa-plus"></i> Create Incoming</a></li>
-                        <li><a href="{{ route('CorrespondenceManagement.inbox.edit') }}"><i class="fa-solid fa-filter"></i> Search & Filter</a></li>
+           <ul class="sub-menu">
+                        <li><a href="#"><i class="fa-solid fa-list"></i> All Outbox</a></li>
+                        <li><a href="#"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
+                        <li><a href="#"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
                     </ul>
-                </li>
-
-                <li class="has-sub">
-                    <a href="javascript:void(0)" onclick="toggleSubMenuSlide(this)" data-title="Outbox">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>Outbox</span>
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ route('correspondencemanagement.outbox.index') }}"><i class="fa-solid fa-list"></i> All Outbox</a></li>
-                        <li><a href="{{ route('correspondencemanagement.outbox.create') }}"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
-                        <li><a href="{{ route('correspondencemanagement.outbox.reports') }}"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
-                    </ul>
-                </li>
-            </ul>
         </li>
-
-    
-
         
         <!-- User Management -->
 
