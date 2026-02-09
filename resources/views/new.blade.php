@@ -315,22 +315,7 @@
 </style>
     <style>
         /* ========== TOP NAVBAR ========== */
-.top-navbar{
-    position:fixed;
-    top:0;
-    left: 200px;px;
-    right:0;
-    height:40px;
-    background:#ffffff;
-    border-bottom:1px solid #e5e7eb;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 2px;
-    z-index:999;
-    transition:left 0.3s ease;
-    background: #b7bbbbff;
-}
+
 
 /* Adjust when sidebar collapsed */
 .sidebar.collapsed ~ .top-navbar{
