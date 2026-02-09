@@ -174,7 +174,7 @@
             const map = {
                 "Dashboard":"ډشبورډ",
                 "Correspondence":"مکاتب",
-                
+
                   "All Outbox":"ټول آوټ باکس",
                   "Create Outgoing":"صادره ",
                   "Sent Reports":"لیږل شوي راپورونه",
@@ -819,6 +819,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li><a href="#"><i class="fa-solid fa-list"></i> All Outbox</a></li>
                         <li><a href="#"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
                         <li><a href="#"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
+                        <li><a href="#"><i class="fa-solid fa-archive"></i> Archive</a></li>
                     </ul>
         </li>
         
