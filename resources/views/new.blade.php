@@ -172,6 +172,7 @@
             // basic English -> Pashto translations for visible labels/attributes
             const map = {
                 "Dashboard":"ډشبورډ",
+                "Correspondence":"مکاتب",
                 "Management":"مدیریت",
                 "Task Management":"د دندو مدیریت",
                 "Documents Management":"د اسنادو مدیریت",
