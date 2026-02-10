@@ -820,6 +820,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li><a href="#"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
                         <li><a href="#"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
                         <li><a href="#"><i class="fa-solid fa-archive"></i> Archive</a></li>
+                        <li><a hrf="#"><i class="fa-solid fa-archive"></i>Archive2</a></li>
                     </ul>
         </li>
         
