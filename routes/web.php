@@ -322,3 +322,8 @@ route::get('/documents', [DocumentController::class, 'index'])->name('documents.
 
 Route::get('/Document Management/Search', [DocumentController::class, 'search'])->name('documents.search');
 // end document management routes /////////////////////////////////////////////////
+
+
+// outbox
+
+Route::resource('outbox', OutboxController::class);
