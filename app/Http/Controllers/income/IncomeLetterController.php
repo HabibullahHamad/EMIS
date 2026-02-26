@@ -21,7 +21,6 @@ class IncomeLetterController extends Controller
         $departments = \App\Models\User::where('role', 'department')->get(); // د څانګو لیست
         return view('letters.show', compact('letter', 'departments'));
     }
-
     // د لیک لپاره دنده ټاکل
     public function assignTask(Request $request, $letterId) {
         $request->validate([
@@ -29,7 +28,6 @@ class IncomeLetterController extends Controller
             'assigned_to' => 'required|integer',
             'due_date' => 'required|date',
         ]);
-
         Task::create([
             'income_letter_id' => $letterId,
             'title' => $request->title,
