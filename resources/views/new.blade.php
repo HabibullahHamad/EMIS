@@ -804,11 +804,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Dashboard</span>
             </a>
         </li>
-       
-          
 <!-- start COR -->
-    
-
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
@@ -816,16 +812,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
            <ul class="sub-menu">
-                        <li><a href="#"><i class="fa-solid fa-list"></i> All Outbox</a></li>
-                        <li><a href="#"><i class="fa-solid fa-plus"></i> Create Outgoing</a></li>
-                        <li><a href="#"><i class="fa-solid fa-file-alt"></i> Sent Reports</a></li>
-                        <li><a href="#"><i class="fa-solid fa-archive"></i> Archive</a></li>
-                        <li><a hrf="#"><i class="fa-solid fa-archive"></i>Archive2</a></li>
-                    </ul>
+                        <li><a href="#"><i class="fa-solid fa-file-export"></i>صادره</a></li>
+                        <li><a href="#"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+            </ul>
         </li>
-        
         <!-- User Management -->
-
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
