@@ -8,7 +8,7 @@ use App\Http\Controllers\CorrespondenceManagement\LetterController;
 use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
-use App\Http\Controllers\CorrespondenceManagement\DocumentController;
+use App\Http\Controllers\DocumentController;
 
 
 // coming///////////////////////////////////
@@ -139,6 +139,10 @@ route::get('CorrespondenceManagement/inbox/show', function(){
 route::get('CorrecpondenceManagement/inbox/filter', function(){
     return view('CorrespondenceManagement.inbox.filter');
 })->name('CorrespondenceManagement.inbox.filter');
+
+route::get('CorrecpondenceManagement/inbox/coming', function(){
+    return view('CorrespondenceManagement.inbox.coming');
+})->name('CorrespondenceManagement.inbox.coming');
 
 
 Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
@@ -327,3 +331,5 @@ Route::get('/Document Management/Search', [DocumentController::class, 'search'])
 // outbox
 
 Route::resource('outbox', OutboxController::class);
+
+

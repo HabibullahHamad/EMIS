@@ -813,7 +813,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
            <ul class="sub-menu">
                         <li><a href="#"><i class="fa-solid fa-file-export"></i>صادره</a></li>
-                        <li><a href="#"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+                        <li><a href="{{ route('CorrespondenceManagement.inbox.coming') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
             </ul>
         </li>
         <!-- User Management -->
