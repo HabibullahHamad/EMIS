@@ -14,7 +14,6 @@ class IncomeLetterController extends Controller
         $letters = IncomeLetter::orderBy('received_date', 'desc')->get();
         return view('letters.index', compact('letters'));
     }
-
     // د لیک تفصیل
     public function show($id) {
         $letter = IncomeLetter::with('tasks.assignedToUser')->findOrFail($id);
