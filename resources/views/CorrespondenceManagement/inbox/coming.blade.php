@@ -73,25 +73,26 @@
             </tr>
         </thead>
         <tbody>
-    @foreach($document as $key=>$doc)
+   
     <tr>
-        <td>{{ $key+1 }}</td>
-        <td>{{ $doc->document_no }}</td>
-        <td>{{ $doc->subject }}</td>
-        <td>{{ $doc->sender }}</td>
-        <td>{{ $doc->receiver }}</td>
-        <td>{{ $doc->status }}</td>
-        <td>{{ $doc->deadline }}</td>
+        <td>#</td>
+          <td>#</td>
+            <td>#</td>
+              <td>#</td>
+                <td>#</td>
+                  <td>#</td>
+                    <td>#</td>
+                      <td>#</td>
+       
         <td>
-            <a href="{{ route('documents.edit',$doc) }}"
+            <a href="#"
                class="btn btn-warning btn-sm">✏</a>
         </td>
     </tr>
-    @endforeach
 </tbody>
     </table>
 
-    {{ $documents->links() }}
+  
 
 </div>
 @endsection
