@@ -62,33 +62,39 @@
     <table class="table table-bordered text-center">
         <thead>
             <tr>
-                <th>#</th>
+                
                 <th>شمېره</th>
                 <th>موضوع</th>
                 <th>لیږونکی</th>
                 <th>ترلاسه کوونکی</th>
                 <th>حالت</th>
-                <th>Deadline</th>
+                <th>وروستۍ نېټه</th>
                 <th>عملیات</th>
             </tr>
         </thead>
-        <tbody>
-   
-    <tr>
-        <td>#</td>
-          <td>#</td>
-            <td>#</td>
-              <td>#</td>
-                <td>#</td>
-                  <td>#</td>
-                    <td>#</td>
-                      <td>#</td>
-       
-        <td>
-            <a href="#"
-               class="btn btn-warning btn-sm">✏</a>
-        </td>
-    </tr>
+      <tbody>
+      @forelse($documents as $doc)
+<tr>
+    <td>{{ $doc->document_no }}</td>
+    <td>{{ $doc->subject }}</td>
+    <td>{{ $doc->sender }}</td>
+    <td>{{ $doc->receiver }}</td>
+    <td>
+        <span class="badge bg-{{ $doc->status == 'completed' ? 'success' : 'warning' }}">
+            {{ $doc->status }}
+        </span>
+    </td>
+    <td>{{ $doc->deadline }}</td>
+    <td>
+        <a href="{{ route('documents.edit', $doc->id) }}"
+           class="btn btn-warning btn-sm">✏</a>
+    </td>
+</tr>
+@empty
+<tr>
+    <td colspan="7">هیڅ معلومات نشته</td>
+</tr>
+@endforelse
 </tbody>
     </table>
 

@@ -140,6 +140,7 @@ route::get('CorrecpondenceManagement/inbox/filter', function(){
     return view('CorrespondenceManagement.inbox.filter');
 })->name('CorrespondenceManagement.inbox.filter');
 
+
 route::get('CorrecpondenceManagement/inbox/coming', function(){
     return view('CorrespondenceManagement.inbox.coming');
 })->name('CorrespondenceManagement.inbox.coming');
