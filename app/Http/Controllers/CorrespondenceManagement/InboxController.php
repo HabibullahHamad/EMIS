@@ -20,7 +20,7 @@ class InboxController extends Controller
                 $table->string('subject', 255);
                 $table->string('sender', 255);
                 $table->date('received_date');
-                $table->enum('priority', ['high', 'medium', 'low'])->nullable();
+                $table->enum('priority', ['لوړ', 'منځنی', 'ټیټ'])->nullable();
                 // Match MySQL enum values: Unread, Read, Assigned, Completed
                 $table->enum('status', ['Unread', 'Read', 'Assigned', 'Completed'])->nullable();
                 $table->string('attachment')->nullable();
@@ -34,12 +34,13 @@ class InboxController extends Controller
         $inbox = Inbox::orderBy('id', 'desc')->paginate(11);
         return view('CorrespondenceManagement.inbox.index', compact('inbox'));
     }
-
+// for create 
     public function create()
     {
         return view('CorrespondenceManagement.inbox.create');
     }
 
+// store
     public function store(Request $request)
     {
         $request->validate([
@@ -72,11 +73,14 @@ class InboxController extends Controller
         return redirect()->route('inbox.index')->with('success', 'Letter added to Inbox!');
     }
 
+// show
     public function show($id)
     {
         $letter = Inbox::findOrFail($id);
         return view('CorrespondenceManagement.inbox.show', compact('letter'));
     }
+
+// edit function 
 
     public function edit($id)
     {
@@ -84,6 +88,8 @@ class InboxController extends Controller
         return view('CorrespondenceManagement.inbox.edit', compact('letter'));
     }
 
+
+    // update function 
     public function update(Request $request, $id)
     {
         $letter = Inbox::findOrFail($id);
@@ -116,6 +122,8 @@ class InboxController extends Controller
 
         return redirect()->route('inbox.index')->with('success', 'Inbox updated!');
     }
+
+// destroy function 
 
     public function destroy($id)
     {

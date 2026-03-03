@@ -114,7 +114,9 @@ route::get('correspondencemanagement/outbox/reports', function(){
 
 
 // inbox routes
-
+route::get('CorrespondenceManagement/inbox/form', function(){
+    return view('CorrespondenceManagement.inbox.form');
+})->name('CorrespondenceManagement.inbox.form');
     
 route::get('CorrespondenceManagement/inbox/create', function(){
     return view('CorrespondenceManagement.inbox.create');
@@ -155,9 +157,7 @@ Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.d
 })->name('Main');
 Route::get('Task Management/index', [TaskController::class, 'index'])
     ->name('Task Management.index');
-
 route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
-
 
 Route::get('Task Management/create', [TaskController::class, 'create'])
     ->name('Task Management.create');
@@ -174,11 +174,8 @@ Route::put('Task Management/{task}', [TaskController::class, 'update'])
 route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
     ->name('Task Management.destroy');
 
-
-
 route::get('Task Management/{task}', [TaskController::class, 'show'])
     ->name('Task Management.show');
-
 
     route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::get('Task-management/main', function () {
@@ -197,9 +194,7 @@ route::get('Task management/dashboard', function () {
     return view('Task Management.dashboard');
 })->name('Task Management.dashboard');
 
-
 // end of documents ////////////////////////////////////////////////////////
-
 // for Addministrations module ////////////////////////////////////////////////////////////////
 
 route::get('Administartions/create',[UserController::class, 'create'])
@@ -210,8 +205,6 @@ route::get('Administrations/User Management', [UserController::class, 'index'])
 
     route::get('Administrations/User Management/create', [UserController::class, 'create'])
         ->name('Administrations.User Management.create');
-
-
 
         route::get('Administrations/login', function () {
             return view('Administrations.login');
@@ -281,15 +274,9 @@ Route::get('CorrespondenceManagement/inbox/coming', function () {
 
 // tasks
 
-
-
 // tasks routes and submissions ///////////////////////////////////////////////////////
 
-
-
 // end tasks///////////////////////////////////////////////////////////////////
-
-
 
 // end task//////////////////////////////////////////////////////////
 
@@ -297,7 +284,6 @@ Route::get('CorrespondenceManagement/inbox/coming', function () {
 Route::get('clock', function () {
     return view('clock');
 })->name('clock');
-
 
 // End Clock////////////////////////////////////////////////////
 route::get('/Document Management/Search & Filter', function () {
@@ -328,9 +314,7 @@ route::get('/documents', [DocumentController::class, 'index'])->name('documents.
 Route::get('/Document Management/Search', [DocumentController::class, 'search'])->name('documents.search');
 // end document management routes /////////////////////////////////////////////////
 
-
 // outbox
 
-Route::resource('outbox', OutboxController::class);
 
 

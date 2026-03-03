@@ -2,18 +2,33 @@
 @section('content')
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+<script>
+    $("#deadline").persianDatepicker({
+        format: 'YYYY/MM/DD',
+        altField: '#deadline_hidden',
+        altFormat: 'YYYY/MM/DD',
+        observer: true,
+        autoClose: true
+    });
+</script>
 <style>
+
+    .div1{
+         background: #2e97e7;
+        padding: 3px;
+       
+        
+    }
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Times New Roman", Times, serif;
+
     }
 
     .form-card {
         background: #ffffff;
-        padding: 35px;
-        border-radius: 22px;
+        padding: 12px;
+        border-radius: 1px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        animation: slideUp 0.7s ease-out;
     }
 
     @keyframes slideUp {
@@ -63,12 +78,13 @@
         border: none;
         font-weight: 600;
         letter-spacing: .5px;
-        transition: 0.3s;
-        font-size: 17px;
+       
+        font-size: 12px;
+        align:center;
     }
 
     .save-btn:hover {
-        transform: scale(1.08);
+        
         background: linear-gradient(90deg, #0056b3, #004599);
     }
 </style>
@@ -76,19 +92,21 @@
     @csrf
     <!-- All your input fields here -->
 
-<div class="container mt-4 mb-4">
+         
 
-    <div class="col-md-10 mx-auto form-card">
 
-        <div class="form-header">
-            📩 Add New Incoming Letter
+
+<div class="container mt-2 mb-2 border-3 form-card">
+
+    <div class="col-md-14 mx-auto">
+
+        <div class="div1">
+            📩 نوی لیک خوندي کړئ
         </div>
-
         <div class="row">
-
             {{-- Letter Number --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Letter No</label>
+                <label class="form-label">ګنه</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         🔢
@@ -100,7 +118,7 @@
 
             {{-- Subject --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Subject</label>
+                <label class="form-label">موضوع</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         📝
@@ -112,7 +130,7 @@
 
             {{-- Sender Name --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Sender Name</label>
+                <label class="form-label">لېږونکی</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         👤
@@ -124,7 +142,7 @@
 
             {{-- Date Received --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Date Received</label>
+                <label class="form-label">ترلاسه کېدو نېټه</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         📅
@@ -136,36 +154,36 @@
 
             {{-- Priority --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Priority</label>
+                <label class="form-label">لومړیتوب</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         ⚠️
                     </span>
                     <select name="priority" class="form-control">
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
+                        <option value="لوړ">لوړ</option>
+                        <option value="منځنی">منځنی</option>
+                        <option value="lټیټw">ټیټ</option>
                     </select>
                 </div>
             </div>
 
             {{-- Status --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">Status</label>
+                <label class="form-label">حالت</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         🔄
                     </span>
                     <select name="status" class="form-control">
-                        <option value="new">New</option>
-                        <option value="in_review">In Review</option>
-                        <option value="completed">Completed</option>
+                        <option value="نوی">نوی</option>
+                        <option value="په جریان کې">په جریان کې</option>
+                        <option value="بشپړ">بشپړ</option>
                     </select>
                 </div>
             </div>
             {{-- File --}}
             <div class="col-md-12 mb-3">
-                <label class="form-label">Attachment</label>
+                <label class="form-label">مل/ضمایم</label>
                 <div class="input-group">
                     <span class="input-group-text">
                         📎
@@ -174,9 +192,9 @@
                 </div>
             </div>
 
-            <div class="col-md-12 text-end mt-3">
+            <div class="col-md-4 text-end mt-1">
                 <button type="submit" class="save-btn">
-                    💾 Save Letter
+                    💾 لیک خوندي کړئ
                 </button>
             </div>
 
