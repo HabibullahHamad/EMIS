@@ -6,6 +6,8 @@
 <a href="{{ route('inbox.create') }}" style="color: #fefefeff; text-decoration: none; font-size: 11px; background-color: #274993ff; border-radius: 4px;padding: top 2px;">+ New Letter</a>
 <h4 style="">inbox Letters</h4>
 </div>
+
+
 <style>
     .custom-pagination .page-link {
         color: #0d6efd;

@@ -122,9 +122,7 @@ route::get('CorrespondenceManagement/inbox/create', function(){
     return view('CorrespondenceManagement.inbox.create');
 })->name('CorrespondenceManagement.inbox.create');
 
-route::get('CorrespondenceManagement/inbox/inbox', function(){
-    return view('CorrespondenceManagement.inbox.inbox');
-})->name('CorrespondenceManagement.inbox.inbox');
+
 
 route::get('CorrespondenceManagement/inbox/index', function(){
     return view('CorrespondenceManagement.inbox.index');
