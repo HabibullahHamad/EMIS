@@ -74,7 +74,7 @@
         </thead>
       <tbody>
       @forelse($documents as $doc)
-<tr>
+      <tr>  
     <td>{{ $doc->document_no }}</td>
     <td>{{ $doc->subject }}</td>
     <td>{{ $doc->sender }}</td>
