@@ -105,7 +105,7 @@ function svgFor(name, type, tag) {
 /* Rounded, animated form container */
 .styled-form{
    
-    padding: 33px;
+    padding: 3px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(18, 38, 63, 0.08);
     margin-top: 3px;
@@ -117,7 +117,7 @@ function svgFor(name, type, tag) {
 .styled-grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 11px;
 }
 @media (max-width: 768px){
     .styled-grid{ grid-template-columns: 1fr; }
