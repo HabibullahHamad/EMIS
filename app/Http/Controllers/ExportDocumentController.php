@@ -8,10 +8,13 @@ use Morilog\Jalali\Jalalian;
 class ExportDocumentController extends Controller
 {
     public function index()
-    {
-        $documents = Document::latest()->paginate(10);
-        return view('export_documents.index', compact('documents'));
-    }
+{
+    $documents = Document::latest()->paginate(10);
+
+    return view('DocumentManagement.dindex', [
+        'documents' => $documents
+    ]);
+}
 
     public function store(Request $request)
     {
