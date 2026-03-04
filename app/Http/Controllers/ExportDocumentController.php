@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\ExportDocument;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 
