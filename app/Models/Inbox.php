@@ -18,6 +18,19 @@ class Inbox extends Model
          'attachment',
         
     ];
+
+}
+class Documents extends Model
+{
+  protected $table = 'documents'; // 
+  
+    protected $fillable = [
+    'doc_number',
+    'subject',
+    'receiver',
+    'doc_date',
+    'attachment'
+];
 }
 
 

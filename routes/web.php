@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ExportDocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
@@ -313,6 +313,11 @@ Route::get('/Document Management/Search', [DocumentController::class, 'search'])
 // end document management routes /////////////////////////////////////////////////
 
 // outbox
+
+
+Route::get('DocumentManagement/dindex', function () {
+    return view('DocumentManagement.dindex');
+})->name('DocumentManagement.dindex');
 
 
 
