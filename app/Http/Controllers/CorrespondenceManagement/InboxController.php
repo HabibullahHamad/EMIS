@@ -19,8 +19,10 @@ class InboxController extends Controller
                 $table->string('letter_no')->unique();
                 $table->string('subject', 255);
                 $table->string('sender', 255);
+                $table->string('receiver', 255);
                 $table->date('received_date');
-                $table->enum('priority', ['لوړ', 'منځنی', 'ټیټ'])->nullable();
+                $table->string('summary');
+                $table->enum('priority', ['H', 'M', 'L'])->nullable();
                 // Match MySQL enum values: Unread, Read, Assigned, Completed
                 $table->enum('status', ['Unread', 'Read', 'Assigned', 'Completed'])->nullable();
                 $table->string('attachment')->nullable();
@@ -43,24 +45,26 @@ class InboxController extends Controller
 // store
     public function store(Request $request)
     {
-        $request->validate([
-            'letter_no'      => 'required|unique:inbox,letter_no',
-            'subject'        => 'required|string|max:255',
-            'sender'         => 'required|string|max:255',
-            'received_date'  => 'required|date',
-            'priority'       => 'nullable|in:high,medium,low',
-            // Updated status validation to match DB enum
-            'status'         => 'nullable|in:Unread,Read,Assigned,Completed',
-            'attachment'     => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-        ]);
+
+      $request->validate([
+    'letter_no' => 'required',
+    'subject' => 'required',
+    'sender' => 'required',
+    'receiver' => 'required',
+    'received_date' => 'required',
+    'summary' => 'required',
+  
+    'attachment' => 'nullable|file|max:2048'
+]);
 
         $data = $request->only([
             'letter_no',
             'subject',
             'sender',
+            'receiver',
             'received_date',
-            'priority',
-            'status',
+            'summary',
+            'attachment',
         ]);
 
         if ($request->hasFile('attachment')) {
@@ -70,7 +74,7 @@ class InboxController extends Controller
         
         Inbox::create($data);
 
-        return redirect()->route('inbox.index')->with('success', 'Letter added to Inbox!');
+        return redirect()->route('inbox.index')->with('success', 'لیګ په بریالیتوب سره خوندي شو!');
     }
 
 // show
@@ -98,10 +102,11 @@ class InboxController extends Controller
             'letter_no'      => 'required|unique:inbox,letter_no,' . $id,
             'subject'        => 'required|string|max:255',
             'sender'         => 'required|string|max:255',
+            'receiver'       => 'required|string|max:255',
             'received_date'  => 'required|date',
-            'priority'       => 'nullable|in:high,medium,low',
+           
             // Updated status validation to match DB enum
-            'status'         => 'nullable|in:Unread,Read,Assigned,Completed',
+            
             'attachment'     => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
@@ -109,9 +114,10 @@ class InboxController extends Controller
             'letter_no',
             'subject',
             'sender',
+            'receiver',
             'received_date',
-            'priority',
-            'status',
+          
+             'attachment',
         ]);
 
         if ($request->hasFile('attachment')) {

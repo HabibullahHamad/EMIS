@@ -135,11 +135,25 @@
                     <span class="input-group-text">
                         👤
                     </span>
-                    <input type="text" name="sender_name" class="form-control"
-                        value="{{ $inbox->sender_name ?? old('sender_name') }}">
+                    
+                        <input type="text" name="sender" class="form-control"
+                           value="{{ old('sender') }}">
                 </div>
+                
             </div>
-
+  {{-- Reciver Name --}}
+            <div class="col-md-6 mb-3">
+                <label class="form-label">ترلاسه کوونکې</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        👤
+                    </span>
+                    
+                        <input type="text" name="receiver" class="form-control"
+                           value="{{ old('receiver') }}">
+                </div>
+                
+            </div>
             {{-- Date Received --}}
             <div class="col-md-6 mb-3">
                 <label class="form-label">ترلاسه کېدو نېټه</label>
@@ -147,40 +161,24 @@
                     <span class="input-group-text">
                         📅
                     </span>
-                    <input type="date" name="date_received" class="form-control"
-                        value="{{ $inbox->date_received ?? old('date_received') }}">
+                    <input type="date" name="received_date" class="form-control">
                 </div>
             </div>
-
-            {{-- Priority --}}
+ {{-- summary --}}
             <div class="col-md-6 mb-3">
-                <label class="form-label">لومړیتوب</label>
+                <label class="form-label">ترلاسه کوونکې</label>
                 <div class="input-group">
                     <span class="input-group-text">
-                        ⚠️
+                        👤
                     </span>
-                    <select name="priority" class="form-control">
-                        <option value="لوړ">لوړ</option>
-                        <option value="منځنی">منځنی</option>
-                        <option value="lټیټw">ټیټ</option>
-                    </select>
+                    
+                        <input type="text" name="summary" class="form-control"
+                           value="{{ old('summary') }}">
                 </div>
+                
             </div>
-
-            {{-- Status --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">حالت</label>
-                <div class="input-group">
-                    <span class="input-group-text">
-                        🔄
-                    </span>
-                    <select name="status" class="form-control">
-                        <option value="نوی">نوی</option>
-                        <option value="په جریان کې">په جریان کې</option>
-                        <option value="بشپړ">بشپړ</option>
-                    </select>
-                </div>
-            </div>
+  
+    
             {{-- File --}}
             <div class="col-md-12 mb-3">
                 <label class="form-label">مل/ضمایم</label>

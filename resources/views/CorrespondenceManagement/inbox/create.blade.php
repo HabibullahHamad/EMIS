@@ -105,10 +105,10 @@ function svgFor(name, type, tag) {
 /* Rounded, animated form container */
 .styled-form{
    
-    padding: 3px;
+    padding: 1px;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(18, 38, 63, 0.08);
-    margin-top: 3px;
+    margin-top: 1px;
     
 
 }
@@ -118,6 +118,7 @@ function svgFor(name, type, tag) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 11px;
+    
 }
 @media (max-width: 768px){
     .styled-grid{ grid-template-columns: 1fr; }
@@ -135,12 +136,12 @@ function svgFor(name, type, tag) {
 /* icon position */
 .field-icon{
     position: absolute;
-    left: 10px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     color: #6c757d;
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -259,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 });
 </script>
-<div class="container mt-4">
+<div class="container mt-0 pt-0">
    
 
     {{-- Display Validation Errors --}}
@@ -281,9 +282,11 @@ document.addEventListener('DOMContentLoaded', function(){
     @endif
 
     {{-- Form --}}
-    <div style="margin-top: 0px; padding: 0px; border-radius: 0px 0px 0px 0px; text-align: center;"> <h5 style="color: #07079dff; align: center;">Add New Letter</h2>
-         <a href="{{ route('inbox.index')}}">View</a>
-</div>
+    <div style="margin-top:0px ; background-color: rgb(71, 137, 250) ; text-align: right;"> <h5 style="color: rgb(255, 255, 255); align: center;">نوی لیک ثبت کړئ</h2>
+   </div>
+
+<a href="{{ route('inbox.index')}}" class="btn btn-primary btn-sm fa-solid fa-list">لیست کتل_</a>
+
     <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
