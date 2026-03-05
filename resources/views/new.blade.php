@@ -812,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
            <ul class="sub-menu">
-                        <li><a href="{{ route('DocumentManagement.dindex') }}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
+                        <li><a href="#"><i class="fa-solid fa-file-export"></i>صادره</a></li>
                         <li><a href="{{ route('CorrespondenceManagement.inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
             </ul>
         </li>
@@ -835,8 +835,33 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
        <!-- Task Manage,ent -->
 
+<li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-tasks"></i>
+                <span>Task Management</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Users</a></li>
+
+                <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
+                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
+                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
+            </ul>
+        </li>
 
        <!-- end task ma -->
+        <li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-file"></i>
+                <span>documents</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+            <ul class="sub-menu">
+                       <li><a href="{{ route('documents.index') }}"><i class="fa-solid fa-sign-in-alt"></i>index</a></li>
+ </ul>
+        </li>
         <!-- start documentation -->
 
 <li class="has-sub">

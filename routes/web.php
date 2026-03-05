@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\ExportDocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
@@ -9,6 +8,8 @@ use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\DocumentController;
+
+
 
 
 // coming///////////////////////////////////
@@ -315,9 +316,10 @@ Route::get('/Document Management/Search', [DocumentController::class, 'search'])
 // outbox
 
 
-Route::get('DocumentManagement/dindex', function () {
-    return view('DocumentManagement.dindex');
-})->name('DocumentManagement.dindex');
+// Route::get('DocumentManagement/dindex', function () {
+//     return view('DocumentManagement.dindex');
+// })->name('DocumentManagement.dindex');
 
 
+Route::resource('documents', DocumentController::class);
 

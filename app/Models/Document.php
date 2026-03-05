@@ -6,20 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    protected $table = 'documents';
-
     protected $fillable = [
-        'document_no',
-        'subject',
-        'sender',
+        'doc_number',
+        'doc_date',
         'receiver',
-        'type',
-        'status',
-        'assigned_to',
-        'deadline'
-    ];
-
-    protected $casts = [
-        'deadline' => 'date',
+        'subject',
+        'description',
+        'attachment'
     ];
 }
