@@ -11,8 +11,14 @@ class DocumentController extends Controller
     // LIST PAGE
     public function index()
     {
-        $documents = Document::latest()->get();
+       $documents = Document::latest()->paginate(10);
         return view('documents.index', compact('documents'));
+
+
+
+    
+
+ 
     }
 
     // STORE DATA

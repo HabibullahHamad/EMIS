@@ -4,7 +4,31 @@
 
 
 
+<style>
 
+.small-table{
+    font-size:13px;
+    color:blue;
+    text:blue;
+
+    
+}
+
+.small-table th,
+.small-table td{
+    padding:1px 1px;   /* row height small */
+    vertical-align:middle;
+}
+
+.small-table th{
+    background:#f4f6f9;
+    font-weight:600;
+}
+
+.small-table tr:hover{
+    background:#f1f7ff;
+}
+</style>
 <div class="container">
 
 <h3>Create Document</h3>
@@ -56,38 +80,51 @@
 
 <h3>Documents List</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-sm small-table">
+
+<thead>
 
 <tr>
-<th>#</th>
-<th>Number</th>
-<th>Date</th>
-<th>Receiver</th>
+<th width="40">#</th>
+<th width="120">Number</th>
+<th width="110">Date</th>
+<th width="160">Receiver</th>
 <th>Subject</th>
-<th>Action</th>
+<th width="150">Action</th>
 </tr>
+
+</thead>
+
+<tbody>
 
 @foreach($documents as $doc)
 
 <tr>
+
 <td>{{ $loop->iteration }}</td>
+
 <td>{{ $doc->doc_number }}</td>
+
 <td>{{ $doc->doc_date }}</td>
+
 <td>{{ $doc->receiver }}</td>
-<td>{{ $doc->subject }}</td>
+
+<td>{{ Str::limit($doc->subject,40) }}</td>
 
 <td>
 
-<a href="{{ route('documents.show',$doc->id) }}" class="btn btn-info btn-sm">
+<a href="{{ route('documents.show',$doc->id) }}" 
+class="btn btn-info btn-sm px-2 py-1">
 View
 </a>
 
-<form action="{{ route('documents.destroy',$doc->id) }}" method="POST" style="display:inline">
+<form action="{{ route('documents.destroy',$doc->id) }}" 
+method="POST" style="display:inline">
 
 @csrf
 @method('DELETE')
 
-<button class="btn btn-danger btn-sm">
+<button class="btn btn-danger btn-sm px-2 py-1">
 Delete
 </button>
 
@@ -99,8 +136,12 @@ Delete
 
 @endforeach
 
-</table>
+</tbody>
 
+</table>
+<div class="d-flex justify-content-center">
+{{ $documents->links() }}
+</div>
 </div>
 
 @endsection
