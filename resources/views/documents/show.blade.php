@@ -20,15 +20,13 @@
 <hr>
 
 <div class="card shadow-sm" dir="rtl">
-    <div class="card-header bg-blue">
-        <h5 class="mb-0">د سند معلومات</h5>
+    <div class="card-header">
+        <h5 class="mb-0 bg-green">د سند معلومات</h5>
     </div>
 
     <div class="card-body p-0">
         <table class="table table-bordered table-sm mb-0">
-            <tr style="bg-blue">
-            <h5 class="mb-0">د سند معلومات</h5>
-             </tr>
+           
             <tbody>
 
                 <tr>
