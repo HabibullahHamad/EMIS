@@ -25,9 +25,9 @@
     </div>
 
     <div class="card-body p-0">
-        <table class="table table-bordered table-sm mb-0">
+        <table class="table-bordered">
            
-            <tbody>
+            <tbody class="table table-hover">
 
                 <tr>
                     <th style="width:30%">شمېره</th>
@@ -37,6 +37,7 @@
                 <tr>
                     <th>نېټه</th>
                     <td>{{ $document->doc_date }}</td>
+                  
                 </tr>
 
                 <tr>
@@ -57,13 +58,18 @@
             </tbody>
         </table>
     </div>
+    <div class="centered ; p-3px">
+    <center>
+    <a href="{{ asset('storage/'.$document->attachment) }}" target="_blank">
+Download Attachment
+</a>
+</center>
+</div>
 </div>
 
 @if($document->attachment)
 
-<a href="{{ asset('storage/'.$document->attachment) }}" target="_blank">
-Download Attachment
-</a>
+
 
 @endif
 

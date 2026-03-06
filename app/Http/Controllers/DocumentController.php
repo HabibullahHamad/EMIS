@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
+use Morilog\Jalali\Jalalian;
+
+
+
+
 class DocumentController extends Controller
 {
+
+
 
     // LIST PAGE
     public function index()
@@ -26,7 +33,7 @@ class DocumentController extends Controller
     {
         $data = $request->validate([
             'doc_number'=>'required',
-            'doc_date'=>'required',
+            'doc_date' => 'required',
             'receiver'=>'required',
             'subject'=>'required',
             'description'=>'nullable',
@@ -64,7 +71,9 @@ class DocumentController extends Controller
     {
         Document::destroy($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('denger','Document Deleted');
     }
+
+   
 
 }
