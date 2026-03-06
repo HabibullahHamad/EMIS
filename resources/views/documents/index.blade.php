@@ -109,13 +109,8 @@ window.addEventListener('load', function () {
 
 <!-- shamsi date -->
 <div class="col-md-3">
-
-<label>نېټه</label>
-
-<input type="text" id="doc_date" class="form-control">
-
-<input type="hidden" name="doc_date" id="doc_date_hidden">
-
+    <label class="form-label">نیټه</label>
+    <input type="text" id="afghanDate" class="form-control">
 </div>
 <!-- end -->
     <div class="col-md-4">
@@ -139,7 +134,9 @@ window.addEventListener('load', function () {
     </div>
 
     <div>
-        <button class="btn btn-primary btn-sm w-100">خوندي کړئ</button>
+        <center>
+        <button class="btn btn-primary btn-sm w-50">خوندي کړئ</button>
+</center>
     </div>
 
 </div>
@@ -250,15 +247,17 @@ document.addEventListener('click', function (e) {
 
 $(document).ready(function(){
 
-$("#doc_date").persianDatepicker({
-
-format: 'YYYY/MM/DD',
-altField: '#doc_date_hidden',
-altFormat: 'YYYY/MM/DD',
-observer: true,
-autoClose: true
-
-});
+    $("#afghanDate").persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValue: true,
+        autoClose: true,
+        observer: true,
+        calendar:{
+            persian:{
+                locale:'fa'
+            }
+        }
+    });
 
 });
 
@@ -272,19 +271,5 @@ autoClose: true
 {{ $documents->links() }}
 </div>
 </div>
-<script>
 
-$(document).ready(function(){
-
-$("#doc_date").persianDatepicker({
-
-format: 'YYYY/MM/DD',
-initialValue: true,
-autoClose: true,
-
-});
-
-});
-
-</script>
 @endsection
