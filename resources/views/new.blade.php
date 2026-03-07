@@ -835,21 +835,6 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
        <!-- Task Manage,ent -->
 
-<li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-tasks"></i>
-                <span>Task Management</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-users"></i>Users</a></li>
-
-                <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
-                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
-                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
-            </ul>
-        </li>
 
        <!-- end task ma -->
         <li class="has-sub">
@@ -902,17 +887,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
        <!-- end documentation -->
-        <li>
-            <a href="#" data-title="Analytics">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Analytics</span>
-            </a>
-        <li>
-            <a href="#" data-title="Reports">
-                <i class="fa-solid fa-chart-bar"></i>
-                <span>Reports</span>
-            </a>
-        </li>
+      
         <li>
             
             <a href="{{ route('admin.settings') }}" data-title="Settings">
@@ -920,20 +895,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>Settings</span>
             </a>
         </li>
-           <li>
-            <a href="{{ route('admin.settings') }}" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </a>
-           
-        </li> 
+      
 
-        <li>
-            <a href="#" data-bs-toggle="model" data-bs-target="#myModel">
-            <i class ="fa-solid fa-model"></i>
-            <span>demp</span>
-            </a>
-        </li>
+    
     </ul>
     <!-- User -->
        <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">
@@ -1108,7 +1072,7 @@ function confirmDelete(formId) {
 <!-- model  -->
 <!-- Settings Modal -->
 <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-bottom-left" style="width:250px; height:300px;">
+    <div class="modal-dialog modal-dialog-bottom-right" style="width:250px; height:300px;">
         <div class="modal-content border-0 shadow-lg rounded-4">
             <div class="modal-body text-center p-4">
 

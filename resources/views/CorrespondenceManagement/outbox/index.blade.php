@@ -1,16 +1,18 @@
 @extends('new')
-
 @section('title', 'Outbox Documents Monitoring')
-
 @section('content')
-<h4>Outgoing Documents</h4>
-<a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary btn-sm mb-3">
-Back
-</a>  
-<a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-primary btn-sm">
-New Document
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="d-flex justify-content-stsrt mb-3 mt-0">
+
+<a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-gold">
+<i class="fa fa-plus"></i> 
 </a>
-<hr>
+<a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn">
+<i class="fa fa-search"></i> 
+</a>
+</div>
+<hr style="size:30px">
 <form method="GET" action="{{ route('CorrespondenceManagement.outbox.index') }}" class="mb-3">
     <div class="input-group input-group-sm">
         <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Filter records">
