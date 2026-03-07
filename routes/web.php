@@ -4,7 +4,7 @@ use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CorrespondenceManagement\LetterController;
-use App\Http\Controllers\CorrespondenceManagement\OutgoingController;
+use App\Http\Controllers\CorrespondenceManagement\OutboxController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\DocumentController;
@@ -95,6 +95,8 @@ route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show
 route::get('correspondencemanagement/outbox/create', function(){
     return view('correspondencemanagement.outbox.create');
 })->name('correspondencemanagement.outbox.create');
+
+
 
 route::get('correspondencemanagement/outbox/outbox', function(){
     return view('correspondencemanagement.outbox.outbox');
