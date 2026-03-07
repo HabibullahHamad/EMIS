@@ -3,96 +3,63 @@
 @section('title', 'Outbox Documents Monitoring')
 
 @section('content')
-<div class="container-fluid">
-
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Outbox Documents Monitoring</h4>
-        <a href="{{ route('outbox.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add Document
-        </a>
+<h4>Outgoing Documents</h4>
+<a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary btn-sm mb-3">
+Back
+</a>  
+<a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-primary btn-sm">
+New Document
+</a>
+<hr>
+<form method="GET" action="{{ route('CorrespondenceManagement.outbox.index') }}" class="mb-3">
+    <div class="input-group input-group-sm">
+        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Filter records">
+        <button class="btn btn-outline-secondary" type="submit">Go</button>
     </div>
+</form>
+<table class="table table-bordered table-sm mt-3">
 
-    <!-- Card -->
-    <div class="card shadow-sm">
-        <div class="card-body">
+<tr>
+<th>#</th>
+<th>Number</th>
+<th>Date</th>
+<th>Receiver</th>
+<th>Subject</th>
+<th>Action</th>
+</tr>
 
-            <!-- Search -->
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Search document...">
-                </div>
-            </div>
+@foreach($documents as $doc)
 
-            <!-- Table -->
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Document No</th>
-                            <th>Subject</th>
-                            <th>Recipient</th>
-                            <th>Date Sent</th>
-                            <th>Status</th>
-                            <th width="150">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($documents as $doc)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $doc->document_number }}</td>
-                                <td>{{ $doc->subject }}</td>
-                                <td>{{ $doc->recipient }}</td>
-                                <td>{{ $doc->sent_date }}</td>
-                                <td>
-                                    @if($doc->status == 'Pending')
-                                        <span class="badge bg-warning">Pending</span>
-                                    @elseif($doc->status == 'Sent')
-                                        <span class="badge bg-success">Sent</span>
-                                    @elseif($doc->status == 'Returned')
-                                        <span class="badge bg-danger">Returned</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('outbox.show',$doc->id) }}" 
-                                       class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
+<tr>
 
-                                    <a href="{{ route('outbox.edit',$doc->id) }}" 
-                                       class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+<td>{{ $loop->iteration }}</td>
+<td>{{ $doc->doc_number }}</td>
+<td>{{ $doc->doc_date }}</td>
+<td>{{ $doc->receiver }}</td>
+<td>{{ $doc->subject }}</td>
 
-                                    <form action="{{ route('outbox.destroy',$doc->id) }}" 
-                                          method="POST" 
-                                          class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">No documents found.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+<td>
 
-            <!-- Pagination -->
-            <div class="mt-3">
-                {{ $documents->links() }}
-            </div>
+<a href="{{ route('CorrespondenceManagement.outbox.show',$doc->id) }}" class="btn btn-info btn-sm">View</a>
 
-        </div>
-    </div>
-</div>
+<a href="{{ route('CorrespondenceManagement.outbox.edit',$doc->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+<form action="{{ route('CorrespondenceManagement.outbox.destroy',$doc->id) }}" method="POST" style="display:inline">
+
+@csrf
+@method('DELETE')
+
+<button class="btn btn-danger btn-sm">Delete</button>
+
+</form>
+
+</td>
+
+</tr>
+
+@endforeach
+
+</table>
+
+{{ $documents->links() }}
 @endsection

@@ -812,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
            <ul class="sub-menu">
-                        <li><a href="{{route('correspondencemanagement.outbox.create')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
+                        <li><a href="{{route('CorrespondenceManagement.outbox.create')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
                         <li><a href="{{ route('CorrespondenceManagement.inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
             </ul>
         </li>

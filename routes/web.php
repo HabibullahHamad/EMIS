@@ -8,6 +8,7 @@ use App\Http\Controllers\CorrespondenceManagement\OutboxController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\OutgoingDocumentController;
 
 
 
@@ -92,29 +93,35 @@ route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show
 
 
 // outbox routes
-route::get('correspondencemanagement/outbox/create', function(){
-    return view('correspondencemanagement.outbox.create');
-})->name('correspondencemanagement.outbox.create');
+route::get('CorrespondenceManagement/outbox/create', function(){
+    return view('CorrespondenceManagement.outbox.create');
+})->name('CorrespondenceManagement.outbox.create');
+
+route::get('CorrespondenceManagement/outbox/outbox', function(){
+    return view('CorrespondenceManagement.outbox.outbox');
+})->name('CorrespondenceManagement.outbox.outbox');
+
+route::get('CorrespondenceManagement/outbox/index', function(){
+    return view('CorrespondenceManagement.outbox.index');
+})->name('CorrespondenceManagement.outbox.index');
+
+route::get('CorrespondenceManagement/outbox/create', [OutgoingDocumentController::class, 'create'])->name('CorrespondenceManagement.outbox.create');
+route::post('CorrespondenceManagement/outbox/store', [OutgoingDocumentController::class, 'store'])->name('CorrespondenceManagement.outbox.store');
+route::get('CorrespondenceManagement/outbox/index', [OutgoingDocumentController::class, 'index'])->name('CorrespondenceManagement.outbox.index');
+route::get('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'show'])->name('CorrespondenceManagement.outbox.show');
+route::get('CorrespondenceManagement/outbox/{id}/edit', [OutgoingDocumentController::class, 'edit'])->name('CorrespondenceManagement.outbox.edit');
+route::put('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'update'])->name('CorrespondenceManagement.outbox.update');
+route::delete('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'destroy'])->name('CorrespondenceManagement.outbox.destroy');  
+route::get('CorrespondenceManagement/outbox/index', [OutgoingDocumentController::class, 'index'])->name('CorrespondenceManagement.outbox.index');   
 
 
+route::get('CorrespondenceManagement/outbox/edit', function(){
+    return view('CorrespondenceManagement.outbox.edit');
+})->name('CorrespondenceManagement.outbox.edit');
 
-route::get('correspondencemanagement/outbox/outbox', function(){
-    return view('correspondencemanagement.outbox.outbox');
-})->name('correspondencemanagement.outbox.outbox');
-
-
-route::get('correspondencemanagement/outbox/edit', function(){
-    return view('correspondencemanagement.outbox.edit');
-})->name('correspondencemanagement.outbox.edit');
-
-route::get('correspondencemanagement/outbox/show', function(){
-    return view('correspondencemanagement.outbox.show');
-})->name('correspondencemanagement.outbox.show');
-route::get('correspondencemanagement/outbox/reports', function(){
-    return view('correspondencemanagement.outbox.reports');
-})->name('correspondencemanagement.outbox.reports');
-
-
+route::get('CorrespondenceManagement/outbox/show', function(){
+    return view('CorrespondenceManagement.outbox.show');
+})->name('CorrespondenceManagement.outbox.show');
 
 // inbox routes
 route::get('CorrespondenceManagement/inbox/form', function(){
