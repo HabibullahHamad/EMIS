@@ -78,12 +78,13 @@ class InboxController extends Controller
     }
 
 // show
-    public function show($id)
-    {
-        $letter = Inbox::findOrFail($id);
-        return view('CorrespondenceManagement.inbox.show', compact('letter'));
-    }
+public function show($id)
+{
+    $inbox = Inbox::findOrFail($id);
 
+    return view('CorrespondenceManagement.inbox.show', compact('inbox'));
+}
+  
 // edit function 
 
     public function edit($id)

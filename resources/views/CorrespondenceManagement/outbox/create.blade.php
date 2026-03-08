@@ -1,12 +1,20 @@
 @extends('new') 
 @section('content')
 
-<a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary btn-sm mb-3">
-Back
-</a>  
-<a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-secondary btn-sm mb-3"> 
-New Document
-</a> 
+
+
+<div class="d-flex justify-content-start mb-2">
+
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
+        <i class="fa fa-plus"></i>
+    </a>
+
+    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-info btn-sm">
+        <i class="fa fa-search"></i>
+    </a>
+</div>
+
+<hr>
 <form action="{{ route('CorrespondenceManagement.outbox.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 <div class="row g-2">
