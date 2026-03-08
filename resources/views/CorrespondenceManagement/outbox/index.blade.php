@@ -1,34 +1,90 @@
 @extends('new')
-@section('title', 'Outbox Documents Monitoring')
 @section('content')
-<style>
-    body{
-        margin-top: 1px;
-        padding-top: 1px;
-    }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
 
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<div class="d-flex align-items-center mb-1 mt-0 gap-3">
-    <div class="btn-group">
-        <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm">
-            <i class="fa fa-plus fa-sm"></i>
-        </a>
-         ---
-        <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-info btn-sm">
-            <i class="fa fa-search fa-sm"></i>
-        </a>
-    </div>
-
-    <div class="flex-grow-1 text-center">
-        <h5 class="mb-0">Search Mode</h5>
-    </div>
 </div>
+<style>
+    .custom-pagination .page-link {
+        color: #0d6efd;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 6px 12px;
+    }
+    .custom-pagination .page-item.active .page-link {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        color: white !important;
+        font-weight: bold;
+    }
+    .custom-pagination .page-item.disabled .page-link {
+        color: #6c757d;
+    }
+    .custom-pagination .page-link:hover {
+        background-color: #e9f0ff;
+    }
+</style>
+<style>
+    .table1 {
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        width: 100%;
+        margin-top: 0px;
 
+    }
+    .table1 thead tr th:first-child {
+        border-top-left-radius: 12px;
+    }
+    .table1 thead tr th:last-child {
+        border-top-right-radius: 12px;
+    }
+    .table1 tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 12px;
+    }
+    .table1 tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 12px;
+    }
+  
+    .table1 {
+        border: 2px solid #064e96ff;
+        border-radius: 12px;
+        margin-top: 0px;
+        padding: auto;
+        width: 100%;
+        background: white;
+    }
+    .table1 thead tr {
+        background: #064e96ff;
+        color:white;
+        font-weight: bold;
+    }
+    .table1 tbody tr {
+        transition: background 0.2s, color 0.2s, border-radius 0.2s;
+    }
+    .table1 tbody tr:hover {
+        background: #04419dff !important;
+        color: #fcfcfcff !important;
+        border-radius: 12px;
+    }
+    .table1 th, .table1 td {
+        vertical-align: middle;
+        text-align: center;
+    }
+</style>
+<div class="d-flex justify-content-start mb-0">
 
-<hr style="size:30px">
+    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="btn btn-info btn-sm me-2">
+        <i class="fa fa-plus"></i>
+    </a>
 
+    <a href="{{route('inbox.index')}}" class="btn btn-info btn-sm">
+        <i class="fa fa-search"></i>
+    </a>
+</div>
+<hr>
 <table class="table table-bordered table-sm mt-3">
 
 <tr>
@@ -51,27 +107,106 @@
 <td>{{ $doc->subject }}</td>
 
 <td>
-
-<a href="{{ route('CorrespondenceManagement.outbox.show',$doc->id) }}" class="btn btn-info btn-sm">View</a>
-
-<a href="{{ route('CorrespondenceManagement.outbox.edit',$doc->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-<form action="{{ route('CorrespondenceManagement.outbox.destroy',$doc->id) }}" method="POST" style="display:inline">
-
-@csrf
-@method('DELETE')
-
-<button class="btn btn-danger btn-sm">Delete</button>
-
-</form>
-
+<a href="{{ route('CorrespondenceManagement.outbox.show', $doc->id) }}"
+       title="View"
+       class="text-info me-2">
+        <i class="fa-solid fa-eye"></i>
+    </a>|
+    <!-- Edit -->
+    <a href="{{ route('CorrespondenceManagement.outbox.edit', $doc->id) }}"
+       title="Edit"
+       class="text-warning me-2">
+        <i class="fa-solid fa-pen"></i>
+    </a>|
+    <!-- Delete -->
+    <form action="{{ route('CorrespondenceManagement.outbox.destroy', $doc->id) }}"
+          method="POST"
+          class="d-inline delete-form">
+        @csrf
+        @method('DELETE')
+        <a href="javascript:void(0)"
+           title="Delete"
+           class="text-danger delete-btn">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+    </form>
 </td>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-</tr>
+<script>
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.delete-btn');
+    if (!btn) return;
 
-@endforeach
+    const form = btn.closest('form');
+    const row  = btn.closest('tr');
 
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: new FormData(form)
+            })
+            .then(res => {
+                if (!res.ok) throw 'Delete failed';
+                row.remove();
+                Swal.fire('Deleted!', 'Record has been deleted.', 'success');
+            })
+            .catch(() => {
+                Swal.fire('Error', 'Something went wrong.', 'error');
+            });
+        }
+    });
+});
+</script>
+
+    @endforeach
+    </tbody>
 </table>
+<!-- Peganation -->
+ @if ($doc->hasPages())
+    <nav>
+        <ul class="pagination justify-content-center custom-pagination">
+            {{-- Previous Page --}}
+            @if ($doc->onFirstPage())
+                <li class="page-item disabled"><span class="page-link">«</span></li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $doc->previousPageUrl() }}">«</a>
+                </li>
+            @endif
+            {{-- Page Numbers --}}
+            @foreach ($doc->links()->elements[0] as $page => $url)
+                @if ($page == $doc->currentPage())
+                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                @else
+                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                @endif
+            @endforeach
+            {{-- Next Page --}}
+            @if ($doc->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $doc->nextPageUrl() }}">»</a>
+                </li>
+            @else
 
-{{ $documents->links() }}
+                <li class="page-item disabled"><span class="page-link">»</span></li>
+            @endif
+        </ul>
+    </nav>
+@endif
+<!-- End Peganation -->
+
 @endsection

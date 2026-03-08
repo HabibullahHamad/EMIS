@@ -836,6 +836,7 @@ document.addEventListener('DOMContentLoaded', function () {
        <!-- Task Manage,ent -->
 
 
+
        <!-- end task ma -->
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
@@ -844,8 +845,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                       <li><a href="{{ route('documents.index') }}"><i class="fa-solid fa-sign-in-alt"></i>index</a></li>
- </ul>
+            <li><a href="{{ route('documents.index') }}"><i class="fa-solid fa-sign-in-alt"></i>index</a></li>
+         </ul>
         </li>
         <!-- start documentation -->
 
@@ -857,7 +858,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
             <ul class="sub-menu">
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-box-archive"></i>Inbox</a></li>
-
                 <li><a href="#"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
        <!-- end documentation -->
-      
+  
         <li>
             
             <a href="{{ route('admin.settings') }}" data-title="Settings">
@@ -897,7 +897,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
       
 
-    
+      
     </ul>
     <!-- User -->
        <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">

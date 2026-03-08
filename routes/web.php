@@ -80,7 +80,7 @@ route::get('CorrespondenceManagement/inbox/form', function(){
 route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
 Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
-Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
+Route::get('/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
 route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
 route::get('/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit');
 route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
