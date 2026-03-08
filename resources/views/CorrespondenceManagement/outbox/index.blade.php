@@ -176,37 +176,10 @@ document.addEventListener('click', function (e) {
     </tbody>
 </table>
 <!-- Peganation -->
- @if ($doc->hasPages())
-    <nav>
-        <ul class="pagination justify-content-center custom-pagination">
-            {{-- Previous Page --}}
-            @if ($doc->onFirstPage())
-                <li class="page-item disabled"><span class="page-link">«</span></li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $doc->previousPageUrl() }}">«</a>
-                </li>
-            @endif
-            {{-- Page Numbers --}}
-            @foreach ($doc->links()->elements[0] as $page => $url)
-                @if ($page == $doc->currentPage())
-                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                @else
-                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                @endif
-            @endforeach
-            {{-- Next Page --}}
-            @if ($doc->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $doc->nextPageUrl() }}">»</a>
-                </li>
-            @else
+<div class="d-flex justify-content-center mt-3">
+    {{ $documents->links('pagination::bootstrap-5') }}
+</div>
 
-                <li class="page-item disabled"><span class="page-link">»</span></li>
-            @endif
-        </ul>
-    </nav>
-@endif
 <!-- End Peganation -->
 
 @endsection
