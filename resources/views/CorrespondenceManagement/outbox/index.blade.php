@@ -94,6 +94,7 @@
 <th>Receiver</th>
 <th>Subject</th>
 <th>Action</th>
+<th> Attachment</th>
 </tr>
 
 @foreach($documents as $doc)
@@ -105,6 +106,7 @@
 <td>{{ $doc->doc_date }}</td>
 <td>{{ $doc->receiver }}</td>
 <td>{{ $doc->subject }}</td>
+<td>{{ $doc->attachment}}</td>
 
 <td>
 <a href="{{ route('CorrespondenceManagement.outbox.show', $doc->id) }}"

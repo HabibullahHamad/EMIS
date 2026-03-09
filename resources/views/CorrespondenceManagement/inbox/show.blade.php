@@ -20,7 +20,8 @@
                     <p><strong>Content:</strong></p>
                     <div>{{ $inbox->body }}</div>
                     @if($inbox->attachment)
-                        <p><strong>Attachment:</strong> <a href="{{ asset('storage/' . $correspondence->attachment) }}" target="_blank">Download</a></p>
+                                        
+                        <p><strong>Attachment:</strong> <a href="{{ asset('storage/' . $inbox->attachment) }}" target="_blank">Download</a></p>
                     @endif
                 </div>
                 <div class="card-footer">

@@ -101,6 +101,7 @@ route::get('CorrespondenceManagement/outbox/outbox', function(){
     return view('CorrespondenceManagement.outbox.outbox');
 })->name('CorrespondenceManagement.outbox.outbox');
 
+
 route::get('CorrespondenceManagement/outbox/index', function(){
     return view('CorrespondenceManagement.outbox.index');
 })->name('CorrespondenceManagement.outbox.index');

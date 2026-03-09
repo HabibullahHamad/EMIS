@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OutgoingDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class OutgoingDocumentController extends Controller
 {
@@ -37,12 +39,13 @@ $data = $request->validate([
 'attachment'=>'nullable|file',
 
 ]);
-
-if($request->hasFile('attachment')){
-
-$data['attachment']=$request->file('attachment')->store('documents');
-
+if ($request->hasFile('attachment')) {
+    $file = $request->file('attachment');
+    $data['attachment'] = $file->store('attachments', 'public');
 }
+if ($request->hasFile('attachment')) {
+            $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
+        }
 
 OutgoingDocument::create($data);
 

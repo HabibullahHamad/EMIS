@@ -30,6 +30,18 @@
 <th>Description</th>
 <td>{{ $document->description }}</td>
 </tr>
+ <tr>
+<th>Attachment</th>
+<td>
 
+    @if($document->attachment)
+        <a href="{{ asset('storage/'. $document->attachment) }}" target="_blank">Download File</a>
+    @else
+        No attachment
+    @endif
+    <div class="card-footer">
+                    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
+                </div>
+</td>
 </table>
 @endsection
