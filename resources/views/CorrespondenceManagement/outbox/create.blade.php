@@ -1,35 +1,82 @@
 @extends('new') 
 @section('content')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    bootstarp 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVeBo0mG1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> 
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crete Out Going </title>
-</head>
-<body>
-    <h1>Create Outgoing Correspondence</h1>
-  
-    <form action="{{ route('outbox.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="recipient" class="form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient" name="recipient" required>
-        </div>
-        <div class="mb-3">
-            <label for="subject" class="form-label">Subject:</label>
-            <input type="text" class="form-control" id="subject" name="subject" required>
-        </div>
-        <div class="mb-3">
-            <label for="body" class="form-label">Body:</label>
-            <textarea class="form-control" id="body" name="body" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send</button>
-</body>
-</html>
+
+<div class="d-flex justify-content-start mb-2">
+
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
+        <i class="fa fa-plus"></i>
+    </a>
+
+    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-info btn-sm">
+        <i class="fa fa-search"></i>
+    </a>
+</div>
+
+<hr>
+<form action="{{ route('CorrespondenceManagement.outbox.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+<div class="row g-2">
+
+<div class="col-md-4">
+    <label>Document Number</label>
+    <input type="text" name="doc_number" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Subject</label>
+    <input type="text" name="subject" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Sender</label>
+    <input type="text" name="sender" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Receiver</label>
+    <input type="text" name="receiver" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Document Date</label>
+    <input type="date" name="doc_date" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Priority</label>
+    <select name="priority" class="form-control">
+        <option value="Low">Low</option>
+        <option value="Normal">Normal</option>
+        <option value="High">High</option>
+    </select>
+</div>
+
+<div class="col-md-4">
+    <label>Assigned To</label>
+    <input type="text" name="assigned_to" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Department</label>
+    <input type="text" name="department" class="form-control">
+</div>
+
+<div class="col-md-4">
+    <label>Description</label>
+    <textarea name="description" class="form-control"></textarea>
+</div>
+
+<div class="col-md-4">
+    <label>Attachment</label>
+    <input type="file" name="attachment" class="form-control">
+</div>
+</div>
+<center>
+<button type="submit" class="btn btn-primary">
+Save
+</button>
+</center>
+</form>
 @endsection

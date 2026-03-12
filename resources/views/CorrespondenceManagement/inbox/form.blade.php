@@ -2,186 +2,160 @@
 @section('content')
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script>
+    $("#deadline").persianDatepicker({
+        format: 'YYYY/MM/DD',
+        altField: '#deadline_hidden',
+        altFormat: 'YYYY/MM/DD',
+        observer: true,
+        autoClose: true
+    });
+</script>
 
+<div class="d-flex justify-content-start mb-1">
+
+    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="btn btn-info btn-sm me-2">
+        <i class="fa fa-plus"></i>
+    </a>
+
+    <a href="{{route('inbox.index')}}" class="btn btn-info btn-sm">
+        <i class="fa fa-search"></i>
+    </a>
+
+</div>
+<hr>
 <style>
-    body {
+    .form-card {
+        max-width: 1000px;
+        margin: 60px auto;
+        padding: 30px 40px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         font-family: 'Poppins', sans-serif;
     }
-
-    .form-card {
-        background: #ffffff;
-        padding: 35px;
-        border-radius: 22px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        animation: slideUp 0.7s ease-out;
-    }
-
-    @keyframes slideUp {
-        from { transform: translateY(40px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    .form-header {
-        background: linear-gradient(90deg, #007bff, #0056b3);
-        padding: 18px 25px;
-        border-radius: 16px;
-        color: #fff;
-        margin-bottom: 30px;
-        font-size: 15px;
-        font-weight: 200;
-        letter-spacing: .2px;
-        animation: fadeIn 1s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .input-group-text {
-        background: #eef3ff;
-        border: 1px solid #d2d9ff;
+    .form-label {
         font-weight: 600;
-        color: #0056b3;
+        margin-bottom: 6px;
     }
-
-    .form-control {
-        border-radius: 10px;
-        transition: .3s;
+    .input-group .form-control {
+        border-radius: 6px;
+        transition: box-shadow 0.2s;
     }
-
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 8px rgba(0,123,255,0.3);
+    .input-group .form-control:focus {
+        box-shadow: 0 0 0 2px #17a2b8;
     }
-
     .save-btn {
-        background: linear-gradient(90deg, #007bff, #0056b3);
+        background: #17a2b8;
         color: #fff;
-        padding: 10px 40px;
-        border-radius: 35px;
         border: none;
+        border-radius: 6px;
+        padding: 8px 24px;
         font-weight: 600;
-        letter-spacing: .5px;
-        transition: 0.3s;
-        font-size: 17px;
+        transition: background 0.2s;
     }
-
     .save-btn:hover {
-        transform: scale(1.08);
-        background: linear-gradient(90deg, #0056b3, #004599);
+        background: #138496;
+    }
+    @media (max-width: 768px) {
+        .form-card {
+            padding: 15px 8px;
+        }
     }
 </style>
 <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- All your input fields here -->
 
-<div class="container mt-4 mb-4">
+<div class="container mt-0 mb-0 border-3 form-card">
 
-    <div class="col-md-10 mx-auto form-card">
-
-        <div class="form-header">
-            📩 Add New Incoming Letter
-        </div>
-
+    <div class="col-md-12">
+       
         <div class="row">
-
             {{-- Letter Number --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Letter No</label>
+            <div class="col-md-6 mb-0">
+                <label class="form-label">ګنه</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        🔢
-                    </span>
+                   
                     <input type="text" name="letter_no" class="form-control"
                         value="{{ $inbox->letter_no ?? old('letter_no') }}">
                 </div>
             </div>
 
             {{-- Subject --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Subject</label>
+            <div class="col-md-6 mb-1">
+                <label class="form-label">موضوع</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        📝
-                    </span>
+                    
                     <input type="text" name="subject" class="form-control"
                         value="{{ $inbox->subject ?? old('subject') }}">
                 </div>
             </div>
 
             {{-- Sender Name --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Sender Name</label>
+            <div class="col-md-6 mb-1">
+                <label class="form-label">لېږونکی</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        👤
-                    </span>
-                    <input type="text" name="sender_name" class="form-control"
-                        value="{{ $inbox->sender_name ?? old('sender_name') }}">
+                  
+                    
+                        <input type="text" name="sender" class="form-control"
+                           value="{{ old('sender') }}">
                 </div>
+                
             </div>
-
+  {{-- Reciver Name --}}
+            <div class="col-md-6 mb-1">
+                <label class="form-label">ترلاسه کوونکې</label>
+                <div class="input-group">
+                  
+                    
+                        <input type="text" name="receiver" class="form-control"
+                           value="{{ old('receiver') }}">
+                </div>
+                
+            </div>
             {{-- Date Received --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Date Received</label>
+            <div class="col-md-6 mb-1">
+                <label class="form-label">ترلاسه کېدو نېټه</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        📅
-                    </span>
-                    <input type="date" name="date_received" class="form-control"
-                        value="{{ $inbox->date_received ?? old('date_received') }}">
+                    
+                    <input type="date" name="received_date" class="form-control">
                 </div>
             </div>
-
-            {{-- Priority --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Priority</label>
+ {{-- summary --}}
+            <div class="col-md-6 mb-1">
+                <label class="form-label">ترلاسه کوونکې</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        ⚠️
-                    </span>
-                    <select name="priority" class="form-control">
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                    </select>
+                    
+                        <input type="text" name="summary" class="form-control"
+                           value="{{ old('summary') }}">
                 </div>
+                
             </div>
-
-            {{-- Status --}}
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Status</label>
-                <div class="input-group">
-                    <span class="input-group-text">
-                        🔄
-                    </span>
-                    <select name="status" class="form-control">
-                        <option value="new">New</option>
-                        <option value="in_review">In Review</option>
-                        <option value="completed">Completed</option>
-                    </select>
-                </div>
-            </div>
+  
+    
             {{-- File --}}
-            <div class="col-md-12 mb-3">
-                <label class="form-label">Attachment</label>
+            <div class="col-md-6 mb-1">
+                <label class="form-label">مل/ضمایم</label>
                 <div class="input-group">
-                    <span class="input-group-text">
-                        📎
-                    </span>
+                   
                     <input type="file" name="attachment" class="form-control">
                 </div>
             </div>
 
-            <div class="col-md-12 text-end mt-3">
-                <button type="submit" class="save-btn">
-                    💾 Save Letter
-                </button>
-            </div>
+           
 
         </div>
+       
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">             
+                <button type="submit" class="save-btn">
+                     لیک خوندي کړئ
+                </button>
+
+            </div>
     </div>
+    
 </div>
 </form>
 @endsection

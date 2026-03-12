@@ -76,49 +76,52 @@
 </style>
 <div class="d-flex justify-content-start mb-0">
 
-    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="btn btn-info btn-sm me-2">
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
         <i class="fa fa-plus"></i>
     </a>
 
-    <a href="{{route('inbox.index')}}" class="btn btn-info btn-sm">
+    <a href="{{route('CorrespondenceManagement.outbox.index')}}" class="btn btn-info btn-sm">
         <i class="fa fa-search"></i>
     </a>
 </div>
 <hr>
-<table class="table1">
-<thead>
-        <tr> 
-           <th>Letter No</th>
-            <th>Subject</th>
-            <th>Sender</th>
-            <th>Received</th>
-            <th>Status</th>
-            <th width="180">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach($inbox as $letter)
-        <tr>
-            <td>{{ $letter->letter_no }}</td>
-            <td>{{ $letter->subject }}</td>
-            <td>{{ $letter->sender }}</td>
-            <td>{{ $letter->received_date }}</td>
-            <td>{{ $letter->status }}</td>
-         <td class="text-center">
-    <!-- View -->
-    <a href="{{ route('inbox.show', $letter->id) }}"
+<table class="table table-bordered table-sm mt-3">
+
+<tr>
+<th>#</th>
+<th>Number</th>
+<th>Date</th>
+<th>Receiver</th>
+<th>Subject</th>
+<th>Action</th>
+
+</tr>
+
+@foreach($documents as $doc)
+
+<tr>
+
+<td>{{ $loop->iteration }}</td>
+<td>{{ $doc->doc_number }}</td>
+<td>{{ $doc->doc_date }}</td>
+<td>{{ $doc->receiver }}</td>
+<td>{{ $doc->subject }}</td>
+
+
+<td>
+<a href="{{ route('CorrespondenceManagement.outbox.show', $doc->id) }}"
        title="View"
        class="text-info me-2">
         <i class="fa-solid fa-eye"></i>
     </a>|
     <!-- Edit -->
-    <a href="{{ route('inbox.edit', $letter->id) }}"
+    <a href="{{ route('CorrespondenceManagement.outbox.edit', $doc->id) }}"
        title="Edit"
        class="text-warning me-2">
         <i class="fa-solid fa-pen"></i>
     </a>|
     <!-- Delete -->
-    <form action="{{ route('inbox.destroy', $letter->id) }}"
+    <form action="{{ route('CorrespondenceManagement.outbox.destroy', $doc->id) }}"
           method="POST"
           class="d-inline delete-form">
         @csrf
@@ -175,37 +178,10 @@ document.addEventListener('click', function (e) {
     </tbody>
 </table>
 <!-- Peganation -->
- @if ($inbox->hasPages())
-    <nav>
-        <ul class="pagination justify-content-center custom-pagination">
-            {{-- Previous Page --}}
-            @if ($inbox->onFirstPage())
-                <li class="page-item disabled"><span class="page-link">«</span></li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $inbox->previousPageUrl() }}">«</a>
-                </li>
-            @endif
-            {{-- Page Numbers --}}
-            @foreach ($inbox->links()->elements[0] as $page => $url)
-                @if ($page == $inbox->currentPage())
-                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                @else
-                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                @endif
-            @endforeach
-            {{-- Next Page --}}
-            @if ($inbox->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $inbox->nextPageUrl() }}">»</a>
-                </li>
-            @else
+<div class="d-flex justify-content-center mt-3">
+    {{ $documents->links('pagination::bootstrap-5') }}
+</div>
 
-                <li class="page-item disabled"><span class="page-link">»</span></li>
-            @endif
-        </ul>
-    </nav>
-@endif
 <!-- End Peganation -->
 
 @endsection

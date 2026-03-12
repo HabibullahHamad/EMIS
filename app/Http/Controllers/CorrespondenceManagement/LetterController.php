@@ -17,6 +17,11 @@ class LetterController extends Controller
             'sender' => 'required',
             'receiver' => 'required',
             'received_date' => 'required',
+            'summary'=> 'required', 
+            'priority' => 'required',
+         'status'=> 'required',
+         'attachment'=> 'required',
+        
         ]);
         $data = $request->all();
         // Handle file upload

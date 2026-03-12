@@ -1,29 +1,34 @@
 @extends('new')
+
 @section('content')
-
-<div class="container" style="margin-top: 20px; background-color: #cfe0f1ff; padding: 20px; border-radius: 11px;">
-    
-<button class="btn btn-primary mb-1" onclick="window.history.back();">Back to Inbox</button>
-<div class="card mt-3 border-radiused-table">
-    <thead class="bg-primary text-white">
-        <div class="card-header" style="background-color: #cb9d04ff; color: #0472f0ff; font-weight:bold; text-align:center;">
-            Letter Information
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Correspondence Details</h1>
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ $inbox->subject }}</h5>
+                </div>
+                <div class="card-body">
+                        <td></td>
+          <td></td>
+          <td></td>
+                    <p><strong>Sender:</strong> {{$inbox->letter_no}}</p>
+                    <p><strong>Recipient:</strong> {{$inbox->subject}}</p>
+                    <p><strong>Sender :</strong>{{$inbox->sender}}</p>
+                    <p><strong>Date Sent:</strong> {{ $inbox->created_at->format('Y-m-d H:i:s') }}</p>
+                    <p><strong>Content:</strong></p>
+                    <div>{{ $inbox->body }}</div>
+                    @if($inbox->attachment)
+                                        
+                        <p><strong>Attachment:</strong> <a href="{{ asset('storage/' . $inbox->attachment) }}" target="_blank">Download</a></p>
+                    @endif
+                </div>
+                <div class="card-footer">
+                    <a href="{{ route('inbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
+                </div>
+            </div>
         </div>
-    </thead>
-    
-    <div class="card-body" >
-        <p><strong>Letter No:</strong> {{ $letter->letter_no }}</p>
-        <p><strong>Subject:</strong> {{ $letter->subject }}</p>
-        <p><strong>Sender:</strong> {{ $letter->sender }}</p>
-        <p><strong>Date Received:</strong> {{ $letter->received_date }}</p>
-         <p><strong>Date Received:</strong>{{ $letter->status }}</p>
-        @if($letter->attachment)
-        <p><strong>Attachment:</strong>
-            <a href="{{ asset('storage/' . $letter->attachment) }}" target="_blank">View File</a>
-        </p>
-        @endif
     </div>
-</div>
-
 </div>
 @endsection
