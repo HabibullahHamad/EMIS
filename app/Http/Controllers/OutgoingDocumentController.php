@@ -48,34 +48,22 @@ if ($request->hasFile('attachment')) {
         }
 
 OutgoingDocument::create($data);
-
 return redirect()->route('CorrespondenceManagement.outbox.index');
-
 }
-
 public function show($id)
 {
 
 $document = OutgoingDocument::findOrFail($id);
-
 return view('CorrespondenceManagement.outbox.show',compact('document'));
-
 }
-
 
 public function edit($id)
 {
-
 $document = OutgoingDocument::findOrFail($id);
-
 return view('CorrespondenceManagement.outbox.edit',compact('document'));
-
 }
-
-
 public function update(Request $request,$id)
 {
-
 $document = OutgoingDocument::findOrFail($id);
 
 $document->update($request->all());
@@ -83,15 +71,10 @@ $document->update($request->all());
 return redirect()->route('CorrespondenceManagement.outbox.index');
 
 }
-
-
 public function destroy($id)
 {
-
 OutgoingDocument::destroy($id);
 
 return redirect()->back();
-
 }
-
 }
