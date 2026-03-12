@@ -39,13 +39,10 @@ $data = $request->validate([
 'attachment'=>'nullable|file',
 
 ]);
-if ($request->hasFile('attachment')) {
-    $file = $request->file('attachment');
-    $data['attachment'] = $file->store('attachments', 'public');
-}
-if ($request->hasFile('attachment')) {
-            $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
+ if ($request->hasFile('attachment')) {
+    $data['attachment'] = $request->file('attachment')->store('documents', 'public');
         }
+
 
 OutgoingDocument::create($data);
 return redirect()->route('CorrespondenceManagement.outbox.index');

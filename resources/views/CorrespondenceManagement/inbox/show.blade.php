@@ -25,7 +25,7 @@
                     @endif
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('CorrespondenceManagement.inbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
+                    <a href="{{ route('inbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
                 </div>
             </div>
         </div>

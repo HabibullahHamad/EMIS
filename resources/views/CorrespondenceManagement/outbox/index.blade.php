@@ -76,11 +76,11 @@
 </style>
 <div class="d-flex justify-content-start mb-0">
 
-    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="btn btn-info btn-sm me-2">
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
         <i class="fa fa-plus"></i>
     </a>
 
-    <a href="{{route('inbox.index')}}" class="btn btn-info btn-sm">
+    <a href="{{route('CorrespondenceManagement.outbox.index')}}" class="btn btn-info btn-sm">
         <i class="fa fa-search"></i>
     </a>
 </div>
@@ -94,7 +94,7 @@
 <th>Receiver</th>
 <th>Subject</th>
 <th>Action</th>
-<th> Attachment</th>
+
 </tr>
 
 @foreach($documents as $doc)
@@ -106,7 +106,7 @@
 <td>{{ $doc->doc_date }}</td>
 <td>{{ $doc->receiver }}</td>
 <td>{{ $doc->subject }}</td>
-<td>{{ $doc->attachment}}</td>
+
 
 <td>
 <a href="{{ route('CorrespondenceManagement.outbox.show', $doc->id) }}"

@@ -33,14 +33,13 @@
  <tr>
 <th>Attachment</th>
 <td>
-
     @if($document->attachment)
-        <a href="{{ asset('storage/'. $document->attachment) }}" target="_blank">Download File</a>
+         <p><strong>Attachment:</strong> <a href="{{ asset('storage/' . $document->attachment) }}" target="_blank">Download</a></p>
     @else
         No attachment
     @endif
     <div class="card-footer">
-                    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
+         <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary">Back to Inbox</a>
                 </div>
 </td>
 </table>
