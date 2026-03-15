@@ -172,7 +172,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             // basic English -> Pashto translations for visible labels/attributes
             const map = {
-                "Dashboard":"ډشبورډ",
+                "Dashboard":"منځپانګه",
                 "Correspondence":"مکاتب",
 
                   "All Outbox":"ټول آوټ باکس",
@@ -217,7 +217,11 @@
                 "Are you sure?":"ایا تاسو ډاډمن یاست؟",
                 "This action cannot be undone!":"دا عمل بیرته نشي کیدی!",
                 "Yes, delete it!":"هو، حذف یې کړئ!",
-                "Cancel":"لغوه"
+                "Cancel":"لغوه",
+                "Documents":"اسناد",
+                "Notifications":"خبرتیاوې",
+                ""
+            
             };
 
             // translate text nodes
@@ -840,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-file"></i>
-                <span>documents</span>
+                <span>Documents</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
@@ -948,6 +952,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <span class="badge">4</span>
             <div class="dropdown-menu">
                 <p class="dropdown-title">Notifications</p>
+                <a href="{{ route('notifications') }}">🔔 New notification received</a>
                 <a href="#">📊 New report generated</a>
                 <a href="#">👤 New user added</a>
                 <a href="#">⚠ Budget alert</a>

@@ -9,10 +9,26 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\OutgoingDocumentController;
+use App\Http\Controllers\NotificationController;
 
 
 
 
+
+
+
+
+// notifications
+route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+
+
+Route::get('notifications', function () {
+    return view('notifications');
+})->name('notifications');
+
+
+
+// end 
 // coming///////////////////////////////////
 
 Route::prefix('CorrespondenceManagement/inbox')
