@@ -144,6 +144,9 @@
             outline:none;
             font-size:13px;
             text-align: right; /* RTL input */
+            width: 120px;
+            transition: width 0.3s ease;
+
         }
 
         /* adjust some icon spacing for RTL */
@@ -220,7 +223,7 @@
                 "Cancel":"لغوه",
                 "Documents":"اسناد",
                 "Notifications":"خبرتیاوې",
-                ""
+                "Search EMIS...":"د EMIS لټون...",
             
             };
 

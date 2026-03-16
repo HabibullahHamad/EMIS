@@ -63,15 +63,17 @@
         }
     }
 </style>
+
 <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- All your input fields here -->
 
 <div class="container mt-0 mb-0 border-3 form-card">
 
-    <div class="col-md-12">
+
+    <div class=".col-sm-3 .col-md-4 .col-lg-4">     
        
-        <div class="row">
+        <div class="row g-2">
             {{-- Letter Number --}}
             <div class="col-md-6 mb-0">
                 <label class="form-label">ګنه</label>
