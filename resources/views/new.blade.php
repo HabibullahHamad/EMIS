@@ -588,8 +588,9 @@
             border-radius: 2px;
             position: relative;
             spacing :20px;
-            transition: 0.3s;
+            transition: 0.5s;
             border-left:5px;
+            
 
 
         }
@@ -723,6 +724,7 @@
         display: none;
     }
     .sidebar .logo img {
+        
         transition: width 0.3s, height 0.3s;
     }
     .sidebar.collapsed .logo img {
