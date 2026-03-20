@@ -59,7 +59,7 @@ class DocumentController extends Controller
     // SHOW
     public function show(Document $document)
     {
-        return view('documents.show',compact('document'));
+        return view('documents.show',compact('documents'));
     }
 
     // EDIT

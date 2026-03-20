@@ -31,7 +31,7 @@ class ExportDocumentController extends Controller
 
         $filePath = null;
         if ($request->hasFile('attachment')) {
-            $filePath = $request->file('attachment')->store('exports', 'public');
+            $filePath = $request->file('attachments')->store('exports', 'public');
         }
 
         ExportDocument::create([
