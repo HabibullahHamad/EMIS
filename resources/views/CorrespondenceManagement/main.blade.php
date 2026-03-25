@@ -52,7 +52,7 @@
 
   
     @include('CorrespondenceManagement.page1')
-  
+    
 
 </div>
 
