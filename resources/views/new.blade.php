@@ -823,6 +823,7 @@ document.addEventListener('DOMContentLoaded', function () {
            <ul class="sub-menu">
                         <li><a href="{{route('CorrespondenceManagement.outbox.create')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
                         <li><a href="{{ route('CorrespondenceManagement.inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+                        <li><a href="{{ route('CorrespondenceManagement.main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
             </ul>
         </li>
         <!-- User Management -->
