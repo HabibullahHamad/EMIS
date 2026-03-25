@@ -53,6 +53,14 @@ Route::get('/CorrespondenceManagement/inbox/inbox', function () {
     return view ('CorrespondenceManagement.inbox.inbox');
 });
 
+
+
+ 
+route::get('/CorrespondenceManagement/main', function () {
+    return view('CorrespondenceManagement.main');
+})->name('CorrespondenceManagement.main');
+
+
 Route::get('/CorrespondenceManagement/inbox/index', function () {
     return view ('CorrespondenceManagement.inbox.index');
 });

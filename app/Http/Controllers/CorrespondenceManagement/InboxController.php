@@ -139,6 +139,15 @@ public function show($id)
 
         return redirect()->route('inbox.index')->with('success', 'one Record is deleted!');
     }
+
+
+    
+    public function main()
+{
+      $letter = Inbox::latest()->get(); // ✅ REQUIRED
+
+    return view('CorrespondenceManagement.main', compact('inbox'));
+}
 }
 
 
