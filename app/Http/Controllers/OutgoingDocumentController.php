@@ -12,7 +12,7 @@ class OutgoingDocumentController extends Controller
 public function index()
 {
 
-$documents = OutgoingDocument::latest()->paginate(10);
+$documents = OutgoingDocument::latest()->paginate(15);
 
 return view('CorrespondenceManagement.outbox.index',compact('documents'));
 

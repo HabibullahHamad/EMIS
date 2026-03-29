@@ -33,7 +33,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
+            padding: 0 0px;
             z-index: 9999;
             transition: right 0.25s ease;
         }
@@ -45,7 +45,7 @@
 
         /* Main content offset to leave room for the right sidebar (RTL) */
         main.content {
-            margin-top: 48px; /* space for fixed navbar */
+            margin-top: 28px; /* space for fixed navbar */
             margin-right: var(--sidebar-width);
             margin-left: 4px;
             transition: margin-right 0.25s ease;
@@ -103,41 +103,7 @@
         .content { margin-right: var(--sidebar-width); margin-left: 15px; }
         .sidebar.collapsed ~ .content { margin-right: var(--sidebar-collapsed-width); margin-left: 15px; }
 
-        /* Top navbar spans from left edge to sidebar (on the right) */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: var(--sidebar-width);
-            height: 40px;
-            background: #b7bbbbff;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            z-index: 999;
-            transition: right 0.3s ease;
-        }
-        /* Adjust when sidebar collapsed */
-        .sidebar.collapsed ~ .top-navbar{
-            right: var(--sidebar-collapsed-width);
-        }
-
-        /* Navbar internal alignment for RTL:
-           nav-left sits at start (left side of the page), nav-right at end (near the sidebar) */
-        .nav-left { display:flex; align-items:center; gap:12px; }
-        .nav-right { display:flex; align-items:center; gap:18px; }
-
-        /* SEARCH alignment */
-        .nav-search{
-            display:flex;
-            align-items:center;
-            gap:8px;
-            background:#f1f5f9;
-            padding:6px 10px;
-            border-radius:8px;
-        }
+        
         .nav-search input{
             border:none;
             background:none;
@@ -177,7 +143,7 @@
             const map = {
                 "Dashboard":"منځپانګه",
                 "Correspondence":"مکاتب",
-
+                "All Employees":"ټول کارمندان",
                   "All Outbox":"ټول آوټ باکس",
                   "Create Outgoing":"صادره ",
                   "Sent Reports":"لیږل شوي راپورونه",
@@ -224,6 +190,74 @@
                 "Documents":"اسناد",
                 "Notifications":"خبرتیاوې",
                 "Search EMIS...":"د EMIS لټون...",
+                "Subject":"موضوع",
+                "Receiver":"ترلاسه کوونکی",
+                "Received":"د ترلاسه کولو نېټه",
+                "Number":"ګڼه",
+                "Date":"نېټه",
+                "Actions":"عملونه",
+                "View":"اړیکې شمېره",
+                "Edit":"تعییرول",
+                "Delete":"له منځه وړل",
+                "Document Number":" د سند نمبر",
+                "Document Date":"  د سند نیټه",
+                "Document Receiver":" د سند ترلاسه کوونکی",
+                "Priority":"اولویت",
+                "Sender":"لېږونکی",
+                "Status":"حالت",
+                "Assigned To":"سپارل شوی",
+                "Save":"ذخیره",
+                "Department":"څانګه",
+        "Description":"توضیحات",
+        "Low":"کم",
+        "Medium":"متوسط",
+        "High":"زیاد",
+        "Attachment":"مل/ضمایم",
+        "Chose File":"فایل انتخاب کنید",
+        "No file chosen":"هیچ فایلی انتخاب نشده است",
+        // FOR Dashbord
+                "Total Documents":"ټول اسناد",
+                "Pending Tasks":"بشپړ شوي دندې",
+                "Completed Tasks":"بشپړ شوي دندې",
+                "Overdue Tasks":"بشپړ شوي دندې",
+                "Tasks":" دندې",
+                "All System Users":"سیسټم کارونکي",
+                "Tasks Assigned":" سپارل شوي دندې",
+                "Operational Trend":"عملیاتي تمایل",
+                "Jobs Graph":"دندو ګراف",
+                "Time & Dtae":"وخت او نېټه",
+                "All Tasks":"ټولې دندې",
+                "Incoming Documents":"وارده اسناد",
+                "Outgoing Documents":"صادره اسناد",
+                "Assigned Tasks":"سپارل شوي دندې",
+                "Letter No":"د لیک شمېره",
+                "Subject":"موضوع",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // "Submit":"ارسال",
+                // "Close":"بستن",
+                // "Edit Task":"تغییر وظیفه",
+                // "Task Title":"عنوان وظیفه",
+                // "Due Date":"تاریخ انقضا",
+                // "Priority":"اولویت",
+                // "Assigned To":"تخصیص داده شده به",
+                // "Task Description":"توضیحات وظیفه",
+                // "Update Task":"به روز رسانی وظیفه",
+                
             
             };
 
@@ -338,24 +372,19 @@
 
 /* LEFT */
 
-
-
-
-
 /* RIGHT */
 .nav-right{
     display:flex;
     align-items:center;
     gap:18px;
 }
-
 /* SEARCH */
 .nav-search{
     display:flex;
     align-items:center;
     gap:8px;
     background:#f1f5f9;
-    padding:6px 10px;
+    padding:1px 1px;
     border-radius:8px;
 }
 .nav-search input{
@@ -442,7 +471,9 @@
 
 /* CONTENT OFFSET */
 .content{
-    margin-top:22px;
+    margin-top:0px;
+    padding-top:1px;
+    
 }
 
 /* end navbar */

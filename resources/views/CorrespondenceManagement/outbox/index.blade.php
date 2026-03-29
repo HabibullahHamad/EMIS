@@ -6,17 +6,18 @@
 
 </div>
 <style>
+   
     .custom-pagination .page-link {
         color: #0d6efd;
-        font-weight: 600;
+        font-weight: 100;
         border-radius: 6px;
-        padding: 6px 12px;
+        padding: 1px 1px;
     }
     .custom-pagination .page-item.active .page-link {
         background-color: #0d6efd;
         border-color: #0d6efd;
         color: white !important;
-        font-weight: bold;
+        font-weight: normal;
     }
     .custom-pagination .page-item.disabled .page-link {
         color: #6c757d;
@@ -26,68 +27,78 @@
     }
 </style>
 <style>
-    .table1 {
-        border-collapse: separate;
-        border-spacing: 0;
-        overflow: hidden;
-        border-radius: 10px;
-        width: 100%;
-        margin-top: 0px;
-
-    }
-    .table1 thead tr th:first-child {
-        border-top-left-radius: 12px;
-    }
-    .table1 thead tr th:last-child {
-        border-top-right-radius: 12px;
-    }
-    .table1 tbody tr:last-child td:first-child {
-        border-bottom-left-radius: 12px;
-    }
-    .table1 tbody tr:last-child td:last-child {
-        border-bottom-right-radius: 12px;
-    }
   
-    .table1 {
-        border: 2px solid #064e96ff;
-        border-radius: 12px;
-        margin-top: 0px;
-        padding: auto;
-        width: 100%;
-        background: white;
-    }
-    .table1 thead tr {
-        background: #064e96ff;
-        color:white;
-        font-weight: bold;
-    }
-    .table1 tbody tr {
-        transition: background 0.2s, color 0.2s, border-radius 0.2s;
-    }
-    .table1 tbody tr:hover {
-        background: #04419dff !important;
-        color: #fcfcfcff !important;
-        border-radius: 12px;
-    }
-    .table1 th, .table1 td {
-        vertical-align: middle;
-        text-align: center;
-    }
-</style>
-<div class="d-flex justify-content-start mb-0">
+.table-emis {
+    width: 100%;
+    border-collapse: collapse;
+    border-buttom:2px solid #0c0c0c;
+    font-size: 15px;
+      box-shadow: 0px 0px 5px 5px lightblue;   
+}
 
-    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
+/* Header */
+.table-emis thead {
+    background-color: #074582;
+    color: #ffffff;
+    font-size:15px;
+    text-align: right;
+    
+}
+
+.table-emis thead th {
+    font-weight: bold;
+    padding: 2px 2px;
+    text-align: right;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Body Rows */
+.table-emis tbody td {
+    padding: 1px 1px;   /* SMALL HEIGHT */
+    border-bottom: 0px solid #08519a;
+    vertical-align: middle;
+    text-align: right;
+}
+
+/* Zebra Style */
+.table-emis tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover Effect */
+.table-emis tbody tr:hover {
+    background-color: #f4f5f7;
+}
+
+/* Compact row height */
+.table-emis tr {
+    height: 25px;
+}
+
+.tb{
+ background-color: #074582;
+ padding: 1px 8px 1px 8px;
+ border-radius:6px;
+ color:white;
+ weight:10px;
+ margin-right:3px;
+ }
+
+</style>
+<div class="d-flex justify-content-start mb-2">
+
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="tb">
         <i class="fa fa-plus"></i>
     </a>
 
-    <a href="{{route('CorrespondenceManagement.outbox.index')}}" class="btn btn-info btn-sm">
+    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="tb">
         <i class="fa fa-search"></i>
     </a>
 </div>
-<hr>
-<table class="table table-bordered table-sm mt-3">
-
-<tr>
+<div class="table-responsive shadow:2px">
+    <table class="table-emis">
+    <thead class="table-light">
+        <tr> 
 <th>#</th>
 <th>Number</th>
 <th>Date</th>
@@ -96,7 +107,7 @@
 <th>Action</th>
 
 </tr>
-
+</thead>
 @foreach($documents as $doc)
 
 <tr>
@@ -178,7 +189,7 @@ document.addEventListener('click', function (e) {
     </tbody>
 </table>
 <!-- Peganation -->
-<div class="d-flex justify-content-center mt-3">
+<div class="d-flex justify-content-center mt-0 padding-0">
     {{ $documents->links('pagination::bootstrap-5') }}
 </div>
 

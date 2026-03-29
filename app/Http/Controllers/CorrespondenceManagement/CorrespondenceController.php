@@ -15,7 +15,7 @@ class CorrespondenceController extends Controller
         if ($request->subject) $query->where('subject', 'like', "%{$request->subject}%");
         if ($request->date) $query->whereDate('deadline', $request->date);
 
-        $correspondences = $query->with(['comments.user'])->paginate(10);
+        $correspondences = $query->with(['comments.user'])->paginate(15);
         $users = User::all();
 
         return view('comming', compact('correspondences', 'users'));

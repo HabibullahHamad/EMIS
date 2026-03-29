@@ -1,15 +1,24 @@
 @extends('new') 
 @section('content')
 
+<style>
+.tb{
+ background-color: #074582;
+ padding: 1px 8px 1px 8px;
+ border-radius:6px;
+ color:white;
+ weight:10px;
+ margin-right:3px;
+ }
 
-
+</style>
 <div class="d-flex justify-content-start mb-2">
 
-    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="btn btn-info btn-sm me-2">
+    <a href="{{ route('CorrespondenceManagement.outbox.create') }}" class="tb">
         <i class="fa fa-plus"></i>
     </a>
 
-    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-info btn-sm">
+    <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="tb">
         <i class="fa fa-search"></i>
     </a>
 </div>

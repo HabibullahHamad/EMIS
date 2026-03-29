@@ -33,7 +33,7 @@ class InboxController extends Controller
 
     public function index()
     {
-        $inbox = Inbox::orderBy('id', 'desc')->paginate(11);
+        $inbox = Inbox::orderBy('id', 'desc')->paginate(14);
         return view('CorrespondenceManagement.inbox.index', compact('inbox'));
     }
 // for create 

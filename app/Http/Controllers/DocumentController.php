@@ -29,7 +29,7 @@ class DocumentController extends Controller
             $query->where('type',$request->type);
         }
 
-        $documents = $query->latest()->paginate(10);
+        $documents = $query->latest()->paginate(15);
 
         return view('documents.index',compact('documents'));
     }

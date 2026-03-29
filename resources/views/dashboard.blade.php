@@ -21,8 +21,44 @@
       
 
         /* HEADER */
-     
+    .kpi-card {
+    background: #f4f6f9;
+    padding: 20px 25px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
 
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.kpi-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.kpi-value {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.kpi-card small {
+    color: #999;
+}
+
+/* Icon */
+.kpi-icon {
+    font-size: 45px;
+    opacity: 0.85;
+}
+/* end */
       
 
         .breadcrumb {
@@ -128,32 +164,125 @@
 <div class="container">
 
     <!-- KPI SECTION -->
-    <div class="kpi-grid">
-        <div class="kpi-card success">
-            <div class="kpi-title">Tasks</div>
-            <div class="kpi-value">96.6%</div>
-            <small>Productive Time</small>
-        </div>
+  <div class="row g-3">
 
-        <div class="kpi-card info">
-            <div class="kpi-title">Time & Dtae</div>
-            <div class="kpi-value">0.0.0</div>
-            <small>0.0.0.0</small>
-        </div>
-
+    <!-- 1. All Tasks -->
+    <div class="col-md-3">
         <div class="kpi-card">
-            <div class="kpi-title">System Users</div>
-            <div class="kpi-value">132</div>
-            <small>Staff</small>
-        </div>
-
-        <div class="kpi-card warning">
-            <div class="kpi-title">Pending Tasks</div>
-            <div class="kpi-value">3.8%</div>
-            <small>Number</small>
+            <div>
+                <div class="kpi-title">All Tasks</div>
+                <div class="kpi-value">120</div>
+                <small>Total Tasks</small>
+            </div>
+            <div class="kpi-icon text-primary">
+                <i class="fas fa-tasks"></i>
+            </div>
         </div>
     </div>
 
+    <!-- 2. System Users -->
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">All System Users</div>
+                <div class="kpi-value">45</div>
+                <small>Registered Users</small>
+            </div>
+            <div class="kpi-icon text-info">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Employees -->
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">All Employees</div>
+                <div class="kpi-value">32</div>
+                <small>Active Staff</small>
+            </div>
+            <div class="kpi-icon text-success">
+                <i class="fas fa-user-tie"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Documents -->
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">Total Documents</div>
+                <div class="kpi-value">560</div>
+                <small>All Records</small>
+            </div>
+            <div class="kpi-icon text-warning">
+                <i class="fas fa-file-alt"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Pending Tasks -->
+   
+
+    <!-- 6. Completed Tasks -->
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">Completed Tasks</div>
+                <div class="kpi-value">102</div>
+                <small>Finished</small>
+            </div>
+            <div class="kpi-icon text-success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+    </div>
+    <!-- 7 assighned tasks -->
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">Assigned Tasks</div>
+                <div class="kpi-value">25</div>
+                <small>In Progress</small>
+            </div>
+            <div class="kpi-icon text-info">
+                <i class="fas fa-user-check"></i>
+            </div>
+        </div>
+
+        <!-- all incomming Documents  -->
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">Incoming Documents</div>
+                <div class="kpi-value">150</div>
+                <small>New Records</small>  
+                </div>
+            <div class="kpi-icon text-primary">
+                <i class="fas fa-inbox"></i>
+                </div>
+                </div>
+                </div>
+                <!-- all outgoing Documents  -->
+                <div class="col-md-3">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-title">Outgoing Documents</div>
+                <div class="kpi-value">120</div>
+                <small>Sent Records</small>
+                </div>
+            <div class="kpi-icon text-secondary">
+                <i class="fas fa-paper-plane"></i>
+                </div>
+                </div>
+                </div>
+                <!-- all pending Documents  -->
+
+</div>
+
+<hr>
     <!-- CHARTS + ASSETS -->
     <div class="dashboard-grid">
 

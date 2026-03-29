@@ -11,17 +11,26 @@
         autoClose: true
     });
 </script>
+<style>
+.tb{
+ background-color: #074582;
+ padding: 1px 8px 1px 8px;
+ border-radius:6px;
+ color:white;
+ weight:10px;
+ margin-right:3px;
+ }
+    </style>
 
-<div class="d-flex justify-content-start mb-1">
+<div class="d-flex justify-content-start mb-1 mt-0">
 
-    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="btn btn-info btn-sm me-2">
+    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="tb">
         <i class="fa fa-plus"></i>
     </a>
 
-    <a href="{{route('inbox.index')}}" class="btn btn-info btn-sm">
+    <a href="{{route('inbox.index')}}" class="tb">
         <i class="fa fa-search"></i>
     </a>
-
 </div>
 <hr>
 <style>
@@ -40,13 +49,13 @@
     }
     .input-group .form-control {
         border-radius: 6px;
-        transition: box-shadow 0.2s;
+        transition: box-shadow 0.3s;
     }
     .input-group .form-control:focus {
-        box-shadow: 0 0 0 2px #17a2b8;
+        box-shadow: 0 0 0 1px #0685ed;
     }
     .save-btn {
-        background: #17a2b8;
+        background: #0685ed;
         color: #fff;
         border: none;
         border-radius: 6px;
