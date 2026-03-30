@@ -22,7 +22,7 @@
 
         /* HEADER */
     .kpi-card {
-    background: #f4f6f9;
+    background: #94979c;
     padding: 20px 25px;
     border-radius: 12px;
     display: flex;
@@ -88,7 +88,7 @@
 
         .kpi-card {
             background: white;
-            padding: 18px;
+            padding: 11px;
             border-radius: 8px;
             border-left: 6px solid #0b5ed7;
         }
@@ -99,7 +99,7 @@
 
         .kpi-title {
             font-size: 14px;
-            color: #555;
+            color: #0847b3;
         }
 
         .kpi-value {
@@ -124,7 +124,7 @@
 
         .card {
             background: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
         }
 
@@ -170,7 +170,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">All Tasks</div>
+                <div class="kpi-title">All Tasks</div>  <hr>
                 <div class="kpi-value">120</div>
                 <small>Total Tasks</small>
             </div>
@@ -184,7 +184,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">All System Users</div>
+                <div class="kpi-title">All System Users</div>  <hr>
                 <div class="kpi-value">45</div>
                 <small>Registered Users</small>
             </div>
@@ -198,7 +198,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">All Employees</div>
+                <div class="kpi-title">All Employees</div>  <hr>
                 <div class="kpi-value">32</div>
                 <small>Active Staff</small>
             </div>
@@ -207,12 +207,12 @@
             </div>
         </div>
     </div>
-
     <!-- 4. Documents -->
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">Total Documents</div>
+                <div class="kpi-title">Total Documents</div>  <hr>
+                
                 <div class="kpi-value">560</div>
                 <small>All Records</small>
             </div>
@@ -229,7 +229,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">Completed Tasks</div>
+                <div class="kpi-title">Completed Tasks</div>  <hr>
                 <div class="kpi-value">102</div>
                 <small>Finished</small>
             </div>
@@ -242,7 +242,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">Assigned Tasks</div>
+                <div class="kpi-title">Assigned Tasks</div>  <hr>
                 <div class="kpi-value">25</div>
                 <small>In Progress</small>
             </div>
@@ -256,7 +256,7 @@
     <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">Incoming Documents</div>
+                <div class="kpi-title">Incoming Documents</div>  <hr>
                 <div class="kpi-value">150</div>
                 <small>New Records</small>  
                 </div>
@@ -269,7 +269,7 @@
                 <div class="col-md-3">
         <div class="kpi-card">
             <div>
-                <div class="kpi-title">Outgoing Documents</div>
+                <div class="kpi-title">Outgoing Documents</div>  <hr>
                 <div class="kpi-value">120</div>
                 <small>Sent Records</small>
                 </div>
