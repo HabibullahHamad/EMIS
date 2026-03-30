@@ -260,7 +260,7 @@
                 
             
             };
-
+        
             // translate text nodes
             const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
             let node;
