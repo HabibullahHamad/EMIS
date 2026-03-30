@@ -35,19 +35,14 @@
     border-collapse: collapse;
     border-buttom:2px solid #0c0c0c;
     font-size: 15px;
-   
-   
 }
-
 /* Header */
 .table-emis thead {
     background-color: #074582;
     color: #ffffff;
     font-size:15px;
     text-align: right;
-    
 }
-
 .table-emis thead th {
     font-weight: bold;
     padding: 2px 2px;

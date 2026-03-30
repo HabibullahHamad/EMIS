@@ -11,7 +11,9 @@
         color: #0d6efd;
         font-weight: 100;
         border-radius: 6px;
-        padding: 1px 1px;
+        padding: 1px 10px;
+        margin-top:6px;
+
     }
     .custom-pagination .page-item.active .page-link {
         background-color: #0d6efd;
@@ -188,11 +190,39 @@ document.addEventListener('click', function (e) {
     @endforeach
     </tbody>
 </table>
-<!-- Peganation -->
-<div class="d-flex justify-content-center mt-0 padding-0">
-    {{ $documents->links('pagination::bootstrap-5') }}
-</div>
 
+ <!-- Peganation -->
+ @if ($documents->hasPages())
+    <nav>
+        <ul class="pagination justify-content-center custom-pagination">
+            {{-- Previous Page --}}
+            @if ($documents->onFirstPage())
+                <li class="page-item disabled"><span class="page-link">«</span></li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $documents->previousPageUrl() }}">«</a>
+                </li>
+            @endif
+            {{-- Page Numbers --}}
+            @foreach ($documents->links()->elements[0] as $page => $url)
+                @if ($page == $documents->currentPage())
+                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                @else
+                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                @endif
+            @endforeach
+            {{-- Next Page --}}
+            @if ($documents->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $documents->nextPageUrl() }}">»</a>
+                </li>
+            @else
+
+                <li class="page-item disabled"><span class="page-link">»</span></li>
+            @endif
+        </ul>
+    </nav>
+@endif
 <!-- End Peganation -->
 
 @endsection
