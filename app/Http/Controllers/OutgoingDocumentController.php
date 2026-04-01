@@ -39,8 +39,8 @@ $data = $request->validate([
 'attachment'=>'nullable|file',
 
 ]);
- if ($request->hasFile('attachment')) {
-    $data['attachment'] = $request->file('attachment')->store('documents', 'public');
+ if ($request->hasFile('attachments')) {
+    $data['attachments'] = $request->file('attachments')->store('documents', 'public');
         }
 
 
