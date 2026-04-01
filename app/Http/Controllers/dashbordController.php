@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 namespace App\Http\Controllers\CorrespondenceManagement;
 
@@ -34,7 +34,7 @@ class DashboardController extends Controller
             // ==============================
             // 📄 DOCUMENT TYPES
             // ==============================
-
+            
             $incomingDocs = Document::where('type', 'incoming')->count();
             $outgoingDocs = Document::where('type', 'outgoing')->count();
 
@@ -108,4 +108,4 @@ class DashboardController extends Controller
             return back()->with('error', 'Dashboard failed to load.');
         }
     }
-} -->
+}
