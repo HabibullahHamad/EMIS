@@ -71,7 +71,6 @@ class InboxController extends Controller
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
 
-        
         Inbox::create($data);
 
         return redirect()->route('inbox.index')->with('success', 'لیګ په بریالیتوب سره خوندي شو!');
