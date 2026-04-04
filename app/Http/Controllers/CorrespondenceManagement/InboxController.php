@@ -109,7 +109,7 @@ public function show($id)
             'sender',
             'receiver',
             'received_date',
-          
+        
              'attachment',
         ]);
         if ($request->hasFile('attachment')) {

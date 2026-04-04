@@ -612,7 +612,7 @@
             gap: 14px;
             color: #fbfdffff;
             padding-top: 5px;
-            padding-bottom: 5px;
+            padding-bottom: 12px;
             padding-left: 15px;
             font-size: 14px;
             text-decoration: none;
@@ -627,23 +627,16 @@
         }
         .menu a:hover {
          
-            background: #c76c05ff;
+            background: rgb(179, 178, 177);
               display: flex;
             align-items: center;
             gap: 8px;
-            color: #fbfdffff;
+            color: rgb(8, 8, 8);
             border-left: 4px solid #0b8bf4ff;
             border-radius: 0px 10px 10px 0px;
             
         }
-     .li active a {
-            background: #c76c05ff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #fbfdffff;
-            border-left: 4px solid #089ae3ff; 
-        }
+     
         .menu span {
             white-space: nowrap;
         }
@@ -857,6 +850,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li><a href="{{ route('CorrespondenceManagement.main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
             </ul>
         </li>
+     
+        <ul>
+            <li><a href="{{route('1')}}">1</li>
+</ul>
         <!-- User Management -->
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">

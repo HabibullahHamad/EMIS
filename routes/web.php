@@ -26,6 +26,13 @@ Route::get('notifications', function () {
     return view('notifications');
 })->name('notifications');
 
+// 1 
+
+
+route::get('1', function() {
+    return view('1');
+})->name('1');
+
 
 
 // end 
