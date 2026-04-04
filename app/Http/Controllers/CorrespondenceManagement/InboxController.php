@@ -45,7 +45,6 @@ class InboxController extends Controller
 // store
     public function store(Request $request)
     {
-
       $request->validate([
     'letter_no' => 'required',
     'subject' => 'required',
@@ -56,7 +55,6 @@ class InboxController extends Controller
   
     'attachment' => 'nullable|file|max:2048'
 ]);
-
         $data = $request->only([
             'letter_no',
             'subject',
@@ -70,7 +68,6 @@ class InboxController extends Controller
         if ($request->hasFile('attachment')) {
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
-
         Inbox::create($data);
 
         return redirect()->route('inbox.index')->with('success', 'لیګ په بریالیتوب سره خوندي شو!');
@@ -83,7 +80,6 @@ public function show($id)
 
     return view('CorrespondenceManagement.inbox.show', compact('inbox'));
 }
-  
 // edit function 
 
     public function edit($id)
@@ -91,8 +87,6 @@ public function show($id)
         $letter = Inbox::findOrFail($id);
         return view('CorrespondenceManagement.inbox.edit', compact('letter'));
     }
-
-
     // update function 
     public function update(Request $request, $id)
     {
@@ -104,7 +98,6 @@ public function show($id)
             'sender'         => 'required|string|max:255',
             'receiver'       => 'required|string|max:255',
             'received_date'  => 'required|date',
-           
             // Updated status validation to match DB enum
             
             'attachment'     => 'nullable|file|mimes:pdf,doc,docx|max:2048',
@@ -119,36 +112,24 @@ public function show($id)
           
              'attachment',
         ]);
-
         if ($request->hasFile('attachment')) {
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
-
         $letter->update($data);
-
         return redirect()->route('inbox.index')->with('success', 'Inbox updated!');
     }
-
 // destroy function 
-
     public function destroy($id)
     {
         $letter = Inbox::findOrFail($id);
         $letter->delete();
-
         return redirect()->route('inbox.index')->with('success', 'one Record is deleted!');
     }
-
-
-    
     public function main()
 {
       $letter = Inbox::latest()->get(); // ✅ REQUIRED
-
     return view('CorrespondenceManagement.main', compact('inbox'));
 }
 }
-
-
 
 // new controller 
