@@ -26,12 +26,13 @@
         background-color: #e9f0ff;
     }
 </style>
+
 <div class="container">
     <h2>Employees</h2>
 
-    <a href="{{ route('employees.create') }}" class="btn btn-primary mb-3">Add Employee</a>
+    <a href="{{ route('employees.create') }}" class="btn btn-primary mb-3 align-left">Add Employee</a>
 
-    <form method="GET" action="{{ route('employees.index') }}" class="mb-3">
+    <form method="GET" action="{{ route('employees.index') }}" class="form">
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search employee">
         <button type="submit">Search</button>
     </form>
