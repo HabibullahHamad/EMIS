@@ -10,6 +10,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\OutgoingDocumentController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\EmployeeController;
+
+
+
+
+// 
+Route::resource('employees', EmployeeController::class);
+
 
 
 

@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Employee;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class EmployeeController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Employee::query();
+
+        if ($request->search) {
+            $query->where('full_name', 'like', '%' . $request->search . '%')
+                  ->orWhere('employee_code', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%')
+                  ->orWhere('phone', 'like', '%' . $request->search . '%');
+        }
+
+        $employees = $query->latest()->paginate(10);
+
+        return view('employees.index', compact('employees'));
+    }
+
+    public function create()
+    {
+        return view('employees.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'employee_code' => 'required|unique:employees,employee_code',
+            'first_name'    => 'required|string|max:100',
+            'last_name'     => 'required|string|max:100',
+            'email'         => 'nullable|email',
+            'phone'         => 'nullable|string|max:30',
+            'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status'        => 'required|string',
+        ]);
+
+        $data = $request->all();
+        $data['full_name'] = $request->first_name . ' ' . $request->last_name;
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('employees', 'public');
+        }
+
+        Employee::create($data);
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee created successfully');
+    }
+
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
+
+    public function edit(Employee $employee)
+    {
+        return view('employees.edit', compact('employee'));
+    }
+
+    public function update(Request $request, Employee $employee)
+    {
+        $request->validate([
+            'employee_code' => 'required|unique:employees,employee_code,' . $employee->id,
+            'first_name'    => 'required|string|max:100',
+            'last_name'     => 'required|string|max:100',
+            'email'         => 'nullable|email',
+            'phone'         => 'nullable|string|max:30',
+            'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status'        => 'required|string',
+        ]);
+
+        $data = $request->all();
+        $data['full_name'] = $request->first_name . ' ' . $request->last_name;
+
+        if ($request->hasFile('photo')) {
+            if ($employee->photo && Storage::disk('public')->exists($employee->photo)) {
+                Storage::disk('public')->delete($employee->photo);
+            }
+
+            $data['photo'] = $request->file('photo')->store('employees', 'public');
+        }
+
+        $employee->update($data);
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee updated successfully');
+    }
+
+    public function destroy(Employee $employee)
+    {
+        if ($employee->photo && Storage::disk('public')->exists($employee->photo)) {
+            Storage::disk('public')->delete($employee->photo);
+        }
+
+        $employee->delete();
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee deleted successfully');
+    }
+}

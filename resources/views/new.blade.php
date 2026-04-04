@@ -850,7 +850,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li><a href="{{ route('CorrespondenceManagement.main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
             </ul>
         </li>
-     
+     <!-- employee -->
+       <li class="has-sub">
+            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
+                <i class="fa-solid fa-folder"></i>
+                <span>Correspondence</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </a>
+           <ul class="sub-menu">
+                        <li><a href="{{route('employees.index')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
+                        <li><a href="{{route('employees.create')}}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+                     
+
+            </ul>
+        </li>
+
+     <!-- end -->
         <ul>
             <li><a href="{{route('1')}}">1</li>
 </ul>
