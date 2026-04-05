@@ -8,13 +8,12 @@
 
     .{
         direction:rtl;
-        
     }
     .page-header {
         background: #fff;
         border-radius: 10px;
-        padding: 12px 16px;
-        margin-bottom: 16px;
+        padding: 8px 80px;
+        margin-bottom: 8px;
         box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
 
@@ -45,7 +44,7 @@
     }
 
     .table tbody td {
-        font-size: 13px;
+        font-size: 12px;
         vertical-align: middle;
         text-align: center;
         height: 30px;
@@ -61,7 +60,8 @@
 
     .action-btns .btn {
         margin: 1px;
-         font-size: 13px;
+         font-size: 10px;
+        
     }
 
     .custom-pagination .page-link {
@@ -131,10 +131,10 @@
                 </div>
             </div>
 
-            <h4 class="page-title flex-grow-1">د کارکوونکو مدیریت</h4>
+            <h4 class="page-title flex-grow-0">د کارکوونکو مدیریت</h4>
 
             <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">
-                ➕ Add Employee
+                 Add Employee
             </a>
         </div>
     </div>

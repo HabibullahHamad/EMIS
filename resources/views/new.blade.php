@@ -234,7 +234,24 @@
                 "Subject":"موضوع",
 
 
+                //    for employee
 
+                     "Employee":"کارکوونکی",
+                     "Name":"نوم",
+                       "ID":"ای ډي",
+                         "Code":"کوډ",
+                           "Email":"برښنالیک",
+                             "Phone":"تلیفون شمېره",
+                                "Photo":"انځور",
+                     "Subject":"موضوع",
+                     "Add Employee":"کارمند اضافه کول",
+                     "Create Employee":"نوی کارمند اضافه کړئ",
+                     "Employee Code":"کوډ",
+                     "First Name":"اول نوم",
+                     "Last Name":"ورستی نوم",
+
+
+                // end
 
 
 

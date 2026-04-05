@@ -1,16 +1,31 @@
 @forelse($employees as $employee)
     <tr>
         <td>{{ $employee->id }}</td>
-      
         <td>{{ $employee->employee_code }}</td>
         <td>{{ $employee->full_name }}</td>
         <td>{{ $employee->email ?? '-' }}</td>
         <td>{{ $employee->phone ?? '-' }}</td>
-       <td>{{ $employee->status?? '-' }}</td>
 
-          <td>
+        <td>
+            @php
+                $status = strtolower(trim($employee->status ?? ''));
+            @endphp
+
+            @if($status === 'active')
+                <span class="status-badge status-active">Active</span>
+            @elseif($status === 'inactive')
+                <span class="status-badge status-inactive">Inactive</span>
+            @else
+                <span class="status-badge status-other">
+                    {{ $employee->status ?: 'N/A' }}
+                </span>
+            @endif
+        </td>
+
+        <td>
             <img src="{{ $employee->photo_url }}" class="employee-photo" alt="photo">
         </td>
+
         <td class="action-btns">
             <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-sm btn-info" title="View">👁</a>
             <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-sm btn-warning" title="Edit">✏️</a>

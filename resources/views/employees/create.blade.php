@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-3">Create Employee</h2>
+    <h3 class="mb-3">Create Employee</h3>
 
     {{-- Validation Errors --}}
     @if($errors->any())

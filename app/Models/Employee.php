@@ -16,7 +16,6 @@ class Employee extends Model
         'photo',
         'status',
     ];
-
     public function getPhotoUrlAttribute()
     {
         return $this->photo
