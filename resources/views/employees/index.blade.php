@@ -142,6 +142,34 @@
    
     <div class="table-card">
         <div class="table-responsive rtl-table">
+            <div class="row mb-3">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body py-3">
+                <h6 class="mb-1">Total Employees</h6>
+                <h3 class="mb-0">{{ $stats['total'] }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body py-3">
+                <h6 class="mb-1 text-success">Active</h6>
+                <h3 class="mb-0 text-success">{{ $stats['active'] }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body py-3">
+                <h6 class="mb-1 text-danger">Inactive</h6>
+                <h3 class="mb-0 text-danger">{{ $stats['inactive'] }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
             <table class="table table-bordered table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
@@ -198,22 +226,30 @@
 <script>
     let searchTimer;
 
-    document.getElementById('liveSearch').addEventListener('keyup', function () {
+    const liveSearch = document.getElementById('liveSearch');
+    const statusFilter = document.getElementById('statusFilter');
+    const resetSearch = document.getElementById('resetSearch');
+
+    liveSearch.addEventListener('keyup', function () {
         clearTimeout(searchTimer);
-        const value = this.value;
-
-        searchTimer = setTimeout(() => {
-            fetchEmployees(value);
-        }, 400);
+        searchTimer = setTimeout(fetchEmployees, 400);
     });
 
-    document.getElementById('resetSearch').addEventListener('click', function () {
-        document.getElementById('liveSearch').value = '';
-        fetchEmployees('');
+    statusFilter.addEventListener('change', function () {
+        fetchEmployees();
     });
 
-    function fetchEmployees(search = '') {
-        fetch(`{{ route('employees.index') }}?search=${encodeURIComponent(search)}`, {
+    resetSearch.addEventListener('click', function () {
+        liveSearch.value = '';
+        statusFilter.value = '';
+        fetchEmployees();
+    });
+
+    function fetchEmployees() {
+        const search = liveSearch.value;
+        const status = statusFilter.value;
+
+        fetch(`{{ route('employees.index') }}?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }

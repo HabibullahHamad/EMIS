@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
-  public function index(Request $request)
+ public function index(Request $request)
 {
     $query = Employee::query();
 
@@ -23,14 +23,23 @@ class EmployeeController extends Controller
         });
     }
 
-    $employees = $query->latest()->paginate(10);
-    
+    if ($request->status) {
+        $query->where('status', strtolower($request->status));
+    }
+
+    $employees = $query->latest()->paginate(10)->withQueryString();
+
+    $stats = [
+        'total' => Employee::count(),
+        'active' => Employee::whereRaw('LOWER(status) = ?', ['active'])->count(),
+        'inactive' => Employee::whereRaw('LOWER(status) = ?', ['inactive'])->count(),
+    ];
 
     if ($request->ajax()) {
         return view('employees.partials.rows', compact('employees'))->render();
     }
 
-    return view('employees.index', compact('employees'));
+    return view('employees.index', compact('employees', 'stats'));
 }
 
     public function create()
@@ -113,4 +122,12 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')
             ->with('success', 'Employee deleted successfully');
     }
+    public function toggleStatus(Employee $employee)
+{
+    $employee->status = strtolower($employee->status) === 'active' ? 'inactive' : 'active';
+    $employee->save();
+
+    return redirect()->route('employees.index')
+        ->with('success', 'Employee status updated successfully.');
+}
 }

@@ -17,32 +17,21 @@ use App\Http\Controllers\EmployeeController;
 
 // 
 Route::resource('employees', EmployeeController::class);
-
-
-
-
-
-
-
-
+Route::resource('employees', EmployeeController::class);
+Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])
+    ->name('employees.toggleStatus');
 
 // notifications
 route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-
 
 Route::get('notifications', function () {
     return view('notifications');
 })->name('notifications');
 
 // 1 
-
-
 route::get('1', function() {
     return view('1');
 })->name('1');
-
-
-
 // end 
 // coming///////////////////////////////////
 
@@ -69,8 +58,6 @@ Route::get('/CorrespondenceManagement/inbox/inbox', function () {
 });
 
 
-
- 
 route::get('/CorrespondenceManagement/main', function () {
     return view('CorrespondenceManagement.main');
 })->name('CorrespondenceManagement.main');
@@ -106,7 +93,6 @@ Route::get('/login', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 });
-
 
 Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
     ->name('inbox.index');
