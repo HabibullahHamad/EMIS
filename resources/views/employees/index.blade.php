@@ -9,14 +9,28 @@
     .{
         direction:rtl;
     }
-    .page-header {
-        background: #fff;
-        border-radius: 10px;
-        padding: 8px 80px;
-        margin-bottom: 8px;
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-    }
+  .page-header {
+    background: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;   /* 🔥 small height */
+    min-height: 45px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
 
+/* Align all controls perfectly */
+.page-header .form-control,
+.page-header .form-select,
+.page-header .btn,
+.page-header .input-group-text {
+    height: 30px !important;
+    font-size: 12px;
+}
+
+/* Remove extra padding inside input group */
+.input-group-sm > .form-control,
+.input-group-sm > .input-group-text {
+    padding: 2px 6px;
+}
     .page-title {
         font-size: 18px;
         font-weight: 600;
@@ -29,11 +43,12 @@
     }
 
     .table-card {
-        background: #fff;
+        background: #f8f5f5;
         border-radius: 10px;
-        padding: 12px;
+        padding: 5px;
         box-shadow: 0 1px 6px rgba(0,0,0,0.08);
         direction:rtl;
+        
     }
 
     .table thead th {
@@ -87,7 +102,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 10px;
-        margin-bottom: 12px;
+        margin-bottom: 5px;
         flex-wrap: wrap;
     }
 
@@ -96,10 +111,7 @@
         text-align: right;
     }
 
-    .ltr-table {
-        direction: ltr;
-    }
-
+   
     @media (max-width: 768px) {
         .page-title {
             width: 100%;
@@ -112,9 +124,7 @@
             align-items: stretch;
         }
 
-        .search-box {
-            max-width: 100%;
-        }
+     
     }
 </style>
 
@@ -122,30 +132,58 @@
 
     {{-- Header --}}
     <div class="page-header">
-        <div class="table-toolbar">
-            <div class="search-box">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text">🔍</span>
-                    <input type="text" id="liveSearch" class="form-control" placeholder="د کارکوونکي لټون..." value="{{ request('search') }}">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" id="resetSearch">Reset</button>
-                </div>
-            </div>
 
-            <h4 class="page-title flex-grow-0">د کارکوونکو مدیریت</h4>
+{{-- Header --}}
+<div class="page-header d-flex align-items-center justify-content-between flex-wrap">
 
-            <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">
-                 Add Employee
-            </a>
+    {{-- LEFT: Search + Filter --}}
+    <div class="d-flex align-items-center gap-2">
+
+        <div class="input-group input-group-sm" style="width:220px;">
+            <span class="input-group-text py-1 px-2">🔍</span>
+            <input type="text"
+                   id="liveSearch"
+                   class="form-control form-control-sm"
+                   placeholder="Search..."
+                   value="{{ request('search') }}">
         </div>
+
+        <select id="statusFilter"
+                class="form-select form-select-sm py-1"
+                style="width:120px;">
+            <option value="">All</option>
+            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+        </select>
+
+        <button type="button"class="btn btn-outline-secondary btn-sm py-1 px-2" id="resetSearch"id="resetSearch">
+          
+    <i class="bi bi-arrow-clockwise"></i>
+</button>
+
     </div>
 
-   
+    {{-- CENTER: Title --}}
+    <div class="text-center flex-grow-1">
+        <h6 class="mb-0 fw-semibold">Employees</h6>
+    </div>
+
+    {{-- RIGHT: Add Button --}}
+    <div>
+        <a  class="btn btn-sm btn-primary" href="{{ route('employees.create') }}">
+            Add New Employee 
+        </a>
+
+    </div>
+
+</div>
+   <!-- Cards -->
     <div class="table-card">
         <div class="table-responsive rtl-table">
-            <div class="row mb-3">
+            <div class="row mb-1">
     <div class="col-md-4">
         <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-3">
+            <div class="card-body py-1 bg-info">
                 <h6 class="mb-1">Total Employees</h6>
                 <h3 class="mb-0">{{ $stats['total'] }}</h3>
             </div>
@@ -154,18 +192,18 @@
 
     <div class="col-md-4">
         <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-3">
-                <h6 class="mb-1 text-success">Active</h6>
-                <h3 class="mb-0 text-success">{{ $stats['active'] }}</h3>
+            <div class="card-body py-1 bg-success">
+                <h6 class="mb-1 text-whit">Active</h6>
+                <h3 class="mb-0 text-whit">{{ $stats['active'] }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-3">
-                <h6 class="mb-1 text-danger">Inactive</h6>
-                <h3 class="mb-0 text-danger">{{ $stats['inactive'] }}</h3>
+            <div class="card-body py-1 bg-danger">
+                <h6 class="mb-1 text-gold">Inactive</h6>
+                <h3 class="mb-0 text-whit">{{ $stats['inactive'] }}</h3>
             </div>
         </div>
     </div>
@@ -179,7 +217,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Status</th>
-                         <th>Photo</th>
+                      
                         <th width="150">Actions</th>
                     </tr>
                 </thead>
@@ -189,7 +227,7 @@
             </table>
         </div>
 
-        <div class="mt-3" id="paginationWrapper">
+        <div class="mt-1" id="paginationWrapper">
             @if ($employees->hasPages())
                 <nav>
                     <ul class="pagination justify-content-center custom-pagination">
@@ -223,6 +261,8 @@
     </div>
 </div>
 
+
+<!-- Live Filter -->
 <script>
     let searchTimer;
 

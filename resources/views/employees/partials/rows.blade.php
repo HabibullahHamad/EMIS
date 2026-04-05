@@ -41,11 +41,11 @@
 
 /* Colors */
 .status-active {
-    background-color: #28a745 !important;
+    background-color: #6fa77c !important;
 }
 
 .status-inactive {
-    background-color: #dc3545 !important;
+    background-color: #e4949c !important;
 }
 
 .status-other {
@@ -83,9 +83,9 @@
     </form>
 </td>
 
-        <td>
+        <!-- <td>
             <img src="{{ $employee->photo_url }}" class="employee-photo" alt="photo">
-        </td>
+        </td> -->
 
         <td class="action-btns">
             <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-sm btn-info" title="View">👁</a>
