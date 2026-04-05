@@ -8,21 +8,29 @@ use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
-    public function index(Request $request)
-    {
-        $query = Employee::query();
+  public function index(Request $request)
+{
+    $query = Employee::query();
 
-        if ($request->search) {
-            $query->where('full_name', 'like', '%' . $request->search . '%')
-                  ->orWhere('employee_code', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%')
-                  ->orWhere('phone', 'like', '%' . $request->search . '%');
-        }
+    if ($request->search) {
+        $search = $request->search;
 
-        $employees = $query->latest()->paginate(10);
-
-        return view('employees.index', compact('employees'));
+        $query->where(function ($q) use ($search) {
+            $q->where('full_name', 'like', '%' . $search . '%')
+              ->orWhere('employee_code', 'like', '%' . $search . '%')
+              ->orWhere('email', 'like', '%' . $search . '%')
+              ->orWhere('phone', 'like', '%' . $search . '%');
+        });
     }
+
+    $employees = $query->latest()->paginate(10);
+
+    if ($request->ajax()) {
+        return view('employees.partials.rows', compact('employees'))->render();
+    }
+
+    return view('employees.index', compact('employees'));
+}
 
     public function create()
     {

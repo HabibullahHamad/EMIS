@@ -2,115 +2,222 @@
 
 @section('content')
 
-
 <style>
-   
+    .page-header {
+        background: #fff;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+
+    .page-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+    }
+
+    .search-box {
+        max-width: 280px;
+    }
+
+    .table-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+
+    .table thead th {
+        font-size: 13px;
+        white-space: nowrap;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table tbody td {
+        font-size: 13px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .employee-photo {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    .action-btns .btn {
+        margin: 2px;
+    }
+
     .custom-pagination .page-link {
         color: #0d6efd;
-        font-weight: 100;
         border-radius: 6px;
-        padding: 1px 10px;
-        margin-top:6px;
-
+        padding: 3px 10px;
+        margin-top: 6px;
+        font-size: 13px;
     }
+
     .custom-pagination .page-item.active .page-link {
         background-color: #0d6efd;
         border-color: #0d6efd;
-        color: white !important;
-        font-weight: normal;
+        color: #fff !important;
     }
+
     .custom-pagination .page-item.disabled .page-link {
         color: #6c757d;
     }
-    .custom-pagination .page-link:hover {
-        background-color: #e9f0ff;
+
+    .table-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }
+
+    .rtl-page {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .ltr-table {
+        direction: ltr;
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            width: 100%;
+            text-align: center;
+            order: -1;
+        }
+
+        .table-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-box {
+            max-width: 100%;
+        }
     }
 </style>
 
-<div class="container">
-    <h2>Employees</h2>
+<div class="container-fluid rtl-page">
 
-    <a href="{{ route('employees.create') }}" class="btn btn-primary mb-3 align-left">Add Employee</a>
+    {{-- Header --}}
+    <div class="page-header">
+        <div class="table-toolbar">
+            <div class="search-box">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">🔍</span>
+                    <input type="text" id="liveSearch" class="form-control" placeholder="د کارکوونکي لټون..." value="{{ request('search') }}">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="resetSearch">Reset</button>
+                </div>
+            </div>
 
-    <form method="GET" action="{{ route('employees.index') }}" class="form">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search employee">
-        <button type="submit">Search</button>
-    </form>
+            <h4 class="page-title flex-grow-1">د کارکوونکو مدیریت</h4>
+
+            <a href="{{ route('employees.create') }}" class="btn btn-sm btn-primary">
+                ➕ Add Employee
+            </a>
+        </div>
+    </div>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success py-2">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Status</th>
-                <th width="220">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($employees as $employee)
-                <tr>
-                    <td>{{ $employee->id }}</td>
-                    <td>{{ $employee->employee_code }}</td>
-                    <td>{{ $employee->full_name }}</td>
-                    <td>{{ $employee->email }}</td>
-                    <td>{{ $employee->phone }}</td>
-                    <td>{{ $employee->status }}</td>
-                    <td>
-                        <a href="{{ route('employees.show', $employee) }}" class="btn btn-sm btn-info">کتل</a>
-                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-sm btn-warning">Edit</a>
+    <div class="table-card">
+        <div class="table-responsive ltr-table">
+            <table class="table table-bordered table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Photo</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th width="240">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                    <!-- @include('employees.partials.rows', ['employees' => $employees]) -->
+                </tbody>
+            </table>
+        </div>
 
-                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Delete this employee?')" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="7">No employees found.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+        <div class="mt-3" id="paginationWrapper">
+            @if ($employees->hasPages())
+                <nav>
+                    <ul class="pagination justify-content-center custom-pagination">
+                        @if ($employees->onFirstPage())
+                            <li class="page-item disabled"><span class="page-link">«</span></li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $employees->previousPageUrl() }}">«</a>
+                            </li>
+                        @endif
 
- @if ($employees->hasPages())
-    <nav>
-        <ul class="pagination justify-content-center custom-pagination">
-            {{-- Previous Page --}}
-            @if ($employees->onFirstPage())
-                <li class="page-item disabled"><span class="page-link">«</span></li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $employees->previousPageUrl() }}">«</a>
-                </li>
+                        @foreach ($employees->getUrlRange(1, $employees->lastPage()) as $page => $url)
+                            @if ($page == $employees->currentPage())
+                                <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                            @else
+                                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                            @endif
+                        @endforeach
+
+                        @if ($employees->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $employees->nextPageUrl() }}">»</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled"><span class="page-link">»</span></li>
+                        @endif
+                    </ul>
+                </nav>
             @endif
-            {{-- Page Numbers --}}
-            @foreach ($employees->links()->elements[0] as $page => $url)
-                @if ($page == $employees->currentPage())
-                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                @else
-                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                @endif
-            @endforeach
-            {{-- Next Page --}}
-            @if ($employees->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $employees->nextPageUrl() }}">»</a>
-                </li>
-            @else
-
-                <li class="page-item disabled"><span class="page-link">»</span></li>
-            @endif
-        </ul>
-    </nav>
-@endif
+        </div>
+    </div>
 </div>
+
+<script>
+    let searchTimer;
+
+    document.getElementById('liveSearch').addEventListener('keyup', function () {
+        clearTimeout(searchTimer);
+        const value = this.value;
+
+        searchTimer = setTimeout(() => {
+            fetchEmployees(value);
+        }, 400);
+    });
+
+    document.getElementById('resetSearch').addEventListener('click', function () {
+        document.getElementById('liveSearch').value = '';
+        fetchEmployees('');
+    });
+
+    function fetchEmployees(search = '') {
+        fetch(`{{ route('employees.index') }}?search=${encodeURIComponent(search)}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('employeeTableBody').innerHTML = html;
+            document.getElementById('paginationWrapper').innerHTML = '';
+        })
+        .catch(error => console.error('Search error:', error));
+    }
+</script>
+
 @endsection
