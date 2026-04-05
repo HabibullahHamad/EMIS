@@ -1,3 +1,29 @@
+<style>
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 50px;   /* 👈 makes it fully rounded */
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Colors */
+.status-active {
+    background-color: #28a745 !important;
+}
+
+.status-inactive {
+    background-color: #dc3545 !important;
+}
+
+.status-other {
+    background-color: #6c757d !important;
+}
+
+</style>
 @forelse($employees as $employee)
     <tr>
         <td>{{ $employee->id }}</td>
