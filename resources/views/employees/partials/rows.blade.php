@@ -1,19 +1,15 @@
 @forelse($employees as $employee)
     <tr>
         <td>{{ $employee->id }}</td>
-        <td>
-            <img src="{{ $employee->photo_url }}" class="employee-photo" alt="photo">
-        </td>
+      
         <td>{{ $employee->employee_code }}</td>
         <td>{{ $employee->full_name }}</td>
         <td>{{ $employee->email ?? '-' }}</td>
         <td>{{ $employee->phone ?? '-' }}</td>
-        <td>
-            @if($employee->status == 'active')
-                <span class="badge bg-success">Active</span>
-            @else
-                <span class="badge bg-secondary">{{ ucfirst($employee->status) }}</span>
-            @endif
+       <td>{{ $employee->status?? '-' }}</td>
+
+          <td>
+            <img src="{{ $employee->photo_url }}" class="employee-photo" alt="photo">
         </td>
         <td class="action-btns">
             <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-sm btn-info" title="View">👁</a>

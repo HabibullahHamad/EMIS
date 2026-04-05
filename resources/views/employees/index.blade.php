@@ -2,7 +2,14 @@
 
 @section('content')
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
+
+    .{
+        direction:rtl;
+        
+    }
     .page-header {
         background: #fff;
         border-radius: 10px;
@@ -27,6 +34,7 @@
         border-radius: 10px;
         padding: 12px;
         box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+        direction:rtl;
     }
 
     .table thead th {
@@ -40,18 +48,20 @@
         font-size: 13px;
         vertical-align: middle;
         text-align: center;
+        height: 30px;
     }
 
     .employee-photo {
-        width: 42px;
-        height: 42px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         object-fit: cover;
         border: 1px solid #ddd;
     }
 
     .action-btns .btn {
-        margin: 2px;
+        margin: 1px;
+         font-size: 13px;
     }
 
     .custom-pagination .page-link {
@@ -82,7 +92,7 @@
     }
 
     .rtl-page {
-        direction: rtl;
+        direction: ltr;
         text-align: right;
     }
 
@@ -129,27 +139,24 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success py-2">{{ session('success') }}</div>
-    @endif
-
+   
     <div class="table-card">
-        <div class="table-responsive ltr-table">
+        <div class="table-responsive rtl-table">
             <table class="table table-bordered table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Photo</th>
                         <th>Code</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Status</th>
-                        <th width="240">Actions</th>
+                         <th>Photo</th>
+                        <th width="150">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="employeeTableBody">
-                    <!-- @include('employees.partials.rows', ['employees' => $employees]) -->
+                    @include('employees.partials.rows', ['employees' => $employees])
                 </tbody>
             </table>
         </div>

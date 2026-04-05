@@ -24,6 +24,7 @@ class EmployeeController extends Controller
     }
 
     $employees = $query->latest()->paginate(10);
+    
 
     if ($request->ajax()) {
         return view('employees.partials.rows', compact('employees'))->render();
