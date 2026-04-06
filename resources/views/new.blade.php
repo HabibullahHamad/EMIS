@@ -249,6 +249,16 @@
                      "Employee Code":"کوډ",
                      "First Name":"اول نوم",
                      "Last Name":"ورستی نوم",
+                     "Employees":"کارکوونکي",
+                     "Active":"فعال",
+                      "Inactive":"غیرفعال",
+                        "Total Employees":"ټول کارکوونکي",
+                        "All":"ټول",
+                        "Search...":"...لټون",
+                        "Back":"بیرته تګ",
+                          "other":" نور",
+
+
 
 
                 // end
@@ -871,21 +881,19 @@ document.addEventListener('DOMContentLoaded', function () {
        <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
                 <i class="fa-solid fa-folder"></i>
-                <span>Correspondence</span>
+                <span>Employees</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
            <ul class="sub-menu">
-                        <li><a href="{{route('employees.index')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
-                        <li><a href="{{route('employees.create')}}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+                        <li><a href="{{route('employees.index')}}"><i class="fa-solid fa-file-export"></i>منځ پاڼه</a></li>
+                        <li><a href="{{route('employees.create')}}"><i class="fa-solid fa-file-import"></i> نوی کارکوونکی ثبتول</a></li>
                      
 
             </ul>
         </li>
 
      <!-- end -->
-        <ul>
-            <li><a href="{{route('1')}}">1</li>
-</ul>
+   
         <!-- User Management -->
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">

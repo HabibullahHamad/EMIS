@@ -171,7 +171,7 @@
     {{-- RIGHT: Add Button --}}
     <div>
         <a  class="btn btn-sm btn-primary" href="{{ route('employees.create') }}">
-            Add New Employee 
+          Add Employee
         </a>
 
     </div>
@@ -227,7 +227,7 @@
             </table>
         </div>
 
-        <div class="mt-1" id="paginationWrapper">
+        <div class="mt-0" id="paginationWrapper">
             @if ($employees->hasPages())
                 <nav>
                     <ul class="pagination justify-content-center custom-pagination">

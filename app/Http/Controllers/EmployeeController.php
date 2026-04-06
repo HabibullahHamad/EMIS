@@ -27,7 +27,7 @@ class EmployeeController extends Controller
         $query->where('status', strtolower($request->status));
     }
 
-    $employees = $query->latest()->paginate(10)->withQueryString();
+    $employees = $query->latest()->paginate(6)->withQueryString();
 
     $stats = [
         'total' => Employee::count(),
