@@ -190,9 +190,7 @@
             + Add
         </a>
     </div>
-<a href="{{ route('employees.monitoring') }}">
-    ddd
-</a>
+
 </div>
    <!-- Cards -->
     <div class="table-card">

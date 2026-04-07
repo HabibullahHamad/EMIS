@@ -182,4 +182,11 @@ class EmployeeController extends Controller
         'Content-Disposition' => 'attachment; filename="EMIS-EMP_report.pdf"',
     ]);
 }
+
+public function monitoring(Employee $employee)
+{
+    return view('employees.monitoring', compact('employee'));
+}
+
+
 }

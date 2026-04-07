@@ -96,6 +96,13 @@
                 @method('DELETE')
                 <button type="submit" onclick="return confirm('Delete this employee?')" class="btn btn-sm btn-danger" title="Delete">🗑</button>
             </form>
+            
+            <a href="{{ route('employees.monitoring', $employee->id) }}"
+   class="btn btn-sm btn-primary"
+   title="Monitoring">
+    <i class="bi bi-bar-chart"></i>
+</a>
+
         </td>
     </tr>
 @empty

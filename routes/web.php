@@ -13,17 +13,32 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EmployeeController;
 
 
+
+// Tasks
+Route::get('/tasks/charts', [TaskController::class, 'charts'])
+    ->name('tasks.charts');
+    
+Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])
+    ->name('tasks.changeStatus');
+
+Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])
+    ->name('tasks.monitoring');
+
+Route::resource('tasks', TaskController::class);
+
+// end Tasks
+
+Route::get('/employees/{employee}/monitoring', [EmployeeController::class, 'monitoring'])
+    ->name('employees.monitoring');
+
 Route::resource('employees', EmployeeController::class);
 Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employees.toggleStatus');
 Route::get('/employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
 Route::get('/employees/export/pdf', [EmployeeController::class, 'exportPdf'])->name('employees.export.pdf');
 
+Route::get('/employees/monitoring', [EmployeeController::class, 'monitoring'])->name('employees.monitoring');
 
 
-
-route::get('/employees/monitoring', function () {
-    return view('employees.monitoring');
-})->name('employees.monitoring');
 
 
 
@@ -196,44 +211,6 @@ Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.d
  route::get('/Main', function () {
     return view('Main');
 })->name('Main');
-Route::get('Task Management/index', [TaskController::class, 'index'])
-    ->name('Task Management.index');
-route::get('Task-management/index', [TaskController::class, 'index'])->name('Task Management.index');
-
-Route::get('Task Management/create', [TaskController::class, 'create'])
-    ->name('Task Management.create');
-
-Route::post('Task Management/store', [TaskController::class, 'store'])
-    ->name('Task Management.store');
-
-Route::get('Task Management/{task}/edit', [TaskController::class, 'edit'])
-
-    ->name('Task Management.edit'); 
-Route::put('Task Management/{task}', [TaskController::class, 'update'])
-    ->name('Task Management.update');
-
-route::delete('Task Management/{task}', [TaskController::class, 'destroy'])
-    ->name('Task Management.destroy');
-
-route::get('Task Management/{task}', [TaskController::class, 'show'])
-    ->name('Task Management.show');
-
-    route::post('Task-management/Task Delegation/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::get('Task-management/main', function () {
-    return view('Task Management.main');
-})->name('Task Management.main');
-
-Route::get('Task-management/Task Delegation', function () {
-    return view('Task Management.Task Delegation');
-})->name('Task Management.Task Delegation');
-
-route::get('Task-management/tasks', function () {
-    return view('Task Management.tasks');
-})->name('Task Management.tasks');
-
-route::get('Task management/dashboard', function () {
-    return view('Task Management.dashboard');
-})->name('Task Management.dashboard');
 
 // end of documents ////////////////////////////////////////////////////////
 // for Addministrations module ////////////////////////////////////////////////////////////////

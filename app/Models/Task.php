@@ -1,39 +1,35 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
+        'task_code',
         'title',
         'description',
-        'assigned_by',
-        'assigned_to',
+        'employee_id',
+        'source_type',
+        'source_reference',
         'priority',
         'status',
-        'due_date',
+        'deadline',
+        'assigned_by',
+        'remarks',
     ];
 
-    // Relation to the user who assigned the task
-    public function assignedBy()
+    protected $casts = [
+        'deadline' => 'date',
+    ];
+
+    public function employee()
     {
-        return $this->belongsTo(User::class, 'assigned_by');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
-
-    // Relation to the user who received the task
-    public function assignedTo()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
-
-
-    public function assignee()
+    public function tasks()
 {
-    return $this->belongsTo(User::class, 'assignee_id');
+    return $this->hasMany(Task::class, 'employee_id');
 }
-
 }

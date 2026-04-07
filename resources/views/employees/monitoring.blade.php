@@ -21,21 +21,17 @@
         margin-bottom: 8px;
         color: #555;
     }
-
     .monitor-stat h3 {
         margin: 0;
         font-weight: 700;
     }
-
     .section-title {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 12px;
     }
 </style>
-
 <div class="container-fluid">
-
     <div class="card monitor-card mb-3">
         <div class="card-body">
             <h4 class="mb-1">{{ $employee->full_name }}</h4>
@@ -45,7 +41,6 @@
             <div><strong>Phone:</strong> {{ $employee->phone ?? '-' }}</div>
         </div>
     </div>
-
     <div class="section-title">Task Monitoring</div>
     <div class="row mb-3">
         <div class="col-md-3 mb-2">
@@ -104,7 +99,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4 mb-2">
             <div class="card monitor-card">
                 <div class="monitor-stat">
@@ -114,7 +109,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6 mb-3">
             <div class="card monitor-card">
@@ -132,7 +126,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6 mb-3">
             <div class="card monitor-card">
                 <div class="card-header">Recent Correspondence</div>
@@ -150,8 +143,6 @@
             </div>
         </div>
     </div>
-
     <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
-
 </div>
 @endsection

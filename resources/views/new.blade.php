@@ -950,13 +950,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </a>
             <ul class="sub-menu">
-                <li><a href="{{ route('Task Management.tasks')}}"><i class="fa-solid fa-users"></i>Inbox</a></li><li>
-                 <a href="#"><i class="fa-solid fa-sign-in-alt"></i>Coming</a></li>           
-               <li><a href="{{route('Task Management.Task Delegation')}}"><i class="fa-solid fa-user-check"></i>Task Delegation</a></li>
-                <li><a href="{{ route('Task Management.create')}}"><i class="fa-solid fa-user-friends"></i>Create Task</a></li>
-                <li><a href="{{route('Task Management.main')}}"><i class="fa-solid fa-user-shield"></i>Main Page</a></li>
-                <li><a href="{{route('Task Management.index')}}"><i class="fa-solid fa-user-shield"></i>index</a></li>
-                <li><a href="{{route('Task Management.dashboard')}}"><i class="fa-solid fa-user-shield"></i>dashboard</a></li>
+                <li><a href="{{ route('tasks.create')}}"><i class="fa-solid fa-users"></i>Inbox</a></li><li>
+                 <a href="{{ route('tasks.index')}}"><i class="fa-solid fa-sign-in-alt"></i>Coming</a></li>           
+
             </ul>
         </li>
 
