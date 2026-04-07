@@ -13,13 +13,20 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EmployeeController;
 
 
+Route::resource('employees', EmployeeController::class);
+Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employees.toggleStatus');
+Route::get('/employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
+Route::get('/employees/export/pdf', [EmployeeController::class, 'exportPdf'])->name('employees.export.pdf');
 
 
-// 
-Route::resource('employees', EmployeeController::class);
-Route::resource('employees', EmployeeController::class);
-Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])
-    ->name('employees.toggleStatus');
+
+
+route::get('/employees/monitoring', function () {
+    return view('employees.monitoring');
+})->name('employees.monitoring');
+
+
+
 
 // notifications
 route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');

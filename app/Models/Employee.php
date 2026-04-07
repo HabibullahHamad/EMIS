@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $fillable = [
-        'employee_code',
-        'first_name',
-        'last_name',
-        'full_name',
-        'email',
-        'phone',
-        'photo',
-        'status',
-    ];
+  protected $fillable = [
+    'employee_code',
+    'first_name',
+    'last_name',
+    'full_name',
+    'email',
+    'phone',
+    'photo',
+    'status',
+];
     public function getPhotoUrlAttribute()
     {
         return $this->photo

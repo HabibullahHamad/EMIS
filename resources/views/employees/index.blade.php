@@ -6,18 +6,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
 
-    .{
-        direction:rtl;
-    }
-  .page-header {
+   .page-header {
     background: #fff;
     border-radius: 8px;
-    padding: 6px 12px;   /* 🔥 small height */
+    padding: 6px 12px;
     min-height: 45px;
     box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
 }
 
-/* Align all controls perfectly */
 .page-header .form-control,
 .page-header .form-select,
 .page-header .btn,
@@ -26,30 +23,45 @@
     font-size: 12px;
 }
 
-/* Remove extra padding inside input group */
 .input-group-sm > .form-control,
 .input-group-sm > .input-group-text {
     padding: 2px 6px;
 }
-    .page-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0;
-        text-align: center;
-    }
 
-    .search-box {
-        max-width: 280px;
-    }
+   .table-card {
+    background: #f8f5f5;
+    border-radius: 8px;
+    padding: 4px 6px;   /* smaller padding */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    direction: rtl;
+    margin-bottom: 8px; /* reduce space below */
+}
+.table-card .table {
+    margin-bottom: 0; /* remove extra spacing */
+}
 
-    .table-card {
-        background: #f8f5f5;
-        border-radius: 10px;
-        padding: 5px;
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-        direction:rtl;
-        
-    }
+.table-card .table thead th {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.table-card .table tbody td {
+    padding: 5px 6px;
+    font-size: 12px;
+}
+
+.table-card {
+    padding: 2px 4px;
+}
+
+.table-card .table thead th,
+.table-card .table tbody td {
+    padding: 4px 6px;
+    font-size: 11.5px;
+}
+
+
+
 
     .table thead th {
         font-size: 13px;
@@ -130,14 +142,9 @@
 
 <div class="container-fluid rtl-page">
 
-    {{-- Header --}}
-    <div class="page-header">
+  <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
 
-{{-- Header --}}
-<div class="page-header d-flex align-items-center justify-content-between flex-wrap">
-
-    {{-- LEFT: Search + Filter --}}
-    <div class="d-flex align-items-center gap-2">
+    <div class="d-flex align-items-center gap-2 flex-wrap">
 
         <div class="input-group input-group-sm" style="width:220px;">
             <span class="input-group-text py-1 px-2">🔍</span>
@@ -156,26 +163,36 @@
             <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
         </select>
 
-        <button type="button"class="btn btn-outline-secondary btn-sm py-1 px-2" id="resetSearch"id="resetSearch">
-          
-    <i class="bi bi-arrow-clockwise"></i>
-</button>
-
+        <button type="button"
+                class="btn btn-outline-secondary btn-sm py-1 px-2"
+                id="resetSearch">
+            Reset
+        </button>
     </div>
 
-    {{-- CENTER: Title --}}
     <div class="text-center flex-grow-1">
         <h6 class="mb-0 fw-semibold">Employees</h6>
     </div>
 
-    {{-- RIGHT: Add Button --}}
-    <div>
-        <a  class="btn btn-sm btn-primary" href="{{ route('employees.create') }}">
-          Add Employee
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <a href="{{ route('employees.export.excel', request()->query()) }}"
+           class="btn btn-sm btn-success py-1 px-3">
+            Excel
         </a>
 
-    </div>
+        <a href="{{ route('employees.export.pdf', request()->query()) }}"
+           class="btn btn-sm btn-danger py-1 px-3">
+            PDF
+        </a>
 
+        <a href="{{ route('employees.create') }}"
+           class="btn btn-sm btn-primary py-1 px-3">
+            + Add
+        </a>
+    </div>
+<a href="{{ route('employees.monitoring') }}">
+    ddd
+</a>
 </div>
    <!-- Cards -->
     <div class="table-card">
