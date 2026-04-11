@@ -48,7 +48,20 @@
                 <input type="email" name="email" class="form-control"
                        value="{{ old('email', $employee->email) }}">
             </div>
-
+          <!-- sel;ect -->
+            <div class="col-md-6 mb-3">
+         <label>User Account</label>
+         <select name="user_id" class="form-control">
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}" {{ old('user_id', $employee->user_id) == $user->id ? 'selected' : '' }}>
+                {{ $user->name }} ({{ $user->email }})
+            </option>
+        @endforeach
+    </select>
+</div>
+<!-- end selelect -->
+  {{-- selelect --}}
             {{-- Phone --}}
             <div class="col-md-6 mb-3">
                 <label>Phone</label>

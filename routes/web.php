@@ -1,344 +1,163 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CorrespondenceManagement\InboxController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\CorrespondenceManagement\LetterController;
-use App\Http\Controllers\CorrespondenceManagement\OutboxController;
-use App\Http\Controllers\AuthController;
-
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\OutgoingDocumentController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\CorrespondenceManagement\InboxController;
+use App\Http\Controllers\OutgoingDocumentController;
 
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
-
-// Tasks
-Route::get('/tasks/charts', [TaskController::class, 'charts'])
-    ->name('tasks.charts');
-    
-Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])
-    ->name('tasks.changeStatus');
-
-Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])
-    ->name('tasks.monitoring');
-
-Route::resource('tasks', TaskController::class);
-
-// end Tasks
-
-Route::get('/employees/{employee}/monitoring', [EmployeeController::class, 'monitoring'])
-    ->name('employees.monitoring');
-
-Route::resource('employees', EmployeeController::class);
-Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employees.toggleStatus');
-Route::get('/employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
-Route::get('/employees/export/pdf', [EmployeeController::class, 'exportPdf'])->name('employees.export.pdf');
-
-Route::get('/employees/monitoring', [EmployeeController::class, 'monitoring'])->name('employees.monitoring');
-
-
-
-
-
-
-// notifications
-route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-
-Route::get('notifications', function () {
-    return view('notifications');
-})->name('notifications');
-
-// 1 
-route::get('1', function() {
-    return view('1');
-})->name('1');
-// end 
-// coming///////////////////////////////////
-
-Route::prefix('CorrespondenceManagement/inbox')
-    ->name('CorrespondenceManagement.inbox.')
-    ->group(function () {
-
-        Route::get('/index', [InboxController::class, 'index'])
-            ->name('index');
-    });
-
-// end
 Route::get('/', function () {
-    return view('new');
-})->name('new');
-
-Route::get('dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-// WEB ROUTES for inbox module//
-Route::get('/CorrespondenceManagement/inbox/inbox', function () {
-    return view ('CorrespondenceManagement.inbox.inbox');
+    return redirect()->route('login');
 });
 
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-route::get('/CorrespondenceManagement/main', function () {
-    return view('CorrespondenceManagement.main');
-})->name('CorrespondenceManagement.main');
-
-
-Route::get('/CorrespondenceManagement/inbox/index', function () {
-    return view ('CorrespondenceManagement.inbox.index');
-});
-// WEB ROUTES//end of inbox
-
-route::get('/Administrations/User Management', [UserController::class, 'index'])->name('Administrations.User Management');
-Route::resource('inbox', InboxController::class);
-//USER MANAGEMENT//
-Route::middleware(['auth'])->group(function () {
-    Route::resource('users', UserController::class);
-    Route::post('Administrations/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
-});
-
-Route::get('admin/users/create', [UserController::class, 'create'])->name('Administrations.create');
-
-route::post('/Administrations/store', [UserController::class, 'store'])->name('Administrations.store');
-
-route::get('/Administrations/edit/{user}', [UserController::class, 'edit'])->name('Administrations.edit');
-
-// END USER MAN//
-// routes/web.php
-Route::get('/login', function () {
-    return 'Login page placeholder';
-})->name('login');
-
-// Additional routes can be added below as needed
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Roles Management
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('roles', RoleController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Users Management
+    |--------------------------------------------------------------------------
+    */
     Route::resource('users', UserController::class);
-});
 
-Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])
-    ->name('inbox.index');
-Route::get('CorrespondenceManagement/inbox/create', function () {
-    return view('create');
-});
-route::get('CorrespondenceManagement/inbox/form', function(){
-    return view('form');
-});
-route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-Route::get('/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-Route::post('/inbox/create', [InboxController::class, 'store'])->name('inbox.store');
-Route::get('/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
-route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
-route::get('/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit');
-route::put('/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
+    /*
+    |--------------------------------------------------------------------------
+    | Tasks
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/tasks/charts', [TaskController::class, 'charts'])->name('tasks.charts');
+    Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])->name('tasks.changeStatus');
+    Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])->name('tasks.monitoring');
+    Route::resource('tasks', TaskController::class);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Employees
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/employees/{employee}/monitoring', [EmployeeController::class, 'monitoring'])->name('employees.monitoring');
+    Route::patch('/employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employees.toggleStatus');
+    Route::get('/employees/export/excel', [EmployeeController::class, 'exportExcel'])->name('employees.export.excel');
+    Route::get('/employees/export/pdf', [EmployeeController::class, 'exportPdf'])->name('employees.export.pdf');
+    Route::resource('employees', EmployeeController::class);
 
-route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
-route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index'); 
-route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit'); 
-route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');   
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Inbox / Correspondence
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('inbox', InboxController::class);
+    Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
+    Route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
+       Route::get('CorrespondenceManagement/inbox/form', [InboxController::class, 'form'])->name('inbox.form');
+    Route::get('CorrespondenceManagement/main', [InboxController::class, 'main'])->name('main');
 
-// outbox routes
-route::get('CorrespondenceManagement/outbox/create', function(){
-    return view('CorrespondenceManagement.outbox.create');
-})->name('CorrespondenceManagement.outbox.create');
-
-route::get('CorrespondenceManagement/outbox/outbox', function(){
-    return view('CorrespondenceManagement.outbox.outbox');
-})->name('CorrespondenceManagement.outbox.outbox');
-
-
-route::get('CorrespondenceManagement/outbox/index', function(){
-    return view('CorrespondenceManagement.outbox.index');
-})->name('CorrespondenceManagement.outbox.index');
-
-route::get('CorrespondenceManagement/outbox/create', [OutgoingDocumentController::class, 'create'])->name('CorrespondenceManagement.outbox.create');
-route::post('CorrespondenceManagement/outbox/store', [OutgoingDocumentController::class, 'store'])->name('CorrespondenceManagement.outbox.store');
-route::get('CorrespondenceManagement/outbox/index', [OutgoingDocumentController::class, 'index'])->name('CorrespondenceManagement.outbox.index');
-route::get('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'show'])->name('CorrespondenceManagement.outbox.show');
-route::get('CorrespondenceManagement/outbox/{id}/edit', [OutgoingDocumentController::class, 'edit'])->name('CorrespondenceManagement.outbox.edit');
-route::put('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'update'])->name('CorrespondenceManagement.outbox.update');
-route::delete('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'destroy'])->name('CorrespondenceManagement.outbox.destroy');  
-route::get('CorrespondenceManagement/outbox/index', [OutgoingDocumentController::class, 'index'])->name('CorrespondenceManagement.outbox.index');   
-
-
-route::get('CorrespondenceManagement/outbox/edit', function(){
-    return view('CorrespondenceManagement.outbox.edit');
-})->name('CorrespondenceManagement.outbox.edit');
-
-route::get('CorrespondenceManagement/outbox/show', function(){
-    return view('CorrespondenceManagement.outbox.show');
-})->name('CorrespondenceManagement.outbox.show');
-
-// inbox routes
-route::get('CorrespondenceManagement/inbox/form', function(){
-    return view('CorrespondenceManagement.inbox.form');
-})->name('CorrespondenceManagement.inbox.form');
+    Route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
+    Route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
+    Route::get('CorrespondenceManagement/inbox/{id}/edit', [InboxController::class, 'edit'])->name('inbox.edit');
+    Route::put('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
+    Route::delete('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
     
-route::get('CorrespondenceManagement/inbox/create', function(){
-    return view('CorrespondenceManagement.inbox.create');
-})->name('CorrespondenceManagement.inbox.create');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Outbox
+    |--------------------------------------------------------------------------
+    */
+    Route::get('CorrespondenceManagement/outbox/create', [OutgoingDocumentController::class, 'create'])->name('CorrespondenceManagement.outbox.create');
+    Route::post('CorrespondenceManagement/outbox/store', [OutgoingDocumentController::class, 'store'])->name('CorrespondenceManagement.outbox.store');
+    Route::get('CorrespondenceManagement/outbox/index', [OutgoingDocumentController::class, 'index'])->name('CorrespondenceManagement.outbox.index');
+    Route::get('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'show'])->name('CorrespondenceManagement.outbox.show');
+    Route::get('CorrespondenceManagement/outbox/{id}/edit', [OutgoingDocumentController::class, 'edit'])->name('CorrespondenceManagement.outbox.edit');
+    Route::put('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'update'])->name('CorrespondenceManagement.outbox.update');
+    Route::delete('CorrespondenceManagement/outbox/{id}', [OutgoingDocumentController::class, 'destroy'])->name('CorrespondenceManagement.outbox.destroy');
 
 
+ /*
+    |--------------------------------------------------------------------------
+    | Administration 
+    |--------------------------------------------------------------------------
+    */
+      Route::get('/administrations/users/create', [UserController::class, 'create'])->name('Administrations.create');
+      Route::get('/administrations/roles', [RoleController::class, 'index'])->name('Administrations.Roles');
+      Route::get('/administrations/role-management', [RoleController::class, 'index'])->name('Administrations.Role Management');
+      Route::get('/administrations/user-management', [UserController::class, 'index'])->name('Administrations.User Management');
+    /*
+    |--------------------------------------------------------------------------
+    | Documents
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('documents', DocumentController::class);
+    Route::get('/Document Management/Search', [DocumentController::class, 'search'])->name('documents.search');
+    Route::get('/Document Management/Search & Filter', [DocumentController::class, 'Search & Filter'])->name('documents.Search & Filter');
+     /*
+    |--------------------------------------------------------------------------
+    | ADmin
+    |--------------------------------------------------------------------------
+    */
+      Route::resource('admin', UserController::class);
+    Route::get('/admin/settings', [UserController::class, 'settings'])->name('admin.settings');
 
-route::get('CorrespondenceManagement/inbox/index', function(){
-    return view('CorrespondenceManagement.inbox.index');
-})->name('CorrespondenceManagement.inbox.index');
-
-route::get('CorrespondenceManagement/inbox/edit', function(){
-    return view('CorrespondenceManagement.inbox.edit');
-})->name('CorrespondenceManagement.inbox.edit');
-
-route::get('CorrespondenceManagement/inbox/show', function(){
-    return view('CorrespondenceManagement.inbox.show');
-})->name('CorrespondenceManagement.inbox.show');
-
-route::get('CorrecpondenceManagement/inbox/filter', function(){
-    return view('CorrespondenceManagement.inbox.filter');
-})->name('CorrespondenceManagement.inbox.filter');
-
-
-route::get('CorrecpondenceManagement/inbox/coming', function(){
-    return view('CorrespondenceManagement.inbox.coming');
-})->name('CorrespondenceManagement.inbox.coming');
-
-
-Route::delete('/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
-
-// documens
- // Optional for listing all letters //////////////////////////-----
- route::get('/Main', function () {
-    return view('Main');
-})->name('Main');
-
-// end of documents ////////////////////////////////////////////////////////
-// for Addministrations module ////////////////////////////////////////////////////////////////
-
-route::get('Administartions/create',[UserController::class, 'create'])
- ->name('Administrations.create');
-
-route::get('Administrations/User Management', [UserController::class, 'index'])
-    ->name('Administrations.User Management');
-
-    route::get('Administrations/User Management/create', [UserController::class, 'create'])
-        ->name('Administrations.User Management.create');
-
-        route::get('Administrations/login', function () {
-            return view('Administrations.login');
-        })->name('Administrations.login');
-
-        route::get('Administrations/Role Management', function () {
-            return view('Administrations.Role Management');
-        })->name('Administrations.Role Management');
-
-  route::get('Administrations/Roles', function () {
-    return view('Administrations.Roles');
-})->name('Administrations.Roles');
-
-// end roles management ////////////////////////////////////////////////////////////////
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::prefix('administrations')->group(function () {
-
-        Route::get('/user-management/create', [UserController::class, 'create'])
-            ->name('users.create');
-
-        Route::post('/user-management', [UserController::class, 'store'])
-            ->name('users.store');
-
-        Route::get('/user-management/{user}/edit', [UserController::class, 'edit'])
-            ->name('users.edit');
-
-        Route::put('/user-management/{user}', [UserController::class, 'update'])
-            ->name('users.update');
-
-        Route::delete('/user-management/{user}', [UserController::class, 'destroy'])
-            ->name('users.destroy');
-    });
-});
-
-// admin settings route/////////////////////////////////////////////////////////////////
-route::get('admin/settings', function () {
-    return view('admin.settings');
-})->name('admin.settings');
-
-route::get('settings/tabs/createroles',function (){
-return view('settings.tabs.createroles');
-})->name('settings.tabs.createroles');
-
-route::get('settings/partials/account', function(){
-    return view('settings.partials.account');
-})->name('settings.partials.account');
-
-// end admin settings route//////////////////////////////////////
-
-route::get('lang/ps',function (){
-return view('lang.ps');
-})->name('lang.ps');
-
-route::get('lang/fa',function (){
-return view('lang.fa');
-})->name('lang.fa');
-
-// for coming new documents //////////////////////////////////////////////////////
-
-Route::get('CorrespondenceManagement/inbox/coming', function () {
-    return view('CorrespondenceManagement.inbox.coming');
-});
-
-// end of Coming ///////////////////////////////////////////////////////////////////
-
-// tasks
-
-// tasks routes and submissions ///////////////////////////////////////////////////////
-
-// end tasks///////////////////////////////////////////////////////////////////
-
-// end task//////////////////////////////////////////////////////////
-
-// Start Clock//////////////////////////////////////////////////
-Route::get('clock', function () {
-    return view('clock');
-})->name('clock');
-
-// End Clock////////////////////////////////////////////////////
-route::get('/Document Management/Search & Filter', function () {
-    return view('Document Management.Search & Filter');
-})->name('Document Management.Search & Filter');    
-
-route::get('/DocumentManagement/Documents', function () {
-    return view('DocumentManagement.Documents');
-})->name('DocumentManagement.Documents');
-route::get('/DocumentManagement/Upload Document', function () {
-    return view('DocumentManagement.Upload Document');
-})->name('DocumentManagement.Upload Document');
-route::get('/DocumentManagement/Document Details', function () {
-    return view('DocumentManagement.Document Details');
-})->name('DocumentManagement.Document Details');
-route::get('/DocumentManagement/Edit Document', function () {
-    return view('DocumentManagement.Edit Document');
-})->name('DocumentManagement.Edit Document');
-Route::resource('documents', DocumentController::class);
-route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
-route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
-route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
-route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');    
-route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
-route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
-route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
-
-Route::get('/Document Management/Search', [DocumentController::class, 'search'])->name('documents.search');
-// end document management routes /////////////////////////////////////////////////
-
-// outbox
+       /*
+    |--------------------------------------------------------------------------
+    | Languages
+    |--------------------------------------------------------------------------
+    */  
+     route::get('lang/ps',function (){
+     return view('lang.ps');
+     })->name('lang.ps'); 
 
 
-// Route::get('DocumentManagement/dindex', function () {
-//     return view('DocumentManagement.dindex');
-// })->name('DocumentManagement.dindex');
+     route::get('lang/fa',function (){
+     return view('lang.fa');
+     })->name('lang.fa');
 
+     /*
+    |--------------------------------------------------------------------------
+    | Clock
+    |--------------------------------------------------------------------------
+    */  
 
-Route::resource('documents', DocumentController::class);
+      Route::get('clock', function () {
+      return view('clock');
+      })->name('clock');
 
+  });

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Exports\EmployeesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\User;
 
 class EmployeeController extends Controller
 {
@@ -44,23 +45,37 @@ class EmployeeController extends Controller
 
         return view('employees.index', compact('employees', 'stats'));
     }
+// create method 
+public function create()
+{
+    $users = User::doesntHave('employee')->orderBy('name')->get();
 
-    public function create()
-    {
-        return view('employees.create');
-    }
+    return view('employees.create', compact('users'));
+}
 
+
+
+// end method  for creat 
+   
     public function store(Request $request)
     {
-        $request->validate([
-            'employee_code' => 'required|unique:employees,employee_code',
-            'first_name'    => 'required|string|max:100',
-            'last_name'     => 'required|string|max:100',
-            'email'         => 'nullable|email',
-            'phone'         => 'nullable|string|max:30',
-            'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'status'        => 'required|string',
-        ]);
+    
+           $request->validate([
+    'user_id'        => 'nullable|exists:users,id',
+    'employee_code'  => 'required|unique:employees,employee_code',
+    'first_name'     => 'required|string|max:100',
+    'last_name'      => 'required|string|max:100',
+    'email'          => 'nullable|email',
+    'phone'          => 'nullable|string|max:30',
+    'photo'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    'status'         => 'required|string',
+]);
+
+
+
+
+
+        // end 
 
         $data = $request->all();
         $data['full_name'] = trim($request->first_name . ' ' . $request->last_name);
@@ -80,23 +95,34 @@ class EmployeeController extends Controller
     {
         return view('employees.show', compact('employee'));
     }
+// edit method for rmployeee
+public function edit(Employee $employee)
+{
+    $users = User::whereDoesntHave('employee')
+        ->orWhere('id', $employee->user_id)
+        ->orderBy('name')
+        ->get();
 
-    public function edit(Employee $employee)
-    {
-        return view('employees.edit', compact('employee'));
-    }
+    return view('employees.edit', compact('employee', 'users'));
+}
+
+// end of method
+  
 
     public function update(Request $request, Employee $employee)
     {
-        $request->validate([
-            'employee_code' => 'required|unique:employees,employee_code,' . $employee->id,
-            'first_name'    => 'required|string|max:100',
-            'last_name'     => 'required|string|max:100',
-            'email'         => 'nullable|email',
-            'phone'         => 'nullable|string|max:30',
-            'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'status'        => 'required|string',
-        ]);
+              $request->validate([
+                
+    'user_id'        => 'nullable|exists:users,id',
+    'employee_code'  => 'required|unique:employees,employee_code',
+    'first_name'     => 'required|string|max:100',
+    'last_name'      => 'required|string|max:100',
+    'email'          => 'nullable|email',
+    'phone'          => 'nullable|string|max:30',
+    'photo'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    'status'         => 'required|string',
+]);
+
 
         $data = $request->all();
         $data['full_name'] = trim($request->first_name . ' ' . $request->last_name);
@@ -185,8 +211,14 @@ class EmployeeController extends Controller
 
 public function monitoring(Employee $employee)
 {
-    return view('employees.monitoring', compact('employee'));
-}
+    $taskStats = [
+        'total' => $employee->tasks()->count(),
+        'completed' => $employee->tasks()->where('status', 'completed')->count(),
+        'pending' => $employee->tasks()->where('status', 'pending')->count(),
+        'in_progress' => $employee->tasks()->where('status', 'in_progress')->count(),
+    ];
 
+    return view('employees.monitoring', compact('employee', 'taskStats'));
+}
 
 }

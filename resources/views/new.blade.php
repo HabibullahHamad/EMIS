@@ -141,6 +141,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             // basic English -> Pashto translations for visible labels/attributes
             const map = {
+
+                "View":"کتل",
                 "Dashboard":"منځپانګه",
                 "Correspondence":"مکاتب",
                 "All Employees":"ټول کارمندان",
@@ -258,12 +260,19 @@
                         "Back":"بیرته تګ",
                           "other":" نور",
 
-
-
-
                 // end
 
+// Tasks
 
+
+       "Reference":"دسند نمبر",
+       "Source Type":"ډول",
+       "Title":"عنوان",
+       "Task Code":"کوډ",
+       "Deadline":"د پای نېټه",
+
+
+// end
 
 
 
@@ -873,8 +882,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
            <ul class="sub-menu">
                         <li><a href="{{route('CorrespondenceManagement.outbox.create')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
-                        <li><a href="{{ route('CorrespondenceManagement.inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
-                        <li><a href="{{ route('CorrespondenceManagement.main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
+                        <li><a href="{{ route('inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
+                        <li><a href="{{ route('main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
             </ul>
         </li>
      <!-- employee -->
@@ -905,7 +914,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="{{route('Administrations.create')}}"><i class="fa-solid fa-users"></i>Craete Users</a></li>
 
                 <li><a href="{{ route('Administrations.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
-                <li><a href="{{ route('Administrations.login') }}"><i class="fa-solid fa-sign-in-alt"></i>Login</a></li>
                 <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
                 <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
@@ -938,7 +946,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="#"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
                 <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
-                <li><a href="{{route('Document Management.Search & Filter')}}"><i class="fa-solid fa-file-export"></i>Search and filter</a></li>
             </ul>
         </li>
 
@@ -957,7 +964,23 @@ document.addEventListener('DOMContentLoaded', function () {
         </li>
 
 <!-- end tasks -->
+<!-- users -->
 
+    <ul class="submenu">
+        <li>
+            <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('roles.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                Roles
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!-- end users -->
 
        <!-- end documentation -->
       

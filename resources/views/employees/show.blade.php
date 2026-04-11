@@ -9,6 +9,7 @@
             <div class="d-flex align-items-center mb-4">
                 <img src="{{ $employee->photo_url }}" width="100" height="100"
                      style="border-radius:50%; object-fit:cover; margin-right:20px;">
+         
 
                 <div>
                     <h3 class="mb-1">{{ $employee->full_name }}</h3>
@@ -16,6 +17,7 @@
                     <p class="mb-0"><strong>Status:</strong> {{ ucfirst($employee->status) }}</p>
                 </div>
             </div>
+            
 
             <div class="row">
 
@@ -42,7 +44,14 @@
                 <div class="col-md-6">
                     <p><strong>Updated At:</strong> {{ $employee->updated_at }}</p>
                 </div>
-
+               <div>
+                   <p><strong>User Account:</strong>
+    {{ $employee->user->name ?? '-' }}
+    @if($employee->user)
+        ({{ $employee->user->email }})
+    @endif
+</p>
+                </div>
             </div>
 
             <hr>

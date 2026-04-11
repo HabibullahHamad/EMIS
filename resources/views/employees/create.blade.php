@@ -48,6 +48,20 @@
                        value="{{ old('email') }}">
             </div>
 
+             {{-- Select --}}
+              <div class="col-md-6 mb-3">
+    <label>User Account</label>
+    <select name="user_id" class="form-control">
+        <option value="">Select User</option>
+        @foreach($users as $user)
+            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                {{ $user->name }} ({{ $user->email }})
+            </option>
+        @endforeach
+    </select>
+     </div>
+<!-- end select  -->
+
             {{-- Phone --}}
             <div class="col-md-6 mb-3">
                 <label>Phone</label>
