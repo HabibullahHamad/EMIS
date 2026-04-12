@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -26,51 +27,72 @@ class RoleController extends Controller
         return view('roles.index', compact('roles'));
     }
 
-    public function create()
-    {
-        return view('roles.create');
-    }
+   public function create()
+{
+    $permissions = Permission::orderBy('module')->orderBy('display_name')->get()->groupBy('module');
+    return view('roles.create', compact('permissions'));
+}
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100|unique:roles,name',
-            'display_name' => 'required|string|max:150',
-            'description' => 'nullable|string',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:100|unique:roles,name',
+        'display_name' => 'required|string|max:150',
+        'description' => 'nullable|string',
+        'permissions' => 'nullable|array',
+        'permissions.*' => 'exists:permissions,id',
+    ]);
 
-        Role::create($request->all());
+    $role = Role::create([
+        'name' => $request->name,
+        'display_name' => $request->display_name,
+        'description' => $request->description,
+    ]);
 
-        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
-    }
+    $role->permissions()->sync($request->permissions ?? []);
 
-    public function show(Role $role)
-    {
-        return view('roles.show', compact('role'));
-    }
+    return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+}
 
-    public function edit(Role $role)
-    {
-        return view('roles.edit', compact('role'));
-    }
+   public function show(Role $role)
+{
+    $role->load('permissions');
+    return view('roles.show', compact('role'));
+}
 
-    public function update(Request $request, Role $role)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100|unique:roles,name,' . $role->id,
-            'display_name' => 'required|string|max:150',
-            'description' => 'nullable|string',
-        ]);
+  public function edit(Role $role)
+{
+    $permissions = Permission::orderBy('module')->orderBy('display_name')->get()->groupBy('module');
+    $role->load('permissions');
 
-        $role->update($request->all());
+    return view('roles.edit', compact('role', 'permissions'));
+}
 
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
-    }
+  public function update(Request $request, Role $role)
+{
+    $request->validate([
+        'name' => 'required|string|max:100|unique:roles,name,' . $role->id,
+        'display_name' => 'required|string|max:150',
+        'description' => 'nullable|string',
+        'permissions' => 'nullable|array',
+        'permissions.*' => 'exists:permissions,id',
+    ]);
 
+    $role->update([
+        'name' => $request->name,
+        'display_name' => $request->display_name,
+        'description' => $request->description,
+    ]);
+
+    $role->permissions()->sync($request->permissions ?? []);
+
+    return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
+}
     public function destroy(Role $role)
     {
         $role->delete();
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
+    
 }

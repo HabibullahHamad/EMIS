@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', function () {
     observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
 });
 </script>
-
+@auth
     <!-- Menu -->
 
     <ul class="menu">
@@ -903,6 +903,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
      <!-- end -->
    
+    @if(auth()->user()->canAccess('Administrations.viewe'))
         <!-- User Management -->
         <li class="has-sub">
             <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
@@ -919,6 +920,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
             </ul>
         </li>
+      @endif
        <!-- Task Manage,ent -->
 
 
@@ -995,6 +997,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     </ul>
+    @endauth
     <!-- User -->
        <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">
         <div class="user-info">

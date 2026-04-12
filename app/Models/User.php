@@ -44,4 +44,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class);
     }
+    public function canAccess($permissionName)
+{
+    return $this->role && $this->role->permissions->contains('name', $permissionName);
+}
 }

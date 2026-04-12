@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
    public function index(Request $request)
-{
+{ 
+   
     $query = User::with('role');
 
     if ($request->search) {
@@ -20,6 +21,7 @@ class UserController extends Controller
         $query->where(function ($q) use ($search) {
             $q->where('name', 'like', '%' . $search . '%')
               ->orWhere('email', 'like', '%' . $search . '%');
+
         });
     }
 
@@ -27,7 +29,7 @@ class UserController extends Controller
         $query->where('role_id', $request->role_id);
     }
 
-    $users = $query->latest()->paginate(10)->withQueryString();
+    $users = $query->latest()->paginate(5)->withQueryString();
     $roles = Role::orderBy('display_name')->get();
 
     return view('users.index', compact('users', 'roles'));
@@ -35,6 +37,8 @@ class UserController extends Controller
 
     public function create()
     {
+        
+
         $roles = Role::orderBy('display_name')->get();
         return view('users.create', compact('roles'));
     }
