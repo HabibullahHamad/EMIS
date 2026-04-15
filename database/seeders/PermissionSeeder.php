@@ -10,28 +10,26 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['name' => 'dashboard.view', 'display_name' => 'View Dashboard', 'module' => 'Dashboard'],
+        ['name' => 'correspondence.view', 'display_name' => 'View Correspondence', 'module' => 'Correspondence'],
 
-            ['name' => 'users.view', 'display_name' => 'View Users', 'module' => 'Users'],
-            ['name' => 'users.create', 'display_name' => 'Create Users', 'module' => 'Users'],
-            ['name' => 'users.edit', 'display_name' => 'Edit Users', 'module' => 'Users'],
-            ['name' => 'users.delete', 'display_name' => 'Delete Users', 'module' => 'Users'],
+['name' => 'inbox.view', 'display_name' => 'View Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.create', 'display_name' => 'Create Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.edit', 'display_name' => 'Edit Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.delete', 'display_name' => 'Delete Inbox', 'module' => 'Inbox'],
 
-            ['name' => 'roles.view', 'display_name' => 'View Roles', 'module' => 'Roles'],
-            ['name' => 'roles.create', 'display_name' => 'Create Roles', 'module' => 'Roles'],
-            ['name' => 'roles.edit', 'display_name' => 'Edit Roles', 'module' => 'Roles'],
-            ['name' => 'roles.delete', 'display_name' => 'Delete Roles', 'module' => 'Roles'],
+['name' => 'documents.view', 'display_name' => 'View Documents', 'module' => 'Documents'],
 
-            ['name' => 'employees.view', 'display_name' => 'View Employees', 'module' => 'Employees'],
-            ['name' => 'employees.create', 'display_name' => 'Create Employees', 'module' => 'Employees'],
-            ['name' => 'employees.edit', 'display_name' => 'Edit Employees', 'module' => 'Employees'],
-            ['name' => 'employees.delete', 'display_name' => 'Delete Employees', 'module' => 'Employees'],
+['name' => 'settings.view', 'display_name' => 'View Settings', 'module' => 'Settings'],
+['name' => 'correspondence.view', 'display_name' => 'View Correspondence', 'module' => 'Correspondence'],
 
-            ['name' => 'tasks.view', 'display_name' => 'View Tasks', 'module' => 'Tasks'],
-            ['name' => 'tasks.create', 'display_name' => 'Create Tasks', 'module' => 'Tasks'],
-            ['name' => 'tasks.edit', 'display_name' => 'Edit Tasks', 'module' => 'Tasks'],
-            ['name' => 'tasks.delete', 'display_name' => 'Delete Tasks', 'module' => 'Tasks'],
-            ['name' => 'tasks.charts', 'display_name' => 'View Task Charts', 'module' => 'Tasks'],
+['name' => 'documents.view', 'display_name' => 'View Documents', 'module' => 'Documents'],
+
+['name' => 'inbox.view', 'display_name' => 'View Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.create', 'display_name' => 'Create Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.edit', 'display_name' => 'Edit Inbox', 'module' => 'Inbox'],
+['name' => 'inbox.delete', 'display_name' => 'Delete Inbox', 'module' => 'Inbox'],
+
+['name' => 'settings.view', 'display_name' => 'View Settings', 'module' => 'Settings'],
         ];
 
         foreach ($permissions as $permission) {

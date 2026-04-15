@@ -36,10 +36,14 @@ class InboxController extends Controller
         $inbox = Inbox::orderBy('id', 'desc')->paginate(14);
         return view('CorrespondenceManagement.inbox.index', compact('inbox'));
     }
+    public function form()
+{
+    return view('CorrespondenceManagement.inbox.form');
+}
 // for create 
     public function create()
     {
-        return view('CorrespondenceManagement.inbox.create');
+        return view('CorrespondenceManagement\inbox.create');
     }
 
 // store
@@ -130,6 +134,7 @@ public function show($id)
       $letter = Inbox::latest()->get(); // ✅ REQUIRED
     return view('CorrespondenceManagement.main', compact('inbox'));
 }
+
 }
 
 // new controller 

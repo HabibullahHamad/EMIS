@@ -1,1206 +1,785 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ htmlLang() }}" dir="{{ htmlDir() }}">
 <head>
-
-    <!-- RTL + Pashto font -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <title>EMIS | {{ __('emis.dashboard') }}</title>
 
-    <!-- Bootstrap RTL -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    @if(isRtl())
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    @else
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- RTL fixed top navbar + content offsets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        :root {
+/* new for rtl */
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="ltr"] body {
+    direction: ltr;
+    text-align: left;
+}
+
+html[dir="rtl"] .sidebar {
+    right: 0;
+    left: auto;
+}
+
+html[dir="ltr"] .sidebar {
+    left: 0;
+    right: auto;
+}
+
+html[dir="rtl"] .top-navbar {
+    right: var(--sidebar-width);
+    left: 0;
+}
+
+html[dir="ltr"] .top-navbar {
+    left: var(--sidebar-width);
+    right: 0;
+}
+
+html[dir="rtl"] .content {
+    margin-right: var(--sidebar-width);
+    margin-left: 4px;
+}
+
+html[dir="ltr"] .content {
+    margin-left: var(--sidebar-width);
+    margin-right: 4px;
+}
+
+html[dir="rtl"] .sidebar.collapsed ~ .top-navbar {
+    right: var(--sidebar-collapsed-width);
+    left: 0;
+}
+
+html[dir="ltr"] .sidebar.collapsed ~ .top-navbar {
+    left: var(--sidebar-collapsed-width);
+    right: 0;
+}
+
+html[dir="rtl"] .sidebar.collapsed ~ .content {
+    margin-right: var(--sidebar-collapsed-width);
+    margin-left: 4px;
+}
+
+html[dir="ltr"] .sidebar.collapsed ~ .content {
+    margin-left: var(--sidebar-collapsed-width);
+    margin-right: 4px;
+}
+
+html[dir="rtl"] .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+html[dir="ltr"] .dropdown-menu {
+    left: 0;
+    right: auto;
+}
+
+html[dir="rtl"] .arrow {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+html[dir="ltr"] .arrow {
+    margin-left: auto;
+    margin-right: 0;
+}
+/* end */
+        :root{
             --sidebar-width: 230px;
             --sidebar-collapsed-width: 70px;
+            --topbar-height: 40px;
+            --sidebar-bg: #081e51;
+            --sidebar-hover: #b3b2b1;
+            --sidebar-submenu: rgba(2, 18, 31, 0.53);
         }
 
-        /* Ensure document RTL */
-        html, body { direction: rtl !important; }
-
-        /* Fixed top navbar that spans from left page edge to the sidebar on the right (RTL) */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: var(--sidebar-width);
-            height: 40px;
-            background: #b7bbbbff;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 0px;
-            z-index: 9999;
-            transition: right 0.25s ease;
-        }
-
-        /* Adjust when sidebar collapsed */
-        .sidebar.collapsed ~ .top-navbar {
-            right: var(--sidebar-collapsed-width);
-        }
-
-        /* Main content offset to leave room for the right sidebar (RTL) */
-        main.content {
-            margin-top: 28px; /* space for fixed navbar */
-            margin-right: var(--sidebar-width);
-            margin-left: 4px;
-            transition: margin-right 0.25s ease;
-        }
-        .sidebar.collapsed ~ main.content {
-            margin-right: var(--sidebar-collapsed-width);
-        }
-
-        /* Make search input align RTL inside navbar */
-        .top-navbar .nav-search input {
-            text-align: right;
-        }
-
-        /* Keep dropdowns aligned toward the sidebar (right edge) */
-        .top-navbar .dropdown-menu {
-            left: auto;
-            right: 0;
-        }
-    </style>
-
-    <script>
-        // Ensure top navbar reacts to sidebar state on load (in case of persisted collapsed state)
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const top = document.getElementById('topNavbar');
-            const adjust = () => {
-                if (!sidebar || !top) return;
-                if (sidebar.classList.contains('collapsed')) {
-                    top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width') || '70px';
-                } else {
-                    top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width') || '230px';
-                }
-            };
-            // run once and when sidebar class changes
-            adjust();
-            new MutationObserver(adjust).observe(sidebar, { attributes: true, attributeFilter: ['class'] });
-        });
-    </script>
-    <style>
-        :root{
-            --sidebar-width:230px;
-            --sidebar-collapsed-width:70px;
-        }
-
-        html, body { direction: rtl !important; font-family: 'Noto Sans Arabic', sans-serif !important; }
-        /* flip common alignment helpers used in page if necessary */
-        .text-start { text-align: right !important; }
-        .text-end { text-align: left !important; }
-
-        /* Sidebar on the right for RTL layout */
-        .sidebar { right: 0; left: auto; }
-        .sidebar.collapsed { width: var(--sidebar-collapsed-width); }
-
-        /* Content offset for RTL (space on the right for the sidebar) */
-        .content { margin-right: var(--sidebar-width); margin-left: 15px; }
-        .sidebar.collapsed ~ .content { margin-right: var(--sidebar-collapsed-width); margin-left: 15px; }
-
-        
-        .nav-search input{
-            border:none;
-            background:none;
-            outline:none;
-            font-size:13px;
-            text-align: right; /* RTL input */
-            width: 120px;
-            transition: width 0.3s ease;
-
-        }
-
-        /* adjust some icon spacing for RTL */
-        .menu a { padding-right: 15px; padding-left: 0; }
-        .menu a .fa-solid, .menu a .fa-sharp { margin-left: 10px; margin-right: 0; }
-
-        /* Ensure dropdowns align toward the sidebar (right side) */
-        .top-navbar .dropdown-menu {
-            left: auto;
-            right: 0;
-        }
-
-        /* small tweaks to keep other RTL rules consistent */
-        .sidebar.collapsed .menu span,
-        .sidebar.collapsed .arrow {
-            display: none;
-        }
-
-    </style>
-
-    <script>
-        // set document language and direction
-        document.documentElement.lang = 'ps';
-        document.documentElement.dir = 'rtl';
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // basic English -> Pashto translations for visible labels/attributes
-            const map = {
-
-                "View":"کتل",
-                "Dashboard":"منځپانګه",
-                "Correspondence":"مکاتب",
-                "All Employees":"ټول کارمندان",
-                  "All Outbox":"ټول آوټ باکس",
-                  "Create Outgoing":"صادره ",
-                  "Sent Reports":"لیږل شوي راپورونه",
-                "Archive":"آرکایو",
-                "Management":"مدیریت",
-                "Task Management":"د دندو مدیریت",
-                "Documents Management":"د اسنادو مدیریت",
-                "Documnets Management":"د اسنادو مدیریت",
-                "Tasks Management":"د دندو مدیریت",
-                "Settings":"تنظیمات",
-                "Analytics":"تحلیلونه",
-                "Reports":"راپورونه",
-                "Search EMIS...":"د EMIS لټون...",
-                "Admin":"مدیر",
-                "Logged In":"ننووتی",
-                "Create Users":"کارن جوړ کړئ",
-                "Craete Users":"کارن جوړ کړئ",
-                "Roles":"رولونه",
-                "Login":"ننوتل",
-                "Role Management":"د رول مدیریت",
-                "User Management":"د کاروونکو مدیریت",
-                "Permissions":"اجازې",
-                "Inbox":"انباکس",
-                "Coming":"راتلونکی",
-                "Outgoing Dts":"صادر اسناد",
-                "Create":"جوړول",
-                "Search and filter":"لټون او فلټر",
-                "Task Delegation":"د دندو سپارل",
-                "Create Task":"دنده جوړول",
-                "Main Page":"اصلي مخ",
-                "index":"فهرست",
-                "dashboard":"ډشبورډ",
-                "Clock":"ساعت",
-                "Profile":"پروفایل",
-                "Logout":"وتل",
-                "Success":"بریالی",
-                "Error":"تېروتنه",
-                "Warning":"خبرداری",
-                "Validation Error":"د تصدیق تېروتنه",
-                "Are you sure?":"ایا تاسو ډاډمن یاست؟",
-                "This action cannot be undone!":"دا عمل بیرته نشي کیدی!",
-                "Yes, delete it!":"هو، حذف یې کړئ!",
-                "Cancel":"لغوه",
-                "Documents":"اسناد",
-                "Notifications":"خبرتیاوې",
-                "Search EMIS...":"د EMIS لټون...",
-                "Subject":"موضوع",
-                "Receiver":"ترلاسه کوونکی",
-                "Received":"د ترلاسه کولو نېټه",
-                "Number":"ګڼه",
-                "Date":"نېټه",
-                "Actions":"عملونه",
-                "View":"اړیکې شمېره",
-                "Edit":"تعییرول",
-                "Delete":"له منځه وړل",
-                "Document Number":" د سند نمبر",
-                "Document Date":"  د سند نیټه",
-                "Document Receiver":" د سند ترلاسه کوونکی",
-                "Priority":"اولویت",
-                "Sender":"لېږونکی",
-                "Status":"حالت",
-                "Assigned To":"سپارل شوی",
-                "Save":"ذخیره",
-                "Department":"څانګه",
-        "Description":"توضیحات",
-        "Low":"کم",
-        "Medium":"متوسط",
-        "High":"زیاد",
-        "Attachment":"مل/ضمایم",
-        "Chose File":"فایل انتخاب کنید",
-        "No file chosen":"هیچ فایلی انتخاب نشده است",
-        // FOR Dashbord
-                "Total Documents":"ټول اسناد",
-                "Pending Tasks":"بشپړ شوي دندې",
-                "Completed Tasks":"بشپړ شوي دندې",
-                "Overdue Tasks":"بشپړ شوي دندې",
-                "Tasks":" دندې",
-                "All System Users":"سیسټم کارونکي",
-                "Tasks Assigned":" سپارل شوي دندې",
-                "Operational Trend":"عملیاتي تمایل",
-                "Jobs Graph":"دندو ګراف",
-                "Time & Dtae":"وخت او نېټه",
-                "All Tasks":"ټولې دندې",
-                "Incoming Documents":"وارده اسناد",
-                "Outgoing Documents":"صادره اسناد",
-                "Assigned Tasks":"سپارل شوي دندې",
-                "Letter No":"د لیک شمېره",
-                "Subject":"موضوع",
-
-
-                //    for employee
-
-                     "Employee":"کارکوونکی",
-                     "Name":"نوم",
-                       "ID":"ای ډي",
-                         "Code":"کوډ",
-                           "Email":"برښنالیک",
-                             "Phone":"تلیفون شمېره",
-                                "Photo":"انځور",
-                     "Subject":"موضوع",
-                     "Add Employee":"کارمند اضافه کول",
-                     "Create Employee":"نوی کارمند اضافه کړئ",
-                     "Employee Code":"کوډ",
-                     "First Name":"اول نوم",
-                     "Last Name":"ورستی نوم",
-                     "Employees":"کارکوونکي",
-                     "Active":"فعال",
-                      "Inactive":"غیرفعال",
-                        "Total Employees":"ټول کارکوونکي",
-                        "All":"ټول",
-                        "Search...":"...لټون",
-                        "Back":"بیرته تګ",
-                          "other":" نور",
-
-                // end
-
-// Tasks
-
-
-       "Reference":"دسند نمبر",
-       "Source Type":"ډول",
-       "Title":"عنوان",
-       "Task Code":"کوډ",
-       "Deadline":"د پای نېټه",
-
-
-// end
-
-
-
-
-
-
-
-
-
-
-
-                // "Submit":"ارسال",
-                // "Close":"بستن",
-                // "Edit Task":"تغییر وظیفه",
-                // "Task Title":"عنوان وظیفه",
-                // "Due Date":"تاریخ انقضا",
-                // "Priority":"اولویت",
-                // "Assigned To":"تخصیص داده شده به",
-                // "Task Description":"توضیحات وظیفه",
-                // "Update Task":"به روز رسانی وظیفه",
-                
-            
-            };
-        
-            // translate text nodes
-            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-            let node;
-            const textNodes = [];
-            while (walker.nextNode()) textNodes.push(walker.currentNode);
-            textNodes.forEach(n => {
-                const t = n.nodeValue.trim();
-                if (t && map[t]) n.nodeValue = n.nodeValue.replace(t, map[t]);
-            });
-
-            // translate attributes: placeholders and data-title
-            document.querySelectorAll('[placeholder]').forEach(el => {
-                const p = el.getAttribute('placeholder');
-                if (p && map[p]) el.setAttribute('placeholder', map[p]);
-            });
-            document.querySelectorAll('[data-title]').forEach(el => {
-                const d = el.getAttribute('data-title');
-                if (d && map[d]) el.setAttribute('data-title', map[d]);
-            });
-
-            // translate common elements by exact innerText
-            document.querySelectorAll('a,button,span,small,strong,h1,h2,h3,h4,h5,label').forEach(el => {
-                const t = el.textContent.trim();
-                if (t && map[t]) el.textContent = map[t];
-            });
-
-            // Override Swal.fire to translate titles/text automatically when used later in page
-            if (window.Swal) {
-                const _fire = Swal.fire.bind(Swal);
-                Swal.fire = function (opts) {
-                    if (typeof opts === 'object') {
-                        if (opts.title && map[opts.title]) opts.title = map[opts.title];
-                        if (opts.text && map[opts.text]) opts.text = map[opts.text];
-                        if (opts.confirmButtonText && map[opts.confirmButtonText]) opts.confirmButtonText = map[opts.confirmButtonText];
-                        if (opts.cancelButtonText && map[opts.cancelButtonText]) opts.cancelButtonText = map[opts.cancelButtonText];
-                        if (opts.html && typeof opts.html === 'string') {
-                            Object.keys(map).forEach(k => { opts.html = opts.html.split(k).join(map[k]); });
-                        }
-                    }
-                    return _fire(opts);
-                };
-            }
-
-            // Override confirmDelete used in page to show Pashto confirm
-            window.confirmDelete = function (formId) {
-                if (window.Swal) {
-                    Swal.fire({
-                        title: 'ایا تاسو ډاډمن یاست؟',
-                        text: 'دا عمل بیرته نشي کیدی!',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'هو، حذف یې کړئ!',
-                        cancelButtonText: 'لغوه'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            document.getElementById(formId).submit();
-                        }
-                    });
-                } else {
-                    if (confirm('ایا تاسو ډاډمن یاست؟')) document.getElementById(formId).submit();
-                }
-            };
-        });
-    </script>
-</head>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <meta charset="UTF-8">
-    <title>EMIS | Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Custom scrollbar: smaller and smarter -->
-
-<style>
-.modal-dialog-bottom-right{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    margin: 0;
-    max-width:500px;
-}
-/* Smooth slide-up animation */
-.modal.fade .modal-dialog-bottom-right {
-    transform: translateY(100%);
-}
-
-.modal.show .modal-dialog-bottom-right {
-    transform: translateY(0);
-    transition: transform 0.3s ease-out;
-}
-</style>
-    <style>
-        /* ========== TOP NAVBAR ========== */
-
-
-/* Adjust when sidebar collapsed */
-.sidebar.collapsed ~ .top-navbar{
-    right:80px;
-}
-
-/* LEFT */
-
-/* RIGHT */
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-/* SEARCH */
-.nav-search{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:#f1f5f9;
-    padding:1px 1px;
-    border-radius:8px;
-}
-.nav-search input{
-    border:none;
-    background:none;
-    outline:none;
-    font-size:13px;
-}
-
-
-/* NAV ITEMS */
-.nav-item{
-    position:relative;
-    cursor:pointer;
-    color:#334155;
-}
-.nav-item i{
-    font-size:18px;
-}
-
-/* BADGE */
-.badge{
-    position:absolute;
-    top:-6px;
-    right:-6px;
-    background:#dc2626;
-    color:#fff;
-    font-size:10px;
-    padding:2px 6px;
-    border-radius:50%;
-}
-
-/* DROPDOWN */
-.dropdown-menu{
-    position:absolute;
-    top:120%;
-    right:0;
-    background:#fff;
-    min-width:200px;
-    border-radius:8px;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-    display:none;
-    flex-direction:column;
-    padding:8px 0;
-}
-.dropdown-menu a,
-.dropdown-menu p{
-    padding:10px 15px;
-    font-size:13px;
-    color:#334155;
-    text-decoration:none;
-}
-.dropdown-menu a:hover{
-    background: #f1f5f9;
-}
-.dropdown-title{
-    font-weight:bold;
-    color:#475569;
-}
-.dropdown-menu hr{
-    border:none;
-    border-top:1px solid #e5e7eb;
-    margin:6px 0;
-}
-.dropdown-menu .danger{
-    color:#dc2626;
-}
-/* SHOW ON HOVER */
-.dropdown:hover .dropdown-menu{
-    display:flex;
-}
-
-/* USER */
-.user{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-.user img{
-    width:32px;
-    height:32px;
-    border-radius:50%;
-}
-
-/* CONTENT OFFSET */
-.content{
-    margin-top:0px;
-    padding-top:1px;
-    
-}
-
-/* end navbar */
-        .menu::-webkit-scrollbar {
-            width: 4px;
-        }
-        .menu::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 8px;
-        }
-        .menu::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-        .menu::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        /* For Firefox */
-        .menu {
-            scrollbar-width: thin;
-            scrollbar-color: #334155 transparent;
-        }
-    </style>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* Custom scrollbar */
-        .menu::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .menu::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 10px;
-        }
-
-        .menu::-webkit-scrollbar-thumb:hover {
-            background: #334155;
-        }
-
-        .menu::-webkit-scrollbar-track {
-            background: transparent;
-        }
-    </style>
-    <style>
-        * {
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
 
-        body {
+        html, body{
+            direction: rtl !important;
             background: #f4f6f9;
-            
-        }
-        /* Make menu scrollable so long sub-menus won't extend past the viewport */
-        .sidebar {
-            overflow: hidden; /* keep header/footer visible */
         }
 
-        .menu {
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            max-height: calc(100vh - 130px); /* adjust if header/footer heights differ */
+        body{
+            min-height: 100vh;
         }
 
-        /* keep footer pinned to bottom */
-        .sidebar-footer {
-            margin-top: auto;
-        }
-        /* Sidebar */
-        .sidebar {
-            width: 230px;
-            height:100%;
-            background: #081e51ff;
+        .text-start { text-align: right !important; }
+        .text-end { text-align: left !important; }
+
+        .sidebar{
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--sidebar-bg);
             color: #fff;
             position: fixed;
+            top: 0;
+            right: 0;
+            left: auto;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 1000;
-            overflow: auto;
-            box-shadow: 2px 0 5px rgba(255, 252, 252, 0.98);
+            overflow: hidden;
+            transition: width .3s ease;
+            box-shadow: 2px 0 5px rgba(0,0,0,.15);
         }
 
-        .sidebar.collapsed {
-            width: 70px;
-            border-radius:10px;
+        .sidebar.collapsed{
+            width: var(--sidebar-collapsed-width);
         }
 
-        /* Header */
-        .sidebar-header {
-            display: fixed;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0px;
+        .sidebar-header{
+            padding: 8px 10px 0 10px;
         }
 
-        .logo {
+        .toggle-btn{
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+
+        .logo{
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
+            gap: 10px;
             font-size: 20px;
             font-weight: bold;
         }
 
-        .logo-text {
-            transition: 0.3s;
+        .logo img{
+            width: 36px;
+            height: 36px;
+            transition: width .3s, height .3s;
         }
 
-        .sidebar.collapsed .logo-text {
+        .logo-text{
+            transition: .3s;
+        }
+
+        .sidebar.collapsed .logo img{
+            width: 20px;
+            height: 20px;
+        }
+
+        .sidebar.collapsed .logo-text{
             display: none;
         }
 
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        /* Menu */
-        .menu {
+        .menu{
             list-style: none;
             padding: 8px;
-            flex-grow: 3;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: calc(100vh - 125px);
+            scrollbar-width: thin;
+            scrollbar-color: #334155 transparent;
         }
-        .menu li {
+
+        .menu::-webkit-scrollbar{
+            width: 6px;
+        }
+
+        .menu::-webkit-scrollbar-thumb{
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        .menu::-webkit-scrollbar-track{
+            background: transparent;
+        }
+
+        .menu li{
             margin-bottom: 5px;
         }
-        .menu a {
+
+        .menu a{
             display: flex;
             align-items: center;
-            gap: 14px;
-            color: #fbfdffff;
-            padding-top: 5px;
-            padding-bottom: 12px;
-            padding-left: 15px;
+            gap: 12px;
+            color: #fbfdff;
+            padding: 10px 12px;
             font-size: 14px;
             text-decoration: none;
-            border-radius: 2px;
             position: relative;
-            spacing :20px;
-            transition: 0.5s;
-            border-left:5px;
-            
-
-
+            transition: .3s;
+            border-radius: 4px;
         }
-        .menu a:hover {
-         
-            background: rgb(179, 178, 177);
-              display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgb(8, 8, 8);
-            border-left: 4px solid #0b8bf4ff;
-            border-radius: 0px 10px 10px 0px;
-            
+
+        .menu a:hover{
+            background: var(--sidebar-hover);
+            color: #000;
+            border-left: 4px solid #0b8bf4;
+            border-radius: 0 10px 10px 0;
         }
-     
-        .menu span {
+
+        .menu a.active-link{
+            background: rgba(255,255,255,0.15);
+            border-left: 4px solid #e4b301;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .menu span{
             white-space: nowrap;
         }
+
+        .arrow{
+            margin-right: auto;
+            transition: transform .2s ease;
+        }
+
+        .has-sub.active > a .arrow{
+            transform: rotate(180deg);
+        }
+
         .sidebar.collapsed .menu span,
-        .sidebar.collapsed .arrow {
+        .sidebar.collapsed .arrow{
             display: none;
         }
-        /* Tooltip on collapse */
-        .sidebar.collapsed .menu a::after {
+
+        .sidebar.collapsed .menu a::after{
             content: attr(data-title);
             position: absolute;
-            left: 90px;
+            right: 80px;
             background: #1e293b;
             color: #fff;
-            padding: 5px 5px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 13px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: 0.2s;
+            transition: .2s;
         }
-        .sidebar.collapsed .menu a:hover::after {
+
+        .sidebar.collapsed .menu a:hover::after{
             opacity: 1;
         }
-        /* Sub menu */
-        .has-sub .sub-menu {
+
+        .sub-menu{
             list-style: none;
-            padding-left: 22px;
             display: none;
-            flex-direction: column;
-        }
-        .has-sub.active .sub-menu {
-            display: block;
-            padding-left: 5px;
-            background: #02121f86;
+            padding-right: 6px;
+            margin-top: 2px;
+            background: var(--sidebar-submenu);
             border-radius: 4px;
-            margin-top: 1px;
-            margin-bottom: 1px;
         }
 
-        .sub-menu a {
+        .has-sub.active .sub-menu{
+            display: block;
+        }
+
+        .sub-menu a{
             font-size: 12px;
             font-weight: bold;
-            padding: 8px 12px;
             color: #cbd5e1;
+            padding: 8px 12px;
         }
 
-        /* Footer */
+        .sidebar-footer{
+            border-top: 1px solid #343435;
+            background: #131314;
+            padding: 8px;
+        }
 
-
-        .sidebar-footer {
-            border-top: 1px solid #343435ff;
-            margin-top: 1px;
-            height: 20px;
+        .user-info{
             display: flex;
             align-items: center;
-            border-top: 1px solid #1e293b;
-            background: #131314ff;   
-            padding-bottom: 1px;
-            transition: 0.3s;   
+            gap: 10px;
+            width: 100%;
         }
 
-        .user-info {
-            height: 20px;
-            display: flex;
-            align-items: center;
-            padding-bottom: 2px;
-            padding-left: 1px;
-        }
-        .user-info img {
+        .user-info img{
             border-radius: 50%;
             width: 40px;
             height: 40px;
         }
-        .sidebar.collapsed .user-info div {
+
+        .sidebar.collapsed .user-info div{
             display: none;
         }
-        /* Page Content (optional) */
-        .content {
-            margin-left: 230px;
-            padding: 15px;
-            transition: 0.3s;
+
+        .top-navbar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: var(--sidebar-width);
+            height: var(--topbar-height);
+            background: #b7bbbb;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            z-index: 999;
+            transition: right .25s ease;
         }
-        .sidebar.collapsed ~ .content {
-            margin-left: 70px;
+
+        .sidebar.collapsed ~ .top-navbar{
+            right: var(--sidebar-collapsed-width);
+        }
+
+        .nav-left,
+        .nav-right{
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-search{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .nav-search input{
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 13px;
+            text-align: right;
+            width: 120px;
+        }
+
+        .nav-item{
+            position: relative;
+            cursor: pointer;
+            color: #334155;
+        }
+
+        .nav-item i{
+            font-size: 18px;
+        }
+
+        .badge{
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #dc2626;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .dropdown-menu{
+            position: absolute;
+            top: 120%;
+            right: 0;
+            left: auto;
+            background: #fff;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.1);
+            display: none;
+            flex-direction: column;
+            padding: 8px 0;
+        }
+
+        .dropdown:hover .dropdown-menu{
+            display: flex;
+        }
+
+        .dropdown-menu a,
+        .dropdown-menu p{
+            padding: 10px 15px;
+            font-size: 13px;
+            color: #334155;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover{
+            background: #f1f5f9;
+        }
+
+        .dropdown-title{
+            font-weight: bold;
+            color: #475569;
+        }
+
+        .dropdown-menu hr{
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 6px 0;
+        }
+
+        .dropdown-menu .danger{
+            color: #dc2626;
+        }
+
+        .user{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user img{
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .content{
+            margin-top: calc(var(--topbar-height) + 5px);
+            margin-right: var(--sidebar-width);
+            margin-left: 4px;
+            padding: 15px;
+            transition: margin-right .25s ease;
+        }
+
+        .sidebar.collapsed ~ .content{
+            margin-right: var(--sidebar-collapsed-width);
+        }
+
+        .modal-dialog-bottom-right{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            margin: 0;
+            max-width: 500px;
+        }
+
+        .modal.fade .modal-dialog-bottom-right{
+            transform: translateY(100%);
+        }
+
+        .modal.show .modal-dialog-bottom-right{
+            transform: translateY(0);
+            transition: transform .3s ease-out;
         }
     </style>
 </head>
-<body>
+<body class="{{ isRtl() ? 'rtl-layout' : 'ltr-layout' }}">
+    
 
 <div class="sidebar" id="sidebar">
-    <div position:start>
-      <button class="toggle-btn" onclick="toggleSidebar()">
-        <!-- <i class="fa-solid fa-chevron-left"></i> -->
-        <i class="fa-sharp fa-solid fa-align-left" style="color: #e4b301;"></i>
-
-    </button>
-<!-- Flexible Logo on Top -->
-<div class="sidebar-header" style="justify-content: center;">
-    <div class="logo" style="width:100%;justify-content:center;">
-        <img src="/images/45.png" alt="Logo" style="width:36px;height:36px;">
-        <span class="logo-text">EMIS</span>
- </div>
-  </div>
-</div>
-<style>
-    .sidebar.collapsed .logo-text {
-        display: none;
-    }
-    .sidebar .logo img {
-        
-        transition: width 0.3s, height 0.3s;
-    }
-    .sidebar.collapsed .logo img {
-        width: 20px;
-        height: 20px;
-        position: center;
-    }
-</style>
-<script>
-    // Ensure only one sidebar-header is present
-    document.querySelectorAll('.sidebar-header')[1]?.remove();
-</script>
-    <!-- Logo & Toggle -->
-<!-- Tooltip container for sub-menu tooltips -->
-<div id="sidebar-tooltip" style="position:fixed; z-index:9999; pointer-events:none; background:#1e293b; color:#fff; padding:6px 14px; border-radius:6px; font-size:13px; white-space:nowrap; opacity:0; transition:opacity 0.15s;"></div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const sidebar = document.getElementById('sidebar');
-    const tooltip = document.getElementById('sidebar-tooltip');
-
-    function showTooltip(text, event) {
-        tooltip.textContent = text;
-        tooltip.style.opacity = '1';
-        // Position tooltip near mouse, but not off-screen
-        let x = event.clientX + 16;
-        let y = event.clientY - 8;
-        if (x + tooltip.offsetWidth > window.innerWidth) {
-            x = window.innerWidth - tooltip.offsetWidth - 10;
-        }
-        if (y + tooltip.offsetHeight > window.innerHeight) {
-            y = window.innerHeight - tooltip.offsetHeight - 10;
-        }
-        tooltip.style.left = x + 'px';
-        tooltip.style.top = y + 'px';
-    }
-
-    function hideTooltip() {
-        tooltip.style.opacity = '0';
-    }
-
-    // For main menu items
-    sidebar.querySelectorAll('.menu > li > a').forEach(function (a) {
-        a.addEventListener('mouseenter', function (e) {
-            if (sidebar.classList.contains('collapsed')) {
-                showTooltip(a.getAttribute('data-title') || a.textContent.trim(), e);
-            }
-        });
-        a.addEventListener('mousemove', function (e) {
-            if (sidebar.classList.contains('collapsed')) {
-                showTooltip(a.getAttribute('data-title') || a.textContent.trim(), e);
-            }
-        });
-        a.addEventListener('mouseleave', hideTooltip);
-    });
-
-    // For sub-menu items
-    sidebar.querySelectorAll('.sub-menu a').forEach(function (a) {
-        a.addEventListener('mouseenter', function (e) {
-            if (sidebar.classList.contains('collapsed')) {
-                showTooltip(a.textContent.trim(), e);
-            }
-        });
-        a.addEventListener('mousemove', function (e) {
-            if (sidebar.classList.contains('collapsed')) {
-                showTooltip(a.textContent.trim(), e);
-            }
-        });
-        a.addEventListener('mouseleave', hideTooltip);
-    });
-
-    // Hide tooltip if sidebar expands
-    const observer = new MutationObserver(function () {
-        if (!sidebar.classList.contains('collapsed')) hideTooltip();
-    });
-    observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
-});
-</script>
-@auth
-    <!-- Menu -->
-
-    <ul class="menu">
-   
-        <li>
-            <a href="{{ route('dashboard') }}" data-title="Dashboard">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-<!-- start COR -->
-        <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-folder"></i>
-                <span>Correspondence</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-           <ul class="sub-menu">
-                        <li><a href="{{route('CorrespondenceManagement.outbox.create')}}"><i class="fa-solid fa-file-export"></i>صادره</a></li>
-                        <li><a href="{{ route('inbox.form') }}"><i class="fa-solid fa-file-import"></i> وارده</a></li>
-                        <li><a href="{{ route('main') }}"><i class="fa-solid fa-box-archive"></i>انباکس</a></li>
-            </ul>
-        </li>
-     <!-- employee -->
-       <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-folder"></i>
-                <span>Employees</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-           <ul class="sub-menu">
-                        <li><a href="{{route('employees.index')}}"><i class="fa-solid fa-file-export"></i>منځ پاڼه</a></li>
-                        <li><a href="{{route('employees.create')}}"><i class="fa-solid fa-file-import"></i> نوی کارکوونکی ثبتول</a></li>
-                     
-
-            </ul>
-        </li>
-
-     <!-- end -->
-   
-    @if(auth()->user()->canAccess('Administrations.viewe'))
-        <!-- User Management -->
-        <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-folder"></i>
-                <span>Management</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="{{route('Administrations.create')}}"><i class="fa-solid fa-users"></i>Craete Users</a></li>
-
-                <li><a href="{{ route('Administrations.Roles') }}"><i class="fa-solid fa-user-tag"></i>Roles </a></li>
-                <li><a href="{{ route('Administrations.Role Management')}}"><i class="fa-solid fa-user-check"></i>Role Management</a></li>
-                <li><a href="{{ route('Administrations.User Management')}}"><i class="fa-solid fa-user-friends"></i>User Management</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-shield"></i>Permissions</a></li>
-            </ul>
-        </li>
-      @endif
-       <!-- Task Manage,ent -->
-
-
-       <!-- end task ma -->
-        <li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-file"></i>
-                <span>Documents</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-            <li><a href="{{ route('documents.index') }}"><i class="fa-solid fa-sign-in-alt"></i>index</a></li>
-         </ul>
-        </li>
-        <!-- start documentation -->
-
-<li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-tasks"></i>
-                <span>Documnets Management</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-box-archive"></i>Inbox</a></li>
-                <li><a href="#"><i class="fa-solid fa-file-import"></i>Coming</a></li>           
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Outgoing Dts</a></li>
-                <li><a href="{{route('inbox.index')}}"><i class="fa-solid fa-file-export"></i>Create</a></li>
-            </ul>
-        </li>
-
-<!-- Tasks  -->
-<li class="has-sub">
-            <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="Management">
-                <i class="fa-solid fa-tasks"></i>
-                <span>Tasks Management</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="{{ route('tasks.create')}}"><i class="fa-solid fa-users"></i>Inbox</a></li><li>
-                 <a href="{{ route('tasks.index')}}"><i class="fa-solid fa-sign-in-alt"></i>Coming</a></li>           
-
-            </ul>
-        </li>
-
-<!-- end tasks -->
-<!-- users -->
-
-    <ul class="submenu">
-        <li>
-            <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-                Users
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('roles.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-                Roles
-            </a>
-        </li>
-    </ul>
-</li>
-
-<!-- end users -->
-
-       <!-- end documentation -->
-      
-        <li>
-            
-            <a href="{{ route('admin.settings') }}" data-title="Settings">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </a>
-        </li>
-      
-
-    
-    </ul>
-    @endauth
-    <!-- User -->
-       <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; display:fixed; align-items:center; gap:1px; padding:3px;">
-        <div class="user-info">
-            <img src="/images/logo.png" alt="user">
-            <div>
-                    <strong>{{ Auth::user()->name ?? 'User' }}</strong>
-                <small>Logged In</small>
-                <i class="fa-solid fa-sign-in-alt"></i>
-        </div>
-    </div>
-
-</a>
-   
-<!-- sss -->
-<!-- User logged in link -->
-
-    <!-- end user -->
-</div>
-
-<!-- Navbar -->
- <!-- TOP NAVBAR -->
-<div class="top-navbar" id="topNavbar">
-    <!-- LEFT -->
-    <div class="nav-left">
+    <div class="sidebar-header">
+        <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fa-sharp fa-solid fa-align-left" style="color:#e4b301;"></i>
         </button>
-        <div class="page-title">  
+
+        <div class="logo">
+            <img src="/images/45.png" alt="Logo">
+            <span class="logo-text">EMIS</span>
         </div>
     </div>
-    <!-- RIGHT -->
+
+    @auth
+        @php
+            $user = auth()->user();
+        @endphp
+
+        <ul class="menu">
+
+            @if($user->canAccess('dashboard.view'))
+                <li>
+                    <a href="{{ route('dashboard') }}" data-title="{{ __('emis.dashboard') }}">
+                        <i class="fa-solid fa-house"></i>
+                        <span>{{ __('emis.dashboard') }}</span>
+                    </a>
+                </li>
+            @endif
+
+            <li class="has-sub">
+                <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.correspondence') }}">
+                    <i class="fa-solid fa-folder"></i>
+                    <span>{{ __('emis.correspondence') }}</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('CorrespondenceManagement.outbox.create') }}">
+                            <i class="fa-solid fa-file-export"></i> {{ __('emis.outgoing') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('inbox.form') }}">
+                            <i class="fa-solid fa-file-import"></i> {{ __('emis.incoming') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('main') }}">
+                            <i class="fa-solid fa-box-archive"></i> {{ __('emis.inbox') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @if($user->canAccess('employees.view') || $user->canAccess('employees.create'))
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.employees') }}">
+                        <i class="fa-solid fa-folder"></i>
+                        <span>{{ __('emis.employees') }}</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        @if($user->canAccess('employees.view'))
+                            <li>
+                                <a href="{{ route('employees.index') }}">
+                                    <i class="fa-solid fa-file-export"></i> {{ __('emis.employees_index') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('employees.create'))
+                            <li>
+                                <a href="{{ route('employees.create') }}">
+                                    <i class="fa-solid fa-file-import"></i> {{ __('emis.new_employee') }}
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            @if(
+                $user->canAccess('users.view') ||
+                $user->canAccess('users.create') ||
+                $user->canAccess('roles.view') ||
+                $user->canAccess('roles.create') ||
+                $user->canAccess('roles.edit') ||
+                $user->canAccess('users.edit')
+            )
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.management') }}">
+                        <i class="fa-solid fa-folder"></i>
+                        <span>{{ __('emis.management') }}</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+
+                        @if($user->canAccess('users.create'))
+                            <li>
+                                <a href="{{ route('Administrations.create') }}">
+                                    <i class="fa-solid fa-users"></i> {{ __('emis.create_users') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('roles.view'))
+                            <li>
+                                <a href="{{ route('Administrations.Roles') }}">
+                                    <i class="fa-solid fa-user-tag"></i> {{ __('emis.roles') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('roles.create') || $user->canAccess('roles.edit'))
+                            <li>
+                                <a href="{{ route('Administrations.Role Management') }}">
+                                    <i class="fa-solid fa-user-check"></i> {{ __('emis.role_management') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('users.view') || $user->canAccess('users.edit'))
+                            <li>
+                                <a href="{{ route('Administrations.User Management') }}">
+                                    <i class="fa-solid fa-user-friends"></i> {{ __('emis.user_management') }}
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            <li class="has-sub">
+                <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.documents') }}">
+                    <i class="fa-solid fa-file"></i>
+                    <span>{{ __('emis.documents') }}</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('documents.index') }}">
+                            <i class="fa-solid fa-sign-in-alt"></i> {{ __('emis.index') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.documents_management') }}">
+                    <i class="fa-solid fa-tasks"></i>
+                    <span>{{ __('emis.documents_management') }}</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{ route('inbox.index') }}">
+                            <i class="fa-solid fa-box-archive"></i> {{ __('emis.inbox') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-file-import"></i> {{ __('emis.coming') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('inbox.index') }}">
+                            <i class="fa-solid fa-file-export"></i> {{ __('emis.outgoing') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('inbox.index') }}">
+                            <i class="fa-solid fa-file-export"></i> {{ __('emis.create') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @if($user->canAccess('tasks.view') || $user->canAccess('tasks.create') || $user->canAccess('tasks.charts'))
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.tasks_management') }}">
+                        <i class="fa-solid fa-tasks"></i>
+                        <span>{{ __('emis.tasks_management') }}</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        @if($user->canAccess('tasks.create'))
+                            <li>
+                                <a href="{{ route('tasks.create') }}">
+                                    <i class="fa-solid fa-users"></i> {{ __('emis.create_task') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('tasks.view'))
+                            <li>
+                                <a href="{{ route('tasks.index') }}">
+                                    <i class="fa-solid fa-sign-in-alt"></i> {{ __('emis.all_tasks') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('tasks.charts'))
+                            <li>
+                                <a href="{{ route('tasks.charts') }}">
+                                    <i class="fa-solid fa-chart-column"></i> {{ __('emis.charts') }}
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            @if($user->canAccess('users.view') || $user->canAccess('roles.view'))
+                <li class="has-sub">
+                    <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.users_roles') }}">
+                        <i class="fa-solid fa-users"></i>
+                        <span>{{ __('emis.users_roles') }}</span>
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        @if($user->canAccess('users.view'))
+                            <li>
+                                <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                                    {{ __('emis.create_users') }}
+                                </a>
+                            </li>
+                        @endif
+
+                        @if($user->canAccess('roles.view'))
+                            <li>
+                                <a href="{{ route('roles.index') }}" class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">
+                                    {{ __('emis.roles') }}
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            <li>
+                <a href="{{ route('admin.settings') }}" data-title="{{ __('emis.settings') }}">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>{{ __('emis.settings') }}</span>
+                </a>
+            </li>
+
+        </ul>
+    @endauth
+
+    <div class="sidebar-footer">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#settingsModal" style="text-decoration:none; color:#fff; width:100%;">
+            <div class="user-info">
+                <img src="/images/logo.png" alt="user">
+                <div>
+                    <strong>{{ Auth::user()->name ?? 'User' }}</strong>
+                    <small style="display:block;">{{ __('emis.logged_in') }}</small>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="top-navbar" id="topNavbar">
+    <div class="nav-left"></div>
+
     <div class="nav-right">
-        <!-- SEARCH -->
         <div class="nav-search">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search EMIS...">
+            <input type="text" placeholder="{{ __('emis.search_emis') }}">
         </div>
-        <!-- LANGUAGE -->
+
         <div class="nav-item dropdown">
             <i class="fa-solid fa-globe"></i>
             <div class="dropdown-menu">
-                <a href="{{ route('admin.settings') }}">English</a>
-                <a href="{{ route('lang.ps') }}">پښتو</a>
-                <a href="{{ route('lang.fa') }}">دری</a>
+                <a href="{{ route('lang.en') }}">{{ __('emis.english') }}</a>
+                <a href="{{ route('lang.ps') }}">{{ __('emis.pashto') }}</a>
+                <a href="{{ route('lang.fa') }}">{{ __('emis.dari') }}</a>
             </div>
         </div>
-        <!-- NOTIFICATIONS -->
+
         <div class="nav-item dropdown">
             <i class="fa-solid fa-bell"></i>
             <span class="badge">4</span>
             <div class="dropdown-menu">
-                <p class="dropdown-title">Notifications</p>
-                <a href="{{ route('notifications') }}">🔔 New notification received</a>
-                <a href="#">📊 New report generated</a>
-                <a href="#">👤 New user added</a>
-                <a href="#">⚠ Budget alert</a>
+                <p class="dropdown-title">{{ __('emis.notifications') }}</p>
+                <a href="{{ route('notifications') }}">{{ __('emis.notifications') }}</a>
+                <a href="#">{{ __('emis.documents') }}</a>
+                <a href="#">{{ __('emis.create_users') }}</a>
+                <a href="#">{{ __('emis.warning') }}</a>
             </div>
         </div>
-        <a href="{{ route('clock')}}"><i class="fa-solid fa-clock"></i>Clock</a>
-        <!-- USER -->
+
+        <a href="{{ route('clock') }}" style="text-decoration:none; color:#334155;">
+            <i class="fa-solid fa-clock"></i> {{ __('emis.clock') }}
+        </a>
+
         <div class="nav-item dropdown user">
-            <img src="/images/logo.png">
-            <span>#</span>
+            <img src="/images/logo.png" alt="user">
+            <span>{{ Auth::user()->name ?? '#' }}</span>
             <div class="dropdown-menu">
-                <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
-                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#"><i class="fa-solid fa-user"></i> {{ __('emis.profile') }}</a>
+                <a href="{{ route('admin.settings') }}"><i class="fa-solid fa-gear"></i> {{ __('emis.settings') }}</a>
                 <hr>
-                <a href="#" class="danger">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- end navbar -->
- <main class="content">
-        @yield('content')
-    </main>
-<!-- Content -->
-<style>
-    /* Custom style for the sidebar toggle ">" icon */
-    .toggle-btn {
-        background: none;
-        border: none;
-        color: #fff;
-        font-size: 22px;
-        cursor: pointer;
-        padding: 0 8px;
-        transition: transform 0.2s;
-    }
-    .sidebar.collapsed .toggle-btn i {
-        transform: rotate(180deg);
-    }
-</style>
-<script>
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("collapsed");
-        // Optionally, you can toggle the icon direction here if needed
-    }
-</script>
-<script>
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("collapsed");
-    }
-    function toggleSubMenu(el) {
-        el.parentElement.classList.toggle("active");
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        // ✅ SUCCESS MESSAGE
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}",
-            timer: 3000,
-            showConfirmButton: false
-        });
-        @endif
-
-        // ❌ ERROR MESSAGE
-        @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: "{{ session('error') }}",
-        });
-        @endif
-
-        // ⚠️ WARNING MESSAGE
-        @if(session('warning'))
-        Swal.fire({
-            icon: 'warning',
-            title: 'Warning',
-            text: "{{ session('warning') }}",
-        });
-        @endif
-
-        // ❗ VALIDATION ERRORS
-        @if ($errors->any())
-        Swal.fire({
-            icon: 'error',
-            title: 'Validation Error',
-            html: `{!! implode('<br>', $errors->all()) !!}`,
-        });
-        @endif
-
-    });
-</script>
-<script>
-function confirmDelete(formId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "This action cannot be undone!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById(formId).submit();
-        }
-    });
-}
-</script>
-
-
-<!-- model  -->
-<!-- Settings Modal -->
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-bottom-right" style="width:250px; height:300px;">
-    <div class="modal-dialog modal-dialog-bottom-right" style="width:250px; height:300px;">
-        <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-body text-center p-4">
-
-                <!-- Avatar -->
-                <div class="mx-auto mb-2"
-                     style="width:80px;height:80px;border-radius:50%;
-                     background:#0b7c8f;display:flex;align-items:center;
-                     justify-content:center;color:#fff;font-size:44px;">
-                    H
-                </div>
-
-                <span class="badge rounded-pill border border-info text-info px-3 py-1">
-                    Admin
-                </span>
-
-                <h5 class="mt-3 mb-4">Hamad</h5>
-
-                <hr>
-              
-              <a href="{{ route('admin.settings') }}" class="btn btn-outline-dark w-100 mb-2">
-                    <i class="fa-solid fa-gear"></i> Settings
-                </a>    
-               
-                <form method="POST" action="#">
+                <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                     @csrf
-                    <button class="btn btn-outline-danger w-100">
-                        <i class="bi bi-box-arrow-right"></i> Logout
+                    <button type="submit" style="border:none;background:none;width:100%;text-align:right;padding:10px 15px;color:#dc2626;">
+                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('emis.logout') }}
                     </button>
                 </form>
             </div>
@@ -1208,25 +787,171 @@ function confirmDelete(formId) {
     </div>
 </div>
 
+<main class="content">
+    @yield('content')
+</main>
 
-<!-- stye -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-bottom-right" style="width:250px;">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body text-center p-4">
+                <div class="mx-auto mb-2"
+                     style="width:80px;height:80px;border-radius:50%;background:#0b7c8f;display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;">
+                    {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
+                </div>
 
-<!-- end  -->
+                <span class="badge rounded-pill border border-info text-info px-3 py-1">
+                    {{ __('emis.admin') }}
+                </span>
 
+                <h5 class="mt-3 mb-4">{{ Auth::user()->name ?? 'User' }}</h5>
 
-<!-- end model -->
+                <hr>
 
+                <a href="{{ route('admin.settings') }}" class="btn btn-outline-dark w-100 mb-2">
+                    <i class="fa-solid fa-gear"></i> {{ __('emis.settings') }}
+                </a>
 
-
-<!-- SETTINGS MODEL  -->
-<!-- Button trigger modal -->
- 
-
-  </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger w-100">
+                        <i class="bi bi-box-arrow-right"></i> {{ __('emis.logout') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- END MODEL USER  -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+<!-- NEW RTL -->
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+
+    function toggleSubMenu(el) {
+        el.parentElement.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('sidebar');
+        const top = document.getElementById('topNavbar');
+        const html = document.documentElement;
+
+        const adjust = () => {
+            if (!sidebar || !top) return;
+
+            const collapsedWidth = getComputedStyle(document.documentElement)
+                .getPropertyValue('--sidebar-collapsed-width').trim() || '70px';
+
+            const fullWidth = getComputedStyle(document.documentElement)
+                .getPropertyValue('--sidebar-width').trim() || '230px';
+
+            const value = sidebar.classList.contains('collapsed') ? collapsedWidth : fullWidth;
+
+            if (html.getAttribute('dir') === 'rtl') {
+                top.style.right = value;
+                top.style.left = '0';
+            } else {
+                top.style.left = value;
+                top.style.right = '0';
+            }
+        };
+
+        adjust();
+
+        new MutationObserver(adjust).observe(sidebar, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    });
+</script>
+<!-- new RTL -->
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+
+    function toggleSubMenu(el) {
+        const parent = el.parentElement;
+        parent.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('sidebar');
+        const top = document.getElementById('topNavbar');
+
+        const adjust = () => {
+            if (!sidebar || !top) return;
+            if (sidebar.classList.contains('collapsed')) {
+                top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width').trim() || '70px';
+            } else {
+                top.style.right = getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width').trim() || '230px';
+            }
+        };
+
+        adjust();
+
+        new MutationObserver(adjust).observe(sidebar, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: "{{ __('emis.success') }}",
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false
+        });
+        @endif
+
+        @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: "{{ __('emis.error') }}",
+            text: "{{ session('error') }}"
+        });
+        @endif
+
+        @if(session('warning'))
+        Swal.fire({
+            icon: 'warning',
+            title: "{{ __('emis.warning') }}",
+            text: "{{ session('warning') }}"
+        });
+        @endif
+
+        @if($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: "{{ __('emis.validation_error') }}",
+            html: `{!! implode('<br>', $errors->all()) !!}`
+        });
+        @endif
+    });
+
+    function confirmDelete(formId) {
+        Swal.fire({
+            title: "{{ __('emis.are_you_sure') }}",
+            text: "{{ __('emis.cannot_undo') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: "{{ __('emis.yes_delete') }}",
+            cancelButtonText: "{{ __('emis.cancel') }}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

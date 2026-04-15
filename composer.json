@@ -26,18 +26,30 @@
         "pestphp/pest": "^3.8",
         "pestphp/pest-plugin-laravel": "^3.2"
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
-    },
+  "autoload": {
+    "files": [
+        "app/Helpers/LocalizationHelper.php"
+    ],
+    "psr-4": {
+        "App\\": "app/",
+        "Database\\Factories\\": "database/factories/",
+        "Database\\Seeders\\": "database/seeders/"
+    }
+},
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
     },
+
+
+
+
+
+
+
+
+    
     "scripts": {
         "setup": [
             "composer install",

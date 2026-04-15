@@ -1,98 +1,66 @@
 @extends('new')
 
 @section('content')
-<div class="container">
-    <h3 class="mb-3">Create Employee</h3>
-
-    {{-- Validation Errors --}}
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="row">
-
-            {{-- Employee Code --}}
-            <div class="col-md-6 mb-3">
-                <label>Employee Code</label>
-                <input type="text" name="employee_code" class="form-control"
-                       value="{{ old('employee_code') }}" required>
-            </div>
-
-            {{-- First Name --}}
-            <div class="col-md-6 mb-3">
-                <label>First Name</label>
-                <input type="text" name="first_name" class="form-control"
-                       value="{{ old('first_name') }}" required>
-            </div>
-
-            {{-- Last Name --}}
-            <div class="col-md-6 mb-3">
-                <label>Last Name</label>
-                <input type="text" name="last_name" class="form-control"
-                       value="{{ old('last_name') }}" required>
-            </div>
-
-            {{-- Email --}}
-            <div class="col-md-6 mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control"
-                       value="{{ old('email') }}">
-            </div>
-
-             {{-- Select --}}
-              <div class="col-md-6 mb-3">
-    <label>User Account</label>
-    <select name="user_id" class="form-control">
-        <option value="">Select User</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                {{ $user->name }} ({{ $user->email }})
-            </option>
-        @endforeach
-    </select>
-     </div>
-<!-- end select  -->
-
-            {{-- Phone --}}
-            <div class="col-md-6 mb-3">
-                <label>Phone</label>
-                <input type="text" name="phone" class="form-control"
-                       value="{{ old('phone') }}">
-            </div>
-
-            {{-- Status --}}
-            <div class="col-md-6 mb-3">
-                <label>Status</label>
-                <select name="status" class="form-control">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="other">other</option>
-                </select>
-            </div>
-
-            {{-- Photo --}}
-            <div class="col-md-6 mb-3">
-                <label>Photo</label>
-                <input type="file" name="photo" class="form-control">
-            </div>
-
+<div class="container-fluid">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{ __('emis.create_employee') }}</h4>
+            <a href="{{ route('employees.index') }}" class="btn btn-secondary">
+                {{ __('emis.back') }}
+            </a>
         </div>
 
-        {{-- Buttons --}}
-        <div class="mt-3">
-            <button type="submit" class="btn btn-success">Save</button>
-            <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
-        </div>
+        <div class="card-body">
+            <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-    </form>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.employee_code') }}</label>
+                        <input type="text" name="employee_code" class="form-control" placeholder="{{ __('emis.employee_code') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.first_name') }}</label>
+                        <input type="text" name="first_name" class="form-control" placeholder="{{ __('emis.first_name') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.last_name') }}</label>
+                        <input type="text" name="last_name" class="form-control" placeholder="{{ __('emis.last_name') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.email') }}</label>
+                        <input type="email" name="email" class="form-control" placeholder="{{ __('emis.email') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.phone') }}</label>
+                        <input type="text" name="phone" class="form-control" placeholder="{{ __('emis.phone') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">{{ __('emis.status') }}</label>
+                        <select name="status" class="form-select">
+                            <option value="active">{{ __('emis.active') }}</option>
+                            <option value="inactive">{{ __('emis.inactive') }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">{{ __('emis.photo') }}</label>
+                        <input type="file" name="photo" class="form-control">
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('emis.save') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

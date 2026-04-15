@@ -84,7 +84,7 @@
 </style>
 <div class="d-flex justify-content-start mb-1 mt-0">
 
-    <a href="{{ route('CorrespondenceManagement.inbox.form') }}" class="tb">
+    <a href="{{ route('inbox.form') }}" class="tb">
         <i class="fa fa-plus"></i>
     </a>
 

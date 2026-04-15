@@ -87,8 +87,9 @@ public function create()
 
         Employee::create($data);
 
-        return redirect()->route('employees.index')
-            ->with('success', 'Employee created successfully');
+       
+            return redirect()->route('employees.index')
+    ->with('success', __('messages.employee_created'));
     }
 
     public function show(Employee $employee)
@@ -135,12 +136,19 @@ public function edit(Employee $employee)
 
             $data['photo'] = $request->file('photo')->store('employees', 'public');
         }
-
+// employee update messege 
         $employee->update($data);
 
         return redirect()->route('employees.index')
-            ->with('success', 'Employee updated successfully');
+          
+           
+             ->with('success', __('messages.employee_updated'));
+            
     }
+
+
+    // employee delete messege 
+
 
     public function destroy(Employee $employee)
     {
@@ -151,16 +159,18 @@ public function edit(Employee $employee)
         $employee->delete();
 
         return redirect()->route('employees.index')
-            ->with('success', 'Employee deleted successfully');
+              
+                 ->with('success', __('messages.employee_deleted'));
     }
-
+// employee status updat messeage 
     public function toggleStatus(Employee $employee)
     {
         $employee->status = strtolower($employee->status) === 'active' ? 'inactive' : 'active';
         $employee->save();
 
         return redirect()->route('employees.index')
-            ->with('success', 'Employee status updated successfully.');
+            
+                  ->with('success', __('messages.employee_stutus'));
     }
 
     public function exportExcel(Request $request)

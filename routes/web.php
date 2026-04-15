@@ -10,6 +10,11 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\OutgoingDocumentController;
+   use Illuminate\Support\Facades\Session;
+
+Route::middleware(['setLocale'])->group(function () {
+
+    // all your EMIS routes here
 
 /*
 |--------------------------------------------------------------------------
@@ -79,16 +84,22 @@ Route::middleware(['auth'])->group(function () {
     */
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
 
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Inbox / Correspondence
     |--------------------------------------------------------------------------
     */
+
+    
     Route::resource('inbox', InboxController::class);
     Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
     Route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
-       Route::get('CorrespondenceManagement/inbox/form', [InboxController::class, 'form'])->name('inbox.form');
+    Route::get('CorrespondenceManagement/inbox/form', [InboxController::class, 'form'])->name('inbox.form');
     Route::get('CorrespondenceManagement/main', [InboxController::class, 'main'])->name('main');
+   
 
     Route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
     Route::get('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
@@ -96,7 +107,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'update'])->name('inbox.update');
     Route::delete('CorrespondenceManagement/inbox/{id}', [InboxController::class, 'destroy'])->name('inbox.destroy');
     
-
     /*
     |--------------------------------------------------------------------------
     | Outbox
@@ -160,4 +170,34 @@ Route::middleware(['auth'])->group(function () {
       return view('clock');
       })->name('clock');
 
+        /*
+    |--------------------------------------------------------------------------
+    | lANG
+    |--------------------------------------------------------------------------
+    */ 
+   
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ps', 'fa'])) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
+Route::get('/lang/en', function () {
+    Session::put('locale', 'en');
+    return redirect()->back();
+})->name('lang.en');
+
+Route::get('/lang/ps', function () {
+    Session::put('locale', 'ps');
+    return redirect()->back();
+})->name('lang.ps');
+
+Route::get('/lang/fa', function () {
+    Session::put('locale', 'fa');
+    return redirect()->back();
+})->name('lang.fa');
   });
+  
+});
