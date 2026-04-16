@@ -519,11 +519,7 @@ html[dir="ltr"] .arrow {
                             <i class="fa-solid fa-file-import"></i> {{ __('emis.incoming') }}
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('main') }}">
-                            <i class="fa-solid fa-box-archive"></i> {{ __('emis.inbox') }}
-                        </a>
-                    </li>
+                  
                 </ul>
             </li>
 
@@ -605,50 +601,6 @@ html[dir="ltr"] .arrow {
                 </li>
             @endif
 
-            <li class="has-sub">
-                <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.documents') }}">
-                    <i class="fa-solid fa-file"></i>
-                    <span>{{ __('emis.documents') }}</span>
-                    <i class="fa-solid fa-chevron-down arrow"></i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('documents.index') }}">
-                            <i class="fa-solid fa-sign-in-alt"></i> {{ __('emis.index') }}
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="has-sub">
-                <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.documents_management') }}">
-                    <i class="fa-solid fa-tasks"></i>
-                    <span>{{ __('emis.documents_management') }}</span>
-                    <i class="fa-solid fa-chevron-down arrow"></i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{{ route('inbox.index') }}">
-                            <i class="fa-solid fa-box-archive"></i> {{ __('emis.inbox') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-file-import"></i> {{ __('emis.coming') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('inbox.index') }}">
-                            <i class="fa-solid fa-file-export"></i> {{ __('emis.outgoing') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('inbox.index') }}">
-                            <i class="fa-solid fa-file-export"></i> {{ __('emis.create') }}
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             @if($user->canAccess('tasks.view') || $user->canAccess('tasks.create') || $user->canAccess('tasks.charts'))
                 <li class="has-sub">
@@ -685,32 +637,6 @@ html[dir="ltr"] .arrow {
                 </li>
             @endif
 
-            @if($user->canAccess('users.view') || $user->canAccess('roles.view'))
-                <li class="has-sub">
-                    <a href="javascript:void(0)" onclick="toggleSubMenu(this)" data-title="{{ __('emis.users_roles') }}">
-                        <i class="fa-solid fa-users"></i>
-                        <span>{{ __('emis.users_roles') }}</span>
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                    <ul class="sub-menu">
-                        @if($user->canAccess('users.view'))
-                            <li>
-                                <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-                                    {{ __('emis.create_users') }}
-                                </a>
-                            </li>
-                        @endif
-
-                        @if($user->canAccess('roles.view'))
-                            <li>
-                                <a href="{{ route('roles.index') }}" class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">
-                                    {{ __('emis.roles') }}
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-            @endif
 
             <li>
                 <a href="{{ route('admin.settings') }}" data-title="{{ __('emis.settings') }}">

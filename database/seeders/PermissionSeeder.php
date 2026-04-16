@@ -9,28 +9,57 @@ class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        $permissions = [
-        ['name' => 'correspondence.view', 'display_name' => 'View Correspondence', 'module' => 'Correspondence'],
+  $permissions = [
+    // Dashboard
+    ['name' => 'dashboard.view', 'display_name' => 'View Dashboard', 'module' => 'Dashboard'],
 
-['name' => 'inbox.view', 'display_name' => 'View Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.create', 'display_name' => 'Create Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.edit', 'display_name' => 'Edit Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.delete', 'display_name' => 'Delete Inbox', 'module' => 'Inbox'],
+    // Users
+    ['name' => 'users.view', 'display_name' => 'View Users', 'module' => 'Users'],
+    ['name' => 'users.create', 'display_name' => 'Create Users', 'module' => 'Users'],
+    ['name' => 'users.edit', 'display_name' => 'Edit Users', 'module' => 'Users'],
+    ['name' => 'users.delete', 'display_name' => 'Delete Users', 'module' => 'Users'],
 
-['name' => 'documents.view', 'display_name' => 'View Documents', 'module' => 'Documents'],
+    // Roles
+    ['name' => 'roles.view', 'display_name' => 'View Roles', 'module' => 'Roles'],
+    ['name' => 'roles.create', 'display_name' => 'Create Roles', 'module' => 'Roles'],
+    ['name' => 'roles.edit', 'display_name' => 'Edit Roles', 'module' => 'Roles'],
+    ['name' => 'roles.delete', 'display_name' => 'Delete Roles', 'module' => 'Roles'],
 
-['name' => 'settings.view', 'display_name' => 'View Settings', 'module' => 'Settings'],
-['name' => 'correspondence.view', 'display_name' => 'View Correspondence', 'module' => 'Correspondence'],
+    // Employees
+    ['name' => 'employees.view', 'display_name' => 'View Employees', 'module' => 'Employees'],
+    ['name' => 'employees.create', 'display_name' => 'Create Employees', 'module' => 'Employees'],
+    ['name' => 'employees.edit', 'display_name' => 'Edit Employees', 'module' => 'Employees'],
+    ['name' => 'employees.delete', 'display_name' => 'Delete Employees', 'module' => 'Employees'],
 
-['name' => 'documents.view', 'display_name' => 'View Documents', 'module' => 'Documents'],
+    // Tasks
+    ['name' => 'tasks.view', 'display_name' => 'View Tasks', 'module' => 'Tasks'],
+    ['name' => 'tasks.create', 'display_name' => 'Create Tasks', 'module' => 'Tasks'],
+    ['name' => 'tasks.edit', 'display_name' => 'Edit Tasks', 'module' => 'Tasks'],
+    ['name' => 'tasks.delete', 'display_name' => 'Delete Tasks', 'module' => 'Tasks'],
+    ['name' => 'tasks.charts', 'display_name' => 'View Task Charts', 'module' => 'Tasks'],
 
-['name' => 'inbox.view', 'display_name' => 'View Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.create', 'display_name' => 'Create Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.edit', 'display_name' => 'Edit Inbox', 'module' => 'Inbox'],
-['name' => 'inbox.delete', 'display_name' => 'Delete Inbox', 'module' => 'Inbox'],
+    // Correspondence / Outbox
+    ['name' => 'outbox.view', 'display_name' => 'View Outbox', 'module' => 'Correspondence'],
+    ['name' => 'outbox.create', 'display_name' => 'Create Outbox', 'module' => 'Correspondence'],
+    ['name' => 'outbox.edit', 'display_name' => 'Edit Outbox', 'module' => 'Correspondence'],
+    ['name' => 'outbox.delete', 'display_name' => 'Delete Outbox', 'module' => 'Correspondence'],
 
-['name' => 'settings.view', 'display_name' => 'View Settings', 'module' => 'Settings'],
-        ];
+    // Inbox
+    ['name' => 'inbox.view', 'display_name' => 'View Inbox', 'module' => 'Inbox'],
+    ['name' => 'inbox.create', 'display_name' => 'Create Inbox', 'module' => 'Inbox'],
+    ['name' => 'inbox.edit', 'display_name' => 'Edit Inbox', 'module' => 'Inbox'],
+    ['name' => 'inbox.delete', 'display_name' => 'Delete Inbox', 'module' => 'Inbox'],
+
+    // Documents
+    ['name' => 'documents.view', 'display_name' => 'View Documents', 'module' => 'Documents'],
+    ['name' => 'documents.create', 'display_name' => 'Create Documents', 'module' => 'Documents'],
+    ['name' => 'documents.edit', 'display_name' => 'Edit Documents', 'module' => 'Documents'],
+    ['name' => 'documents.delete', 'display_name' => 'Delete Documents', 'module' => 'Documents'],
+
+    // Settings
+    ['name' => 'settings.view', 'display_name' => 'View Settings', 'module' => 'Settings'],
+    ['name' => 'settings.edit', 'display_name' => 'Edit Settings', 'module' => 'Settings'],
+];
 
         foreach ($permissions as $permission) {
             Permission::updateOrCreate(

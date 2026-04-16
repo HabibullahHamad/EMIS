@@ -11,6 +11,9 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\OutgoingDocumentController;
    use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware(['setLocale'])->group(function () {
 
@@ -38,9 +41,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+   
 
     /*
     |--------------------------------------------------------------------------

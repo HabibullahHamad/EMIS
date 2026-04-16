@@ -177,4 +177,49 @@ return [
     'cannot_undo' => 'دا عمل بیرته نشي کیدی!',
     'yes_delete' => 'هو، حذف یې کړئ!',
     'cancel' => 'لغوه',
+
+
+   
+    'outgoing_documents' => 'صادره اسناد',
+     'no_data_found' => 'هیڅ معلومات ونه موندل شول',
+
+
+
+    'name' => 'نوم',
+    'permissions' => 'اجازې',
+     'cancel' => 'لغوه',
+
+'role_deleted' => 'رول په بریالیتوب سره حذف شو.',
+'no_data_found' => 'هیڅ معلومات ونه موندل شول',
+'record_deleted' => 'ریکارډ حذف شو.',
+'something_went_wrong' => 'یو څه ستونزه رامنځته شوه.',
+'name' => 'نوم',
+'title' => 'ښودنیز نوم',
+'permissions' => 'اجازې',
+'actions' => 'عملونه',
+'search' => 'لټون',
+'cancel' => 'لغوه',
+
+
+'password' => 'پټ نوم',
+'password_confirmation' => 'د پټ نوم تایید',
+'select_role' => 'رول وټاکئ',
+
+
+
+// dashbord
+'all_system_users' => 'د سیسټم ټول کارونکي',
+'total_employees' => 'ټول کارکوونکي',
+'incoming_documents' => 'وارده اسناد',
+'outgoing_documents' => 'صادره اسناد',
+'pending_tasks' => 'په تمه دندې',
+'completed_tasks' => 'بشپړ شوې دندې',
+'overdue_tasks' => 'ځنډېدلې دندې',
+'all_tasks' => 'ټولې دندې',
+'title' => 'عنوان',
+'task_code' => 'د دندې کوډ',
+'deadline' => 'وروستۍ نېټه',
+'charts' => 'ګرافونه',
+'no_data_found' => 'هیڅ معلومات ونه موندل شول',
+'view' => 'کتل',
 ];

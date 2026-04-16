@@ -166,8 +166,46 @@ return [
     'cannot_undo' => 'این عمل قابل بازگشت نیست!',
     'yes_delete' => 'بلی، حذف شود!',
     'cancel' => 'لغو',
+
+
+    'outgoing_documents' => 'اسناد صادره',
+
+    'no_data_found' => 'هیچ معلوماتی یافت نشد',
      
+'name' => 'نام',
+'permissions' => 'مجوزها',
+'cancel' => 'لغو',
+
+'role_deleted' => 'نقش با موفقیت حذف شد.',
+'no_data_found' => 'هیچ معلوماتی یافت نشد',
+'record_deleted' => 'رکورد حذف شد.',
+'something_went_wrong' => 'مشکلی پیش آمد.',
+'name' => 'نام',
+'title' => 'نام نمایشی',
+'permissions' => 'مجوزها',
+'actions' => 'عملیات',
+'search' => 'جستجو',
+'cancel' => 'لغو',
 
 
+'password' => 'رمز عبور',
+'password_confirmation' => 'تایید رمز عبور',
+'select_role' => 'نقش را انتخاب کنید',
 
+
+// dashbord
+'all_system_users' => 'تمام کاربران سیستم',
+'total_employees' => 'مجموع کارمندان',
+'incoming_documents' => 'اسناد وارده',
+'outgoing_documents' => 'اسناد صادره',
+'pending_tasks' => 'وظایف در انتظار',
+'completed_tasks' => 'وظایف تکمیل‌شده',
+'overdue_tasks' => 'وظایف معطل',
+'all_tasks' => 'همه وظایف',
+'title' => 'عنوان',
+'task_code' => 'کد وظیفه',
+'deadline' => 'مهلت',
+'charts' => 'نمودارها',
+'no_data_found' => 'هیچ معلوماتی یافت نشد',
+'view' => 'نمایش',
 ];

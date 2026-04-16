@@ -1,356 +1,329 @@
 @extends('new')
+
 @section('content')
 
-<link rel="stylesheet" href="public/resources/css/dashboard.css">
-<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EMIS Dashboard</title>
+<style>
+    .dashboard-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        padding: 16px;
+        background: #fff;
+        height: 100%;
+    }
 
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    .dashboard-stat {
+        font-size: 28px;
+        font-weight: 700;
+        color: #074582;
+        margin-bottom: 6px;
+    }
 
-    <style>
-      
+    .dashboard-label {
+        font-size: 14px;
+        color: #475569;
+        margin-bottom: 0;
+    }
 
-        /* HEADER */
-    .kpi-card {
-    background: #94979c;
-    padding: 20px 25px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: 0.3s;
-}
+    .dashboard-icon {
+        font-size: 24px;
+        color: #074582;
+    }
 
-.kpi-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-}
+    .section-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        background: #fff;
+        padding: 18px;
+        margin-top: 20px;
+    }
 
-.kpi-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #555;
-}
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 16px;
+    }
 
-.kpi-value {
-    font-size: 26px;
-    font-weight: bold;
-    margin: 5px 0;
-}
+    .table-emis {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
 
-.kpi-card small {
-    color: #999;
-}
+    .table-emis thead {
+        background: #074582;
+        color: #fff;
+    }
 
-/* Icon */
-.kpi-icon {
-    font-size: 45px;
-    opacity: 0.85;
-}
-/* end */
-      
+    .table-emis thead th,
+    .table-emis tbody td {
+        padding: 10px;
+        text-align: right;
+    }
 
-        .breadcrumb {
-            font-size: 13px;
-            opacity: 0.9;
-        }
+    .table-emis tbody tr:nth-child(even) {
+        background: #f8fafc;
+    }
 
-        /* MAIN CONTAINER */
-        .container {
-            padding: 0px;
-            margin-left:4px;
-            margin-right:4px;
-            margin-top: 20px;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
-            
-          
-        }
+    .status-badge {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-block;
+    }
 
-        /* KPI CARDS */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-progress { background: #d1ecf1; color: #0c5460; }
+    .status-completed { background: #d4edda; color: #155724; }
+    .status-overdue { background: #f8d7da; color: #721c24; }
 
-        .kpi-card {
-            background: white;
-            padding: 11px;
-            border-radius: 8px;
-            border-left: 6px solid #0b5ed7;
-        }
+    .chart-box {
+        position: relative;
+        height: 320px;
+    }
+</style>
 
-        .kpi-card.warning { border-left-color: #dc3545; }
-        .kpi-card.success { border-left-color: #198754; }
-        .kpi-card.info { border-left-color: #20c997; }
+<div class="container-fluid">
 
-        .kpi-title {
-            font-size: 14px;
-            color: #0847b3;
-        }
-
-        .kpi-value {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* DASHBOARD GRID */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            gap: 15px;
-        }
-
-        /* CHARTS */
-        .charts {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .card {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .card h3 {
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        /* ASSETS */
-        .asset-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .asset-item:last-child {
-            border-bottom: none;
-        }
-        .asset-value {
-            font-weight: bold;
-        }
-
-        /* RESPONSIVE */
-        @media(max-width:1000px) {
-            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .charts { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-
-<!-- TOP BAR -->
-
-
-<!-- CONTENT -->
-<div class="container">
-
-    <!-- KPI SECTION -->
-  <div class="row g-3">
-
-    <!-- 1. All Tasks -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">All Tasks</div>  <hr>
-                <div class="kpi-value">120</div>
-                <small>Total Tasks</small>
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $totalUsers }}</div>
+                    <p class="dashboard-label">{{ __('emis.all_system_users') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
             </div>
-            <div class="kpi-icon text-primary">
-                <i class="fas fa-tasks"></i>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $totalEmployees }}</div>
+                    <p class="dashboard-label">{{ __('emis.total_employees') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-id-badge"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $incomingDocuments }}</div>
+                    <p class="dashboard-label">{{ __('emis.incoming_documents') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-file-import"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $outgoingDocuments }}</div>
+                    <p class="dashboard-label">{{ __('emis.outgoing_documents') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-file-export"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $pendingTasks }}</div>
+                    <p class="dashboard-label">{{ __('emis.pending_tasks') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $completedTasks }}</div>
+                    <p class="dashboard-label">{{ __('emis.completed_tasks') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="dashboard-stat">{{ $overdueTasks }}</div>
+                    <p class="dashboard-label">{{ __('emis.overdue_tasks') }}</p>
+                </div>
+                <div class="dashboard-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. System Users -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">All System Users</div>  <hr>
-                <div class="kpi-value">45</div>
-                <small>Registered Users</small>
+    <div class="row g-3 mt-1">
+        <div class="col-md-7">
+            <div class="section-card">
+                <div class="section-title">{{ __('emis.outgoing_documents') }} {{ __('emis.charts') }}</div>
+                <div class="chart-box">
+                    <canvas id="outboxChart"></canvas>
+                </div>
             </div>
-            <div class="kpi-icon text-info">
-                <i class="fas fa-users"></i>
+        </div>
+
+        <div class="col-md-5">
+            <div class="section-card">
+                <div class="section-title">{{ __('emis.tasks_management') }} {{ __('emis.charts') }}</div>
+                <div class="chart-box">
+                    <canvas id="tasksChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 3. Employees -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">All Employees</div>  <hr>
-                <div class="kpi-value">32</div>
-                <small>Active Staff</small>
-            </div>
-            <div class="kpi-icon text-success">
-                <i class="fas fa-user-tie"></i>
-            </div>
-        </div>
-    </div>
-    <!-- 4. Documents -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">Total Documents</div>  <hr>
-                
-                <div class="kpi-value">560</div>
-                <small>All Records</small>
-            </div>
-            <div class="kpi-icon text-warning">
-                <i class="fas fa-file-alt"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. Pending Tasks -->
-   
-
-    <!-- 6. Completed Tasks -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">Completed Tasks</div>  <hr>
-                <div class="kpi-value">102</div>
-                <small>Finished</small>
-            </div>
-            <div class="kpi-icon text-success">
-                <i class="fas fa-check-circle"></i>
-            </div>
-        </div>
-    </div>
-    <!-- 7 assighned tasks -->
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">Assigned Tasks</div>  <hr>
-                <div class="kpi-value">25</div>
-                <small>In Progress</small>
-            </div>
-            <div class="kpi-icon text-info">
-                <i class="fas fa-user-check"></i>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="section-card">
+                <div class="section-title">{{ __('emis.outgoing_documents') }}</div>
+                <div class="table-responsive">
+                    <table class="table-emis">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{{ __('emis.document_number') }}</th>
+                                <th>{{ __('emis.subject') }}</th>
+                                <th>{{ __('emis.receiver') }}</th>
+                                <th>{{ __('emis.date') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($recentOutboxes as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->doc_number ?? '-' }}</td>
+                                    <td>{{ $item->subject ?? '-' }}</td>
+                                    <td>{{ $item->receiver ?? '-' }}</td>
+                                    <td>{{ $item->doc_date ?? '-' }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">{{ __('emis.no_data_found') }}</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- all incomming Documents  -->
+        <div class="col-md-6">
+            <div class="section-card">
+                <div class="section-title">{{ __('emis.all_tasks') }}</div>
+                <div class="table-responsive">
+                    <table class="table-emis">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{{ __('emis.title') }}</th>
+                                <th>{{ __('emis.task_code') }}</th>
+                                <th>{{ __('emis.deadline') }}</th>
+                                <th>{{ __('emis.status') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($recentTasks as $task)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $task->title ?? '-' }}</td>
+                                    <td>{{ $task->task_code ?? '-' }}</td>
+                                    <td>{{ $task->deadline ?? '-' }}</td>
+                                    <td>
+                                        @php
+                                            $normalizedStatus = strtolower(trim($task->status ?? ''));
+
+                                            $statusClass = match($normalizedStatus) {
+                                                'pending' => 'status-pending',
+                                                'in progress', 'in_progress' => 'status-progress',
+                                                'completed' => 'status-completed',
+                                                default => 'status-overdue',
+                                            };
+                                        @endphp
+                                        <span class="status-badge {{ $statusClass }}">
+                                            {{ $task->status ?? '-' }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">{{ __('emis.no_data_found') }}</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">Incoming Documents</div>  <hr>
-                <div class="kpi-value">150</div>
-                <small>New Records</small>  
-                </div>
-            <div class="kpi-icon text-primary">
-                <i class="fas fa-inbox"></i>
-                </div>
-                </div>
-                </div>
-                <!-- all outgoing Documents  -->
-                <div class="col-md-3">
-        <div class="kpi-card">
-            <div>
-                <div class="kpi-title">Outgoing Documents</div>  <hr>
-                <div class="kpi-value">120</div>
-                <small>Sent Records</small>
-                </div>
-            <div class="kpi-icon text-secondary">
-                <i class="fas fa-paper-plane"></i>
-                </div>
-                </div>
-                </div>
-                <!-- all pending Documents  -->
 
 </div>
 
-<hr>
-    <!-- CHARTS + ASSETS -->
-    <div class="dashboard-grid">
-
-        <!-- CHARTS -->
-        <div class="charts">
-
-            <div class="card">
-                <h3>Operational Trend</h3>
-                <canvas id="trendChart"></canvas>
-            </div>
-
-            <div class="card">
-                <h3>Jobs Graph</h3>
-                <canvas id="qualityChart"></canvas>
-            </div>
-        </div>
-        <!-- ASSETS -->
-        <div class="card">
-            <h3>Tasks Assigned </h3>
-
-            <div class="asset-item">
-                <span>Team A</span>
-                <span class="asset-value">96.0%</span>
-            </div>
-
-            <div class="asset-item">
-                <span>Team B</span>
-                <span class="asset-value">89.8%</span>
-            </div>
-
-            <div class="asset-item">
-                <span>Team C</span>
-                <span class="asset-value">99.0%</span>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- CHART SCRIPTS -->
 <script>
-    new Chart(document.getElementById('trendChart'), {
-        type: 'line',
-        data: {
-            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-            datasets: [{
-                label: 'Performance %',
-                data: [85, 88, 90, 93, 95, 96],
-                borderWidth: 2,
-                tension: 0.4
-            }]
-        }
-    });
+    const outboxCtx = document.getElementById('outboxChart');
+    if (outboxCtx) {
+        new Chart(outboxCtx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($outboxChartLabels) !!},
+                datasets: [{
+                    label: "{{ __('emis.outgoing_documents') }}",
+                    data: {!! json_encode($outboxChartData) !!},
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
 
-    new Chart(document.getElementById('qualityChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Dept A','Dept B','Dept C','Dept D'],
-            datasets: [{
-                label: 'Quality %',
-                data: [92, 88, 95, 90]
-            }]
-        }
-    });
+    const tasksCtx = document.getElementById('tasksChart');
+    if (tasksCtx) {
+        new Chart(tasksCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    "{{ __('emis.pending_tasks') }}",
+                    "In Progress",
+                    "{{ __('emis.completed_tasks') }}",
+                    "{{ __('emis.overdue_tasks') }}"
+                ],
+                datasets: [{
+                    data: {!! json_encode($taskStatusCounts) !!},
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
 </script>
-
-</body>
-</html>
-
 
 @endsection

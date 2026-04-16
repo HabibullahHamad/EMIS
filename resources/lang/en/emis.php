@@ -97,4 +97,46 @@ return [
 'source_type' => 'Source Type',
 'all' => 'All',
 
+
+'outgoing_documents' => 'Outgoing Documents',
+'no_data_found' => 'No data found',
+
+
+'name' => 'Name',
+'permissions' => 'Permissions',
+'cancel' => 'Cancel',
+
+
+
+
+'role_deleted' => 'Role deleted successfully.',
+
+'no_data_found' => 'No data found',
+'record_deleted' => 'Record has been deleted.',
+'something_went_wrong' => 'Something went wrong.',
+'name' => 'Name',
+'title' => 'Display Name',
+'permissions' => 'Permissions',
+'actions' => 'Actions',
+'search' => 'Search',
+'cancel' => 'Cancel',
+
+
+
+// dashboard
+
+'all_system_users' => 'All System Users',
+'total_employees' => 'Total Employees',
+'incoming_documents' => 'Incoming Documents',
+'outgoing_documents' => 'Outgoing Documents',
+'pending_tasks' => 'Pending Tasks',
+'completed_tasks' => 'Completed Tasks',
+'overdue_tasks' => 'Overdue Tasks',
+'all_tasks' => 'All Tasks',
+'title' => 'Title',
+'task_code' => 'Task Code',
+'deadline' => 'Deadline',
+'charts' => 'Charts',
+'no_data_found' => 'No data found',
+'view' => 'View',
 ];

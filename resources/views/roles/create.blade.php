@@ -5,9 +5,9 @@
 <style>
     .form-card {
         background: #fff;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.08);
     }
 
     .form-label {
@@ -17,9 +17,10 @@
 
     .permission-card {
         border: 1px solid #e9ecef;
-        border-radius: 10px;
-        margin-bottom: 14px;
+        border-radius: 12px;
+        margin-bottom: 16px;
         overflow: hidden;
+        background: #fff;
     }
 
     .permission-card .card-header {
@@ -27,6 +28,7 @@
         font-weight: 700;
         font-size: 14px;
         padding: 10px 14px;
+        border-bottom: 1px solid #e9ecef;
     }
 
     .permission-card .card-body {
@@ -43,12 +45,48 @@
         flex-wrap: wrap;
         margin-bottom: 12px;
     }
+
+    .module-badge {
+        background: #0d6efd;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+    }
+
+    .module-tools {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .section-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #334155;
+    }
+
+    .permission-search {
+        max-width: 260px;
+    }
+
+    .sticky-bar {
+        position: sticky;
+        top: 8px;
+        z-index: 20;
+        background: #fff;
+        padding-bottom: 8px;
+    }
 </style>
 
 <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Create Role</h5>
-        <a href="{{ route('roles.index') }}" class="btn btn-sm btn-secondary">Back</a>
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="mb-0">{{ __('emis.role_management') }} - {{ __('emis.create') }}</h5>
+        <a href="{{ route('roles.index') }}" class="btn btn-sm btn-secondary">
+            {{ __('emis.back') }}
+        </a>
     </div>
 
     @if($errors->any())
@@ -67,7 +105,7 @@
 
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Role Name</label>
+                    <label class="form-label">{{ __('emis.roles') }} {{ __('emis.name') ?? 'Name' }}</label>
                     <input
                         type="text"
                         name="name"
@@ -78,7 +116,7 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Display Name</label>
+                    <label class="form-label">{{ __('emis.title') ?? 'Display Name' }}</label>
                     <input
                         type="text"
                         name="display_name"
@@ -89,7 +127,7 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <label class="form-label">Description</label>
+                    <label class="form-label">{{ __('emis.description') }}</label>
                     <input
                         type="text"
                         name="description"
@@ -101,63 +139,87 @@
 
             <hr>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Permissions</label>
+            <div class="sticky-bar">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                    <div class="section-title mb-0">{{ __('emis.permissions') }}</div>
 
-                <div class="permission-actions">
-                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleAllPermissions(true)">
-                        Check All
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="toggleAllPermissions(false)">
-                        Uncheck All
-                    </button>
-                </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <input type="text"
+                               id="permissionSearch"
+                               class="form-control form-control-sm permission-search"
+                               placeholder="{{ __('emis.search') }}">
 
-                @foreach($permissions as $module => $modulePermissions)
-                    <div class="permission-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>{{ $module }}</span>
-                            <div class="d-flex gap-2">
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary"
-                                        onclick="toggleModulePermissions('{{ \Illuminate\Support\Str::slug($module, '_') }}', true)">
-                                    Check Module
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-secondary"
-                                        onclick="toggleModulePermissions('{{ \Illuminate\Support\Str::slug($module, '_') }}', false)">
-                                    Uncheck Module
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="row">
-                                @foreach($modulePermissions as $permission)
-                                    <div class="col-md-3 mb-2">
-                                        <div class="form-check">
-                                            <input
-                                                class="form-check-input permission-checkbox module-{{ \Illuminate\Support\Str::slug($module, '_') }}"
-                                                type="checkbox"
-                                                name="permissions[]"
-                                                value="{{ $permission->id }}"
-                                                id="perm_{{ $permission->id }}"
-                                                {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }}
-                                            >
-                                            <label class="form-check-label" for="perm_{{ $permission->id }}">
-                                                {{ $permission->display_name }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleAllPermissions(true)">
+                            Check All
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="toggleAllPermissions(false)">
+                            Uncheck All
+                        </button>
                     </div>
-                @endforeach
+                </div>
             </div>
 
-            <button class="btn btn-primary">Save Role</button>
-            <a href="{{ route('roles.index') }}" class="btn btn-secondary">Cancel</a>
+            @foreach($permissions as $module => $modulePermissions)
+                @php
+                    $moduleSlug = \Illuminate\Support\Str::slug($module, '_');
+                @endphp
+
+                <div class="permission-card permission-module" data-module="{{ strtolower($module) }}">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span>{{ $module }}</span>
+                            <span class="module-badge">{{ count($modulePermissions) }}</span>
+                        </div>
+
+                        <div class="module-tools">
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary"
+                                    onclick="toggleModulePermissions('{{ $moduleSlug }}', true)">
+                                Check Module
+                            </button>
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    onclick="toggleModulePermissions('{{ $moduleSlug }}', false)">
+                                Uncheck Module
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach($modulePermissions as $permission)
+                                <div class="col-md-3 col-sm-6 mb-2 permission-item"
+                                     data-name="{{ strtolower($permission->display_name . ' ' . $permission->name . ' ' . $module) }}">
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input permission-checkbox module-{{ $moduleSlug }}"
+                                            type="checkbox"
+                                            name="permissions[]"
+                                            value="{{ $permission->id }}"
+                                            id="perm_{{ $permission->id }}"
+                                            {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }}
+                                        >
+                                        <label class="form-check-label" for="perm_{{ $permission->id }}">
+                                            {{ $permission->display_name }}
+                                            <br>
+                                            <small class="text-muted">{{ $permission->name }}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('emis.save') }} {{ __('emis.roles') }}
+                </button>
+                <a href="{{ route('roles.index') }}" class="btn btn-secondary">
+                    {{ __('emis.cancel') }}
+                </a>
+            </div>
         </form>
     </div>
 </div>
@@ -174,6 +236,33 @@
             checkbox.checked = state;
         });
     }
+
+    document.getElementById('permissionSearch')?.addEventListener('input', function () {
+        const keyword = this.value.toLowerCase().trim();
+
+        document.querySelectorAll('.permission-item').forEach(function (item) {
+            const text = item.dataset.name || '';
+            item.style.display = text.includes(keyword) ? '' : 'none';
+        });
+
+        document.querySelectorAll('.permission-module').forEach(function (moduleCard) {
+            const visibleItems = moduleCard.querySelectorAll('.permission-item[style=""]').length;
+            const allItems = moduleCard.querySelectorAll('.permission-item').length;
+
+            // if search empty show all cards
+            if (keyword === '') {
+                moduleCard.style.display = '';
+            } else {
+                let hasVisible = false;
+                moduleCard.querySelectorAll('.permission-item').forEach(function (item) {
+                    if (item.style.display !== 'none') {
+                        hasVisible = true;
+                    }
+                });
+                moduleCard.style.display = hasVisible ? '' : 'none';
+            }
+        });
+    });
 </script>
 
 @endsection

@@ -6,61 +6,63 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 
 class UserController extends Controller
 {
-   public function index(Request $request)
-{ 
-   
-    $query = User::with('role');
+public function index(Request $request)
+{
+    $query = \App\Models\User::with('role')->latest();
 
-    if ($request->search) {
+    if ($request->filled('search')) {
         $search = $request->search;
 
         $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%')
-              ->orWhere('email', 'like', '%' . $search . '%');
-
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%");
         });
     }
 
-    if ($request->role_id) {
+    if ($request->filled('role_id')) {
         $query->where('role_id', $request->role_id);
     }
 
-    $users = $query->latest()->paginate(5)->withQueryString();
-    $roles = Role::orderBy('display_name')->get();
+    $users = $query->paginate(10)->withQueryString();
+    $roles = \App\Models\Role::orderBy('display_name')->get();
 
     return view('users.index', compact('users', 'roles'));
 }
+   public function create()
+{
+    $roles = \App\Models\Role::orderBy('display_name')->get();
 
-    public function create()
-    {
-        
+    return view('users.create', compact('roles'));
+}
 
-        $roles = Role::orderBy('display_name')->get();
-        return view('users.create', compact('roles'));
-    }
+   
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:150',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'role_id' => 'nullable|exists:roles,id',
-        ]);
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+        'role_id' => ['required', 'exists:roles,id'],
+        'password' => ['required', 'confirmed', Password::min(6)],
+    ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => $request->role_id,
-        ]);
+    User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'role_id' => $validated['role_id'],
+        'password' => $validated['password'],
+    ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
-    }
+    return redirect()->route('users.index')
+        ->with('success', __('messages.user_created'));
+}
+
+
 
     public function show(User $user)
     {

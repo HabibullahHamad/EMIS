@@ -7,4 +7,11 @@ return [
     'employee_stutus'=> 'دکارکوونکي حالت تازه شو',
     'role_created' => 'Role created successfully.',
     'task_created' => 'Task created successfully.',
+
+
+
+
+
+
+    'role_updated' => 'رول په بریالیتوب سره تازه شو.',
 ];
