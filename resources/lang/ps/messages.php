@@ -1,17 +1,18 @@
 <?php
 
 return [
-    'employee_created' => 'نوی کارکوونکی اضاقه شو.',
-    'employee_updated' => 'د کارکوونکۍ معلومات په بریالیتوب سره تازه شوی.',
-    'employee_deleted' => 'کارکوونکی له ډیټابس څخه حذف شو.',
-    'employee_stutus'=> 'دکارکوونکي حالت تازه شو',
-    'role_created' => 'Role created successfully.',
-    'task_created' => 'Task created successfully.',
-
-
-
-
-
-
+    'employee_created' => 'کارکوونکی په بریالیتوب سره جوړ شو.',
+    'employee_updated' => 'د کارکوونکي معلومات په بریالیتوب سره نوي شول.',
+    'employee_deleted' => 'کارکوونکی په بریالیتوب سره حذف شو.',
+    'employee_stutus' => 'د کارکوونکي حالت په بریالیتوب سره تازه شو.',
     'role_updated' => 'رول په بریالیتوب سره تازه شو.',
+    'role_deleted' => 'رول په بریالیتوب سره حذف شو.',
+    'user_created' => 'کاروونکی په بریالیتوب سره جوړ شو.',
+
+    'attributes' => [
+        'first_name' => 'لومړی نوم',
+        'last_name' => 'وروستی نوم',
+        'employee_code' => 'د کارکوونکي کوډ',
+        'email' => 'برېښنالیک',
+    ],
 ];

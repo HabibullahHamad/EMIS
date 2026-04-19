@@ -14,11 +14,13 @@ class DashboardController extends Controller
     {
         $today = Carbon::today();
 
+        // Cards
         $totalUsers = Schema::hasTable('users') ? User::count() : 0;
 
-        $totalEmployees = (class_exists(\App\Models\Employee::class) && Schema::hasTable('employees'))
-            ? Employee::count()
-            : 0;
+        $totalEmployees = (
+            class_exists(\App\Models\Employee::class) &&
+            Schema::hasTable('employees')
+        ) ? Employee::count() : 0;
 
         $incomingDocuments = Schema::hasTable('inboxes')
             ? DB::table('inboxes')->count()
@@ -47,22 +49,39 @@ class DashboardController extends Controller
                 ->count()
             : 0;
 
+        // Recent Outboxes
         $recentOutboxes = Schema::hasTable('outboxes')
             ? DB::table('outboxes')
-                ->select('id', 'doc_number', 'subject', 'receiver', 'doc_date', 'created_at')
+                ->select(
+                    'id',
+                    'doc_number',
+                    'subject',
+                    'receiver',
+                    'doc_date',
+                    'created_at'
+                )
                 ->latest()
                 ->limit(5)
                 ->get()
             : collect();
 
+        // Recent Tasks
         $recentTasks = Schema::hasTable('tasks')
             ? DB::table('tasks')
-                ->select('id', 'title', 'task_code', 'status', 'deadline', 'created_at')
+                ->select(
+                    'id',
+                    'title',
+                    'task_code',
+                    'status',
+                    'deadline',
+                    'created_at'
+                )
                 ->latest()
                 ->limit(5)
                 ->get()
             : collect();
 
+        // Outbox monthly chart
         $outboxChartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $outboxChartData = array_fill(0, 12, 0);
 
@@ -80,12 +99,25 @@ class DashboardController extends Controller
             }
         }
 
+        // Tasks status chart
         $taskStatusCounts = Schema::hasTable('tasks')
             ? [
-                DB::table('tasks')->whereRaw('LOWER(status) = ?', ['pending'])->count(),
-                DB::table('tasks')->whereRaw('LOWER(status) = ?', ['in progress'])->count()
-                    + DB::table('tasks')->whereRaw('LOWER(status) = ?', ['in_progress'])->count(),
-                DB::table('tasks')->whereRaw('LOWER(status) = ?', ['completed'])->count(),
+                DB::table('tasks')
+                    ->whereRaw('LOWER(status) = ?', ['pending'])
+                    ->count(),
+
+                DB::table('tasks')
+                    ->whereRaw('LOWER(status) = ?', ['in progress'])
+                    ->count()
+                +
+                DB::table('tasks')
+                    ->whereRaw('LOWER(status) = ?', ['in_progress'])
+                    ->count(),
+
+                DB::table('tasks')
+                    ->whereRaw('LOWER(status) = ?', ['completed'])
+                    ->count(),
+
                 DB::table('tasks')
                     ->whereDate('deadline', '<', $today)
                     ->whereRaw('LOWER(status) != ?', ['completed'])
