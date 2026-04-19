@@ -2,10 +2,8 @@
 
 @section('content')
 
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
-
    .page-header {
     background: #fff;
     border-radius: 8px;
@@ -31,13 +29,13 @@
    .table-card {
     background: #f8f5f5;
     border-radius: 8px;
-    padding: 4px 6px;   /* smaller padding */
+    padding: 4px 6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     direction: rtl;
-    margin-bottom: 8px; /* reduce space below */
+    margin-bottom: 8px;
 }
 .table-card .table {
-    margin-bottom: 0; /* remove extra spacing */
+    margin-bottom: 0;
 }
 
 .table-card .table thead th {
@@ -59,9 +57,6 @@
     padding: 4px 6px;
     font-size: 11.5px;
 }
-
-
-
 
     .table thead th {
         font-size: 13px;
@@ -87,8 +82,7 @@
 
     .action-btns .btn {
         margin: 1px;
-         font-size: 10px;
-        
+        font-size: 10px;
     }
 
     .custom-pagination .page-link {
@@ -123,7 +117,6 @@
         text-align: right;
     }
 
-   
     @media (max-width: 768px) {
         .page-title {
             width: 100%;
@@ -135,8 +128,6 @@
             flex-direction: column;
             align-items: stretch;
         }
-
-     
     }
 </style>
 
@@ -147,93 +138,93 @@
     <div class="d-flex align-items-center gap-2 flex-wrap">
 
         <div class="input-group input-group-sm" style="width:220px;">
-            <span class="input-group-text py-1 px-2">🔍</span>
+            <span class="input-group-text py-1 px-2">&#128269;</span>
             <input type="text"
                    id="liveSearch"
                    class="form-control form-control-sm"
-                   placeholder="Search..."
+                   placeholder="{{ __('emis.search') }}..."
                    value="{{ request('search') }}">
         </div>
 
         <select id="statusFilter"
                 class="form-select form-select-sm py-1"
                 style="width:120px;">
-            <option value="">All</option>
-            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+            <option value="">{{ __('emis.all') }}</option>
+            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>{{ __('emis.active') }}</option>
+            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>{{ __('emis.inactive') }}</option>
         </select>
 
         <button type="button"
                 class="btn btn-outline-secondary btn-sm py-1 px-2"
                 id="resetSearch">
-            Reset
+            {{ __('emis.reset') }}
         </button>
     </div>
 
     <div class="text-center flex-grow-1">
-        <h6 class="mb-0 fw-semibold">Employees</h6>
+        <h6 class="mb-0 fw-semibold">{{ __('emis.employees') }}</h6>
     </div>
 
     <div class="d-flex align-items-center gap-2 flex-wrap">
         <a href="{{ route('employees.export.excel', request()->query()) }}"
            class="btn btn-sm btn-success py-1 px-3">
-            Excel
+            {{ __('emis.export_excel') }}
         </a>
 
         <a href="{{ route('employees.export.pdf', request()->query()) }}"
            class="btn btn-sm btn-danger py-1 px-3">
-            PDF
+            {{ __('emis.export_pdf') }}
         </a>
 
         <a href="{{ route('employees.create') }}"
            class="btn btn-sm btn-primary py-1 px-3">
-            + Add
+            + {{ __('emis.add_employee') }}
         </a>
     </div>
 
 </div>
-   <!-- Cards -->
+
     <div class="table-card">
         <div class="table-responsive rtl-table">
             <div class="row mb-1">
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-1 bg-info">
-                <h6 class="mb-1">Total Employees</h6>
-                <h3 class="mb-0">{{ $stats['total'] }}</h3>
-            </div>
-        </div>
-    </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 text-center">
+                        <div class="card-body py-1 bg-info">
+                            <h6 class="mb-1">{{ __('emis.total_employees') }}</h6>
+                            <h3 class="mb-0">{{ $stats['total'] }}</h3>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-1 bg-success">
-                <h6 class="mb-1 text-whit">Active</h6>
-                <h3 class="mb-0 text-whit">{{ $stats['active'] }}</h3>
-            </div>
-        </div>
-    </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 text-center">
+                        <div class="card-body py-1 bg-success">
+                            <h6 class="mb-1 text-whit">{{ __('emis.active') }}</h6>
+                            <h3 class="mb-0 text-whit">{{ $stats['active'] }}</h3>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-            <div class="card-body py-1 bg-danger">
-                <h6 class="mb-1 text-gold">Inactive</h6>
-                <h3 class="mb-0 text-whit">{{ $stats['inactive'] }}</h3>
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 text-center">
+                        <div class="card-body py-1 bg-danger">
+                            <h6 class="mb-1 text-gold">{{ __('emis.inactive') }}</h6>
+                            <h3 class="mb-0 text-whit">{{ $stats['inactive'] }}</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+
             <table class="table table-bordered table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Status</th>
-                      
-                        <th width="150">Actions</th>
+                        <th>{{ __('emis.code') }}</th>
+                        <th>{{ __('emis.name') }}</th>
+                        <th>{{ __('emis.email') }}</th>
+                        <th>{{ __('emis.phone') }}</th>
+                        <th>{{ __('emis.status') }}</th>
+                        <th width="150">{{ __('emis.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody id="employeeTableBody">
@@ -247,10 +238,10 @@
                 <nav>
                     <ul class="pagination justify-content-center custom-pagination">
                         @if ($employees->onFirstPage())
-                            <li class="page-item disabled"><span class="page-link">«</span></li>
+                            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $employees->previousPageUrl() }}">«</a>
+                                <a class="page-link" href="{{ $employees->previousPageUrl() }}">&laquo;</a>
                             </li>
                         @endif
 
@@ -264,10 +255,10 @@
 
                         @if ($employees->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link" href="{{ $employees->nextPageUrl() }}">»</a>
+                                <a class="page-link" href="{{ $employees->nextPageUrl() }}">&raquo;</a>
                             </li>
                         @else
-                            <li class="page-item disabled"><span class="page-link">»</span></li>
+                            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
                         @endif
                     </ul>
                 </nav>
@@ -276,8 +267,6 @@
     </div>
 </div>
 
-
-<!-- Live Filter -->
 <script>
     let searchTimer;
 
