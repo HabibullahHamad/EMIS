@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'dashboard' => 'ډشبورډ',
+    'success' => 'بریالی',
+'error' => 'تېروتنه',
+
+    'dashboard' => 'منځپانګه',
     'employees' => 'کارکوونکي',
     'documents' => 'اسناد',
     'tasks_management' => 'د دندو مدیریت',

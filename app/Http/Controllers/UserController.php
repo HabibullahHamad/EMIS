@@ -11,6 +11,11 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+public function settings()
+{
+    return view('settings.settings');
+}
+
 public function index(Request $request)
 {
     $query = \App\Models\User::with('role')->latest();

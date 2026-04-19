@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'success' => 'موفق',
+'error' => 'خطا',
+
     'dashboard' => 'داشبورد',
     'employees' => 'کارمندان',
     'documents' => 'اسناد',

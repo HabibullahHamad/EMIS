@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'success' => 'Success',
+      'error' => 'Error', 
+
     'dashboard' => 'Dashboard',
     'employees' => 'Employees',
     'documents' => 'Documents',

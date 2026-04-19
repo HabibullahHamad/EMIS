@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMIS</title>
+    <title>{{ __('emis.system_name') }}</title>
 
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,6 @@
             --primary: #0b3563;
             --primary-dark: #082847;
             --body-bg: #eef2f7;
-            --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-soft: #64748b;
             --border: #e2e8f0;
@@ -29,10 +28,6 @@
 
         * { margin:0; padding:0; box-sizing:border-box; }
 
-        html, body {
-            min-height: 100%;
-        }
-
         body{
             font-family: 'Noto Sans Arabic', sans-serif;
             background: var(--body-bg);
@@ -40,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        a { text-decoration: none; }
+        a { text-decoration:none; }
 
         .sidebar{
             position: fixed;
@@ -57,9 +52,7 @@
             box-shadow: 0 18px 35px rgba(0,0,0,.18);
         }
 
-        .sidebar.collapsed{
-            width: var(--sidebar-collapsed-width);
-        }
+        .sidebar.collapsed{ width: var(--sidebar-collapsed-width); }
 
         .sidebar-header{
             min-height: 72px;
@@ -133,9 +126,7 @@
             flex-shrink: 0;
         }
 
-        .toggle-btn:hover{
-            background: var(--hover);
-        }
+        .toggle-btn:hover{ background: var(--hover); }
 
         .sidebar-menu{
             flex:1;
@@ -145,21 +136,11 @@
             scrollbar-color: rgba(255,255,255,.28) transparent;
         }
 
-        .sidebar-menu::-webkit-scrollbar{
-            width: 4px;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-track{
-            background: transparent;
-        }
-
+        .sidebar-menu::-webkit-scrollbar{ width: 4px; }
+        .sidebar-menu::-webkit-scrollbar-track{ background: transparent; }
         .sidebar-menu::-webkit-scrollbar-thumb{
             background: rgba(255,255,255,.28);
             border-radius: 10px;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-thumb:hover{
-            background: rgba(255,255,255,.42);
         }
 
         .menu-section-label{
@@ -170,16 +151,8 @@
             padding: 10px 12px 8px;
         }
 
-        .sidebar-nav{
-            list-style:none;
-            margin:0;
-            padding:0;
-        }
-
-        .sidebar-item{
-            margin-bottom: 6px;
-            position: relative;
-        }
+        .sidebar-nav{ list-style:none; margin:0; padding:0; }
+        .sidebar-item{ margin-bottom: 6px; position: relative; }
 
         .sidebar-link{
             display:flex;
@@ -236,9 +209,7 @@
             display:none;
         }
 
-        .sidebar-item.open > .submenu{
-            display:block;
-        }
+        .sidebar-item.open > .submenu{ display:block; }
 
         .submenu .submenu-link{
             display:flex;
@@ -286,10 +257,7 @@
             flex-shrink:0;
         }
 
-        .user-mini-info{
-            overflow:hidden;
-        }
-
+        .user-mini-info{ overflow:hidden; }
         .user-mini-name{
             font-size:13px;
             font-weight:700;
@@ -428,45 +396,84 @@
             font-size:13px;
         }
 
-        .user-dropdown-info{
-            text-align:start;
-        }
-
+        .user-dropdown-info{ text-align:start; }
         .user-dropdown-name{
             font-size:12px;
             font-weight:700;
             color:var(--text-main);
             line-height:1.05;
         }
+        .dropdown-menu{
+            min-width: 220px;
+            border: none;
+            background: #fff;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+            border-radius: 18px;
+            overflow: hidden;
+        }
 
+        .dropdown-header{
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(100, 116, 139, .9);
+            padding: 12px 16px 6px;
+        }
+
+        .dropdown-item{
+            color: #1e293b;
+            font-size: 13px;
+            padding: 10px 16px;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus{
+            background: rgba(14, 165, 233, .08);
+            color: #0b3563;
+        }
+
+        .dropdown-divider{
+            margin: 0.25rem 0;
+            border-top: 1px solid rgba(226, 232, 240, .7);
+        }
+
+        .top-icon-btn{
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        .top-icon-btn:hover{
+            transform: translateY(-1px);
+            background: #f8fafc;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+        }
+
+        .user-dropdown-btn:hover{
+            box-shadow: 0 12px 28px rgba(15, 23, 42, .12);
+        }
+
+        .user-dropdown-avatar{
+            font-size: 14px;
+        }
+
+        .sidebar-item.has-submenu .sidebar-link{
+            position: relative;
+        }
+
+        .sidebar-item.has-submenu .sidebar-arrow{
+            transition: transform .2s ease, color .2s ease;
+        }
+
+        .sidebar-link.active,
+        .submenu-link.active{
+            background: rgba(255, 255, 255, .15);
+        }
         .user-dropdown-role{
             font-size:10px;
             color:var(--text-soft);
         }
 
-        .content-area{
-            padding: 18px;
-        }
+        .content-area{ padding: 18px; }
 
-        .sidebar-tooltip{
-            position: fixed;
-            z-index: 2000;
-            background: #fff;
-            color: #0b3563;
-            border: 1px solid #dbe4ef;
-            box-shadow: 0 8px 20px rgba(0,0,0,.12);
-            border-radius: 10px;
-            padding: 7px 10px;
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-50%);
-            transition: opacity .15s ease;
-        }
-
-        .sidebar.collapsed .brand-text,
         .sidebar.collapsed .user-mini-info,
         .sidebar.collapsed .sidebar-text,
         .sidebar.collapsed .sidebar-arrow,
@@ -479,9 +486,7 @@
                 transform: translateX({{ in_array(app()->getLocale(), ['ps','fa','ar']) ? '100%' : '-100%' }});
             }
 
-            .sidebar.mobile-open{
-                transform: translateX(0);
-            }
+            .sidebar.mobile-open{ transform: translateX(0); }
 
             .main-wrapper,
             .main-wrapper.expanded{
@@ -489,48 +494,63 @@
                 margin-right:0 !important;
             }
 
-            .smart-search{
-                display:none;
-            }
-
-            .user-dropdown-info{
-                display:none;
-            }
-
-            .sidebar-tooltip{
-                display:none !important;
-            }
-        }
-
-        @media (max-width: 576px){
-            .topbar{
-                padding: 0 10px;
-            }
-
-            .content-area{
-                padding: 12px;
-            }
-
-            .topbar-title{
-                font-size:15px;
-            }
-
-            .topbar-subtitle{
-                display:none;
-            }
+            .smart-search{ display:none; }
+            .user-dropdown-info{ display:none; }
         }
     </style>
 </head>
 <body>
 
+@php
+    $user = auth()->user();
+
+    $canDashboard = auth()->check() && $user->canAccess('dashboard.view');
+
+    $canUsersView = auth()->check() && $user->canAccess('users.view');
+    $canUsersCreate = auth()->check() && $user->canAccess('users.create');
+    $canRolesView = auth()->check() && $user->canAccess('roles.view');
+    $canRolesCreate = auth()->check() && $user->canAccess('roles.create');
+
+    $canEmployeesView = auth()->check() && $user->canAccess('employees.view');
+    $canEmployeesCreate = auth()->check() && $user->canAccess('employees.create');
+
+    $canInboxView = auth()->check() && $user->canAccess('inbox.view');
+    $canInboxCreate = auth()->check() && $user->canAccess('inbox.create');
+
+    $canOutboxView = auth()->check() && $user->canAccess('outbox.view');
+    $canOutboxCreate = auth()->check() && $user->canAccess('outbox.create');
+
+    $canTasksView = auth()->check() && $user->canAccess('tasks.view');
+    $canTasksCreate = auth()->check() && $user->canAccess('tasks.create');
+    $canTasksCharts = auth()->check() && $user->canAccess('tasks.charts');
+
+    $canDocumentsView = auth()->check() && (
+        $user->canAccess('documents.view') ||
+        $user->canAccess('documents.index')
+    );
+
+    $canSettingsView = auth()->check() && (
+        $user->canAccess('settings.view') ||
+        $user->canAccess('admin.settings')
+    );
+
+    $showUsersMenu = $canUsersView || $canUsersCreate || $canRolesView || $canRolesCreate;
+    $showEmployeesMenu = $canEmployeesView || $canEmployeesCreate;
+    $showInboxMenu = $canInboxView || $canInboxCreate;
+    $showOutboxMenu = $canOutboxView || $canOutboxCreate;
+    $showTasksMenu = $canTasksView || $canTasksCreate || $canTasksCharts;
+    $showDocumentsMenu = $canDocumentsView;
+@endphp
+
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="brand-wrap">
             <div class="brand-logo">
-                <img src="{{ asset('images/logo.png') }}" alt="EMIS">
+                <img src="{{ asset('images/45.png') }}" alt="EMIS">
             </div>
             <div class="brand-text">
                 <div class="brand-title">EMIS</div>
+                <div class="brand-subtitle"></div>
             </div>
         </div>
 
@@ -543,11 +563,10 @@
         <div class="menu-section-label">{{ __('emis.dashboard') }}</div>
         <ul class="sidebar-nav">
 
-            @if(Route::has('dashboard'))
+            @if($canDashboard && Route::has('dashboard'))
             <li class="sidebar-item">
                 <a href="{{ route('dashboard') }}"
-                   class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                   data-tooltip="{{ __('emis.dashboard') }}">
+                   class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-house"></i></span>
                         <span class="sidebar-text">{{ __('emis.dashboard') }}</span>
@@ -556,8 +575,9 @@
             </li>
             @endif
 
+            @if($showUsersMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.user_management') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-users"></i></span>
                         <span class="sidebar-text">{{ __('emis.user_management') }}</span>
@@ -565,20 +585,52 @@
                     <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                 </div>
                 <ul class="submenu">
-                    @if(Route::has('users.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_users') }}</span></a></li>
+                    @if($canUsersView && Route::has('users.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                           href="{{ route('users.index') }}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>{{ __('emis.view_users') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('users.create'))
-                    <li><a class="submenu-link {{ request()->routeIs('users.create') ? 'active' : '' }}" href="{{ route('users.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_users') }}</span></a></li>
+
+                    @if($canUsersCreate && Route::has('users.create'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('users.create') ? 'active' : '' }}"
+                           href="{{ route('users.create') }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>{{ __('emis.create_users') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('roles.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" href="{{ route('roles.index') }}"><i class="fa-solid fa-user-shield"></i><span>{{ __('emis.roles') }}</span></a></li>
+
+                    @if($canRolesView && Route::has('roles.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
+                           href="{{ route('roles.index') }}">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <span>{{ __('emis.roles') }}</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if($canRolesCreate && Route::has('roles.create'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('roles.create') ? 'active' : '' }}"
+                           href="{{ route('roles.create') }}">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <span>{{ __('emis.create') }} {{ __('emis.roles') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
+            @if($showEmployeesMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.employees') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-id-badge"></i></span>
                         <span class="sidebar-text">{{ __('emis.employees') }}</span>
@@ -586,19 +638,34 @@
                     <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                 </div>
                 <ul class="submenu">
-                    @if(Route::has('employees.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('employees.index') ? 'active' : '' }}" href="{{ route('employees.index') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_employees') }}</span></a></li>
+                    @if($canEmployeesView && Route::has('employees.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('employees.index') ? 'active' : '' }}"
+                           href="{{ route('employees.index') }}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>{{ __('emis.view_employees') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('employees.create'))
-                    <li><a class="submenu-link {{ request()->routeIs('employees.create') ? 'active' : '' }}" href="{{ route('employees.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_employee') }}</span></a></li>
+
+                    @if($canEmployeesCreate && Route::has('employees.create'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('employees.create') ? 'active' : '' }}"
+                           href="{{ route('employees.create') }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>{{ __('emis.create_employee') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
             <div class="menu-section-label">{{ __('emis.documents') }}</div>
 
+            @if($showInboxMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.incoming_documents') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-inbox"></i></span>
                         <span class="sidebar-text">{{ __('emis.incoming_documents') }}</span>
@@ -606,20 +673,42 @@
                     <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                 </div>
                 <ul class="submenu">
-                    @if(Route::has('main'))
-                    <li><a class="submenu-link {{ request()->routeIs('main') ? 'active' : '' }}" href="{{ route('main') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_inbox') }}</span></a></li>
+                    @if($canInboxView && Route::has('main'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('main') ? 'active' : '' }}"
+                           href="{{ route('main') }}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>{{ __('emis.view_inbox') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('inbox.form'))
-                    <li><a class="submenu-link {{ request()->routeIs('inbox.form') ? 'active' : '' }}" href="{{ route('inbox.form') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_inbox') }}</span></a></li>
+
+                    @if($canInboxCreate && Route::has('inbox.form'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('inbox.form') ? 'active' : '' }}"
+                           href="{{ route('inbox.form') }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>{{ __('emis.create_inbox') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('inbox.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('inbox.index') ? 'active' : '' }}" href="{{ route('inbox.index') }}"><i class="fa-solid fa-table-list"></i><span>{{ __('emis.inbox') }}</span></a></li>
+
+                    @if($canInboxView && Route::has('inbox.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('inbox.index') ? 'active' : '' }}"
+                           href="{{ route('inbox.index') }}">
+                            <i class="fa-solid fa-table-list"></i>
+                            <span>{{ __('emis.inbox') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
+            @if($showOutboxMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.outgoing_documents') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-file-export"></i></span>
                         <span class="sidebar-text">{{ __('emis.outgoing_documents') }}</span>
@@ -627,17 +716,32 @@
                     <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                 </div>
                 <ul class="submenu">
-                    @if(Route::has('CorrespondenceManagement.outbox.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('CorrespondenceManagement.outbox.index') ? 'active' : '' }}" href="{{ route('CorrespondenceManagement.outbox.index') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_outbox') }}</span></a></li>
+                    @if($canOutboxView && Route::has('CorrespondenceManagement.outbox.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('CorrespondenceManagement.outbox.index') ? 'active' : '' }}"
+                           href="{{ route('CorrespondenceManagement.outbox.index') }}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>{{ __('emis.view_outbox') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('CorrespondenceManagement.outbox.create'))
-                    <li><a class="submenu-link {{ request()->routeIs('CorrespondenceManagement.outbox.create') ? 'active' : '' }}" href="{{ route('CorrespondenceManagement.outbox.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_outbox') }}</span></a></li>
+
+                    @if($canOutboxCreate && Route::has('CorrespondenceManagement.outbox.create'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('CorrespondenceManagement.outbox.create') ? 'active' : '' }}"
+                           href="{{ route('CorrespondenceManagement.outbox.create') }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>{{ __('emis.create_outbox') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
+            @if($showTasksMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.tasks_management') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-list-check"></i></span>
                         <span class="sidebar-text">{{ __('emis.tasks_management') }}</span>
@@ -645,20 +749,42 @@
                     <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                 </div>
                 <ul class="submenu">
-                    @if(Route::has('tasks.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('tasks.index') ? 'active' : '' }}" href="{{ route('tasks.index') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_tasks') }}</span></a></li>
+                    @if($canTasksView && Route::has('tasks.index'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('tasks.index') ? 'active' : '' }}"
+                           href="{{ route('tasks.index') }}">
+                            <i class="fa-solid fa-list"></i>
+                            <span>{{ __('emis.view_tasks') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('tasks.create'))
-                    <li><a class="submenu-link {{ request()->routeIs('tasks.create') ? 'active' : '' }}" href="{{ route('tasks.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_task') }}</span></a></li>
+
+                    @if($canTasksCreate && Route::has('tasks.create'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('tasks.create') ? 'active' : '' }}"
+                           href="{{ route('tasks.create') }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>{{ __('emis.create_task') }}</span>
+                        </a>
+                    </li>
                     @endif
-                    @if(Route::has('tasks.charts'))
-                    <li><a class="submenu-link {{ request()->routeIs('tasks.charts') ? 'active' : '' }}" href="{{ route('tasks.charts') }}"><i class="fa-solid fa-chart-pie"></i><span>{{ __('emis.charts') }}</span></a></li>
+
+                    @if($canTasksCharts && Route::has('tasks.charts'))
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('tasks.charts') ? 'active' : '' }}"
+                           href="{{ route('tasks.charts') }}">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>{{ __('emis.charts') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
+            @if($showDocumentsMenu)
             <li class="sidebar-item has-submenu">
-                <div class="sidebar-link" data-tooltip="{{ __('emis.documents') }}">
+                <div class="sidebar-link">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-folder-open"></i></span>
                         <span class="sidebar-text">{{ __('emis.documents') }}</span>
@@ -667,17 +793,23 @@
                 </div>
                 <ul class="submenu">
                     @if(Route::has('documents.index'))
-                    <li><a class="submenu-link {{ request()->routeIs('documents.index') ? 'active' : '' }}" href="{{ route('documents.index') }}"><i class="fa-solid fa-file-lines"></i><span>{{ __('emis.view_documents') }}</span></a></li>
+                    <li>
+                        <a class="submenu-link {{ request()->routeIs('documents.index') ? 'active' : '' }}"
+                           href="{{ route('documents.index') }}">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <span>{{ __('emis.view_documents') }}</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </li>
+            @endif
 
-            @if(Route::has('admin.settings'))
+            @if($canSettingsView && Route::has('settings.settings'))
             <div class="menu-section-label">{{ __('emis.settings') }}</div>
             <li class="sidebar-item">
-                <a href="{{ route('admin.settings') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}"
-                   data-tooltip="{{ __('emis.settings') }}">
+                <a href="{{ route('settings.settings') }}"
+                   class="sidebar-link {{ request()->routeIs('settings.settings') ? 'active' : '' }}">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-gear"></i></span>
                         <span class="sidebar-text">{{ __('emis.settings') }}</span>
@@ -685,6 +817,7 @@
                 </a>
             </li>
             @endif
+
         </ul>
     </div>
 
@@ -698,8 +831,6 @@
         </div>
     </div>
 </div>
-
-<div class="sidebar-tooltip" id="sidebarTooltip"></div>
 
 <div class="main-wrapper" id="mainWrapper">
     <div class="topbar">
@@ -734,7 +865,7 @@
             @endif
 
             <div class="dropdown">
-                <button class="top-icon-btn" type="button" data-bs-toggle="dropdown" title="{{ __('emis.notifications') }}">
+                <button class="top-icon-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa-solid fa-bell"></i>
                     <span class="notif-badge">3</span>
                 </button>
@@ -758,11 +889,12 @@
 
                 <ul class="dropdown-menu shadow border-0 rounded-3">
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i> {{ __('emis.profile') }}</a></li>
-                    @if(Route::has('admin.settings'))
+                    @if($canSettingsView && Route::has('admin.settings'))
                     <li><a class="dropdown-item" href="{{ route('admin.settings') }}"><i class="fa-solid fa-gear me-2"></i> {{ __('emis.settings') }}</a></li>
                     @endif
                     <li><hr class="dropdown-divider"></li>
                     @if(Route::has('logout'))
+                    
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -771,8 +903,6 @@
                             </button>
                         </form>
                     </li>
-                    @else
-                    <li><span class="dropdown-item-text text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> {{ __('emis.logout') }}</span></li>
                     @endif
                 </ul>
             </div>
@@ -798,7 +928,6 @@
     const mainWrapper = document.getElementById('mainWrapper');
     const sidebarToggle = document.getElementById('sidebarToggle');
     const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
-    const tooltip = document.getElementById('sidebarTooltip');
 
     sidebarToggle?.addEventListener('click', function () {
         if (window.innerWidth > 991) {
@@ -830,51 +959,6 @@
         }
     });
 
-    function showTooltip(text, rect) {
-        if (!sidebar.classList.contains('collapsed') || window.innerWidth <= 991) {
-            tooltip.style.opacity = '0';
-            return;
-        }
-
-        tooltip.textContent = text;
-        tooltip.style.opacity = '1';
-
-        const isRtl = document.documentElement.dir === 'rtl';
-        const top = rect.top + (rect.height / 2);
-
-        tooltip.style.top = top + 'px';
-        tooltip.style.left = '';
-        tooltip.style.right = '';
-
-        if (isRtl) {
-            tooltip.style.right = (window.innerWidth - rect.left + 12) + 'px';
-        } else {
-            tooltip.style.left = (rect.right + 12) + 'px';
-        }
-    }
-
-    function hideTooltip() {
-        tooltip.style.opacity = '0';
-    }
-
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('mouseenter', function () {
-            const text = this.getAttribute('data-tooltip');
-            if (!text) return;
-            showTooltip(text, this.getBoundingClientRect());
-        });
-
-        link.addEventListener('mousemove', function () {
-            const text = this.getAttribute('data-tooltip');
-            if (!text) return;
-            showTooltip(text, this.getBoundingClientRect());
-        });
-
-        link.addEventListener('mouseleave', hideTooltip);
-    });
-
-    sidebar.addEventListener('mouseleave', hideTooltip);
-
     document.querySelectorAll('.lang-option').forEach(button => {
         button.addEventListener('click', function () {
             const form = document.getElementById('language-switch-form');
@@ -891,7 +975,7 @@
         icon: 'success',
         title: "{{ __('emis.success') }}",
         text: @json(session('success')),
-        timer: 3000,
+        timer: 2500,
         showConfirmButton: false
     });
     @endif
@@ -903,39 +987,6 @@
         text: @json(session('error'))
     });
     @endif
-
-    @if(session('warning'))
-    Swal.fire({
-        icon: 'warning',
-        title: "{{ __('emis.warning') }}",
-        text: @json(session('warning'))
-    });
-    @endif
-
-    @if($errors->any())
-    Swal.fire({
-        icon: 'error',
-        title: "{{ __('emis.validation_error') }}",
-        html: `{!! implode('<br>', $errors->all()) !!}`
-    });
-    @endif
-
-    window.confirmDelete = function(formId) {
-        Swal.fire({
-            title: "{{ __('emis.are_you_sure') }}",
-            text: "{{ __('emis.cannot_undo') }}",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            confirmButtonText: "{{ __('emis.yes_delete') }}",
-            cancelButtonText: "{{ __('emis.cancel') }}"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById(formId)?.submit();
-            }
-        });
-    };
 </script>
-
 </body>
 </html>

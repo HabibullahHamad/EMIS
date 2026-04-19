@@ -162,6 +162,12 @@ Route::middleware(['auth'])->group(function () {
     */
       Route::resource('admin', UserController::class);
     Route::get('/admin/settings', [UserController::class, 'settings'])->name('admin.settings');
+   /*
+    |--------------------------------------------------------------------------
+    | settings
+    |--------------------------------------------------------------------------
+    */
+    route::get('/settings/settings', [UserController::class, 'settings'])->name('settings.settings');
 
        /*
     |--------------------------------------------------------------------------
