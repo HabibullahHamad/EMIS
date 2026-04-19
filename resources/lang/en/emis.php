@@ -139,4 +139,14 @@ return [
 'charts' => 'Charts',
 'no_data_found' => 'No data found',
 'view' => 'View',
+
+
+
+
+
+
+// en/emis.php
+'language' => 'Language',
+
+
 ];

@@ -208,4 +208,11 @@ return [
 'charts' => 'نمودارها',
 'no_data_found' => 'هیچ معلوماتی یافت نشد',
 'view' => 'نمایش',
+
+
+
+
+
+// fa/emis.php
+'language' => 'زبان',
 ];

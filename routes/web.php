@@ -1,6 +1,9 @@
-<?php
-
+<?php 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -10,15 +13,28 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\OutgoingDocumentController;
-   use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\DashboardController;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+use App\Http\Middleware\SetLocale;
 
-Route::middleware(['setLocale'])->group(function () {
 
-    // all your EMIS routes here
 
+
+Route::middleware([SetLocale::class])->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // other routes...
+});
+Route::post('/language-switch', function (Request $request) {
+    $request->validate([
+        'locale' => 'required|in:en,ps,fa',
+    ]);
+
+    session(['locale' => $request->locale]);
+
+    return back();
+})->name('language.switch');
+    // all My  EMIS routes here
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -200,5 +216,3 @@ Route::get('/lang/fa', function () {
     return redirect()->back();
 })->name('lang.fa');
   });
-  
-});

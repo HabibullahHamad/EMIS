@@ -222,4 +222,9 @@ return [
 'charts' => 'ګرافونه',
 'no_data_found' => 'هیڅ معلومات ونه موندل شول',
 'view' => 'کتل',
+
+
+
+// ps/emis.php
+'language' => 'ژبه',
 ];
