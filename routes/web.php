@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\OutgoingDocumentController;
+use App\Http\Controllers\SettingsController;
 
 use App\Http\Middleware\SetLocale;
 
@@ -160,14 +161,14 @@ Route::middleware(['auth'])->group(function () {
     | ADmin
     |--------------------------------------------------------------------------
     */
-      Route::resource('admin', UserController::class);
-    Route::get('/admin/settings', [UserController::class, 'settings'])->name('admin.settings');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/settings', [SettingsController::class, 'index'])->name('admin.settings');
+    Route::post('/admin/settings', [SettingsController::class, 'update'])->name('admin.settings.update');   
    /*
     |--------------------------------------------------------------------------
     | settings
     |--------------------------------------------------------------------------
     */
-    route::get('/settings/settings', [UserController::class, 'settings'])->name('settings.settings');
 
        /*
     |--------------------------------------------------------------------------
