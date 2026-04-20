@@ -93,6 +93,13 @@
     <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="tb" title="{{ __('emis.search') }}">
         <i class="fa fa-search"></i>
     </a>
+    <lable class="tb" title="{{ __('emis.refresh') }}" onclick="location.reload()">
+        <i class="fa-solid fa-arrows-rotate"></i>
+    </lable>
+     <h3 class="ms-3 mb-0" style="color:#074582; font-weight:600;">
+        {{ __('emis.outbox') }} 
+    </h3>  
+
 </div>
 
 <div class="table-responsive">

@@ -82,6 +82,7 @@
  margin-right:3px;
  }
 </style>
+
 <div class="d-flex justify-content-start mb-1 mt-0">
 
     <a href="{{ route('inbox.form') }}" class="tb">

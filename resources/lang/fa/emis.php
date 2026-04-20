@@ -62,6 +62,7 @@ return [
     'not_available' => 'ندارد',
     'delete_employee_confirm' => 'این کارمند حذف شود؟',
     'no_employees_found' => 'هیچ کارمندی یافت نشد.',
+     "emis.outbox" => "صادره",
 
     'document_number' => 'شماره سند',
     'document_date' => 'تاریخ سند',

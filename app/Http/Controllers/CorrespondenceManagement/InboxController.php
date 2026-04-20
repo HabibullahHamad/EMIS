@@ -132,7 +132,7 @@ public function show($id)
     public function main()
 {
       $letter = Inbox::latest()->get(); // ✅ REQUIRED
-    return view('CorrespondenceManagement.main', compact('inbox'));
+    return view('CorrespondenceManagement.inbox', compact('inbox.index'));
 }
 
 }

@@ -33,6 +33,7 @@ return [
     'status' => 'حالت',
     'active' => 'فعال',
     'inactive' => 'غیرفعال',
+     "emis.outbox" => "صادره",
 
     'email' => 'برېښنالیک',
     'phone' => 'تلیفون',

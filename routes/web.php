@@ -16,9 +16,25 @@ use App\Http\Controllers\OutgoingDocumentController;
 use App\Http\Controllers\SettingsController;
 
 use App\Http\Middleware\SetLocale;
+use App\Http\Controllers\AdminSettingsController;
 
 
+/*
+|--------------------------------------------------------------------------
+| settings Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+    Route::put('/admin/settings', [AdminSettingsController::class, 'update'])->name('admin.settings.update');
+});
 
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware([SetLocale::class])->group(function () {
 
@@ -116,7 +132,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('CorrespondenceManagement/inbox/index', [InboxController::class, 'index'])->name('inbox.index');
     Route::get('CorrespondenceManagement/inbox/create', [InboxController::class, 'create'])->name('inbox.create');
     Route::get('CorrespondenceManagement/inbox/form', [InboxController::class, 'form'])->name('inbox.form');
-    Route::get('CorrespondenceManagement/main', [InboxController::class, 'main'])->name('main');
    
 
     Route::post('CorrespondenceManagement/inbox/store', [InboxController::class, 'store'])->name('inbox.store');
