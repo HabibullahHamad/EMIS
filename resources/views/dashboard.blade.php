@@ -1,136 +1,371 @@
 @extends('new')
 
-@section('title', 'Executive Management Information System')
+@section('page_title', __('emis.dashboard'))
 
 @section('content')
-<div class="container-fluid py-4">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">Executive Management Information System</h2>
-        <div class="d-flex align-items-center">
-            <span class="me-3">Welcome, Habibullah</span>
-            <i class="bi bi-bell me-2 position-relative">
-                <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">2</span>
-            </i>
-            <i class="bi bi-envelope position-relative">
-                <span class="badge bg-warning position-absolute top-0 start-100 translate-middle">5</span>
-            </i>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.dashboard-wrapper {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.stats-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.stats-grid-small {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.stat-card {
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    border:1px solid #e2e8f0;
+    box-shadow:0 6px 20px rgba(0,0,0,0.05);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-icon {
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:white;
+}
+
+.bg-blue { background:#0b3563; }
+.bg-green { background:#16a34a; }
+.bg-orange { background:#ea580c; }
+.bg-red { background:#dc2626; }
+
+.stat-text h5 {
+    margin:0;
+    font-size:14px;
+    color:#64748b;
+}
+
+.stat-text h3 {
+    margin:4px 0 0;
+    font-size:22px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.card-box {
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    border:1px solid #e2e8f0;
+    box-shadow:0 6px 20px rgba(0,0,0,0.05);
+    margin-bottom:20px;
+}
+
+.card-title {
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:14px;
+    color:#1e293b;
+}
+
+.chart-grid {
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.chart-box {
+    position:relative;
+    height:320px;
+}
+
+.table th {
+    font-size:12px;
+    color:#64748b;
+    background:#f8fafc;
+}
+
+.table td {
+    font-size:13px;
+    vertical-align:middle;
+}
+
+.badge-status {
+    padding:4px 10px;
+    border-radius:10px;
+    font-size:12px;
+}
+
+.badge-pending { background:#fef3c7; color:#92400e; }
+.badge-progress { background:#dbeafe; color:#1d4ed8; }
+.badge-done { background:#dcfce7; color:#166534; }
+.badge-overdue { background:#fee2e2; color:#991b1b; }
+
+@media(max-width: 1200px){
+    .stats-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .stats-grid-small {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 768px){
+    .stats-grid,
+    .stats-grid-small {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="dashboard-wrapper">
+
+    {{-- Main Stats --}}
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.total_users') }}</h5>
+                <h3>{{ $totalUsers ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-blue">
+                <i class="fa-solid fa-users"></i>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.total_employees') }}</h5>
+                <h3>{{ $totalEmployees ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-green">
+                <i class="fa-solid fa-id-badge"></i>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.incoming_documents') }}</h5>
+                <h3>{{ $incomingDocuments ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-orange">
+                <i class="fa-solid fa-inbox"></i>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.outgoing_documents') }}</h5>
+                <h3>{{ $outgoingDocuments ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-red">
+                <i class="fa-solid fa-file-export"></i>
+            </div>
         </div>
     </div>
 
-    <!-- Summary Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Documents</h5>
-                    <h3 class="text-primary fw-bold">325</h3>
-                    <i class="bi bi-building fs-2 text-secondary"></i>
-                </div>
+    {{-- Task Stats --}}
+    <div class="stats-grid-small">
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.pending_tasks') }}</h5>
+                <h3>{{ $pendingTasks ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-orange">
+                <i class="fa-solid fa-clock"></i>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Employees</h5>
-                    <h3 class="text-success fw-bold">15,750</h3>
-                    <i class="bi bi-people fs-2 text-secondary"></i>
-                </div>
+
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.completed_tasks') }}</h5>
+                <h3>{{ $completedTasks ?? 0 }}</h3>
+            </div>
+            <div class="stat-icon bg-green">
+                <i class="fa-solid fa-check"></i>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Total Tasks</h5>
-                    <h3 class="text-info fw-bold">980</h3>
-                    <i class="bi bi-person-badge fs-2 text-secondary"></i>
-                </div>
+
+        <div class="stat-card">
+            <div class="stat-text">
+                <h5>{{ __('emis.overdue_tasks') }}</h5>
+                <h3>{{ $overdueTasks ?? 0 }}</h3>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5>Attendance Rate</h5>
-                    <h3 class="text-warning fw-bold">92.5%</h3>
-                    <i class="bi bi-check-circle fs-2 text-secondary"></i>
-                </div>
+            <div class="stat-icon bg-red">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
         </div>
     </div>
 
-    <!-- Charts and Panels -->
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header fw-bold">Academic Performance</div>
-                <div class="card-body">
-                    <canvas id="performanceChart"></canvas>
-                </div>
+    {{-- Charts --}}
+    <div class="chart-grid">
+        <div class="card-box">
+            <div class="card-title">{{ __('emis.outgoing_documents') }} {{ __('emis.charts') }}</div>
+            <div class="chart-box">
+                <canvas id="outboxChart"></canvas>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header fw-bold">Finance Overview</div>
-                <div class="card-body">
-                    <canvas id="financeChart"></canvas>
-                </div>
+
+        <div class="card-box">
+            <div class="card-title">{{ __('emis.tasks_management') }} {{ __('emis.charts') }}</div>
+            <div class="chart-box">
+                <canvas id="tasksChart"></canvas>
             </div>
         </div>
     </div>
 
-    <!-- Alerts and Updates -->
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header fw-bold">Recent Updates</div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Policy Update: New Curriculum Guidelines</li>
-                    <li class="list-group-item">Upcoming Event: Science Fair Next Week</li>
-                    <li class="list-group-item">Facility Maintenance Scheduled at Lincoln High</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header fw-bold">System Alerts</div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-danger">Low Attendance at Oakwood School</li>
-                    <li class="list-group-item text-warning">IT Issue: Server Downtime Reported</li>
-                    <li class="list-group-item text-info">Teacher Evaluation Reports Due</li>
-                </ul>
-            </div>
-        </div>
+    {{-- Recent Outbox --}}
+    <div class="card-box">
+        <div class="card-title">{{ __('emis.recent_outgoing_documents') }}</div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{{ __('emis.document_number') }}</th>
+                    <th>{{ __('emis.subject') }}</th>
+                    <th>{{ __('emis.receiver') }}</th>
+                    <th>{{ __('emis.date') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recentOutboxes as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->doc_number ?? '-' }}</td>
+                    <td>{{ $item->subject ?? '-' }}</td>
+                    <td>{{ $item->receiver ?? '-' }}</td>
+                    <td>{{ $item->doc_date ?? '-' }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted">{{ __('emis.no_data') }}</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    {{-- Recent Tasks --}}
+    <div class="card-box">
+        <div class="card-title">{{ __('emis.recent_tasks') }}</div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{{ __('emis.task_code') }}</th>
+                    <th>{{ __('emis.title') }}</th>
+                    <th>{{ __('emis.status') }}</th>
+                    <th>{{ __('emis.deadline') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recentTasks as $task)
+                @php
+                    $normalizedStatus = strtolower(trim($task->status ?? ''));
+                    $statusClass = match($normalizedStatus) {
+                        'pending' => 'badge-pending',
+                        'in progress', 'in_progress' => 'badge-progress',
+                        'completed' => 'badge-done',
+                        default => 'badge-overdue',
+                    };
+                @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $task->task_code ?? '-' }}</td>
+                    <td>{{ $task->title ?? '-' }}</td>
+                    <td>
+                        <span class="badge-status {{ $statusClass }}">
+                            {{ $task->status ?? '-' }}
+                        </span>
+                    </td>
+                    <td>{{ $task->deadline ?? '-' }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted">{{ __('emis.no_data') }}</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
-<!-- Charts Script -->
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
-    new Chart(performanceCtx, {
+const outboxCtx = document.getElementById('outboxChart');
+if (outboxCtx) {
+    new Chart(outboxCtx, {
         type: 'bar',
         data: {
-            labels: ['Math', 'Science', 'English', 'History'],
+            labels: {!! json_encode($outboxChartLabels ?? []) !!},
             datasets: [{
-                label: 'Average Test Scores',
-                data: [82, 78, 85, 74],
-                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+                label: "{{ __('emis.outgoing_documents') }}",
+                data: {!! json_encode($outboxChartData ?? []) !!},
+                backgroundColor: '#0b3563',
+                borderRadius: 8,
+                borderSkipped: false
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            }
         }
     });
+}
 
-    const financeCtx = document.getElementById('financeChart').getContext('2d');
-    new Chart(financeCtx, {
+const tasksCtx = document.getElementById('tasksChart');
+if (tasksCtx) {
+    new Chart(tasksCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Gov. Funding', 'Grants', 'Donations'],
+            labels: [
+                "{{ __('emis.pending_tasks') }}",
+                "{{ __('emis.in_progress') }}",
+                "{{ __('emis.completed_tasks') }}",
+                "{{ __('emis.overdue_tasks') }}"
+            ],
             datasets: [{
-                data: [60, 25, 15],
-                backgroundColor: ['#007bff', '#17a2b8', '#ffc107']
+                data: {!! json_encode($taskStatusCounts ?? [0,0,0,0]) !!},
+                backgroundColor: ['#f59e0b', '#3b82f6', '#16a34a', '#dc2626'],
+                borderWidth: 0
             }]
+        },
+        options: {
+            cutout: '68%',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
         }
     });
+}
 </script>
-@endpush
+
 @endsection
