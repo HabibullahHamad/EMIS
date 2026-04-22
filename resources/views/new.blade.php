@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}"
-      dir="{{ in_array(app()->getLocale(), ['ps', 'fa', 'ar']) ? 'rtl' : 'ltr' }}">
+      dir="{{ in_array(app()->getLocale(), ['ps','fa','ar']) ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMIS</title>
+    <title>{{ function_exists('setting') ? setting('system_name', __('emis.system_name')) : __('emis.system_name') }}</title>
 
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,40 +13,62 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        html, body {
-    overflow-x: hidden !important;
+html[dir="rtl"] .sidebar-link-main{
+    gap: 8px !important;
 }
 
-body,
-.sidebar,
-.sidebar-menu,
-.main-wrapper,
-.content-area {
-    overflow-x: hidden !important;
-}
-        html, body {
-    overflow-x: hidden;
-}
-
-.sidebar,
-.main-wrapper,
-.content-area {
-    overflow-x: hidden;
+html[dir="rtl"] .sidebar-icon{
+    margin: 0 !important;
 }
         :root{
             --sidebar-width: 270px;
-            --sidebar-collapsed-width: 78px;
-            --topbar-height: 54px;
+            --sidebar-collapsed-width: 80px;
+            --topbar-height: 60px;
             --primary: #0b3563;
             --primary-dark: #082847;
-            --body-bg: #eef2f7;
+            --body-bg: #edf2f7;
+            --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-soft: #64748b;
             --border: #e2e8f0;
             --hover: rgba(255,255,255,.12);
-            --submenu-bg: #0f2747;
+            --submenu-bg: #102b4d;
         }
+.sidebar-nav,
+.submenu{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
 
+.submenu-link{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d7e3f1;
+    padding: 9px 14px !important;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    transition: .2s ease;
+}
+
+html[dir="rtl"] .submenu-link{
+    padding: 9px 14px !important;
+}
+
+html[dir="rtl"] .sidebar-link-main{
+    gap: 8px !important;
+}
+
+html[dir="rtl"] .sidebar-icon,
+html[dir="rtl"] .submenu-link i{
+    margin: 0 !important;
+    width: 16px;
+    min-width: 16px;
+    text-align: center;
+}
         *{
             margin:0;
             padding:0;
@@ -54,24 +76,17 @@ body,
         }
 
         html, body{
-            min-height:100%;
+            height:100%;
+            overflow:hidden;
         }
 
         body{
             font-family:'Noto Sans Arabic', sans-serif;
             background:var(--body-bg);
             color:var(--text-main);
-            overflow-x:hidden;
-            
-         direction: rtl;
-        overflow-y: auto;
-          overflow-x: hidden !important;
-}
         }
 
-        a{
-            text-decoration:none;
-        }
+        a{ text-decoration:none; }
 
         .sidebar{
             position:fixed;
@@ -81,11 +96,12 @@ body,
             width:var(--sidebar-width);
             background:linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
             color:#fff;
-            z-index:1050;
+            z-index:1100;
             transition:width .25s ease, transform .25s ease;
             display:flex;
             flex-direction:column;
-            box-shadow:0 18px 35px rgba(0,0,0,.18);
+            overflow:hidden;
+            box-shadow:0 20px 40px rgba(0,0,0,.18);
         }
 
         .sidebar.collapsed{
@@ -93,13 +109,12 @@ body,
         }
 
         .sidebar-header{
-            min-height:72px;
+            min-height:76px;
             display:flex;
             align-items:center;
             justify-content:space-between;
-            padding:0 14px;
+            padding:0 16px;
             border-bottom:1px solid rgba(255,255,255,.08);
-            position:relative;
         }
 
         .brand-wrap{
@@ -111,29 +126,24 @@ body,
         }
 
         .brand-logo{
-            width:38px;
-            height:38px;
-            border-radius:10px;
+            width: 50px;
+            height:50px;
+            border-radius: 15px;
             background:rgba(255,255,255,.12);
             display:flex;
             align-items:center;
             justify-content:center;
-            overflow:hidden;
             flex-shrink:0;
-            transition:.2s ease;
         }
 
         .brand-logo img{
-            width:24px;
-            height:24px;
+            width: 50px;
+            height:50px;
             object-fit:contain;
-            transition:.2s ease;
         }
 
         .brand-text{
             white-space:nowrap;
-            min-width:0;
-            transition:opacity .2s ease;
         }
 
         .brand-title{
@@ -148,35 +158,22 @@ body,
             margin-top:2px;
         }
 
-        .sidebar.collapsed .brand-wrap{
-            justify-content:center;
-            width:100%;
-        }
-
-        .sidebar.collapsed .brand-logo{
-            width:42px;
-            height:42px;
-            margin:0 auto;
-        }
-
-        .sidebar.collapsed .brand-logo img{
-            width:28px;
-            height:28px;
-        }
-
         .sidebar.collapsed .brand-text{
             display:none;
         }
 
+        .sidebar.collapsed .brand-wrap{
+            margin:auto;
+        }
+
         .toggle-btn{
+            width:36px;
+            height:36px;
             border:none;
             background:transparent;
             color:#fff;
-            font-size:16px;
-            cursor:pointer;
-            width:34px;
-            height:34px;
             border-radius:10px;
+            cursor:pointer;
             transition:.2s ease;
             flex-shrink:0;
         }
@@ -187,6 +184,7 @@ body,
 
         .sidebar-menu{
             flex:1;
+            height:calc(100vh - 76px - 68px);
             overflow-y:auto;
             overflow-x:hidden;
             padding:12px 10px 16px;
@@ -200,14 +198,6 @@ body,
             display:none;
         }
 
-        .sidebar-menu::-webkit-scrollbar-track{
-            display:none;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-thumb{
-            display:none;
-        }
-
         .menu-section-label{
             font-size:10px;
             text-transform:uppercase;
@@ -218,13 +208,11 @@ body,
 
         .sidebar-nav{
             list-style:none;
-            margin:0;
-            padding:0;
         }
 
         .sidebar-item{
-            margin-bottom:6px;
             position:relative;
+            margin-bottom:6px;
         }
 
         .sidebar-link{
@@ -232,22 +220,17 @@ body,
             align-items:center;
             justify-content:space-between;
             color:#e6edf7;
-            padding:10px 12px;
+            padding:11px 12px;
             border-radius:14px;
             transition:.2s ease;
             cursor:pointer;
-            user-select:none;
         }
 
         .sidebar-link:hover,
-        .sidebar-item.open > .sidebar-link,
-        .sidebar-link.active{
+        .sidebar-link.active,
+        .sidebar-item.open > .sidebar-link{
             background:var(--hover);
             color:#fff;
-        }
-
-        .sidebar-item.open > .sidebar-link{
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
         }
 
         .sidebar-link-main{
@@ -272,48 +255,56 @@ body,
 
         .sidebar-arrow{
             font-size:12px;
-            transition:transform .22s ease;
+            transition:transform .2s ease;
         }
 
         .sidebar-item.open > .sidebar-link .sidebar-arrow{
             transform:rotate(180deg);
         }
 
-        .submenu{
-            list-style:none;
-            margin:6px 0 0;
-            padding:0;
-            display:none;
-            animation:submenuFade .18s ease;
+        .sidebar.collapsed .sidebar-text,
+        .sidebar.collapsed .sidebar-arrow,
+        .sidebar.collapsed .user-mini-info{
+            display:none !important;
         }
 
-        @keyframes submenuFade{
-            from{ opacity:0; transform:translateY(-4px); }
-            to{ opacity:1; transform:translateY(0); }
+        .submenu{
+            display:none;
+            list-style:none;
+            margin:6px 0 0;
+            animation:fadeIn .18s ease;
         }
 
         .sidebar-item.open > .submenu{
             display:block;
         }
 
-        .submenu .submenu-link{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            color:#d7e3f1;
-            padding:9px 14px 9px 44px;
-            border-radius:12px;
-            margin-bottom:4px;
-            transition:.2s ease;
-            font-size:13px;
+        @keyframes fadeIn{
+            from{opacity:0; transform:translateY(-4px);}
+            to{opacity:1; transform:translateY(0);}
         }
 
-        html[dir="rtl"] .submenu .submenu-link{
-            padding:9px 44px 9px 14px;
+        .submenu-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#d7e3f1;
+    padding:9px 14px;
+    border-radius:12px;
+    margin-bottom:4px;
+    font-size:13px;
+    transition:.2s ease;
+}
+
+html[dir="rtl"] .submenu-link{
+    padding:9px 14px;
+}
+        html[dir="rtl"] .submenu-link{
+            padding:9px 42px 9px 14px;
         }
 
-        .submenu .submenu-link:hover,
-        .submenu .submenu-link.active{
+        .submenu-link:hover,
+        .submenu-link.active{
             background:rgba(255,255,255,.10);
             color:#fff;
         }
@@ -337,15 +328,16 @@ body,
             left:calc(100% + 10px);
         }
 
-        .sidebar.collapsed .submenu .submenu-link{
+        .sidebar.collapsed .submenu-link{
             padding:10px 12px !important;
-            border-radius:10px;
-            white-space:nowrap;
         }
 
         .sidebar-footer{
+            min-height:68px;
             border-top:1px solid rgba(255,255,255,.08);
             padding:12px;
+            display:flex;
+            align-items:center;
         }
 
         .user-mini{
@@ -353,22 +345,18 @@ body,
             align-items:center;
             gap:10px;
             color:#fff;
+            width:100%;
         }
 
         .user-mini-avatar{
-            width:38px;
-            height:38px;
+            width:40px;
+            height:40px;
             border-radius:50%;
             background:rgba(255,255,255,.12);
             display:flex;
             align-items:center;
             justify-content:center;
-            font-size:16px;
             flex-shrink:0;
-        }
-
-        .user-mini-info{
-            overflow:hidden;
         }
 
         .user-mini-name{
@@ -384,8 +372,27 @@ body,
             opacity:.75;
         }
 
+        .sidebar-tooltip{
+            position:fixed;
+            z-index:3000;
+            background:#fff;
+            color:#0b3563;
+            border:1px solid #dbe4ef;
+            box-shadow:0 8px 20px rgba(0,0,0,.12);
+            border-radius:10px;
+            padding:7px 11px;
+            font-size:12px;
+            font-weight:600;
+            white-space:nowrap;
+            opacity:0;
+            pointer-events:none;
+            transition:opacity .15s ease;
+        }
+
         .main-wrapper{
-            min-height:100vh;
+            height:100vh;
+            overflow-y:auto;
+            overflow-x:hidden;
             transition:margin .25s ease;
             margin-{{ in_array(app()->getLocale(), ['ps','fa','ar']) ? 'right' : 'left' }}:var(--sidebar-width);
         }
@@ -397,7 +404,7 @@ body,
         .topbar{
             position:sticky;
             top:0;
-            z-index:1040;
+            z-index:1000;
             height:var(--topbar-height);
             background:rgba(255,255,255,.95);
             backdrop-filter:blur(12px);
@@ -408,31 +415,23 @@ body,
             padding:0 16px;
         }
 
-        .topbar-left{
+        .topbar-left,
+        .topbar-right{
             display:flex;
             align-items:center;
-            gap:12px;
-            min-width:0;
+            gap:10px;
         }
 
         .topbar-title{
             font-size:17px;
             font-weight:700;
-            color:var(--text-main);
             margin:0;
-            line-height:1.1;
         }
 
         .topbar-subtitle{
             font-size:11px;
             color:var(--text-soft);
             margin-top:1px;
-        }
-
-        .topbar-right{
-            display:flex;
-            align-items:center;
-            gap:10px;
         }
 
         .smart-search{
@@ -476,15 +475,14 @@ body,
         }
 
         .top-icon-btn{
-            width:36px;
-            height:36px;
+            width:38px;
+            height:38px;
             border:none;
             background:#fff;
-            border-radius:10px;
-            box-shadow:0 4px 12px rgba(0,0,0,.05);
+            border-radius:12px;
             color:var(--primary);
+            box-shadow:0 4px 12px rgba(0,0,0,.05);
             position:relative;
-            font-size:14px;
         }
 
         .notif-badge{
@@ -523,17 +521,11 @@ body,
             display:flex;
             align-items:center;
             justify-content:center;
-            font-size:13px;
-        }
-
-        .user-dropdown-info{
-            text-align:start;
         }
 
         .user-dropdown-name{
             font-size:12px;
             font-weight:700;
-            color:var(--text-main);
             line-height:1.05;
         }
 
@@ -546,30 +538,7 @@ body,
             padding:18px;
         }
 
-        .sidebar-tooltip{
-            position:fixed;
-            z-index:3000;
-            background:#ffffff;
-            color:#0b3563;
-            border:1px solid #dbe4ef;
-            box-shadow:0 8px 20px rgba(0,0,0,.12);
-            border-radius:10px;
-            padding:7px 11px;
-            font-size:12px;
-            font-weight:600;
-            white-space:nowrap;
-            opacity:0;
-            pointer-events:none;
-            transition:opacity .15s ease;
-        }
-
-        .sidebar.collapsed .user-mini-info,
-        .sidebar.collapsed .sidebar-text,
-        .sidebar.collapsed .sidebar-arrow{
-            display:none !important;
-        }
-
-        @media (max-width: 991px){
+        @media (max-width:991px){
             .sidebar{
                 transform:translateX({{ in_array(app()->getLocale(), ['ps','fa','ar']) ? '100%' : '-100%' }});
             }
@@ -592,22 +561,19 @@ body,
                 width:220px;
             }
 
-            .user-dropdown-info{
-                display:none;
-            }
-
+            .user-dropdown-info,
             .sidebar-tooltip{
                 display:none !important;
             }
         }
 
-        @media (max-width: 576px){
-            .topbar{
-                padding:0 10px;
-            }
-
+        @media (max-width:576px){
             .content-area{
                 padding:12px;
+            }
+
+            .smart-search{
+                display:none;
             }
 
             .topbar-title{
@@ -615,10 +581,6 @@ body,
             }
 
             .topbar-subtitle{
-                display:none;
-            }
-
-            .smart-search{
                 display:none;
             }
         }
@@ -630,34 +592,21 @@ body,
     $user = auth()->user();
 
     $canDashboard = auth()->check() && $user->canAccess('dashboard.view');
-
     $canUsersView = auth()->check() && $user->canAccess('users.view');
     $canUsersCreate = auth()->check() && $user->canAccess('users.create');
     $canRolesView = auth()->check() && $user->canAccess('roles.view');
     $canRolesCreate = auth()->check() && $user->canAccess('roles.create');
-
     $canEmployeesView = auth()->check() && $user->canAccess('employees.view');
     $canEmployeesCreate = auth()->check() && $user->canAccess('employees.create');
-
     $canInboxView = auth()->check() && $user->canAccess('inbox.view');
     $canInboxCreate = auth()->check() && $user->canAccess('inbox.create');
-
     $canOutboxView = auth()->check() && $user->canAccess('outbox.view');
     $canOutboxCreate = auth()->check() && $user->canAccess('outbox.create');
-
     $canTasksView = auth()->check() && $user->canAccess('tasks.view');
     $canTasksCreate = auth()->check() && $user->canAccess('tasks.create');
     $canTasksCharts = auth()->check() && $user->canAccess('tasks.charts');
-
-    $canDocumentsView = auth()->check() && (
-        $user->canAccess('documents.view') ||
-        $user->canAccess('documents.index')
-    );
-
-    $canSettingsView = auth()->check() && (
-        $user->canAccess('settings.view') ||
-        $user->canAccess('admin.settings')
-    );
+    $canDocumentsView = auth()->check() && ($user->canAccess('documents.view') || $user->canAccess('documents.index'));
+    $canSettingsView = auth()->check() && ($user->canAccess('settings.view') || $user->canAccess('admin.settings'));
 
     $showUsersMenu = $canUsersView || $canUsersCreate || $canRolesView || $canRolesCreate;
     $showEmployeesMenu = $canEmployeesView || $canEmployeesCreate;
@@ -690,9 +639,7 @@ body,
 
             @if($canDashboard && Route::has('dashboard'))
             <li class="sidebar-item">
-                <a href="{{ route('dashboard') }}"
-                   class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                   data-tooltip="{{ __('emis.dashboard') }}">
+                <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-tooltip="{{ __('emis.dashboard') }}">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-house"></i></span>
                         <span class="sidebar-text">{{ __('emis.dashboard') }}</span>
@@ -835,9 +782,7 @@ body,
             @if($canSettingsView && Route::has('admin.settings'))
             <div class="menu-section-label">{{ __('emis.settings') }}</div>
             <li class="sidebar-item">
-                <a href="{{ route('admin.settings') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}"
-                   data-tooltip="{{ __('emis.settings') }}">
+                <a href="{{ route('admin.settings') }}" class="sidebar-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}" data-tooltip="{{ __('emis.settings') }}">
                     <span class="sidebar-link-main">
                         <span class="sidebar-icon"><i class="fa-solid fa-gear"></i></span>
                         <span class="sidebar-text">{{ __('emis.settings') }}</span>
@@ -845,7 +790,6 @@ body,
                 </a>
             </li>
             @endif
-
         </ul>
     </div>
 
@@ -943,6 +887,8 @@ body,
     </main>
 </div>
 
+<div class="sidebar-tooltip" id="sidebarTooltip"></div>
+
 @if(Route::has('language.switch'))
 <form id="language-switch-form" method="POST" action="{{ route('language.switch') }}" style="display:none;">
     @csrf
@@ -953,222 +899,199 @@ body,
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    const sidebar = document.getElementById('sidebar');
-    const mainWrapper = document.getElementById('mainWrapper');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
-    const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
-    const tooltip = document.getElementById('sidebarTooltip');
+const sidebar = document.getElementById('sidebar');
+const mainWrapper = document.getElementById('mainWrapper');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
+const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+const tooltip = document.getElementById('sidebarTooltip');
 
-    const SIDEBAR_STATE_KEY = 'emis_sidebar_collapsed';
-    const SIDEBAR_OPEN_KEY = 'emis_sidebar_open_items';
+const SIDEBAR_STATE_KEY = 'emis_sidebar_collapsed';
+const SIDEBAR_OPEN_KEY = 'emis_sidebar_open_items';
 
-    function getOpenItems() {
-        try {
-            return JSON.parse(localStorage.getItem(SIDEBAR_OPEN_KEY)) || [];
-        } catch (e) {
-            return [];
-        }
+function getOpenItems() {
+    try {
+        return JSON.parse(localStorage.getItem(SIDEBAR_OPEN_KEY)) || [];
+    } catch (e) {
+        return [];
     }
+}
 
-    function saveOpenItems() {
-        const openIndexes = [];
-        document.querySelectorAll('.sidebar-item.has-submenu').forEach((item, index) => {
-            if (item.classList.contains('open')) {
-                openIndexes.push(index);
-            }
-        });
-        localStorage.setItem(SIDEBAR_OPEN_KEY, JSON.stringify(openIndexes));
+function saveOpenItems() {
+    const openIndexes = [];
+    document.querySelectorAll('.sidebar-item.has-submenu').forEach((item, index) => {
+        if (item.classList.contains('open')) openIndexes.push(index);
+    });
+    localStorage.setItem(SIDEBAR_OPEN_KEY, JSON.stringify(openIndexes));
+}
+
+function restoreOpenItems() {
+    const openIndexes = getOpenItems();
+    document.querySelectorAll('.sidebar-item.has-submenu').forEach((item, index) => {
+        if (openIndexes.includes(index)) item.classList.add('open');
+    });
+}
+
+function updateToggleIcon() {
+    if (!sidebarToggleIcon) return;
+    const isRtl = document.documentElement.dir === 'rtl';
+    const collapsed = sidebar.classList.contains('collapsed');
+
+    if (isRtl) {
+        sidebarToggleIcon.className = collapsed ? 'fa-solid fa-angles-left' : 'fa-solid fa-angles-right';
+    } else {
+        sidebarToggleIcon.className = collapsed ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left';
     }
+}
 
-    function restoreOpenItems() {
-        const openIndexes = getOpenItems();
-        document.querySelectorAll('.sidebar-item.has-submenu').forEach((item, index) => {
-            if (openIndexes.includes(index)) {
-                item.classList.add('open');
-            }
-        });
+function applySavedSidebarState() {
+    const collapsed = localStorage.getItem(SIDEBAR_STATE_KEY) === '1';
+    if (window.innerWidth > 991 && collapsed) {
+        sidebar.classList.add('collapsed');
+        mainWrapper.classList.add('expanded');
     }
+    updateToggleIcon();
+}
 
-    function updateToggleIcon() {
-        if (!sidebarToggleIcon) return;
-
-        const isRtl = document.documentElement.dir === 'rtl';
-        const collapsed = sidebar.classList.contains('collapsed');
-
-        if (isRtl) {
-            sidebarToggleIcon.className = collapsed
-                ? 'fa-solid fa-angles-left'
-                : 'fa-solid fa-angles-right';
-        } else {
-            sidebarToggleIcon.className = collapsed
-                ? 'fa-solid fa-angles-right'
-                : 'fa-solid fa-angles-left';
-        }
-    }
-
-    function applySavedSidebarState() {
-        const collapsed = localStorage.getItem(SIDEBAR_STATE_KEY) === '1';
-
-        if (window.innerWidth > 991 && collapsed) {
-            sidebar.classList.add('collapsed');
-            mainWrapper.classList.add('expanded');
-        }
-
+sidebarToggle?.addEventListener('click', function () {
+    if (window.innerWidth > 991) {
+        sidebar.classList.toggle('collapsed');
+        mainWrapper.classList.toggle('expanded');
+        localStorage.setItem(SIDEBAR_STATE_KEY, sidebar.classList.contains('collapsed') ? '1' : '0');
         updateToggleIcon();
-    }
-
-    sidebarToggle?.addEventListener('click', function () {
-        if (window.innerWidth > 991) {
-            sidebar.classList.toggle('collapsed');
-            mainWrapper.classList.toggle('expanded');
-
-            localStorage.setItem(
-                SIDEBAR_STATE_KEY,
-                sidebar.classList.contains('collapsed') ? '1' : '0'
-            );
-
-            updateToggleIcon();
-        } else {
-            sidebar.classList.toggle('mobile-open');
-        }
-    });
-
-    mobileSidebarToggle?.addEventListener('click', function () {
+    } else {
         sidebar.classList.toggle('mobile-open');
-    });
-
-    document.querySelectorAll('.has-submenu > .sidebar-link').forEach(link => {
-        link.addEventListener('click', function () {
-            const parent = this.parentElement;
-
-            if (window.innerWidth > 991) {
-                parent.classList.toggle('open');
-                saveOpenItems();
-                return;
-            }
-
-            parent.classList.toggle('open');
-            saveOpenItems();
-        });
-    });
-
-    function showTooltip(text, rect) {
-        if (!sidebar.classList.contains('collapsed') || window.innerWidth <= 991) {
-            tooltip.style.opacity = '0';
-            return;
-        }
-
-        tooltip.textContent = text;
-        tooltip.style.opacity = '1';
-
-        const isRtl = document.documentElement.dir === 'rtl';
-        const top = rect.top + (rect.height / 2);
-
-        tooltip.style.top = top + 'px';
-        tooltip.style.left = '';
-        tooltip.style.right = '';
-
-        if (isRtl) {
-            tooltip.style.right = (window.innerWidth - rect.left + 12) + 'px';
-        } else {
-            tooltip.style.left = (rect.right + 12) + 'px';
-        }
     }
+});
 
-    function hideTooltip() {
+mobileSidebarToggle?.addEventListener('click', function () {
+    sidebar.classList.toggle('mobile-open');
+});
+
+document.querySelectorAll('.has-submenu > .sidebar-link').forEach(link => {
+    link.addEventListener('click', function () {
+        const parent = this.parentElement;
+        parent.classList.toggle('open');
+        saveOpenItems();
+    });
+});
+
+function showTooltip(text, rect) {
+    if (!sidebar.classList.contains('collapsed') || window.innerWidth <= 991) {
         tooltip.style.opacity = '0';
+        return;
     }
 
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('mouseenter', function () {
-            const text = this.getAttribute('data-tooltip');
-            if (!text) return;
-            showTooltip(text, this.getBoundingClientRect());
-        });
+    tooltip.textContent = text;
+    tooltip.style.opacity = '1';
 
-        link.addEventListener('mousemove', function () {
-            const text = this.getAttribute('data-tooltip');
-            if (!text) return;
-            showTooltip(text, this.getBoundingClientRect());
-        });
+    const isRtl = document.documentElement.dir === 'rtl';
+    const top = rect.top + (rect.height / 2);
 
-        link.addEventListener('mouseleave', hideTooltip);
+    tooltip.style.top = top + 'px';
+    tooltip.style.left = '';
+    tooltip.style.right = '';
+
+    if (isRtl) {
+        tooltip.style.right = (window.innerWidth - rect.left + 12) + 'px';
+    } else {
+        tooltip.style.left = (rect.right + 12) + 'px';
+    }
+}
+
+function hideTooltip() {
+    tooltip.style.opacity = '0';
+}
+
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('mouseenter', function () {
+        const text = this.getAttribute('data-tooltip');
+        if (!text) return;
+        showTooltip(text, this.getBoundingClientRect());
     });
 
-    sidebar.addEventListener('mouseleave', hideTooltip);
+    link.addEventListener('mousemove', function () {
+        const text = this.getAttribute('data-tooltip');
+        if (!text) return;
+        showTooltip(text, this.getBoundingClientRect());
+    });
 
-    document.addEventListener('click', function (e) {
-        if (window.innerWidth <= 991) {
-            if (!sidebar.contains(e.target) && !mobileSidebarToggle?.contains(e.target)) {
-                sidebar.classList.remove('mobile-open');
-            }
+    link.addEventListener('mouseleave', hideTooltip);
+});
+
+sidebar.addEventListener('mouseleave', hideTooltip);
+
+document.addEventListener('click', function (e) {
+    if (window.innerWidth <= 991) {
+        if (!sidebar.contains(e.target) && !mobileSidebarToggle?.contains(e.target)) {
+            sidebar.classList.remove('mobile-open');
+        }
+    }
+});
+
+document.querySelectorAll('.lang-option').forEach(button => {
+    button.addEventListener('click', function () {
+        const form = document.getElementById('language-switch-form');
+        const input = document.getElementById('language-switch-locale');
+        if (form && input) {
+            input.value = this.dataset.lang;
+            form.submit();
         }
     });
+});
 
-    document.querySelectorAll('.lang-option').forEach(button => {
-        button.addEventListener('click', function () {
-            const form = document.getElementById('language-switch-form');
-            const input = document.getElementById('language-switch-locale');
-            if (form && input) {
-                input.value = this.dataset.lang;
-                form.submit();
-            }
-        });
-    });
+applySavedSidebarState();
+restoreOpenItems();
 
-    applySavedSidebarState();
-    restoreOpenItems();
+@if(session('success'))
+Swal.fire({
+    icon: 'success',
+    title: "{{ __('emis.success') }}",
+    text: @json(session('success')),
+    timer: 2500,
+    showConfirmButton: false
+});
+@endif
 
-    @if(session('success'))
+@if(session('error'))
+Swal.fire({
+    icon: 'error',
+    title: "{{ __('emis.error') }}",
+    text: @json(session('error'))
+});
+@endif
+
+@if(session('warning'))
+Swal.fire({
+    icon: 'warning',
+    title: "{{ __('emis.warning') }}",
+    text: @json(session('warning'))
+});
+@endif
+
+@if($errors->any())
+Swal.fire({
+    icon: 'error',
+    title: "{{ __('emis.validation_error') }}",
+    html: `{!! implode('<br>', $errors->all()) !!}`
+});
+@endif
+
+window.confirmDelete = function(formId) {
     Swal.fire({
-        icon: 'success',
-        title: "{{ __('emis.success') }}",
-        text: @json(session('success')),
-        timer: 2500,
-        showConfirmButton: false
-    });
-    @endif
-
-    @if(session('error'))
-    Swal.fire({
-        icon: 'error',
-        title: "{{ __('emis.error') }}",
-        text: @json(session('error'))
-    });
-    @endif
-
-    @if(session('warning'))
-    Swal.fire({
+        title: "{{ __('emis.are_you_sure') }}",
+        text: "{{ __('emis.cannot_undo') }}",
         icon: 'warning',
-        title: "{{ __('emis.warning') }}",
-        text: @json(session('warning'))
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: "{{ __('emis.yes_delete') }}",
+        cancelButtonText: "{{ __('emis.cancel') }}"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(formId)?.submit();
+        }
     });
-    @endif
-
-    @if($errors->any())
-    Swal.fire({
-        icon: 'error',
-        title: "{{ __('emis.validation_error') }}",
-        html: `{!! implode('<br>', $errors->all()) !!}`
-    });
-    @endif
-
-    window.confirmDelete = function(formId) {
-        Swal.fire({
-            title: "{{ __('emis.are_you_sure') }}",
-            text: "{{ __('emis.cannot_undo') }}",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            confirmButtonText: "{{ __('emis.yes_delete') }}",
-            cancelButtonText: "{{ __('emis.cancel') }}"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById(formId)?.submit();
-            }
-        });
-    };
+};
 </script>
 
 </body>
