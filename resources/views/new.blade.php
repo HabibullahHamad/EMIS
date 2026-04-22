@@ -297,10 +297,10 @@ html[dir="rtl"] .submenu-link i{
 }
 
 html[dir="rtl"] .submenu-link{
-    padding:9px 14px;
+    padding:20px 20px;
 }
         html[dir="rtl"] .submenu-link{
-            padding:9px 42px 9px 14px;
+            padding:9px 42px 20px 14px;
         }
 
         .submenu-link:hover,
