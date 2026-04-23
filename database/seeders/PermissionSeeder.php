@@ -12,7 +12,14 @@ class PermissionSeeder extends Seeder
   $permissions = [
     // Dashboard
     ['name' => 'dashboard.view', 'display_name' => 'View Dashboard', 'module' => 'Dashboard'],
+  // department
 
+    
+
+      ['name' => 'departments.view', 'display_name' => 'View Departments', 'module' => 'Departments'],
+      ['name' => 'departments.create', 'display_name' => 'Create Departments', 'module' => 'Departments'],
+      ['name' => 'departments.edit', 'display_name' => 'Edit Departments', 'module' => 'Departments'],
+      ['name' => 'departments.delete', 'display_name' => 'Delete Departments', 'module' => 'Departments'],
     // Users
     ['name' => 'users.view', 'display_name' => 'View Users', 'module' => 'Users'],
     ['name' => 'users.create', 'display_name' => 'Create Users', 'module' => 'Users'],

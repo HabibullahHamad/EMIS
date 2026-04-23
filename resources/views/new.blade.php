@@ -614,6 +614,16 @@ html[dir="rtl"] .submenu-link{
     $showOutboxMenu = $canOutboxView || $canOutboxCreate;
     $showTasksMenu = $canTasksView || $canTasksCreate || $canTasksCharts;
     $showDocumentsMenu = $canDocumentsView;
+
+    $showSettingsMenu = $canSettingsView;
+
+    $departmentsMenu = auth()->check() && ($user->canAccess('departments.view') || $user->canAccess('departments.create'));
+    $departmentsMenu = $departmentsMenu && Route::has('departments.index');
+    $showdepartmentsMenu = $departmentsMenu;
+    
+
+        
+
 @endphp
 
 <div class="sidebar" id="sidebar">
@@ -632,7 +642,7 @@ html[dir="rtl"] .submenu-link{
             <i class="fa-solid fa-angles-left" id="sidebarToggleIcon"></i>
         </button>
     </div>
-
+<!-- dashboard page -->
     <div class="sidebar-menu">
         <div class="menu-section-label"></div>
         <ul class="sidebar-nav">
@@ -647,7 +657,7 @@ html[dir="rtl"] .submenu-link{
                 </a>
             </li>
             @endif
-
+<!-- user menus  -->
             @if($showUsersMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('users.*') || request()->routeIs('roles.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.user_management') }}">
@@ -673,7 +683,30 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
+<!-- departments -->
+@if($departmentsMenu)   
 
+            <li class="sidebar-item has-submenu {{ request()->routeIs('departments.*') ? 'open' : '' }}">
+                <div class="sidebar-link" data-tooltip="{{ __('emis.department_management') }}">
+                    <span class="sidebar-link-main">
+                        <span class="sidebar-icon"><i class="fa-solid fa-building"></i></span>
+                        <span class="sidebar-text">{{ __('emis.departments') }}</span>
+                    </span>
+                    <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <ul class="submenu">
+                    @if(auth()->check() && auth()->user()->canAccess('departments.view') && Route::has('departments.index'))
+                    <li><a class="submenu-link {{ request()->routeIs('departments.index') ? 'active' : '' }}" href="{{ route('departments.index') }}"><i class="fa-solid fa-list"></i><span>{{ __('emis.view_departments') }}</span></a></li>
+                    @endif
+                    @if(auth()->check() && auth()->user()->canAccess('departments.create') && Route::has('departments.create'))
+                    <li><a class="submenu-link {{ request()->routeIs('departments.create') ? 'active' : '' }}" href="{{ route('departments.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_department') }}</span></a></li>
+                    @endif  
+                </ul>
+            </li>
+@endif
+
+<!-- end department  -->
+ <!-- employee -->
             @if($showEmployeesMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('employees.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.employees') }}">
@@ -695,7 +728,7 @@ html[dir="rtl"] .submenu-link{
             @endif
 
             <div class="menu-section-label">{{ __('emis.documents') }}</div>
-
+<!-- inbox -->
             @if($showInboxMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('main') || request()->routeIs('inbox.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.incoming_documents') }}">
@@ -718,7 +751,7 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
-
+<!-- outbox -->
             @if($showOutboxMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('CorrespondenceManagement.outbox.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.outgoing_documents') }}">
@@ -738,7 +771,7 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
-
+<!-- tasks -->
             @if($showTasksMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('tasks.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.tasks_management') }}">
@@ -761,7 +794,7 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
-
+<!-- documents management  -->
             @if($showDocumentsMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('documents.*') ? 'open' : '' }}">
                 <div class="sidebar-link" data-tooltip="{{ __('emis.documents') }}">
@@ -778,7 +811,7 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
-
+<!-- settings -->
             @if($canSettingsView && Route::has('admin.settings'))
             <div class="menu-section-label">{{ __('emis.settings') }}</div>
             <li class="sidebar-item">

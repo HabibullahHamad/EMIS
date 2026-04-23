@@ -1,95 +1,193 @@
 @extends('new')
 
+@section('page_title', __('emis.roles'))
+
 @section('content')
-
 <style>
-    .page-header {
+    .roles-card {
+        border: none;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
         background: #fff;
-        border-radius: 8px;
-        padding: 8px 12px;
-        min-height: 45px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-        margin-bottom: 12px;
     }
 
-    .table-card {
-        background: #fff;
-        border-radius: 8px;
-        padding: 8px;
-        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    .roles-card .card-header {
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        font-weight: 700;
+        font-size: 15px;
     }
 
-    .table thead th,
-    .table tbody td {
+    .role-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
         font-size: 12px;
+        background: #eef2ff;
+        color: #3730a3;
+        margin: 2px;
+    }
+
+    .permission-badge {
+        display: inline-block;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        background: #f1f5f9;
+        color: #334155;
+        margin: 2px;
+    }
+
+    .permission-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: #0b3563;
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .table td, .table th {
         vertical-align: middle;
-        text-align: center;
+    }
+
+    .actions-wrap {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 </style>
 
 <div class="container-fluid">
+    <div class="card roles-card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <span>{{ __('emis.roles') }}</span>
 
-    <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <form method="GET" action="{{ route('roles.index') }}" class="d-flex gap-2">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Search role...">
-            <button class="btn btn-sm btn-outline-secondary">Search</button>
-            <a href="{{ route('roles.index') }}" class="btn btn-sm btn-outline-dark">Reset</a>
-        </form>
+            <div class="search-bar">
+                <form method="GET" action="{{ route('roles.index') }}" class="d-flex gap-2 flex-wrap">
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        class="form-control form-control-sm"
+                        placeholder="{{ __('emis.search') }}"
+                        style="min-width: 220px;"
+                    >
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <a href="{{ route('roles.index') }}" class="btn btn-sm btn-secondary">
+                        {{ __('emis.cancel') }}
+                    </a>
+                </form>
 
-        <h5 class="mb-0">Roles Management</h5>
-
-        <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">
-            + Add Role
-        </a>
-    </div>
-
-    @if(session('success'))
-        <div class="alert alert-success py-2">{{ session('success') }}</div>
-    @endif
-
-    <div class="table-card">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Display Name</th>
-                        <th>Description</th>
-                        <th width="180">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($roles as $role)
-                        <tr>
-                            <td>{{ $role->id }}</td>
-                            <td>{{ $role->name }}</td>
-                            <td>{{ $role->display_name }}</td>
-                            <td>{{ $role->description ?? '-' }}</td>
-                            <td>
-                                <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-info">کتل</a>
-                                <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-warning">تغییر</a>
-
-                                <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this role?')">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5">No roles found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                @if(auth()->user()->canAccess('roles.create'))
+                    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-success">
+                        <i class="fa fa-plus"></i> {{ __('emis.create') }}
+                    </a>
+                @endif
+            </div>
         </div>
 
-        <div class="mt-3">
-            {{ $roles->links() }}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="60">#</th>
+                            <th>{{ __('emis.name') }}</th>
+                            <th>{{ __('emis.display_name') ?? 'Display Name' }}</th>
+                            <th>{{ __('emis.description') }}</th>
+                            <th width="110">{{ __('emis.permissions') ?? 'Permissions' }}</th>
+                            <th>{{ __('emis.permissions') ?? 'Permissions' }} {{ __('emis.summary') ?? 'Summary' }}</th>
+                            <th width="210">{{ __('emis.actions') ?? 'Actions' }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($roles as $role)
+                            <tr>
+                                <td>{{ $loop->iteration + (($roles->currentPage() - 1) * $roles->perPage()) }}</td>
+
+                                <td>
+                                    <span class="role-badge">{{ $role->name }}</span>
+                                </td>
+
+                                <td>{{ $role->display_name }}</td>
+
+                                <td>{{ $role->description ?? '-' }}</td>
+
+                                <td class="text-center">
+                                    <span class="permission-count">
+                                        {{ $role->permissions->count() }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @forelse($role->permissions->take(6) as $permission)
+                                        <span class="permission-badge">{{ $permission->display_name }}</span>
+                                    @empty
+                                        <span class="text-muted">-</span>
+                                    @endforelse
+
+                                    @if($role->permissions->count() > 6)
+                                        <span class="permission-badge">
+                                            +{{ $role->permissions->count() - 6 }} more
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    <div class="actions-wrap">
+                                        @if(Route::has('roles.show') && auth()->user()->canAccess('roles.view'))
+                                            <a href="{{ route('roles.show', $role) }}" class="btn btn-sm btn-info">
+                                                {{ __('emis.view') }}
+                                            </a>
+                                        @endif
+
+                                        @if(auth()->user()->canAccess('roles.edit'))
+                                            <a href="{{ route('roles.edit', $role) }}" class="btn btn-sm btn-warning">
+                                                {{ __('emis.edit') }}
+                                            </a>
+                                        @endif
+
+                                        @if(auth()->user()->canAccess('roles.delete'))
+                                            <form action="{{ route('roles.destroy', $role) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Delete this role?')">
+                                                    {{ __('emis.delete') }}
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    {{ __('emis.no_data_found') ?? 'No data found' }}
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-3">
+                {{ $roles->links() }}
+            </div>
         </div>
     </div>
 </div>

@@ -33,4 +33,8 @@ public function tasks()
 {
     return $this->hasMany(Task::class, 'employee_id');
 }
+public function department()
+{
+    return $this->belongsTo(\App\Models\Department::class);
+}
 }

@@ -18,7 +18,17 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Middleware\SetLocale;
 use App\Http\Controllers\AdminSettingsController;
 
+use App\Http\Controllers\DepartmentController;
 
+/*
+|--------------------------------------------------------------------------
+| Department Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('departments', DepartmentController::class);
+});
 /*
 |--------------------------------------------------------------------------
 | settings Routes

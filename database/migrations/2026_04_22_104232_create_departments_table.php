@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('departments')->nullOnDelete();
             $table->boolean('status')->default(true);
             $table->text('description')->nullable();
+
             $table->timestamps();
+            
         });
     }
 
