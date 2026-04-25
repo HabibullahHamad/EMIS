@@ -23,4 +23,8 @@ class OutgoingDocument extends Model
         'description',
         'attachment'
     ];
+    public function workflowTransactions()
+{
+    return $this->morphMany(\App\Models\WorkflowTransaction::class, 'workflowable');
+}
 }

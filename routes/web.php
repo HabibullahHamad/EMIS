@@ -19,7 +19,42 @@ use App\Http\Middleware\SetLocale;
 use App\Http\Controllers\AdminSettingsController;
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\WorkflowController;
+use App\Http\Controllers\AuditLogController;
 
+/*
+|--------------------------------------------------------------------------
+| // Auditlogs routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'permission:audit.view'])->group(function () {
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
+    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
+});
+/*
+|--------------------------------------------------------------------------
+| // Workflow routes
+|--------------------------------------------------------------------------
+*/
+
+
+
+Route::middleware(['auth'])->prefix('workflows')->name('workflows.')->group(function () {
+    Route::get('/', [WorkflowController::class, 'index'])->name('index');
+    Route::get('/create', [WorkflowController::class, 'create'])->name('create');
+    Route::post('/', [WorkflowController::class, 'store'])->name('store');
+
+    Route::get('/pending', [WorkflowController::class, 'pending'])->name('pending');
+    Route::get('/sent', [WorkflowController::class, 'sent'])->name('sent');
+
+    Route::get('/{workflow}', [WorkflowController::class, 'show'])->name('show');
+
+    Route::post('/{workflow}/approve', [WorkflowController::class, 'approve'])->name('approve');
+    Route::post('/{workflow}/reject', [WorkflowController::class, 'reject'])->name('reject');
+    Route::post('/{workflow}/return', [WorkflowController::class, 'returnBack'])->name('return');
+    Route::post('/{workflow}/complete', [WorkflowController::class, 'complete'])->name('complete');
+});
 /*
 |--------------------------------------------------------------------------
 | Department Routes

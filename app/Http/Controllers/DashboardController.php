@@ -137,7 +137,9 @@ class DashboardController extends Controller
             'recentTasks',
             'outboxChartLabels',
             'outboxChartData',
-            'taskStatusCounts'
+            'taskStatusCounts',
+            
         ));
     }
+    
 }

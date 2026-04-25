@@ -14,7 +14,14 @@ class PermissionSeeder extends Seeder
     ['name' => 'dashboard.view', 'display_name' => 'View Dashboard', 'module' => 'Dashboard'],
   // department
 
-    
+// auditlogs
+
+['name' => 'audit.view', 'display_name' => 'View Audit Logs', 'module' => 'Audit Trail'],
+['name' => 'audit.delete', 'display_name' => 'Delete Audit Logs', 'module' => 'Audit Trail'],
+
+// end
+
+//   Departments
 
       ['name' => 'departments.view', 'display_name' => 'View Departments', 'module' => 'Departments'],
       ['name' => 'departments.create', 'display_name' => 'Create Departments', 'module' => 'Departments'],

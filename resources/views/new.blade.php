@@ -794,6 +794,36 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
             @endif
+
+
+            <!-- workflow -->
+             <li class="sidebar-item has-submenu {{ request()->routeIs('workflows.*') ? 'open' : '' }}">
+    <div class="sidebar-link">
+        <span class="sidebar-link-main">
+            <span class="sidebar-icon"><i class="fa-solid fa-diagram-project"></i></span>
+            <span class="sidebar-text">{{ __('emis.workflow') ?? 'Workflow' }}</span>
+        </span>
+        <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+
+    <ul class="submenu">
+        <li><a class="submenu-link" href="{{ route('workflows.index') }}">All Workflows</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.pending') }}">My Pending</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.sent') }}">Sent Workflows</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.create') }}">Create Workflow</a></li>
+    </ul>
+</li>
+<!-- audit logs -->
+                <li class="sidebar-item">
+                    <a href="{{ route('audit.index') }}" class="sidebar-link {{ request()->routeIs('audit.index') ? 'active' : '' }}">
+                        <span class="sidebar-link-main">
+                            <span class="sidebar-icon"><i class="fa-solid fa-file-pen"></i></span>
+                            <span class="sidebar-text">{{ __('emis.audit_logs') ?? 'Audit Logs' }}</span>
+                        </span>
+                    </a>
+                </li>   
+                
+<!--  -->
 <!-- documents management  -->
             @if($showDocumentsMenu)
             <li class="sidebar-item has-submenu {{ request()->routeIs('documents.*') ? 'open' : '' }}">
@@ -883,7 +913,11 @@ html[dir="rtl"] .submenu-link{
                     <li><span class="dropdown-item-text text-muted">{{ __('emis.outgoing_documents') }}</span></li>
                 </ul>
             </div>
+<!-- workflow -->
 
+
+
+<!-- end workflow -->
             <div class="dropdown">
                 <button class="user-dropdown-btn" type="button" data-bs-toggle="dropdown">
                     <div class="user-dropdown-avatar"><i class="fa-solid fa-user"></i></div>

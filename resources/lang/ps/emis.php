@@ -190,4 +190,40 @@ return [
 'View Users' => 'کاروونکي وګورئ',
 'adddepaerment'=>'نوې څانګه اضافه کړئ',
 
+
+// for workflow 
+
+
+    'workflow' => 'کاري بهیر',
+    'create_workflow' => 'نوی کاري بهیر جوړول',
+    'workflow_details' => 'د کاري بهیر جزئیات',
+    'workflow_actions' => 'د کاري بهیر کړنې',
+
+    'title' => 'سرلیک',
+    'description' => 'تشریح',
+    'remarks' => 'یادښتونه',
+
+    'from' => 'له',
+    'to' => 'ته',
+    'from_department' => 'له څانګې',
+    'to_department' => 'تر څانګې',
+    'department' => 'څانګه',
+
+    'priority' => 'اهمیت',
+    'status' => 'حالت',
+    'date' => 'نېټه',
+    'action' => 'عمل',
+
+    'forward_to_user' => 'کاروونکي ته لېږل',
+
+    'approve' => 'تایید',
+    'reject' => 'رد',
+    'return' => 'بېرته لېږل',
+    'complete' => 'بشپړ',
+
+    'save' => 'ثبت',
+    'back' => 'بېرته',
+
+    'no_workflows_found' => 'هیڅ کاري بهیر ونه موندل شو',
+
 ];
