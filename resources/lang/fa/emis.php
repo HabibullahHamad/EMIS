@@ -187,6 +187,6 @@ return [
 'Delete Users' => 'حذف کاربر',
 'Edit Users' => 'ویرایش کاربر',
 'View Users' => 'مشاهده کاربران',
-
+'adddepaerment'=>'بخش ایجادکنید',
 
 ];

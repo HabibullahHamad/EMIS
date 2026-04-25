@@ -19,7 +19,7 @@
                 </form>
 
                 <a href="{{ route('departments.create') }}" class="btn btn-sm btn-success">
-                    <i class="fa fa-plus"></i> {{ __('emis.add_department') }}
+                    <i class="fa fa-plus"></i> {{ __('emis.adddepaerment') }}
                 </a>
             </div>
 
