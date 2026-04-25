@@ -883,7 +883,11 @@ html[dir="rtl"] .submenu-link{
                     <li><span class="dropdown-item-text text-muted">{{ __('emis.outgoing_documents') }}</span></li>
                 </ul>
             </div>
+<!-- workflow -->
 
+
+
+<!-- end workflow -->
             <div class="dropdown">
                 <button class="user-dropdown-btn" type="button" data-bs-toggle="dropdown">
                     <div class="user-dropdown-avatar"><i class="fa-solid fa-user"></i></div>

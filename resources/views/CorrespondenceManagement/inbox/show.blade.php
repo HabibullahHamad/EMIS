@@ -19,6 +19,7 @@
                     <p><strong>Date Sent:</strong> {{ $inbox->created_at->format('Y-m-d H:i:s') }}</p>
                     <p><strong>Content:</strong></p>
                     <div>{{ $inbox->body }}</div>
+<!--  -->
                     @if($inbox->attachment)
                                         
                         <p><strong>Attachment:</strong> <a href="{{ asset('storage/' . $inbox->attachment) }}" target="_blank">Download</a></p>

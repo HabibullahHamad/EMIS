@@ -125,7 +125,9 @@
                 <div class="detail-label">Remarks</div>
                 <div class="detail-value">{{ $task->remarks ?? '-' }}</div>
             </div>
+<!-- new -->
 
+ <!-- end -->
         </div>
     </div>
 

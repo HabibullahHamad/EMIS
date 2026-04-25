@@ -20,6 +20,26 @@ use App\Http\Controllers\AdminSettingsController;
 
 use App\Http\Controllers\DepartmentController;
 
+use App\Http\Controllers\WorkflowController;
+
+/*
+|--------------------------------------------------------------------------
+| // Workflow routes
+|--------------------------------------------------------------------------
+*/
+
+
+Route::middleware(['auth'])->prefix('workflows')->name('workflows.')->group(function () {
+    Route::get('/pending', [WorkflowController::class, 'pending'])->name('pending');
+    Route::get('/sent', [WorkflowController::class, 'sent'])->name('sent');
+    Route::get('/all', [WorkflowController::class, 'all'])->name('all');
+    Route::get('/{workflow}', [WorkflowController::class, 'show'])->name('show');
+
+    Route::post('/forward', [WorkflowController::class, 'forward'])->name('forward');
+    Route::post('/{workflow}/approve', [WorkflowController::class, 'approve'])->name('approve');
+    Route::post('/{workflow}/reject', [WorkflowController::class, 'reject'])->name('reject');
+    Route::post('/{workflow}/return', [WorkflowController::class, 'returnBack'])->name('return');
+});
 /*
 |--------------------------------------------------------------------------
 | Department Routes

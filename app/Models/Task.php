@@ -32,4 +32,8 @@ class Task extends Model
 {
     return $this->hasMany(Task::class, 'employee_id');
 }
+public function workflowTransactions()
+{
+    return $this->morphMany(\App\Models\WorkflowTransaction::class, 'workflowable');
+}
 }

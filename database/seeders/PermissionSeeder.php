@@ -14,7 +14,9 @@ class PermissionSeeder extends Seeder
     ['name' => 'dashboard.view', 'display_name' => 'View Dashboard', 'module' => 'Dashboard'],
   // department
 
-    
+
+
+//   Departments
 
       ['name' => 'departments.view', 'display_name' => 'View Departments', 'module' => 'Departments'],
       ['name' => 'departments.create', 'display_name' => 'Create Departments', 'module' => 'Departments'],

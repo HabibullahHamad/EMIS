@@ -2,6 +2,8 @@
 @extends('new')
 @section('content')
 
+
+
 <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 
 <table class="table table-bordered">
