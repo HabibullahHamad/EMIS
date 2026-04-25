@@ -220,4 +220,40 @@ return [
 'Edit Users' => 'Edit Users',
 'View Users' => 'View Users',
 
+
+
+// for workflow 
+
+    'workflow' => 'Workflow',
+    'create_workflow' => 'Create Workflow',
+    'workflow_details' => 'Workflow Details',
+    'workflow_actions' => 'Workflow Actions',
+
+    'title' => 'Title',
+    'description' => 'Description',
+    'remarks' => 'Remarks',
+
+    'from' => 'From',
+    'to' => 'To',
+    'from_department' => 'From Department',
+    'to_department' => 'To Department',
+    'department' => 'Department',
+
+    'priority' => 'Priority',
+    'status' => 'Status',
+    'date' => 'Date',
+    'action' => 'Action',
+
+    'forward_to_user' => 'Forward To User',
+
+    'approve' => 'Approve',
+    'reject' => 'Reject',
+    'return' => 'Return',
+    'complete' => 'Complete',
+
+    'save' => 'Save',
+    'back' => 'Back',
+
+    'no_workflows_found' => 'No workflows found.',
+
 ];
