@@ -224,5 +224,20 @@ return [
     'back' => 'بېرته',
 
     'no_workflows_found' => 'هیڅ کاري بهیر ونه موندل شو',
-
+// LOGS
+'audit_trail' => 'د پلټنې تاریخچه',
+'audit_details' => 'د پلټنې جزئیات',
+'total_logs' => 'ټول ثبتونه',
+'created' => 'جوړ شوي',
+'updated' => 'تازه شوي',
+'deleted' => 'حذف شوي',
+'today' => 'نن',
+'all_actions' => 'ټول عملونه',
+'old_values' => 'پخواني معلومات',
+'new_values' => 'نوي معلومات',
+'ip_address' => 'IP پته',
+'user_agent' => 'د کاروونکي وسیله',
+'record_id' => 'db ریکارډ شمېره',
+'module' => 'ماډیول',
+'user' => 'کاروونکی',
 ];

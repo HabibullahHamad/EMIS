@@ -8,76 +8,86 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-
 class UserController extends Controller
 {
-public function settings()
-{
-    return view('settings.settings');
-}
-
-public function index(Request $request)
-{
-    $query = \App\Models\User::with('role')->latest();
-
-    if ($request->filled('search')) {
-        $search = $request->search;
-
-        $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', "%{$search}%")
-              ->orWhere('email', 'like', "%{$search}%");
-        });
+    public function settings()
+    {
+        return view('settings.settings');
     }
 
-    if ($request->filled('role_id')) {
-        $query->where('role_id', $request->role_id);
+    public function index(Request $request)
+    {
+        $query = User::with('role')->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('role_id')) {
+            $query->where('role_id', $request->role_id);
+        }
+
+        $users = $query->paginate(10)->withQueryString();
+        $roles = Role::orderBy('display_name')->get();
+
+        return view('users.index', compact('users', 'roles'));
     }
 
-    $users = $query->paginate(10)->withQueryString();
-    $roles = \App\Models\Role::orderBy('display_name')->get();
+    public function create()
+    {
+        $roles = Role::orderBy('display_name')->get();
 
-    return view('users.index', compact('users', 'roles'));
-}
-   public function create()
-{
-    $roles = \App\Models\Role::orderBy('display_name')->get();
+        return view('users.create', compact('roles'));
+    }
 
-    return view('users.create', compact('roles'));
-}
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'role_id' => ['required', 'exists:roles,id'],
+            'password' => ['required', 'confirmed', Password::min(6)],
+        ]);
 
-   
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role_id' => $request->role_id,
+        ]);
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-        'role_id' => ['required', 'exists:roles,id'],
-        'password' => ['required', 'confirmed', Password::min(6)],
-    ]);
+        if (function_exists('audit_log')) {
+            audit_log('created', $user, null, $user->toArray());
+        }
 
-    User::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'role_id' => $validated['role_id'],
-        'password' => $validated['password'],
-    ]);
-
-    return redirect()->route('users.index')
-        ->with('success', __('messages.user_created'));
-}
-
-
+        return redirect()->route('users.index')
+            ->with('success', __('messages.user_created'));
+    }
 
     public function show(User $user)
     {
         $user->load('role');
+
+        if (function_exists('audit_log')) {
+            audit_log('viewed', $user, null, $user->toArray());
+        }
+
         return view('users.show', compact('user'));
     }
 
     public function edit(User $user)
     {
         $roles = Role::orderBy('display_name')->get();
+
+        if (function_exists('audit_log')) {
+            audit_log('edit_opened', $user, null, $user->toArray());
+        }
+
         return view('users.edit', compact('user', 'roles'));
     }
 
@@ -89,6 +99,8 @@ public function store(Request $request)
             'role_id' => 'nullable|exists:roles,id',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
+
+        $oldValues = $user->getOriginal();
 
         $data = [
             'name' => $request->name,
@@ -102,13 +114,25 @@ public function store(Request $request)
 
         $user->update($data);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        if (function_exists('audit_log')) {
+            audit_log('updated', $user, $oldValues, $user->getChanges());
+        }
+
+        return redirect()->route('users.index')
+            ->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
     {
+        $oldValues = $user->toArray();
+
+        if (function_exists('audit_log')) {
+            audit_log('deleted', $user, $oldValues, null);
+        }
+
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')
+            ->with('success', 'User deleted successfully.');
     }
 }

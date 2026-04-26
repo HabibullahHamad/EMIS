@@ -52,6 +52,8 @@ public function create()
 
     return view('employees.create', compact('users'));
 }
+       
+// logs capturing for create method
 
 
 
@@ -60,7 +62,7 @@ public function create()
     public function store(Request $request)
     {
     
-           $request->validate([
+     $request->validate([
     'user_id'        => 'nullable|exists:users,id',
     'employee_code'  => 'required|unique:employees,employee_code',
     'first_name'     => 'required|string|max:100',
@@ -70,11 +72,24 @@ public function create()
     'photo'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     'status'         => 'required|string',
 ]);
+$employee = Employee::create([
+        'employee_code' => $request->employee_code,
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'full_name' => trim($request->first_name . ' ' . $request->last_name),
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'department_id' => $request->department_id,
+        'position_id' => $request->position_id,
+        'status' => $request->status ?? 'active',
+    ]);
 
+    audit_log('created', $employee, null, $employee->toArray());
 
+    return redirect()->route('employees.index')
+        ->with('success', 'Employee created successfully.');
 
-
-
+// 
         // end 
 
         $data = $request->all();
@@ -91,6 +106,11 @@ public function create()
             return redirect()->route('employees.index')
     ->with('success', __('messages.employee_created'));
     }
+
+// logs
+
+// end
+
 
     public function show(Employee $employee)
     {
@@ -112,7 +132,7 @@ public function edit(Employee $employee)
 
     public function update(Request $request, Employee $employee)
     {
-              $request->validate([
+     $request->validate([
                 
     'user_id'        => 'nullable|exists:users,id',
     'employee_code'  => 'required|unique:employees,employee_code',
@@ -124,7 +144,32 @@ public function edit(Employee $employee)
     'status'         => 'required|string',
 ]);
 
+// logs/////////////////////////////////////////////////////////////////////////////////////
 
+{
+    $oldValues = $employee->getOriginal();
+
+    $employee->update([
+        'employee_code' => $request->employee_code,
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'full_name' => trim($request->first_name . ' ' . $request->last_name),
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'department_id' => $request->department_id,
+        'position_id' => $request->position_id,
+        'status' => $request->status ?? 'active',
+    ]);
+
+    audit_log('updated', $employee, $oldValues, $employee->getChanges());
+
+    return redirect()->route('employees.index')
+        ->with('success', 'Employee updated successfully.');
+}
+
+
+
+// end logs/////////////////////////////////////////////////////////////////////////////////////
         $data = $request->all();
         $data['full_name'] = trim($request->first_name . ' ' . $request->last_name);
         $data['status'] = strtolower($request->status);
@@ -156,12 +201,18 @@ public function edit(Employee $employee)
             Storage::disk('public')->delete($employee->photo);
         }
 
-        $employee->delete();
+// logs ////////////////////////////////////////////////////
+$oldValues = $employee->toArray();
+
+audit_log('deleted', $employee, $oldValues, null);
+// end logs ////////////////////////////////////////////////////
+$employee->delete();
 
         return redirect()->route('employees.index')
               
                  ->with('success', __('messages.employee_deleted'));
     }
+    
 // employee status updat messeage 
     public function toggleStatus(Employee $employee)
     {

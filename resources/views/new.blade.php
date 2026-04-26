@@ -814,15 +814,23 @@ html[dir="rtl"] .submenu-link{
     </ul>
 </li>
 <!-- audit logs -->
-                <li class="sidebar-item">
-                    <a href="{{ route('audit.index') }}" class="sidebar-link {{ request()->routeIs('audit.index') ? 'active' : '' }}">
-                        <span class="sidebar-link-main">
-                            <span class="sidebar-icon"><i class="fa-solid fa-file-pen"></i></span>
-                            <span class="sidebar-text">{{ __('emis.audit_logs') ?? 'Audit Logs' }}</span>
-                        </span>
-                    </a>
-                </li>   
-                
+      
+    <li class="sidebar-item has-submenu {{ request()->routeIs('audit-logs.*') ? 'open' : '' }}">
+    <div class="sidebar-link">
+        <span class="sidebar-link-main">
+            <span class="sidebar-icon"><i class="fa-solid fa-diagram-project"></i></span>
+            <span class="sidebar-text">{{ __('emis.audit') ?? 'Audit Logs' }}</span>
+        </span>
+        <span class="sidebar-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+    </div>
+
+    <ul class="submenu">
+        <li><a class="submenu-link" href="{{ route('audit.index') }}">All Audit Logs</a></li>
+        <li><a class="submenu-link" href="{{ route('audit.show', ['auditLog' => 1]) }}">View Audit Log</a></li>
+        
+    </ul>
+</li>
+
 <!--  -->
 <!-- documents management  -->
             @if($showDocumentsMenu)

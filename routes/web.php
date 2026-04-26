@@ -28,7 +28,7 @@ use App\Http\Controllers\AuditLogController;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'permission:audit.view'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
 });

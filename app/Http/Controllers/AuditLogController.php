@@ -29,9 +29,22 @@ class AuditLogController extends Controller
             $query->where('action', $request->action);
         }
 
-        $auditLogs = $query->paginate(15)->withQueryString();
+        $totalLogs = AuditLog::count();
+        $createdLogs = AuditLog::where('action', 'created')->count();
+        $updatedLogs = AuditLog::where('action', 'updated')->count();
+        $deletedLogs = AuditLog::where('action', 'deleted')->count();
+        $todayLogs = AuditLog::whereDate('created_at', today())->count();
 
-        return view('audit.index', compact('auditLogs'));
+        $auditLogs = $query->paginate(7)->withQueryString();
+
+        return view('audit.index', compact(
+            'auditLogs',
+            'totalLogs',
+            'createdLogs',
+            'updatedLogs',
+            'deletedLogs',
+            'todayLogs'
+        ));
     }
 
     public function show(AuditLog $auditLog)

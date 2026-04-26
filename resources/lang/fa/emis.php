@@ -222,5 +222,18 @@ return [
 
     'no_workflows_found' => 'هیچ جریان کاری یافت نشد',
 
-
+// LOGS 
+'audit_trail' => 'تاریخچه تفتیش',
+'audit_details' => 'جزئیات تفتیش',
+'total_logs' => 'تمام ثبت‌ها',
+'created' => 'ایجاد شده',
+'updated' => 'به‌روزرسانی شده',
+'deleted' => 'حذف شده',
+'today' => 'امروز',
+'all_actions' => 'همه عملیات',
+'old_values' => 'معلومات قبلی',
+'new_values' => 'معلومات جدید',
+'ip_address' => 'آدرس IP',
+'user_agent' => 'دستگاه کاربر',
+'record_id' => 'شماره ریکارډ',
 ];

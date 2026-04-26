@@ -256,4 +256,19 @@ return [
 
     'no_workflows_found' => 'No workflows found.',
 
+
+    // LOGS
+    'audit_trail' => 'Audit Trail',
+'audit_details' => 'Audit Details',
+'total_logs' => 'Total Logs',
+'created' => 'Created',
+'updated' => 'Updated',
+'deleted' => 'Deleted',
+'today' => 'Today',
+'all_actions' => 'All Actions',
+'old_values' => 'Old Values',
+'new_values' => 'New Values',
+'ip_address' => 'IP Address',
+'user_agent' => 'User Agent',
+'record_id' => 'Record ID',
 ];

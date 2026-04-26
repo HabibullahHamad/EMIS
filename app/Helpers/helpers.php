@@ -1,19 +1,6 @@
 <?php
+
 use App\Models\AuditLog;
-use App\Models\Setting;
-
-if (! function_exists('setting')) {
-    function setting(string $key, $default = null)
-    {
-        $settings = Setting::current();
-
-        return $settings->{$key} ?? $default;
-    }
-    
-
-    // auditlogs
-
-
 
 if (! function_exists('audit_log')) {
     function audit_log($action, $model = null, $oldValues = null, $newValues = null)
@@ -29,5 +16,4 @@ if (! function_exists('audit_log')) {
             'user_agent' => request()->userAgent(),
         ]);
     }
-}
 }

@@ -27,4 +27,5 @@ public function hasPermission($permissionName)
     return $this->permissions->contains('name', $permissionName);
 }
 
+
 }
