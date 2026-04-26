@@ -187,40 +187,6 @@ return [
 'Delete Users' => 'حذف کاربر',
 'Edit Users' => 'ویرایش کاربر',
 'View Users' => 'مشاهده کاربران',
-// for work flow
-
-
-    'workflow' => 'جریان کاری',
-    'create_workflow' => 'ایجاد جریان کاری',
-    'workflow_details' => 'جزئیات جریان کاری',
-    'workflow_actions' => 'اقدامات جریان کاری',
-
-    'title' => 'عنوان',
-    'description' => 'توضیحات',
-    'remarks' => 'یادداشت',
-
-    'from' => 'از',
-    'to' => 'به',
-    'from_department' => 'از بخش',
-    'to_department' => 'به بخش',
-    'department' => 'بخش',
-
-    'priority' => 'اولویت',
-    'status' => 'وضعیت',
-    'date' => 'تاریخ',
-    'action' => 'عملیات',
-
-    'forward_to_user' => 'ارسال به کاربر',
-
-    'approve' => 'تأیید',
-    'reject' => 'رد',
-    'return' => 'بازگشت',
-    'complete' => 'تکمیل',
-
-    'save' => 'ذخیره',
-    'back' => 'برگشت',
-
-    'no_workflows_found' => 'هیچ جریان کاری یافت نشد',
 
 // LOGS 
 'audit_trail' => 'تاریخچه تفتیش',

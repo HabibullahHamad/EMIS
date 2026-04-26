@@ -17,6 +17,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+
+        
+        
     }
 
     public function down(): void

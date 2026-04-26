@@ -188,6 +188,7 @@ return [
 'Delete Users' => 'کاروونکي حذف',
 'Edit Users' => 'کاروونکي سمول',
 'View Users' => 'کاروونکي وګورئ',
+'adddepaerment'=>'نوې څانګه اضافه کړئ',
 
 
 // for workflow 

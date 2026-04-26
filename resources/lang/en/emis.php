@@ -219,6 +219,7 @@ return [
 'Delete Users' => 'Delete Users',
 'Edit Users' => 'Edit Users',
 'View Users' => 'View Users',
+'adddepaerment'=>'Add_Department',
 
 
 
