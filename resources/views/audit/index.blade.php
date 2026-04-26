@@ -5,64 +5,112 @@
 @section('content')
 <div class="container-fluid">
 
-    <div class="row g-3 mb-3">
-        <div class="col-md-2">
-            <div class="card p-3 shadow-sm border-0 rounded-4">
-                <small>{{ __('emis.total_logs') ?? 'Total Logs' }}</small>
-                <h4>{{ $totalLogs }}</h4>
-            </div>
-        </div>
+    {{-- Header + Export Buttons --}}
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="fw-bold mb-0">
+            <i class="fa-solid fa-shield-halved"></i>
+            {{ __('emis.audit_trail') ?? 'Audit Trail' }}
+        </h5>
 
-        <div class="col-md-2">
-            <div class="card p-3 shadow-sm border-0 rounded-4">
-                <small>{{ __('emis.created') ?? 'Created' }}</small>
-                <h4>{{ $createdLogs }}</h4>
-            </div>
-        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ route('audit.export.pdf', request()->query()) }}" class="btn btn-sm btn-danger">
+                <i class="fa fa-file-pdf"></i> PDF
+            </a>
 
-        <div class="col-md-2">
-            <div class="card p-3 shadow-sm border-0 rounded-4">
-                <small>{{ __('emis.updated') ?? 'Updated' }}</small>
-                <h4>{{ $updatedLogs }}</h4>
-            </div>
-        </div>
+            <a href="{{ route('audit.export.excel', request()->query()) }}" class="btn btn-sm btn-success">
+                <i class="fa fa-file-excel"></i> Excel
+            </a>
 
-        <div class="col-md-2">
-            <div class="card p-3 shadow-sm border-0 rounded-4">
-                <small>{{ __('emis.deleted') ?? 'Deleted' }}</small>
-                <h4>{{ $deletedLogs }}</h4>
-            </div>
-        </div>
-
-        <div class="col-md-2">
-            <div class="card p-3 shadow-sm border-0 rounded-4">
-                <small>{{ __('emis.today') ?? 'Today' }}</small>
-                <h4>{{ $todayLogs }}</h4>
-            </div>
+            <a href="{{ route('audit.export.csv', request()->query()) }}" class="btn btn-sm btn-primary">
+                <i class="fa fa-file-csv"></i> CSV
+            </a>
         </div>
     </div>
 
+    {{-- Activity Cards --}}
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-primary text-white">
+                <div class="card-body">
+                    <small>Total Logs</small>
+                    <h3>{{ $stats['total'] ?? 0 }}</h3>
+                    <i class="fa fa-list audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-success text-white">
+                <div class="card-body">
+                    <small>Created</small>
+                    <h3>{{ $stats['created'] ?? 0 }}</h3>
+                    <i class="fa fa-plus-circle audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-warning text-dark">
+                <div class="card-body">
+                    <small>Updated</small>
+                    <h3>{{ $stats['updated'] ?? 0 }}</h3>
+                    <i class="fa fa-pen-to-square audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-danger text-white">
+                <div class="card-body">
+                    <small>Deleted</small>
+                    <h3>{{ $stats['deleted'] ?? 0 }}</h3>
+                    <i class="fa fa-trash audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-dark text-white">
+                <div class="card-body">
+                    <small>Today</small>
+                    <h3>{{ $stats['today'] ?? 0 }}</h3>
+                    <i class="fa fa-calendar-day audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="card audit-card bg-info text-white">
+                <div class="card-body">
+                    <small>Login</small>
+                    <h3>{{ $stats['login'] ?? 0 }}</h3>
+                    <i class="fa fa-right-to-bracket audit-icon"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- Table --}}
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <strong>{{ __('emis.audit_trail') ?? 'Audit Trail' }}</strong>
+            <strong>Audit Log Records</strong>
 
             <form method="GET" action="{{ route('audit.index') }}" class="d-flex gap-2 flex-wrap">
                 <input type="text"
                        name="search"
                        value="{{ request('search') }}"
                        class="form-control form-control-sm"
-                       placeholder="{{ __('emis.search') ?? 'Search' }}">
+                       placeholder="Search user, action, module, IP">
 
                 <select name="action" class="form-select form-select-sm">
-                    <option value="">{{ __('emis.all_actions') ?? 'All Actions' }}</option>
-                    <option value="created" {{ request('action') == 'created' ? 'selected' : '' }}>Created</option>
-                    <option value="updated" {{ request('action') == 'updated' ? 'selected' : '' }}>Updated</option>
-                    <option value="deleted" {{ request('action') == 'deleted' ? 'selected' : '' }}>Deleted</option>
-                    <option value="approved" {{ request('action') == 'approved' ? 'selected' : '' }}>Approved</option>
-                    <option value="rejected" {{ request('action') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                    <option value="returned" {{ request('action') == 'returned' ? 'selected' : '' }}>Returned</option>
-                    <option value="completed" {{ request('action') == 'completed' ? 'selected' : '' }}>Completed</option>
-                    <option value="login" {{ request('action') == 'login' ? 'selected' : '' }}>Login</option>
+                    <option value="">All Actions</option>
+                    @foreach(['created','updated','deleted','viewed','login','logout','approved','rejected','returned','completed'] as $action)
+                        <option value="{{ $action }}" {{ request('action') == $action ? 'selected' : '' }}>
+                            {{ ucfirst($action) }}
+                        </option>
+                    @endforeach
                 </select>
 
                 <button class="btn btn-sm btn-primary">
@@ -70,7 +118,7 @@
                 </button>
 
                 <a href="{{ route('audit.index') }}" class="btn btn-sm btn-secondary">
-                    {{ __('emis.reset') ?? 'Reset' }}
+                    Reset
                 </a>
             </form>
         </div>
@@ -81,13 +129,13 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>{{ __('emis.user') ?? 'User' }}</th>
-                            <th>{{ __('emis.action') ?? 'Action' }}</th>
-                            <th>{{ __('emis.module') ?? 'Module' }}</th>
-                            <th>{{ __('emis.record_id') ?? 'Record ID' }}</th>
-                            <th>{{ __('emis.ip_address') ?? 'IP Address' }}</th>
-                            <th>{{ __('emis.date') ?? 'Date' }}</th>
-                            <th>{{ __('emis.actions') ?? 'Actions' }}</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Module</th>
+                            <th>Record ID</th>
+                            <th>IP Address</th>
+                            <th>Date</th>
+                            <th width="90">View</th>
                         </tr>
                     </thead>
 
@@ -97,7 +145,9 @@
                                 <td>{{ $loop->iteration + (($auditLogs->currentPage() - 1) * $auditLogs->perPage()) }}</td>
                                 <td>{{ optional($log->user)->name ?? 'System' }}</td>
                                 <td>
-                                    <span class="badge bg-primary">{{ ucfirst($log->action) }}</span>
+                                    <span class="badge bg-primary">
+                                        {{ ucfirst($log->action) }}
+                                    </span>
                                 </td>
                                 <td>{{ $log->model_type ? class_basename($log->model_type) : '-' }}</td>
                                 <td>{{ $log->model_id ?? '-' }}</td>
@@ -105,15 +155,13 @@
                                 <td>{{ $log->created_at?->format('Y-m-d H:i') }}</td>
                                 <td>
                                     <a href="{{ route('audit.show', $log) }}" class="btn btn-sm btn-info">
-                                        {{ __('emis.view') ?? 'View' }}
+                                        View
                                     </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-muted">
-                                    {{ __('emis.no_data_found') ?? 'No data found' }}
-                                </td>
+                                <td colspan="8" class="text-muted">No audit logs found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -126,4 +174,38 @@
         </div>
     </div>
 </div>
+
+<style>
+    .audit-card {
+        border: 0;
+        border-radius: 16px;
+        min-height: 110px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 5px 16px rgba(0,0,0,0.15);
+        transition: .3s ease;
+    }
+
+    .audit-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .audit-card small {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .audit-card h3 {
+        font-weight: 800;
+        margin-top: 8px;
+    }
+
+    .audit-icon {
+        position: absolute;
+        right: 16px;
+        bottom: 14px;
+        font-size: 34px;
+        opacity: .25;
+    }
+</style>
 @endsection
