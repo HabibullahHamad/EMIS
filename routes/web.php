@@ -22,6 +22,14 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
 
+// for audit logs export /////////////////////////////
+Route::middleware(['auth'])->group(function () {
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
+    Route::get('/audit-logs/export/pdf', [AuditLogController::class, 'exportPdf'])->name('audit.export.pdf');
+    Route::get('/audit-logs/export/excel', [AuditLogController::class, 'exportExcel'])->name('audit.export.excel');
+    Route::get('/audit-logs/export/csv', [AuditLogController::class, 'exportCsv'])->name('audit.export.csv');
+    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
+});
 /*
 |--------------------------------------------------------------------------
 | // Auditlogs routes

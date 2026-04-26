@@ -58,7 +58,7 @@ class WorkflowController extends Controller
             'remarks' => 'nullable|string',
         ]);
 
-        Workflow::create([
+        $workflow = Workflow::create([
             'title' => $request->title,
             'description' => $request->description,
             'from_user_id' => auth()->id(),
@@ -69,6 +69,10 @@ class WorkflowController extends Controller
             'remarks' => $request->remarks,
         ]);
 
+        if (function_exists('audit_log')) {
+            audit_log('created', $workflow, null, $workflow->toArray());
+        }
+
         return redirect()->route('workflows.index')->with('success', 'Workflow created successfully.');
     }
 
@@ -76,47 +80,83 @@ class WorkflowController extends Controller
     {
         $workflow->load(['fromUser', 'toUser', 'fromDepartment', 'toDepartment']);
 
+        if (function_exists('audit_log')) {
+            audit_log('viewed', $workflow, null, $workflow->toArray());
+        }
+
         return view('workflows.show', compact('workflow'));
     }
 
     public function approve(Workflow $workflow)
     {
+        $oldValues = $workflow->getOriginal();
+
         $workflow->update([
             'status' => 'approved',
             'acted_at' => now(),
         ]);
+
+        if (function_exists('audit_log')) {
+            audit_log('approved', $workflow, $oldValues, $workflow->getChanges());
+        }
 
         return back()->with('success', 'Workflow approved.');
     }
 
     public function reject(Request $request, Workflow $workflow)
     {
+        $request->validate([
+            'remarks' => 'nullable|string',
+        ]);
+
+        $oldValues = $workflow->getOriginal();
+
         $workflow->update([
             'status' => 'rejected',
             'remarks' => $request->remarks,
             'acted_at' => now(),
         ]);
 
+        if (function_exists('audit_log')) {
+            audit_log('rejected', $workflow, $oldValues, $workflow->getChanges());
+        }
+
         return back()->with('success', 'Workflow rejected.');
     }
 
     public function returnBack(Request $request, Workflow $workflow)
     {
+        $request->validate([
+            'remarks' => 'nullable|string',
+        ]);
+
+        $oldValues = $workflow->getOriginal();
+
         $workflow->update([
             'status' => 'returned',
             'remarks' => $request->remarks,
             'acted_at' => now(),
         ]);
 
+        if (function_exists('audit_log')) {
+            audit_log('returned', $workflow, $oldValues, $workflow->getChanges());
+        }
+
         return back()->with('success', 'Workflow returned.');
     }
 
     public function complete(Workflow $workflow)
     {
+        $oldValues = $workflow->getOriginal();
+
         $workflow->update([
             'status' => 'completed',
             'acted_at' => now(),
         ]);
+
+        if (function_exists('audit_log')) {
+            audit_log('completed', $workflow, $oldValues, $workflow->getChanges());
+        }
 
         return back()->with('success', 'Workflow completed.');
     }
