@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ function_exists('setting') ? setting('system_name', __('emis.system_name')) : __('emis.system_name') }}</title>
-
+<title>
+    {{ function_exists('setting') ? setting('system_name', __('emis.system_name')) : __('emis.system_name') }}
+    {{ View::hasSection('page_title') ? ' - ' . trim($__env->yieldContent('page_title')) : '' }}
+</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -807,10 +809,10 @@ html[dir="rtl"] .submenu-link{
     </div>
 
     <ul class="submenu">
-        <li><a class="submenu-link" href="{{ route('workflows.index') }}">All Workflows</a></li>
-        <li><a class="submenu-link" href="{{ route('workflows.pending') }}">My Pending</a></li>
-        <li><a class="submenu-link" href="{{ route('workflows.sent') }}">Sent Workflows</a></li>
-        <li><a class="submenu-link" href="{{ route('workflows.create') }}">Create Workflow</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.index') }}">{{ __('emis.all_workflows') }}</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.pending') }}">{{ __('emis.my_pending') }}</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.sent') }}">{{ __('emis.sent_workflows') }}</a></li>
+        <li><a class="submenu-link" href="{{ route('workflows.create') }}">{{ __('emis.create_workflow') }}</a></li>
     </ul>
 </li>
 <!-- audit logs -->
@@ -825,8 +827,8 @@ html[dir="rtl"] .submenu-link{
     </div>
 
     <ul class="submenu">
-        <li><a class="submenu-link" href="{{ route('audit.index') }}">All Audit Logs</a></li>
-        <li><a class="submenu-link" href="{{ route('audit.show', ['auditLog' => 1]) }}">View Audit Log</a></li>
+        <li><a class="submenu-link" href="{{ route('audit.index') }}">{{ __('emis.All Audit Logs') }}</a></li>
+        <li><a class="submenu-link" href="{{ route('audit.show', ['auditLog' => 1]) }}">{{ __('emis.View Audit Log') }}</a></li>
         
     </ul>
 </li>
@@ -956,18 +958,18 @@ html[dir="rtl"] .submenu-link{
             </div>
         </div>
     </div>
-
+<!-- main contents area -->
     <main class="content-area">
         @yield('content')
     </main>
 </div>
-
-<div class="sidebar-tooltip" id="sidebarTooltip"></div>
+<!-- end contents area -->
 
 @if(Route::has('language.switch'))
 <form id="language-switch-form" method="POST" action="{{ route('language.switch') }}" style="display:none;">
     @csrf
     <input type="hidden" name="locale" id="language-switch-locale">
+    <input type="hidden" name="redirect_to" id="language-switch-redirect" value="{{ url()->full() }}">
 </form>
 @endif
 
@@ -1103,17 +1105,18 @@ document.addEventListener('click', function (e) {
         }
     }
 });
+// languages 
 
-document.querySelectorAll('.lang-option').forEach(button => {
-    button.addEventListener('click', function () {
-        const form = document.getElementById('language-switch-form');
-        const input = document.getElementById('language-switch-locale');
-        if (form && input) {
-            input.value = this.dataset.lang;
-            form.submit();
-        }
+
+
+document.querySelectorAll('.lang-option').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        document.getElementById('language-switch-locale').value = this.dataset.lang;
+        document.getElementById('language-switch-redirect').value = window.location.href;
+        document.getElementById('language-switch-form').submit();
     });
 });
+
 
 applySavedSidebarState();
 restoreOpenItems();
@@ -1167,7 +1170,20 @@ window.confirmDelete = function(formId) {
         }
     });
 };
-</script>
 
+document.querySelectorAll('.lang-option').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        const localeInput = document.getElementById('language-switch-locale');
+        const redirectInput = document.getElementById('language-switch-redirect');
+        const form = document.getElementById('language-switch-form');
+
+        if (localeInput && redirectInput && form) {
+            localeInput.value = this.dataset.lang;
+            redirectInput.value = window.location.href;
+            form.submit();
+        }
+    });
+});
+</script>
 </body>
 </html>

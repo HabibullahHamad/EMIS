@@ -33,7 +33,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-primary text-white">
                 <div class="card-body">
-                    <small>Total Logs</small>
+                    <small>{{ __('emis.total_logs') }}</small>
                     <h3>{{ $stats['total'] ?? 0 }}</h3>
                     <i class="fa fa-list audit-icon"></i>
                 </div>
@@ -43,7 +43,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-success text-white">
                 <div class="card-body">
-                    <small>Created</small>
+                    <small>{{ __('emis.created') }}</small>
                     <h3>{{ $stats['created'] ?? 0 }}</h3>
                     <i class="fa fa-plus-circle audit-icon"></i>
                 </div>
@@ -53,7 +53,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-warning text-dark">
                 <div class="card-body">
-                    <small>Updated</small>
+                    <small>{{ __('emis.updated') }}</small>
                     <h3>{{ $stats['updated'] ?? 0 }}</h3>
                     <i class="fa fa-pen-to-square audit-icon"></i>
                 </div>
@@ -63,7 +63,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-danger text-white">
                 <div class="card-body">
-                    <small>Deleted</small>
+                    <small>{{ __('emis.deleted') }}</small>
                     <h3>{{ $stats['deleted'] ?? 0 }}</h3>
                     <i class="fa fa-trash audit-icon"></i>
                 </div>
@@ -73,7 +73,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-dark text-white">
                 <div class="card-body">
-                    <small>Today</small>
+                    <small>{{ __('emis.today') }}</small>
                     <h3>{{ $stats['today'] ?? 0 }}</h3>
                     <i class="fa fa-calendar-day audit-icon"></i>
                 </div>
@@ -83,7 +83,7 @@
         <div class="col-md-2">
             <div class="card audit-card bg-info text-white">
                 <div class="card-body">
-                    <small>Login</small>
+                    <small>{{ __('emis.login') }}</small>
                     <h3>{{ $stats['login'] ?? 0 }}</h3>
                     <i class="fa fa-right-to-bracket audit-icon"></i>
                 </div>
@@ -95,7 +95,7 @@
     {{-- Table --}}
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <strong>Audit Log Records</strong>
+            <strong>{{ __('emis.audit_logs') }}</strong>
 
             <form method="GET" action="{{ route('audit.index') }}" class="d-flex gap-2 flex-wrap">
                 <input type="text"
@@ -105,7 +105,7 @@
                        placeholder="Search user, action, module, IP">
 
                 <select name="action" class="form-select form-select-sm">
-                    <option value="">All Actions</option>
+                    <option value="">{{ __('emis.all_actions') }}</option>
                     @foreach(['created','updated','deleted','viewed','login','logout','approved','rejected','returned','completed'] as $action)
                         <option value="{{ $action }}" {{ request('action') == $action ? 'selected' : '' }}>
                             {{ ucfirst($action) }}
@@ -152,7 +152,7 @@
                                 <td>{{ $log->model_type ? class_basename($log->model_type) : '-' }}</td>
                                 <td>{{ $log->model_id ?? '-' }}</td>
                                 <td>{{ $log->ip_address ?? '-' }}</td>
-                                <td>{{ $log->created_at?->format('Y-m-d H:i') }}</td>
+                                <td>{{ $log->created_at?->timezone('Asia/Kabul')->format('d-m-Y h:i A') }}</td>
                                 <td>
                                     <a href="{{ route('audit.show', $log) }}" class="btn btn-sm btn-info">
                                         View

@@ -22,6 +22,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
 
+
 // for audit logs export /////////////////////////////
 Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
@@ -95,14 +96,21 @@ Route::middleware([SetLocale::class])->group(function () {
 
     // other routes...
 });
+
+// languages 
+
+
 Route::post('/language-switch', function (Request $request) {
+
     $request->validate([
         'locale' => 'required|in:en,ps,fa',
+        'redirect_to' => 'nullable|string',
     ]);
 
     session(['locale' => $request->locale]);
 
-    return back();
+    return redirect()->to($request->redirect_to ?? url()->previous());
+
 })->name('language.switch');
     // all My  EMIS routes here
 /*

@@ -272,4 +272,16 @@ return [
 'ip_address' => 'IP Address',
 'user_agent' => 'User Agent',
 'record_id' => 'Record ID',
+'model' => 'Model',
+'organization&users' => 'Organization',
+'audit'=>'Audit',
+'audit_log' => 'Audit Log',
+'All Audit Logs' => 'All Audit Logs',
+'View Audit Log' => 'View Audit Log',
+'workflow' => 'Workflow',
+'create_workflow' => 'Create Workflow',
+'workflow_details' => 'Workflow Details',
+
+'system_name'=>'EMIS',
+
 ];

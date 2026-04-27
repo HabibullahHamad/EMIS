@@ -6,81 +6,85 @@
 
 </div>
 <style>
-   
     .custom-pagination .page-link {
         color: #0d6efd;
         font-weight: 100;
         border-radius: 6px;
         padding: 1px 10px;
-        margin-top:6px;
-
+        margin-top: 6px;
     }
+
     .custom-pagination .page-item.active .page-link {
         background-color: #0d6efd;
         border-color: #0d6efd;
         color: white !important;
         font-weight: normal;
     }
+
     .custom-pagination .page-item.disabled .page-link {
         color: #6c757d;
     }
+
     .custom-pagination .page-link:hover {
         background-color: #e9f0ff;
     }
-</style>
-<style> 
 
-.table-emis {
-    width: 100%;
-    border-collapse: collapse;
-    border-buttom:2px solid #0c0c0c;
-    font-size: 15px;
-}
-/* Header */
-.table-emis thead {
-    background-color: #074582;
-    color: #ffffff;
-    font-size:15px;
-    text-align: right;
-}
-.table-emis thead th {
-    font-weight: bold;
-    padding: 2px 2px;
-    text-align: right;
-    border-bottom: 2px solid #dee2e6;
-}
+    .table-emis {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+        box-shadow: 0 0 5px 5px lightblue;
+    }
 
-/* Body Rows */
-.table-emis tbody td {
-    padding: 1px 1px;   /* SMALL HEIGHT */
-    border-bottom: 0px solid #08519a;
-    vertical-align: middle;
-    text-align: right;
-}
+    .table-emis thead {
+        background-color: #074582;
+        color: #ffffff;
+        font-size: 15px;
+        text-align: right;
+    }
 
-/* Zebra Style */
-.table-emis tbody tr:nth-child(even) {
-    background-color: #ffffff;
-}
+    .table-emis thead th {
+        font-weight: bold;
+        padding: 6px 8px;
+        text-align: right;
+        border-bottom: 2px solid #dee2e6;
+    }
 
-/* Hover Effect */
-.table-emis tbody tr:hover {
-    background-color: #f4f5f7;
-}
+    .table-emis tbody td {
+        padding: 6px 8px;
+        border-bottom: 0 solid #08519a;
+        vertical-align: middle;
+        text-align: right;
+    }
 
-/* Compact row height */
-.table-emis tr {
-    height: 25px;
-}
+    .table-emis tbody tr:nth-child(even) {
+        background-color: #ffffff;
+    }
 
-.tb{
- background-color: #074582;
- padding: 1px 8px 1px 8px;
- border-radius:6px;
- color:white;
- weight:10px;
- margin-right:3px;
- }
+    .table-emis tbody tr:hover {
+        background-color: #f4f5f7;
+    }
+
+    .table-emis tr {
+        height: 32px;
+    }
+
+    .tb {
+        background-color: #074582;
+        padding: 4px 10px;
+        border-radius: 6px;
+        color: white;
+        margin-right: 3px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tb:hover {
+        color: #fff;
+        background-color: #0b5aa5;
+    }
 </style>
 
 <div class="d-flex justify-content-start mb-1 mt-0">
@@ -93,6 +97,7 @@
         <i class="fa fa-search"></i>
     </a>
 </div>
+<h4>Inbox List</h4>
 <div class="table-responsive box-shoadow:3px">
     <table class="table-emis">
     <thead class="table-light">
@@ -185,6 +190,7 @@ document.addEventListener('click', function (e) {
 </table>
 <HR>
 <!-- Peganation -->
+ 
  @if ($inbox->hasPages())
     <nav>
         <ul class="pagination justify-content-center custom-pagination">
