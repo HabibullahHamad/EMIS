@@ -21,9 +21,56 @@ use App\Http\Controllers\AdminSettingsController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
+use app\http\controllers\logoutcontroller;
 
 
+
+
+
+
+
+
+
+// protect routes with auth middleware
+Route::middleware(['auth'])->group(function () {
+
+    Route::resource('users', UserController::class);
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('inbox', InboxController::class);
+    Route::resource('outbox', OutboxController::class);
+    Route::resource('tasks', TaskController::class);
+    Route::resource('workflows', WorkflowController::class);
+
+});
+// end 
+/*
+|--------------------------------------------------------------------------
+| // Notification routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->prefix('notifications')->name('notifications.')->group(function () {
+    Route::get('/', [NotificationController::class, 'index'])->name('index');
+    Route::get('/unread', [NotificationController::class, 'unread'])->name('unread');
+    Route::patch('/{notification}/read', [NotificationController::class, 'markAsRead'])->name('read');
+    Route::patch('/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('markAllRead');
+    Route::delete('/{notification}', [NotificationController::class, 'destroy'])->name('destroy');
+});
+
+
+// end//  Notifications Routes /////////////////////////////
+
+Route::patch('/users/{user}/block', [UserController::class, 'block'])->name('users.block');
+Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])->name('users.unblock');
 // for audit logs export /////////////////////////////
+Route::patch('/users/{user}/block', [UserController::class, 'block'])
+    ->name('users.block')
+    ->middleware('auth');
+
+Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])
+    ->name('users.unblock')
+    ->middleware('auth');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
     Route::get('/audit-logs/export/pdf', [AuditLogController::class, 'exportPdf'])->name('audit.export.pdf');
@@ -36,7 +83,6 @@ Route::middleware(['auth'])->group(function () {
 | // Auditlogs routes
 |--------------------------------------------------------------------------
 */
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
@@ -46,8 +92,6 @@ Route::middleware(['auth'])->group(function () {
 | // Workflow routes
 |--------------------------------------------------------------------------
 */
-
-
 
 Route::middleware(['auth'])->prefix('workflows')->name('workflows.')->group(function () {
     Route::get('/', [WorkflowController::class, 'index'])->name('index');
@@ -220,6 +264,10 @@ Route::middleware(['auth'])->group(function () {
     | Administration 
     |--------------------------------------------------------------------------
     */
+    Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])
+    ->name('users.unblock')
+    ->middleware(['auth']);
+
       Route::get('/administrations/users/create', [UserController::class, 'create'])->name('Administrations.create');
       Route::get('/administrations/roles', [RoleController::class, 'index'])->name('Administrations.Roles');
       Route::get('/administrations/role-management', [RoleController::class, 'index'])->name('Administrations.Role Management');
