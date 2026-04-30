@@ -284,4 +284,21 @@ return [
 
 'system_name'=>'EMIS',
 
+
+
+
+
+
+'all_roles' => 'All Roles',
+'all_status' => 'All Status',
+'active' => 'Active',
+'blocked' => 'Blocked',
+'role' => 'Role',
+'attempts' => 'Attempts',
+'blocked_at' => 'Blocked At',
+'allow' => 'Allow',
+'block' => 'Block',
+'no_users_found' => 'No users found.',
+'are_you_sure' => 'Are you sure?',
+
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\Employee;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -101,9 +102,33 @@ class TaskController extends Controller
 
         $task = Task::create($data);
 
-        // NEW: Audit log for create
         if (function_exists('audit_log')) {
             audit_log('created', $task, null, $task->toArray());
+        }
+
+        $task->load('employee');
+
+        $notificationUserId = optional($task->employee)->user_id ?? auth()->id();
+
+        if (function_exists('notify_user')) {
+            notify_user(
+                $notificationUserId,
+                'New Task Assigned',
+                'A new task has been assigned to you.',
+                'task',
+                $task->priority ?? 'normal',
+                $task
+            );
+        } else {
+            Notification::create([
+                'user_id' => $notificationUserId,
+                'title' => 'New Task Assigned',
+                'message' => 'A new task has been assigned to you.',
+                'type' => 'task',
+                'priority' => $task->priority ?? 'normal',
+                'related_type' => Task::class,
+                'related_id' => $task->id,
+            ]);
         }
 
         return redirect()->route('tasks.index')
@@ -114,7 +139,6 @@ class TaskController extends Controller
     {
         $task->load('employee');
 
-        // NEW: Audit log for view
         if (function_exists('audit_log')) {
             audit_log('viewed', $task, null, $task->toArray());
         }
@@ -126,7 +150,6 @@ class TaskController extends Controller
     {
         $employees = Employee::orderBy('full_name')->get();
 
-        // NEW: Audit log for edit page open
         if (function_exists('audit_log')) {
             audit_log('edit_opened', $task, null, $task->toArray());
         }
@@ -149,14 +172,53 @@ class TaskController extends Controller
             'remarks' => 'nullable|string',
         ]);
 
-        // NEW: keep old values before update
         $oldValues = $task->getOriginal();
+        $oldEmployeeId = $task->employee_id;
 
         $task->update($request->all());
 
-        // NEW: Audit log for update
         if (function_exists('audit_log')) {
             audit_log('updated', $task, $oldValues, $task->getChanges());
+        }
+
+        $task->load('employee');
+
+        $notificationUserId = optional($task->employee)->user_id ?? auth()->id();
+
+        if (function_exists('notify_user')) {
+            notify_user(
+                $notificationUserId,
+                'Task Updated',
+                'A task assigned to you has been updated.',
+                'task',
+                $task->priority ?? 'normal',
+                $task
+            );
+
+            if ($oldEmployeeId && $oldEmployeeId != $task->employee_id) {
+                $oldEmployee = Employee::find($oldEmployeeId);
+
+                if ($oldEmployee && $oldEmployee->user_id) {
+                    notify_user(
+                        $oldEmployee->user_id,
+                        'Task Reassigned',
+                        'A task was reassigned from you to another employee.',
+                        'task',
+                        'normal',
+                        $task
+                    );
+                }
+            }
+        } else {
+            Notification::create([
+                'user_id' => $notificationUserId,
+                'title' => 'Task Updated',
+                'message' => 'A task assigned to you has been updated.',
+                'type' => 'task',
+                'priority' => $task->priority ?? 'normal',
+                'related_type' => Task::class,
+                'related_id' => $task->id,
+            ]);
         }
 
         return redirect()->route('tasks.index')
@@ -165,15 +227,34 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        // NEW: keep old values before delete
-        $oldValues = $task->toArray();
+        $task->load('employee');
 
-        // NEW: Audit log before delete
+        $oldValues = $task->toArray();
+        $notificationUserId = optional($task->employee)->user_id ?? auth()->id();
+
         if (function_exists('audit_log')) {
             audit_log('deleted', $task, $oldValues, null);
         }
 
         $task->delete();
+
+        if (function_exists('notify_user')) {
+            notify_user(
+                $notificationUserId,
+                'Task Deleted',
+                'A task assigned to you has been deleted.',
+                'task',
+                'high'
+            );
+        } else {
+            Notification::create([
+                'user_id' => $notificationUserId,
+                'title' => 'Task Deleted',
+                'message' => 'A task assigned to you has been deleted.',
+                'type' => 'task',
+                'priority' => 'high',
+            ]);
+        }
 
         return redirect()->route('tasks.index')
             ->with('success', 'Task deleted successfully.');
@@ -189,7 +270,6 @@ class TaskController extends Controller
             $isOverdue = now()->gt($task->deadline);
         }
 
-        // NEW: Audit log for monitoring page
         if (function_exists('audit_log')) {
             audit_log('monitoring_viewed', $task, null, $task->toArray());
         }
@@ -203,15 +283,38 @@ class TaskController extends Controller
             'status' => 'required|in:new,assigned,in_progress,completed,overdue,cancelled',
         ]);
 
-        // NEW: keep old values before status change
         $oldValues = $task->getOriginal();
 
         $task->status = $request->status;
         $task->save();
 
-        // NEW: Audit log for status change
         if (function_exists('audit_log')) {
             audit_log('status_changed', $task, $oldValues, $task->getChanges());
+        }
+
+        $task->load('employee');
+
+        $notificationUserId = optional($task->employee)->user_id ?? auth()->id();
+
+        if (function_exists('notify_user')) {
+            notify_user(
+                $notificationUserId,
+                'Task Status Changed',
+                'Your task status changed to: ' . $task->status,
+                'task',
+                $task->priority ?? 'normal',
+                $task
+            );
+        } else {
+            Notification::create([
+                'user_id' => $notificationUserId,
+                'title' => 'Task Status Changed',
+                'message' => 'Your task status changed to: ' . $task->status,
+                'type' => 'task',
+                'priority' => $task->priority ?? 'normal',
+                'related_type' => Task::class,
+                'related_id' => $task->id,
+            ]);
         }
 
         return redirect()->route('tasks.index')
@@ -244,24 +347,6 @@ class TaskController extends Controller
             'urgent' => Task::where('priority', 'urgent')->count(),
         ];
 
-        $employeeTaskCounts = Task::selectRaw('employee_id, COUNT(*) as total')
-            ->whereNotNull('employee_id')
-            ->groupBy('employee_id')
-            ->with('employee')
-            ->get();
-
-        $employeeLabels = $employeeTaskCounts->map(function ($item) {
-            return $item->employee->full_name ?? 'Unknown';
-        })->values();
-
-        $employeeData = $employeeTaskCounts->pluck('total')->values();
-
-        return view('tasks.charts', compact(
-            'stats',
-            'statusChart',
-            'priorityChart',
-            'employeeLabels',
-            'employeeData'
-        ));
+        return view('tasks.charts', compact('stats', 'statusChart', 'priorityChart'));
     }
 }

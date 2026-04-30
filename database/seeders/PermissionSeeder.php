@@ -20,7 +20,11 @@ class PermissionSeeder extends Seeder
 ['name' => 'audit.delete', 'display_name' => 'Delete Audit Logs', 'module' => 'Audit Trail'],
 
 // end
-
+[
+    'name' => 'notifications.view_all',
+    'display_name' => 'View All Notifications',
+    'module' => 'Notifications',
+],
 //   Departments
 
       ['name' => 'departments.view', 'display_name' => 'View Departments', 'module' => 'Departments'],

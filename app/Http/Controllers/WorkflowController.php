@@ -69,6 +69,17 @@ class WorkflowController extends Controller
             'remarks' => $request->remarks,
         ]);
 
+\App\Models\Notification::create([
+    'user_id' => $workflow->to_user_id,
+    'title' => 'New Workflow Assigned',
+    'message' => 'A workflow has been assigned to you.',
+    'type' => 'workflow',
+    'priority' => $workflow->priority ?? 'normal',
+    'related_type' => \App\Models\Workflow::class,
+    'related_id' => $workflow->id,
+]);
+
+
         if (function_exists('audit_log')) {
             audit_log('created', $workflow, null, $workflow->toArray());
         }
@@ -160,4 +171,5 @@ class WorkflowController extends Controller
 
         return back()->with('success', 'Workflow completed.');
     }
+    
 }

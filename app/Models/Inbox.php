@@ -14,10 +14,15 @@ class Inbox extends Model
         'receiver',
         'received_date',
          'summary', 
+         
     
          'attachment',
         
     ];
+    public function assignedUser()
+{
+    return $this->belongsTo(\App\Models\User::class, 'assigned_to');
+}
 
 }
 class Documents extends Model
@@ -35,6 +40,7 @@ public function workflowTransactions()
 {
     return $this->morphMany(\App\Models\WorkflowTransaction::class, 'workflowable');
 }
+
 }
 
 

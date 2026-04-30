@@ -4,9 +4,11 @@ namespace App\Http\Controllers\CorrespondenceManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inbox;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Storage;
 
 class InboxController extends Controller
 {
@@ -31,7 +33,8 @@ class InboxController extends Controller
 
     public function index()
     {
-        $inbox = Inbox::orderBy('id', 'desc')->paginate(14);
+        $inbox = Inbox::latest()->paginate(14);
+
         return view('CorrespondenceManagement.inbox.index', compact('inbox'));
     }
 
@@ -48,15 +51,15 @@ class InboxController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'letter_no' => 'required|unique:inbox,letter_no',
-            'subject' => 'required',
-            'sender' => 'required',
-            'receiver' => 'required',
+            'letter_no' => 'required|string|max:255|unique:inbox,letter_no',
+            'subject' => 'required|string|max:255',
+            'sender' => 'required|string|max:255',
+            'receiver' => 'required|string|max:255',
             'received_date' => 'required|date',
-            'summary' => 'required',
+            'summary' => 'required|string',
             'priority' => 'nullable|in:H,M,L',
             'status' => 'nullable|in:Unread,Read,Assigned,Completed',
-            'attachment' => 'nullable|file|max:2048'
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->only([
@@ -70,18 +73,43 @@ class InboxController extends Controller
             'status',
         ]);
 
+        $data['status'] = $data['status'] ?? 'Unread';
+
         if ($request->hasFile('attachment')) {
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
 
         $letter = Inbox::create($data);
 
-        // ✅ AUDIT LOG: created inbox letter
         if (function_exists('audit_log')) {
             audit_log('created', $letter, null, $letter->toArray());
         }
 
-        return redirect()->route('inbox.index')->with('success', 'لیګ په بریالیتوب سره خوندي شو!');
+        // ✅ NOTIFICATION: safe user_id, never null
+        if (function_exists('notify_user')) {
+            notify_user(
+                auth()->id(),
+                'New Incoming Document',
+                'A new incoming document has been registered in the inbox.',
+                'document',
+                'high',
+                $letter
+            );
+        } else {
+            Notification::create([
+                'user_id' => auth()->id(),
+                'title' => 'New Incoming Document',
+                'message' => 'A new incoming document has been registered in the inbox.',
+                'type' => 'document',
+                'priority' => 'high',
+                'related_type' => Inbox::class,
+                'related_id' => $letter->id,
+            ]);
+        }
+
+        return redirect()
+            ->route('inbox.index')
+            ->with('success', 'لیګ په بریالیتوب سره خوندي شو!');
     }
 
     public function show($id)
@@ -103,7 +131,7 @@ class InboxController extends Controller
         $letter = Inbox::findOrFail($id);
 
         $request->validate([
-            'letter_no' => 'required|unique:inbox,letter_no,' . $id,
+            'letter_no' => 'required|string|max:255|unique:inbox,letter_no,' . $id,
             'subject' => 'required|string|max:255',
             'sender' => 'required|string|max:255',
             'receiver' => 'required|string|max:255',
@@ -114,7 +142,6 @@ class InboxController extends Controller
             'attachment' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
 
-        // ✅ AUDIT LOG: capture old values before update
         $oldValues = $letter->getOriginal();
 
         $data = $request->only([
@@ -129,34 +156,84 @@ class InboxController extends Controller
         ]);
 
         if ($request->hasFile('attachment')) {
+            if (!empty($letter->attachment)) {
+                Storage::disk('public')->delete($letter->attachment);
+            }
+
             $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
         }
 
         $letter->update($data);
 
-        // ✅ AUDIT LOG: updated inbox letter
         if (function_exists('audit_log')) {
             audit_log('updated', $letter, $oldValues, $letter->getChanges());
         }
 
-        return redirect()->route('inbox.index')->with('success', 'Inbox updated!');
+        // ✅ NOTIFICATION: document updated
+        if (function_exists('notify_user')) {
+            notify_user(
+                auth()->id(),
+                'Incoming Document Updated',
+                'An incoming document has been updated.',
+                'document',
+                'normal',
+                $letter
+            );
+        } else {
+            Notification::create([
+                'user_id' => auth()->id(),
+                'title' => 'Incoming Document Updated',
+                'message' => 'An incoming document has been updated.',
+                'type' => 'document',
+                'priority' => 'normal',
+                'related_type' => Inbox::class,
+                'related_id' => $letter->id,
+            ]);
+        }
+
+        return redirect()
+            ->route('inbox.index')
+            ->with('success', 'Inbox updated!');
     }
 
     public function destroy($id)
     {
         $letter = Inbox::findOrFail($id);
 
-        // ✅ AUDIT LOG: capture old values before delete
         $oldValues = $letter->toArray();
 
-        // ✅ AUDIT LOG: deleted inbox letter
         if (function_exists('audit_log')) {
             audit_log('deleted', $letter, $oldValues, null);
         }
 
+        if (!empty($letter->attachment)) {
+            Storage::disk('public')->delete($letter->attachment);
+        }
+
         $letter->delete();
 
-        return redirect()->route('inbox.index')->with('success', 'one Record is deleted!');
+        // ✅ NOTIFICATION: document deleted
+        if (function_exists('notify_user')) {
+            notify_user(
+                auth()->id(),
+                'Incoming Document Deleted',
+                'An incoming document has been deleted.',
+                'document',
+                'high'
+            );
+        } else {
+            Notification::create([
+                'user_id' => auth()->id(),
+                'title' => 'Incoming Document Deleted',
+                'message' => 'An incoming document has been deleted.',
+                'type' => 'document',
+                'priority' => 'high',
+            ]);
+        }
+
+        return redirect()
+            ->route('inbox.index')
+            ->with('success', 'one Record is deleted!');
     }
 
     public function main()

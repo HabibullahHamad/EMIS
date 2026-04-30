@@ -15,6 +15,88 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
+
+.emis-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 6px 18px rgba(15,23,42,.06);padding:16px;margin-bottom:16px}
+.emis-card-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.emis-card-header h5{margin:0;font-weight:800;color:#0b3563}
+.emis-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.emis-filter .form-control,.emis-filter .form-select{max-width:260px;border-radius:10px}
+.emis-btn{border-radius:10px;padding:7px 14px;border:0;font-weight:600}
+.emis-btn-primary{background:#0b3563;color:#fff}
+.emis-btn-primary:hover{background:#082847;color:#fff}
+.emis-btn-success{background:#198754;color:#fff}
+.emis-btn-danger{background:#dc3545;color:#fff}
+.emis-btn-warning{background:#ffc107;color:#111}
+.emis-btn-info{background:#0dcaf0;color:#111}
+.emis-btn-light{background:#f1f5f9;color:#334155;border:1px solid #e2e8f0}
+.emis-table{margin-bottom:0}
+.emis-table thead th{background:#f8fafc;color:#0f172a;font-size:13px;font-weight:800;text-align:center;white-space:nowrap}
+.emis-table tbody td{font-size:13px;vertical-align:middle;text-align:center}
+.emis-form-label{font-weight:700;color:#334155;font-size:13px;margin-bottom:6px}
+.emis-form-control{border-radius:10px;border:1px solid #d1d5db}
+.emis-form-control:focus{border-color:#0b3563;box-shadow:0 0 0 3px rgba(11,53,99,.12)}
+.emis-badge{border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700}
+.emis-alert{border-radius:12px;padding:10px 14px;margin-bottom:12px}
+
+.emis-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.emis-filter .form-control,
+.emis-filter .form-select {
+    width: 220px;
+    height: 38px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.emis-btn {
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.emis-table {
+    width: 100%;
+    direction: rtl;
+}
+
+.emis-table th,
+.emis-table td {
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 8px;
+}
+
+.emis-table .actions-cell {
+    min-width: 260px;
+}
+
+.emis-table .action-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.emis-table .action-buttons form {
+    display: inline-block;
+    margin: 0;
+}
+
+.emis-table .btn-sm {
+    height: 32px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* end new for componets */
 html[dir="rtl"] .sidebar-link-main{
     gap: 8px !important;
 }
@@ -910,19 +992,36 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </div>
             @endif
+<!-- notification icon and button  -->
+ @php
+$unread = \App\Models\Notification::where('user_id', auth()->id())
+    ->where('is_read', false)
+    ->count();
+@endphp
 
-            <div class="dropdown">
+<a href="{{ route('notifications') }}" class="position-relative">
+    <i class="fa fa-bell"></i>
+
+    @if($unread > 0)
+        <span class="badge bg-danger position-absolute top-0 start-100">
+            {{ $unread }}
+        </span>
+    @endif
+</a>
+            <!-- <div class="dropdown">
                 <button class="top-icon-btn" type="button" data-bs-toggle="dropdown" title="{{ __('emis.notifications') }}">
                     <i class="fa-solid fa-bell"></i>
                     <span class="notif-badge">3</span>
                 </button>
+                
                 <ul class="dropdown-menu shadow border-0 rounded-3">
                     <li><h6 class="dropdown-header">{{ __('emis.notifications') }}</h6></li>
                     <li><span class="dropdown-item-text text-muted">{{ __('emis.incoming_documents') }}</span></li>
                     <li><span class="dropdown-item-text text-muted">{{ __('emis.tasks_management') }}</span></li>
                     <li><span class="dropdown-item-text text-muted">{{ __('emis.outgoing_documents') }}</span></li>
                 </ul>
-            </div>
+            </div> -->
+            
 <!-- workflow -->
 
 
@@ -956,6 +1055,8 @@ html[dir="rtl"] .submenu-link{
                     @endif
                 </ul>
             </div>
+             
+
         </div>
     </div>
 <!-- main contents area -->

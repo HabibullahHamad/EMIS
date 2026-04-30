@@ -48,16 +48,24 @@ Route::middleware(['auth'])->group(function () {
 | // Notification routes
 |--------------------------------------------------------------------------
 */
-
-Route::middleware(['auth'])->prefix('notifications')->name('notifications.')->group(function () {
-    Route::get('/', [NotificationController::class, 'index'])->name('index');
-    Route::get('/unread', [NotificationController::class, 'unread'])->name('unread');
-    Route::patch('/{notification}/read', [NotificationController::class, 'markAsRead'])->name('read');
-    Route::patch('/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('markAllRead');
-    Route::delete('/{notification}', [NotificationController::class, 'destroy'])->name('destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/unread', [NotificationController::class, 'unread'])->name('notifications.unread');
 
+    Route::patch('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.read');
+
+    Route::patch('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])
+        ->name('notifications.readAll');
+
+    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])
+        ->name('notifications.destroy');
+});
 // end//  Notifications Routes /////////////////////////////
 
 Route::patch('/users/{user}/block', [UserController::class, 'block'])->name('users.block');
@@ -71,6 +79,13 @@ Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])
     ->name('users.unblock')
     ->middleware('auth');
 
+
+    
+/*
+|--------------------------------------------------------------------------
+| // Auditlogs routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
     Route::get('/audit-logs/export/pdf', [AuditLogController::class, 'exportPdf'])->name('audit.export.pdf');
@@ -78,11 +93,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs/export/csv', [AuditLogController::class, 'exportCsv'])->name('audit.export.csv');
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
 });
-/*
-|--------------------------------------------------------------------------
-| // Auditlogs routes
-|--------------------------------------------------------------------------
-*/
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');

@@ -64,11 +64,17 @@
             </select>
         </div>
 
-        <div class="col-md-4">
-            <label>{{ __('emis.assigned_to') }}</label>
-            <input type="text" name="assigned_to" class="form-control" placeholder="{{ __('emis.assigned_to') }}">
-        </div>
-
+  <div class="col-md-4">
+    <label>{{ __('emis.assigned_to') }}</label>
+        <select name="assigned_to" class="form-control" required>
+    <option value="">-- Select User --</option>
+    @foreach($users as $user)
+        <option value="{{ $user->id }}" {{ old('assigned_to', $document->assigned_to ?? '') == $user->id ? 'selected' : '' }}>
+            {{ $user->name }} - {{ $user->email }}
+        </option>
+    @endforeach
+</select>
+</div>
         <div class="col-md-4">
             <label>{{ __('emis.department') }}</label>
             <input type="text" name="department" class="form-control" placeholder="{{ __('emis.department') }}">
