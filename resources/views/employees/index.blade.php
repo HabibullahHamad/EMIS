@@ -224,7 +224,7 @@
                         <th>{{ __('emis.email') }}</th>
                         <th>{{ __('emis.phone') }}</th>
                         <th>{{ __('emis.status') }}</th>
-                        <th width="150">{{ __('emis.actions') }}</th>
+                        <th width="180">{{ __('emis.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody id="employeeTableBody">

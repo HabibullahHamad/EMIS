@@ -192,7 +192,7 @@
         ['label' => 'New', 'value' => $stats['new'] ?? 0, 'class' => 'text-primary'],
         ['label' => 'Assigned', 'value' => $stats['assigned'] ?? 0, 'class' => 'text-info'],
         ['label' => 'Completed', 'value' => $stats['completed'] ?? 0, 'class' => 'text-success'],
-        ['label' => 'Overdue', 'value' => $stats['overdue'] ?? 0, 'class' => 'text-danger'],
+        
     ] as $item)
 
     <div class="col-md-2 mb-2">

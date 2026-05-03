@@ -349,4 +349,5 @@ class TaskController extends Controller
 
         return view('tasks.charts', compact('stats', 'statusChart', 'priorityChart'));
     }
+
 }

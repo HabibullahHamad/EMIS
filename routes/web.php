@@ -1,4 +1,6 @@
 <?php 
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -23,22 +25,13 @@ use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
 use app\http\controllers\logoutcontroller;
 
-
-
-
-
-
-
-
-
 // protect routes with auth middleware
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('inbox', InboxController::class);
-    Route::resource('outbox', OutboxController::class);
-    Route::resource('tasks', TaskController::class);
+Route::resource('outbox', OutgoingDocumentController::class);    Route::resource('tasks', TaskController::class);
     Route::resource('workflows', WorkflowController::class);
 
 });
@@ -79,8 +72,6 @@ Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])
     ->name('users.unblock')
     ->middleware('auth');
 
-
-    
 /*
 |--------------------------------------------------------------------------
 | // Auditlogs routes
@@ -190,7 +181,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-   
 
     /*
     |--------------------------------------------------------------------------
@@ -211,10 +201,18 @@ Route::middleware(['auth'])->group(function () {
     | Tasks
     |--------------------------------------------------------------------------
     */
-    Route::get('/tasks/charts', [TaskController::class, 'charts'])->name('tasks.charts');
-    Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])->name('tasks.changeStatus');
-    Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])->name('tasks.monitoring');
-    Route::resource('tasks', TaskController::class);
+
+// CUSTOM ROUTES FIRST
+Route::get('/tasks/charts', [TaskController::class, 'charts'])
+    ->name('tasks.charts');
+
+Route::get('/tasks/filter', [TaskController::class, 'filter'])->name('tasks.filter');
+Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])->name('tasks.changeStatus');
+Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])->name('tasks.monitoring');
+
+// RESOURCE LAST
+Route::resource('tasks', TaskController::class);
+
 
     /*
     |--------------------------------------------------------------------------

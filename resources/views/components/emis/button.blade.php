@@ -1,6 +1,13 @@
+@props(['type' => 'primary', 'href' => null])
 
-
-<button {{ $attributes->merge(['class' => 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600']) }}>
-    {{ $slot }}
-</button>
-
+@if($href)
+    <a href="{{ $href }}"
+       {{ $attributes->merge(['class' => 'btn emis-btn emis-btn-' . $type]) }}>
+        {{ $slot }}
+    </a>
+@else
+    <button type="{{ $attributes->get('type', 'button') }}"
+        {{ $attributes->merge(['class' => 'btn emis-btn emis-btn-' . $type]) }}>
+        {{ $slot }}
+    </button>
+@endif

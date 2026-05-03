@@ -135,11 +135,10 @@
             </div>
  {{-- summary --}}
             <div class="col-md-6 mb-1">
-                <label class="form-label">ترلاسه کوونکې</label>
+                <label class="form-label">  تفصیل</label>
                 <div class="input-group">
                     
-                        <input type="text" name="summary" class="form-control"
-                           value="{{ old('summary') }}">
+                        <textarea name="summary" class="form-control" rows="3">{{ old('summary') }}</textarea>
                 </div>
                 
             </div>

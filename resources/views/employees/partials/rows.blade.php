@@ -68,11 +68,7 @@
                 <button type="submit" onclick="return confirm('{{ __('emis.delete_employee_confirm') }}')" class="btn btn-sm btn-danger" title="{{ __('emis.delete') }}">{{ __('emis.delete') }}</button>
             </form>
 
-            <a href="{{ route('employees.monitoring', $employee->id) }}"
-               class="btn btn-sm btn-primary"
-               title="{{ __('emis.monitoring') }}">
-                {{ __('emis.monitoring') }}
-            </a>
+        
         </td>
     </tr>
 @empty
