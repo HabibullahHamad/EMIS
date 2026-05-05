@@ -1,15 +1,28 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="ps" dir="rtl">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 
 <style>
 body {
-    font-family: DejaVu Sans;
-    margin: 40, 10, 40, 10 px;
-
+    font-family: 'Noto Sans Arabic', sans-serif;
+    direction: rtl;
+    text-align: right;
 }
+@font-face {
+    font-family: 'NotoArabic';
+    src: url('{{ public_path('fonts/NotoSansArabic-Regular.ttf') }}') format('truetype');
+}
+
+body {
+    font-family: 'NotoArabic', DejaVu Sans, sans-serif;
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+<style>
+
 
 /* HEADER */
 .header {

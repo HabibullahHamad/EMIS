@@ -59,38 +59,34 @@ class DocumentController extends Controller
     }
 
     // ================= STORE =================
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'subject' => 'nullable|string|max:255',
-            'organization' => 'nullable|string|max:255',
-            'file' => 'required|file|max:10240',
-        ]);
+  public function store(Request $request)
+{
+    $filePath = $request->file('file')->store('documents', 'public');
 
-        $filePath = $request->file('file')->store('documents', 'public');
+    $doc = Document::create([
+        'document_number' => $this->generateDocumentNumber(),
+        'title' => $request->title,
+        'subject' => $request->subject,
+        'organization' => $request->organization,
+        'type' => $request->type,
+        'status' => 'registered',
+        'received_date' => $request->received_date ?? now(),
+        'due_date' => $request->due_date,
+        'created_by' => auth()->id(),
+        'file_path' => $filePath,
+        'priority' => $request->priority,
+        'remarks' => $request->remarks,
+    ]);
 
-        $doc = Document::create([
-            'document_number' => $this->generateDocumentNumber(),
-            'title' => $request->title,
-            'subject' => $request->subject,
-            'organization' => $request->organization,
-            'file_path' => $filePath,
-            'created_by' => auth()->id(),
-            'status' => 'registered',
-            'received_date' => now(),
-        ]);
+    DocumentHistory::create([
+        'document_id' => $doc->id,
+        'action' => 'registered',
+        'from_user' => auth()->id(),
+        'comments' => 'Document registered'
+    ]);
 
-        DocumentHistory::create([
-            'document_id' => $doc->id,
-            'action' => 'registered',
-            'from_user' => auth()->id(),
-            'comments' => 'Document registered',
-        ]);
-
-        return redirect()->route('documents.index')
-            ->with('success', 'Document created successfully.');
-    }
+    return redirect()->route('documents.index')->with('success', 'Document created');
+}
 
     // ================= SHOW =================
     public function show($id)
@@ -280,5 +276,51 @@ public function exportReport(Request $request)
     )->setPaper('A4', 'portrait');
 
     return $pdf->download('EMIS_Documents_Report.pdf');
+}
+public function edit($id)
+{
+    $document = Document::findOrFail($id);
+
+    return view('documents.edit', compact('document'));
+}
+
+public function update(Request $request, $id)
+{
+    $doc = Document::findOrFail($id);
+
+    // Handle file replacement
+    if ($request->hasFile('file')) {
+
+        // delete old file
+        if ($doc->file_path && Storage::disk('public')->exists($doc->file_path)) {
+            Storage::disk('public')->delete($doc->file_path);
+        }
+
+        $filePath = $request->file('file')->store('documents', 'public');
+        $doc->file_path = $filePath;
+    }
+
+    // Update fields
+    $doc->update([
+        'title' => $request->title,
+        'subject' => $request->subject,
+        'organization' => $request->organization,
+        'type' => $request->type,
+        'received_date' => $request->received_date,
+        'due_date' => $request->due_date,
+        'priority' => $request->priority,
+        'remarks' => $request->remarks,
+    ]);
+
+    // Log history
+    DocumentHistory::create([
+        'document_id' => $doc->id,
+        'action' => 'updated',
+        'from_user' => auth()->id(),
+        'comments' => 'Document updated'
+    ]);
+
+    return redirect()->route('documents.show', $doc->id)
+        ->with('success', 'Document updated successfully');
 }
 }

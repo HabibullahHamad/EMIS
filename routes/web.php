@@ -46,6 +46,11 @@ Route::resource('documents', DocumentController::class);
 Route::get('/documents/report/export', [DocumentController::class, 'exportReport'])
     ->name('documents.report');
     
+
+    Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
+
+
 Route::get('/documents/{id}/pdf', [DocumentController::class, 'exportPdf'])
     ->name('documents.pdf');
 Route::post('/documents/{id}/assign', [DocumentController::class, 'assign'])->name('documents.assign');

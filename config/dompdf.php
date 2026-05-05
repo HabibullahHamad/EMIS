@@ -297,5 +297,10 @@ return [
          */
         'enable_html5_parser' => true,
     ],
+    'fonts' => [
+    'pashto' => [
+        'R'  => 'NotoSansArabic-Regular.ttf',
+    ],
+],
 
 ];

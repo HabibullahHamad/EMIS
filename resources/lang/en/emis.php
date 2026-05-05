@@ -304,6 +304,44 @@ return [
 
 
 'All Statuses' => 'All Statuses',
-''
+'Active' => 'Active',
+'Blocked' => 'Blocked',
+
+
+// documents 
+'export' => 'Export',
+'reset' => 'Reset',
+'view' => 'View',
+'no_data' => 'No documents found',
+
+'from' => 'From',
+'to' => 'To',
+
+'status_registered' => 'Registered',
+'status_assigned' => 'Assigned',
+'status_responded' => 'Responded',
+'status_completed' => 'Completed',
+'organization' => 'Organization',
+'doc_title' => 'Document Title',
+'document_number' => 'Document Number',
+'date' => 'Date',
+'emis.view_pdf' => 'View PDF',
+'emis.no_data' => 'No data found.',
+
+'type' => 'Type',
+'incoming' => 'Incoming',
+'outgoing' => 'Outgoing',
+'received_date' => 'Received Date',
+'due_date' => 'Due Date',
+'priority' => 'Priority',
+'normal' => 'Normal',
+'urgent' => 'Urgent',
+'file' => 'File',
+'remarks' => 'Remarks',
+'save' => 'Save',
+'cancel' => 'Cancel',
+'Other'=> 'Other',
+
+
 
 ];

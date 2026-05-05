@@ -671,6 +671,11 @@ html[dir="rtl"] .submenu-link{
     </style>
 </head>
 <body>
+@if(app()->getLocale() == 'ps' || app()->getLocale() == 'fa')
+    <html lang="{{ app()->getLocale() }}" dir="rtl">
+@else
+    <html lang="{{ app()->getLocale() }}" dir="ltr">
+@endif
 
 @php
     $user = auth()->user();

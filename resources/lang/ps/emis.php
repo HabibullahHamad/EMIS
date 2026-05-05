@@ -294,5 +294,51 @@ return [
 'no_users_found' => 'کاریال ونه موندل شو.',
 'are_you_sure' => 'ایا ډاډه یاست?',
 
+'All Statuses' => 'ټول حالتونه',
+'Active' => 'فعال',
+'Blocked' => 'بند',
+
+// documents 
+
+'export' => 'صادرول',
+'reset' => 'بیا تنظیم',
+'view' => 'کتل',
+'no_data' => 'هیڅ سند ونه موندل شو',
+
+'from' => 'له',
+'to' => 'تر',
+
+'status_registered' => 'ثبت شوی',
+'status_assigned' => 'سپارل شوی',
+'status_responded' => 'ځواب ورکړل شوی',
+'status_completed' => 'بشپړ شوی',
+'organization'=>'اداره',
+'doc_title'=>'د سند سرلیک',
+'document_number'=>'د سند شمېره',
+'date'=>'نېټه',
+'view_pdf' => 'PDF وګورئ',
+
+'no_data' => 'هیڅ معلومات ونه موندل شو.',
+'title' => 'سرلیک',
+'description' => 'تشریح',
+'register'=>'نوی سند ثبت کړئ',
+
+
+// 
+'type' => 'ډول',
+'incoming' => 'وارده',
+'outgoing' => 'صادره',
+'received_date' => 'د ترلاسه کولو نېټه',
+'due_date' => 'د وخت کولو نېټه',
+'priority' => 'اهمیت',
+'normal' => 'نورمال',
+'urgent' => 'جلد',
+'file' => 'فایل',
+'remarks' => 'یادښتونه',
+'save' => 'ثبت',
+'cancel' => 'لغوه',
+'document_details' => 'د سند جزیات',
+'Other'=>'نور',
+'attach'=>'ضمیمه',
 
 ];
