@@ -704,6 +704,9 @@ html[dir="rtl"] .submenu-link{
     $departmentsMenu = auth()->check() && ($user->canAccess('departments.view') || $user->canAccess('departments.create'));
     $departmentsMenu = $departmentsMenu && Route::has('departments.index');
     $showdepartmentsMenu = $departmentsMenu;
+
+    $canDocumentsView = auth()->check() && ($user->canAccess('documents.view') || $user->canAccess('documents.index'));
+    
     
 
         

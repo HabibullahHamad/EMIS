@@ -111,18 +111,18 @@ class EmployeesExport implements FromCollection, WithMapping, WithStyles, Should
                 $sheet = $event->sheet->getDelegate();
                    $sheet->setRightToLeft(true);
 
-                $sheet->getRowDimension(1)->setRowHeight(45);
-                $sheet->getRowDimension(2)->setRowHeight(28);
-                $sheet->getRowDimension(3)->setRowHeight(28);
-                $sheet->getRowDimension(4)->setRowHeight(22);
-                $sheet->getRowDimension(5)->setRowHeight(24);
+                $sheet->getRowDimension(1)->setRowHeight(25);
+                $sheet->getRowDimension(2)->setRowHeight(20);
+                $sheet->getRowDimension(3)->setRowHeight(20);
+                $sheet->getRowDimension(4)->setRowHeight(20);
+                $sheet->getRowDimension(5)->setRowHeight(15);
                
                $sheet->mergeCells('B1:F1');
 $sheet->mergeCells('B2:F2');
 $sheet->mergeCells('B3:F3');
 
-$sheet->setCellValue('B1', 'د ملي بودیجې ریاست - EMIS');
-$sheet->setCellValue('B2', 'د افغانستان د مالیې وزارت');
+$sheet->setCellValue('B1', 'د مالیې وزارت');
+$sheet->setCellValue('B2', 'د ملي بودیجې لوی ریاست');
 $sheet->setCellValue('B3', 'د کارکوونکو راپور');
 
 $sheet->setCellValue('A4', now()->format('Y-m-d H:i'));

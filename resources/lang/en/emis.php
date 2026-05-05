@@ -301,4 +301,9 @@ return [
 'no_users_found' => 'No users found.',
 'are_you_sure' => 'Are you sure?',
 
+
+
+'All Statuses' => 'All Statuses',
+''
+
 ];

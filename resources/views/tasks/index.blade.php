@@ -207,12 +207,13 @@
     @endforeach
 
     {{-- Charts Button --}}
+    
     <div class="col-md-2 mb-2">
         <a href="{{ route('tasks.charts') }}" class="text-decoration-none">
             <div class="card stats-card text-center small-card hover-card">
                 <div class="card-body py-1 d-flex flex-column justify-content-center align-items-center">
                     <i class="bi bi-bar-chart-line text-danger mb-1" style="font-size:16px;"></i>
-                    <h6 class="mb-0 text-danger">Viewe in Charts</h6>
+                    <h6 class="mb-0 text-danger">View in Charts</h6>
                 </div>
             </div>
         </a>
@@ -299,11 +300,7 @@
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
-                                <a href="{{ route('tasks.monitoring', $task->id) }}"
-   class="btn btn-sm btn-primary"
-   title="Monitoring">
-    <i class="bi bi-bar-chart"></i>
-</a>
+    
                             </td>
                         </tr>
                     @empty

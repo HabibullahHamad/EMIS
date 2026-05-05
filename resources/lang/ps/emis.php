@@ -128,7 +128,7 @@ return [
 
  'dari_name'=>'دری نوم',
  'Code'=>'کوډ',
- 'parent_department'=>'اساسي څانګه',
+ 'parent_department'=>' مربوطه ریاست',
  'Status'=>'حالت',
  'Actions'=>'عملونه',
 
@@ -283,7 +283,7 @@ return [
 
 
 'all_roles' => 'ټول رولونه ',
-'all_status' => 'ټول حالت',
+'All_Status' => 'ټول حالت',
 'active' => 'فعال',
 'blocked' => 'بند دی',
 'role' => 'رول',
@@ -293,13 +293,6 @@ return [
 'block' => 'بند',
 'no_users_found' => 'کاریال ونه موندل شو.',
 'are_you_sure' => 'ایا ډاډه یاست?',
-
-
-
-
-
-
-
 
 
 ];

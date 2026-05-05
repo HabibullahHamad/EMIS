@@ -15,9 +15,12 @@
         }
 
         .header-image {
-            width: 100%;
-            margin-bottom: 1px;
-            margin: top 0px;
+            width: 90%;
+            display: block;
+            margin: 0 auto 12px auto;
+
+           
+
 
         }
 
@@ -163,11 +166,6 @@
 
                     <td class="text-center">{{ optional($employee->created_at)->format('Y-m-d H:i') }}</td>
                   
-                 
-                   
-                   
-                    
-                    
                 </tr>
             @empty
                 <tr>

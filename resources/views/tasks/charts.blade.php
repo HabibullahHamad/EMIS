@@ -1,7 +1,6 @@
 @extends('new')
 
 @section('content')
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -187,9 +186,14 @@
         }
     });
 
+
+
+
+
     new Chart(document.getElementById('employeeChart'), {
         type: 'bar',
         data: {
+
             labels: {!! json_encode($employeeLabels) !!},
             datasets: [{
                 label: 'Tasks',

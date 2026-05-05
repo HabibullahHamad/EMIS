@@ -220,4 +220,12 @@ return [
 'all_audit_logs' => 'تمام ثبت‌های تفتیش',
 'delete_audit_log' => 'حذف ثبت تفتیش',
 
+
+
+'parent_department'=>'ریاست مربوطه',
+'dari_name'=>'نام دری',
+'pashto_name'=>'نام پشتو',
+
+'All Statuses' => 'تمام وضعیت‌ها',
+
 ];

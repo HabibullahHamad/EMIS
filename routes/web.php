@@ -25,16 +25,33 @@ use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
 use app\http\controllers\logoutcontroller;
 
+
 // protect routes with auth middleware
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('inbox', InboxController::class);
-Route::resource('outbox', OutgoingDocumentController::class);    Route::resource('tasks', TaskController::class);
+Route::resource('outbox', OutgoingDocumentController::class);    
+
+
+
     Route::resource('workflows', WorkflowController::class);
 
 });
+
+
+// documents 
+Route::resource('documents', DocumentController::class);
+Route::get('/documents/report/export', [DocumentController::class, 'exportReport'])
+    ->name('documents.report');
+    
+Route::get('/documents/{id}/pdf', [DocumentController::class, 'exportPdf'])
+    ->name('documents.pdf');
+Route::post('/documents/{id}/assign', [DocumentController::class, 'assign'])->name('documents.assign');
+Route::post('/documents/{id}/respond', [DocumentController::class, 'respond'])->name('documents.respond');
+Route::post('/documents/{id}/complete', [DocumentController::class, 'complete'])->name('documents.complete');
+Route::get('/documents/{id}/view', [DocumentController::class, 'view'])->name('documents.view');
 // end 
 /*
 |--------------------------------------------------------------------------
@@ -203,15 +220,23 @@ Route::middleware(['auth'])->group(function () {
     */
 
 // CUSTOM ROUTES FIRST
-Route::get('/tasks/charts', [TaskController::class, 'charts'])
-    ->name('tasks.charts');
+        Route::get('/tasks/charts', [TaskController::class, 'charts'])->name('tasks.charts');
+        Route::get('/tasks/status/{status}', [TaskController::class, 'status'])->name('tasks.status');
+        Route::get('/tasks/search', [TaskController::class, 'search'])->name('tasks.search');
+        Route::get('/tasks/filter', [TaskController::class, 'filter'])->name('tasks.filter');
+        Route::patch('/tasks/{task}/toggle-status', [TaskController::class, 'toggleStatus'])->name('tasks.toggleStatus');
+  route::get('/tasks/export/excel', [TaskController::class, 'exportExcel'])->name('tasks.export.excel');
+        Route::get('/tasks/export/pdf', [TaskController::class, 'exportPdf'])->name('tasks.export.pdf');
+        route::get('/tasks/export/csv', [TaskController::class, 'exportCsv'])->name('tasks.export.csv');
 
-Route::get('/tasks/filter', [TaskController::class, 'filter'])->name('tasks.filter');
-Route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])->name('tasks.changeStatus');
-Route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])->name('tasks.monitoring');
+       route::patch('/tasks/{task}/change-status', [TaskController::class, 'changeStatus'])->name('tasks.changeStatus');
+         
 
+   route::get('/tasks/{task}/monitoring', [TaskController::class, 'monitoring'])->name('tasks.monitoring');
+
+
+        Route::resource('tasks', TaskController::class);
 // RESOURCE LAST
-Route::resource('tasks', TaskController::class);
 
 
     /*

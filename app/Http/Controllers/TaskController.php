@@ -321,33 +321,52 @@ class TaskController extends Controller
             ->with('success', 'Task status updated successfully.');
     }
 
-    public function charts()
-    {
-        $stats = [
-            'total' => Task::count(),
-            'new' => Task::where('status', 'new')->count(),
-            'assigned' => Task::where('status', 'assigned')->count(),
-            'completed' => Task::where('status', 'completed')->count(),
-            'overdue' => Task::where('status', 'overdue')->count(),
-        ];
+   public function charts()
+{
+    $stats = [
+        'total' => Task::count(),
+        'new' => Task::where('status', 'new')->count(),
+        'assigned' => Task::where('status', 'assigned')->count(),
+        'completed' => Task::where('status', 'completed')->count(),
+        'overdue' => Task::where('status', 'overdue')->count(),
+    ];
 
-        $statusChart = [
-            'new' => Task::where('status', 'new')->count(),
-            'assigned' => Task::where('status', 'assigned')->count(),
-            'in_progress' => Task::where('status', 'in_progress')->count(),
-            'completed' => Task::where('status', 'completed')->count(),
-            'overdue' => Task::where('status', 'overdue')->count(),
-            'cancelled' => Task::where('status', 'cancelled')->count(),
-        ];
+    $statusChart = [
+        'new' => Task::where('status', 'new')->count(),
+        'assigned' => Task::where('status', 'assigned')->count(),
+        'in_progress' => Task::where('status', 'in_progress')->count(),
+        'completed' => Task::where('status', 'completed')->count(),
+        'overdue' => Task::where('status', 'overdue')->count(),
+        'cancelled' => Task::where('status', 'cancelled')->count(),
+    ];
 
-        $priorityChart = [
-            'low' => Task::where('priority', 'low')->count(),
-            'medium' => Task::where('priority', 'medium')->count(),
-            'high' => Task::where('priority', 'high')->count(),
-            'urgent' => Task::where('priority', 'urgent')->count(),
-        ];
+    $priorityChart = [
+        'low' => Task::where('priority', 'low')->count(),
+        'medium' => Task::where('priority', 'medium')->count(),
+        'high' => Task::where('priority', 'high')->count(),
+        'urgent' => Task::where('priority', 'urgent')->count(),
+    ];
 
-        return view('tasks.charts', compact('stats', 'statusChart', 'priorityChart'));
-    }
+    // ✅ ADD THIS PART
+    $employeeTaskCounts = Task::selectRaw('employee_id, COUNT(*) as total')
+        ->whereNotNull('employee_id')
+        ->groupBy('employee_id')
+        ->with('employee')
+        ->get();
+
+    $employeeLabels = $employeeTaskCounts->map(function ($item) {
+        return $item->employee->full_name ?? 'Unknown';
+    });
+
+    $employeeData = $employeeTaskCounts->pluck('total');
+
+    return view('tasks.charts', compact(
+        'stats',
+        'statusChart',
+        'priorityChart',
+        'employeeLabels',
+        'employeeData'
+    ));
+}
 
 }
