@@ -2,18 +2,32 @@
 <html lang="{{ app()->getLocale() }}"
       dir="{{ in_array(app()->getLocale(), ['ps','fa','ar']) ? 'rtl' : 'ltr' }}">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+       <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- date -->
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
+<!-- JS -->
+
+<!-- Jalali Datepicker CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    <!-- end -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
     {{ function_exists('setting') ? setting('system_name', __('emis.system_name')) : __('emis.system_name') }}
     {{ View::hasSection('page_title') ? ' - ' . trim($__env->yieldContent('page_title')) : '' }}
 </title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+ 
     <style>
 
 .emis-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 6px 18px rgba(15,23,42,.06);padding:16px;margin-bottom:16px}
@@ -670,6 +684,7 @@ html[dir="rtl"] .submenu-link{
         }
     </style>
 </head>
+
 <body>
 @if(app()->getLocale() == 'ps' || app()->getLocale() == 'fa')
     <html lang="{{ app()->getLocale() }}" dir="rtl">
@@ -1294,5 +1309,13 @@ document.querySelectorAll('.lang-option').forEach(function (btn) {
     });
 });
 </script>
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<!-- Persian Date -->
+<script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+
+<!-- Persian Datepicker -->
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 </body>
 </html>

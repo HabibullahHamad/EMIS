@@ -340,5 +340,14 @@ return [
 'document_details' => 'د سند جزیات',
 'Other'=>'نور',
 'attach'=>'ضمیمه',
+'type'=> 'ډول',
+'incoming'=>'وارده',
+'outgoing'=> 'صادره',
+'ExportPDF'=>'راپورPDF',
+'pdf'=>'د پي ډي ایف',
+'emis.incoming'=>'وارده',
+
+
+
 
 ];

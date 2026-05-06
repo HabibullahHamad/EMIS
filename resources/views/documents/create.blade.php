@@ -1,7 +1,7 @@
 @extends('new')
 
 @section('content')
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 <div class="container">
 
 <h4 class="mb-3">  {{ __('emis.register') }}</h4>
@@ -38,7 +38,8 @@
     {{-- RECEIVED DATE --}}
     <div class="col-md-6 mb-3">
         <label class="form-label">{{ __('emis.received_date') }}</label>
-        <input type="date" name="received_date" class="form-control" value="{{ date('Y-m-d') }}">
+        
+        <input type="text" id="received_date" name="received_date" class="form-control">
     </div>
 
     {{-- SUBJECT --}}
@@ -50,7 +51,7 @@
     {{-- DUE DATE --}}
     <div class="col-md-6 mb-3">
         <label class="form-label">{{ __('emis.due_date') }}</label>
-        <input type="date" name="due_date" class="form-control">
+<input type="text" id="due_date" name="due_date" class="form-control">
     </div>
 
     {{-- PRIORITY --}}
@@ -86,5 +87,20 @@
 </div>
 
 </div>
+<script>
+$(document).ready(function() {
 
+    $("#received_date, #due_date").persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        initialValue: false,
+        calendar: {
+            persian: {
+                locale: 'fa'
+            }
+        }
+    });
+
+});
+</script>
 @endsection

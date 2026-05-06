@@ -6,6 +6,47 @@
 [dir="rtl"] .d-flex {
     flex-direction: row-reverse;
 }
+.search-row {
+    display: flex;
+    flex-wrap: nowrap;         /* force one line */
+    gap: 8px;
+    overflow-x: auto;          /* scroll if needed */
+    align-items: flex-end;
+}
+
+/* each field block */
+.search-row .field {
+    display: flex;
+    flex-direction: column;
+    min-width: 130px;          /* fixed width */
+}
+
+/* smaller fields (date) */
+.search-row .field.small {
+    min-width: 100px;
+}
+
+/* inputs */
+.search-row input {
+    height: 32px;
+    padding: 4px 8px;
+    font-size: 10px;
+}
+
+/* labels */
+.search-row label {
+    font-size: 11px;
+    margin-bottom: 2px;
+    color: #555;
+}
+
+/* buttons */
+.search-row .actions {
+    display: flex;
+    gap: 5px;
+    align-items: flex-end;
+    min-width: 140px;
+}
 
 </style>
 <div class="container-fluid">
@@ -18,7 +59,7 @@
         <a href="{{ route('documents.report') }}" 
            class="btn btn-success btn-sm d-flex align-items-center gap-1">
            <i class="fa fa-file-pdf"></i>
-           {{ __('emis.export') }}
+           {{ __('ExportPDF') }}
         </a>
 
         <a href="{{ route('documents.create') }}" 
@@ -34,50 +75,54 @@
     </h5>
 
 </div>
-
 {{-- SEARCH --}}
-<div class="card p-3 mb-3"> 
-        
-<form method="GET" class="row g-2">
+<div class="card p-2 mb-3">
 
-    <div class="col-md-2">
-        <label class="form-label">{{ __('emis.document_number') }}</label>
-        <input type="text" name="number" value="{{ request('number') }}" class="form-control">
+<form method="GET" class="search-row">
+
+    <div class="field">
+        <label>{{ __('emis.document_number') }}</label>
+        <input type="text" name="number" value="{{ request('number') }}">
     </div>
 
-    <div class="col-md-2">
-        <label class="form-label">{{ __('emis.doc_title') }}</label>
-        <input type="text" name="title" value="{{ request('title') }}" class="form-control">
+    <div class="field">
+        <label>{{ __('emis.type') }}</label>
+        <input type="text" name="type" value="{{ request('type') }}">
     </div>
 
-    <div class="col-md-2">
-        <label class="form-label">{{ __('emis.organization') }}</label>
-        <input type="text" name="organization" value="{{ request('organization') }}" class="form-control">
+    <div class="field">
+        <label>{{ __('emis.doc_title') }}</label>
+        <input type="text" name="title" value="{{ request('title') }}">
     </div>
 
-    <div class="col-md-2">
-        <label class="form-label">{{ __('emis.from') }}</label>
-        <input type="date" name="date_from" value="{{ request('date_from') }}" class="form-control">
+    <div class="field">
+        <label>{{ __('emis.organization') }}</label>
+        <input type="text" name="organization" value="{{ request('organization') }}">
     </div>
 
-    <div class="col-md-2">
-        <label class="form-label">{{ __('emis.to') }}</label>
-        <input type="date" name="date_to" value="{{ request('date_to') }}" class="form-control">
+    <div class="field small">
+        <label>{{ __('emis.from') }}</label>
+        <input type="date" name="date_from" value="{{ request('date_from') }}">
     </div>
 
-    <div class="col-md-2 d-grid">
-        <button class="btn btn-dark">
+    <div class="field small">
+        <label>{{ __('emis.to') }}</label>
+        <input type="date" name="date_to" value="{{ request('date_to') }}">
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-dark btn-sm">
             {{ __('emis.search') }}
         </button>
-    </div>
 
-    <div class="col-md-2 d-grid">
-        <button type="button" class="btn btn-secondary" onclick="window.location='{{ route('documents.index') }}'">
+        <button type="button" class="btn btn-secondary btn-sm"
+            onclick="window.location='{{ route('documents.index') }}'">
             {{ __('emis.reset') }}
         </button>
     </div>
 
 </form>
+
 </div>
 
 {{-- TABLE --}}
@@ -92,6 +137,7 @@
    
     <th>{{ __('emis.document_number') }}</th>
     <th>{{ __('emis.doc_title') }}</th>
+    <th>{{ __('emis.type')}}</th>
     <th>{{ __('emis.organization') }}</th>
     <th>{{ __('emis.status') }}</th>
     <th>{{ __('emis.date') }}</th>
@@ -108,6 +154,7 @@
     <td>{{ $doc->document_number }}</td>
 
     <td>{{ $doc->title }}</td>
+    <td>{{ $doc->type }}</td>
 
     <td>{{ $doc->organization }}</td>
 
@@ -123,7 +170,7 @@
         </span>
     </td>
 
-    <td>{{ $doc->received_date }}</td>
+    <td>{{ \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($doc->received_date))->format('Y/m/d') }}</td>
 
 <td class="text-nowrap">
 

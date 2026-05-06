@@ -341,6 +341,14 @@ return [
 'save' => 'Save',
 'cancel' => 'Cancel',
 'Other'=> 'Other',
+'type'=> 'type',
+'incomming'=>'incomming',
+'outgoing'=> 'outgoing',
+
+'incoming' => 'Incoming',
+'outgoing' => 'Outgoing',
+
+
 
 
 

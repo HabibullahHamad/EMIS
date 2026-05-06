@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
-
+use Morilog\Jalali\Jalalian;
+use Carbon\Carbon;
 
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
@@ -30,6 +31,10 @@ class DocumentController extends Controller
 
         if ($request->filled('title')) {
             $query->where('title', 'like', "%{$request->title}%");
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', 'like', "%{$request->type}%");
         }
 
         if ($request->filled('organization')) {
@@ -59,6 +64,8 @@ class DocumentController extends Controller
     }
 
     // ================= STORE =================
+
+
   public function store(Request $request)
 {
     $filePath = $request->file('file')->store('documents', 'public');
@@ -78,12 +85,44 @@ class DocumentController extends Controller
         'remarks' => $request->remarks,
     ]);
 
+    // date
+$received_date = null;
+$due_date = null;
+
+if ($request->received_date) {
+    $received_date = Jalalian::fromFormat('Y/m/d', $request->received_date)
+        ->toCarbon()
+        ->format('Y-m-d');
+}
+
+if ($request->due_date) {
+    $due_date = Jalalian::fromFormat('Y/m/d', $request->due_date)
+        ->toCarbon()
+        ->format('Y-m-d');
+}
+
+    // end
+
     DocumentHistory::create([
         'document_id' => $doc->id,
         'action' => 'registered',
         'from_user' => auth()->id(),
         'comments' => 'Document registered'
     ]);
+    $received_date = null;
+$due_date = null;
+
+if ($request->received_date) {
+    $received_date = Jalalian::fromFormat('Y/m/d', $request->received_date)
+        ->toCarbon()
+        ->format('Y-m-d');
+}
+
+if ($request->due_date) {
+    $due_date = Jalalian::fromFormat('Y/m/d', $request->due_date)
+        ->toCarbon()
+        ->format('Y-m-d');
+}
 
     return redirect()->route('documents.index')->with('success', 'Document created');
 }
@@ -221,8 +260,6 @@ $result = \Endroid\QrCode\Builder\Builder::create()
 
 $qr = base64_encode($result->getString());
 
-
-
     $qr = base64_encode($result->getString());
 
     // 🔥 PDF GENERATION
@@ -235,7 +272,6 @@ $qr = base64_encode($result->getString());
 
     return $pdf->stream($fileName);
 }
-
 
 public function exportPdfOld($id)
 {
