@@ -14,12 +14,14 @@
 
     <!-- date -->
 <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+<link rel="stylesheet" href="https://unpkg.com/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
+<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
 <!-- JS -->
 
 <!-- Jalali Datepicker CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
     <!-- end -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -682,7 +684,43 @@ html[dir="rtl"] .submenu-link{
                 display:none;
             }
         }
+    
+    
+
+    <!-- your existing CSS -->
+
+    <link rel="stylesheet" href="https://unpkg.com/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
+
+    
+        /* paste the custom CSS here */
+        .pwt-datepicker-container {
+            border-radius: 12px !important;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .pwt-datepicker-header {
+            background: #0a7a94 !important;
+            color: white !important;
+        }
+
+        .pwt-btn-selected {
+            background: #0a7a94 !important;
+            border-radius: 50% !important;
+            color: white !important;
+        }
+
+        .pwt-btn-submit {
+            background: #0a7a94 !important;
+            color: white !important;
+            border-radius: 8px !important;
+            width: 90% !important;
+            margin: 10px auto !important;
+            display: block !important;
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -1317,5 +1355,8 @@ document.querySelectorAll('.lang-option').forEach(function (btn) {
 
 <!-- Persian Datepicker -->
 <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
+<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
 </body>
 </html>

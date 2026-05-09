@@ -36,23 +36,30 @@
     </div>
 
     {{-- RECEIVED DATE --}}
-    <div class="col-md-6 mb-3">
-        <label class="form-label">{{ __('emis.received_date') }}</label>
-        
-        <input type="text" id="received_date" name="received_date" class="form-control">
-    </div>
+<div class="col-md-6 mb-3">
 
-    {{-- SUBJECT --}}
-    <div class="col-md-12 mb-3">
-        <label class="form-label">{{ __('emis.subject') }}</label>
-        <textarea name="subject" class="form-control"></textarea>
-    </div>
+<label class="form-label">
+    {{ __('emis.received_date') }}
+</label>
+
+<input type="text"
+       id="received_date"
+       name="received_date"
+       class="form-control">
+
+</div>
 
     {{-- DUE DATE --}}
     <div class="col-md-6 mb-3">
-        <label class="form-label">{{ __('emis.due_date') }}</label>
-<input type="text" id="due_date" name="due_date" class="form-control">
-    </div>
+        <label class="form-label">
+            {{ __('emis.due_date') }}
+        </label>
+<input type="text"
+       id="due_date"
+       name="due_date"
+       class="form-control">
+
+</div>    
 
     {{-- PRIORITY --}}
     <div class="col-md-6 mb-3">
@@ -88,19 +95,21 @@
 
 </div>
 <script>
-$(document).ready(function() {
-
-    $("#received_date, #due_date").persianDatepicker({
-        format: 'YYYY/MM/DD',
+$(document).ready(function () {
+    $("#received_date").persianDatepicker({
+        format: "YYYY/MM/DD",
         autoClose: true,
+        observer: true,
         initialValue: false,
+
+        // Afghan-friendly settings
         calendar: {
             persian: {
-                locale: 'fa'
+                locale: 'en'   // you can change to 'fa' if needed
             }
         }
     });
-
 });
 </script>
+
 @endsection

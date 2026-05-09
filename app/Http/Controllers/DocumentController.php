@@ -90,17 +90,22 @@ $received_date = null;
 $due_date = null;
 
 if ($request->received_date) {
-    $received_date = Jalalian::fromFormat('Y/m/d', $request->received_date)
+
+    $receivedDate = fa_to_en($request->received_date);
+
+    $received_date = Jalalian::fromFormat('Y/m/d', $receivedDate)
         ->toCarbon()
         ->format('Y-m-d');
 }
 
 if ($request->due_date) {
-    $due_date = Jalalian::fromFormat('Y/m/d', $request->due_date)
+
+    $dueDate = fa_to_en($request->due_date);
+
+    $due_date = Jalalian::fromFormat('Y/m/d', $dueDate)
         ->toCarbon()
         ->format('Y-m-d');
 }
-
     // end
 
     DocumentHistory::create([
@@ -343,7 +348,6 @@ public function update(Request $request, $id)
         'organization' => $request->organization,
         'type' => $request->type,
         'received_date' => $request->received_date,
-        'due_date' => $request->due_date,
         'priority' => $request->priority,
         'remarks' => $request->remarks,
     ]);

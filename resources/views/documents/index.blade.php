@@ -170,8 +170,12 @@
         </span>
     </td>
 
-    <td>{{ \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($doc->received_date))->format('Y/m/d') }}</td>
 
+
+<td>
+{{ ($doc->received_date) }}
+
+</td>
 <td class="text-nowrap">
 
 <div class="dropdown">

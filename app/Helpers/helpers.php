@@ -35,4 +35,54 @@ if (! function_exists('audit_log')) {
         ]);
     }
 }
+if (!function_exists('afghan_date')) {
+
+    function afghan_date($date)
+    {
+        if (!$date) {
+            return '-';
+        }
+
+        try {
+
+            $jalali = \Morilog\Jalali\Jalalian::fromCarbon(
+                \Carbon\Carbon::parse($date)
+            );
+
+            $months = [
+
+                'فروردین' => 'حمل',
+                'اردیبهشت' => 'ثور',
+                'خرداد' => 'جوزا',
+                'تیر' => 'سرطان',
+                'مرداد' => 'اسد',
+                'شهریور' => 'سنبله',
+                'مهر' => 'میزان',
+                'آبان' => 'عقرب',
+                'آذر' => 'قوس',
+                'دی' => 'جدی',
+                'بهمن' => 'دلو',
+                'اسفند' => 'حوت',
+
+            ];
+
+            // IMPORTANT
+            $formatted = $jalali->format('Y F d');
+
+            foreach ($months as $fa => $af) {
+
+                $formatted = str_replace($fa, $af, $formatted);
+
+            }
+
+            return $formatted;
+
+        } catch (\Exception $e) {
+
+            return '-';
+
+        }
+    }
+
+}
 }

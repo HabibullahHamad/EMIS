@@ -6,19 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-   protected $fillable = [
-    'document_number',
-    'title',
-    'subject',
-    'organization',
-    'type', // ✅ VERY IMPORTANT
+protected $fillable = [
+    'name',
+    'name_ps',
+    'name_fa',
+    'code',
+    'parent_id',
     'status',
-    'received_date',
-    'due_date',
-    'created_by',
-    'file_path',
-    'priority',
-    'remarks'
+    'description',
 ];
 
     protected $casts = [
@@ -28,6 +23,7 @@ class Department extends Model
     public function parent()
     {
         return $this->belongsTo(Department::class, 'parent_id');
+        
     }
 
     public function children()
