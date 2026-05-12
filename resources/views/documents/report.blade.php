@@ -1,79 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="ps" dir="rtl">
 <head>
-    <meta charset="utf-8">
-    <title>EMIS Report</title>
+<meta charset="UTF-8">
 
-    <style>
-        body { font-family: DejaVu Sans; font-size: 11px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        th, td { border: 1px solid #000; padding: 5px; }
-        th { background: #eee; }
-        .title { text-align: center; font-size: 16px; margin-bottom: 10px; }
-        .section { background: #ddd; padding: 5px; margin-top: 10px; }
-    </style>
+<style>
+    * {
+        font-family: notonaskh !important;
+    }
+
+    body {
+        direction: rtl;
+        text-align: right;
+        font-size: 12px;
+        color: #000;
+    }
+
+    .rtl {
+        direction: rtl;
+        text-align: right;
+        unicode-bidi: plaintext;
+    }
+
+    .ltr {
+        direction: ltr;
+        text-align: left;
+        unicode-bidi: plaintext;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 18px;
+        font-size: 18px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 12px;
+    }
+
+    th, td {
+        border: 1px solid #222;
+        padding: 7px;
+        vertical-align: middle;
+        font-size: 12px;
+    }
+
+    th {
+        background: #eee;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .label {
+        background: #eee;
+        font-weight: bold;
+        text-align: center;
+        width: 18%;
+    }
+
+    .value {
+        text-align: right;
+        width: 32%;
+    }
+
+    .section-title {
+        background: #ddd;
+        padding: 7px;
+        font-weight: bold;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .history th,
+    .history td {
+        text-align: center;
+    }
+
+    hr {
+        margin: 16px 0;
+        border: 0;
+        border-top: 1px solid #333;
+    }
+</style>
 </head>
+
 <body>
 
-<div class="title">
-    📄 EMIS DOCUMENTS REPORT
-</div>
+<h2>{{ __('emis.emis_documents_report') }}</h2>
 
-@foreach($documents as $doc)
+@foreach($documents as $document)
 
 <table>
-    <tr>
-        <th>Document No</th>
-        <td>{{ $doc->document_number }}</td>
+    <tr>                
 
-        <th>Status</th>
-        <td>{{ $doc->status }}</td>
+        <td class="label">{{ __('emis.document_no') }}</td>
+        <td class="value ltr">{{ $document->document_number }}</td>
+
+        <td class="label">{{ __('emis.status') }}</td>
+        <td class="value ltr">{{ $document->status }}</td>
     </tr>
 
     <tr>
-        <th>Title</th>
-        <td colspan="3">{{ $doc->title }}</td>
+        <td class="label">{{ __('emis.title')}}</td>
+        <td colspan="3" class="value rtl">{{ $document->title }}</td>
     </tr>
 
     <tr>
-        <th>Organization</th>
-        <td>{{ $doc->organization }}</td>
+        <td class="label">{{ __('emis.organization') }}/td>
+        <td class="value rtl">{{ $document->organization }}</td>
 
-        <th>Date</th>
-        <td>{{ $doc->received_date }}</td>
+        <td class="label">{{ __('emis.date') }}</td>
+        <td class="value ltr">{{ $document->received_date }}</td>
     </tr>
 
     <tr>
-        <th>Registered By</th>
-        <td>{{ $doc->creator->name ?? '' }}</td>
+        <td class="label">{{ __('emis.registered_by') }}</td>
+        <td class="value ltr">{{ optional($document->creator)->name ?? '-' }}</td>
 
-        <th>Assigned To</th>
-        <td>{{ $doc->assignedUser->name ?? '' }}</td>
+        <td class="label">{{ __('emis.assigned_to') }}</td>
+        <td class="value ltr">{{ optional($document->assignedUser)->name ?? '-' }}</td>
     </tr>
 </table>
 
-{{-- TIMELINE --}}
-<div class="section">Tracking History</div>
+<div class="section-title">{{ __('emis.tracking_history') }}</div>
 
-<table>
-    <tr>
-        <th>Action</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Comment</th>
-        <th>Date</th>
-    </tr>
+<table class="history">
+    <thead>
+        <tr>
+            <th>{{ __('emis.action') }}</th>
+            <th>{{ __('emis.from') }}</th>
+            <th>To</th>
+            <th>{{ __('emis.to') }}</th>
+            <th>{{ __('emis.comment') }}</th>
+        </tr>
+    </thead>
 
-    @foreach($doc->histories as $h)
-    <tr>
-        <td>{{ $h->action }}</td>
-        <td>{{ $h->fromUser->name ?? '' }}</td>
-        <td>{{ $h->toUser->name ?? '' }}</td>
-        <td>{{ $h->comments }}</td>
-        <td>{{ $h->created_at }}</td>
-    </tr>
-    @endforeach
-
+    <tbody>
+        @forelse($document->histories as $history)
+            <tr>
+                <td class="ltr">{{ $history->action }}</td>
+                <td class="ltr">{{ optional($history->fromUser)->name ?? '-' }}</td>
+                <td class="ltr">{{ optional($history->toUser)->name ?? '-' }}</td>
+                <td class="rtl">{{ $history->comments ?? '-' }}</td>
+                <td class="ltr">{{ $history->created_at?->format('Y-m-d H:i:s') }}</td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="5">{{ __('emis.no_history_found') }}</td>
+            </tr>
+        @endforelse
+    </tbody>
 </table>
 
 <hr>

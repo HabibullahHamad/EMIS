@@ -19,6 +19,7 @@ use App\Http\Controllers\SettingsController;
 
 use App\Http\Middleware\SetLocale;
 use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\DepartmentReportController;
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkflowController;
@@ -138,9 +139,17 @@ Route::middleware(['auth'])->prefix('workflows')->name('workflows.')->group(func
 |--------------------------------------------------------------------------
 */
 
+
+Route::get('/department-reports', [DepartmentReportController::class, 'index'])->name('department.reports.index');
+Route::post('/department-reports/preview', [DepartmentReportController::class, 'preview'])->name('department.reports.preview');
+Route::post('/department-reports/export-pdf', [DepartmentReportController::class, 'exportPdf'])->name('department.reports.exportPdf');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('departments', DepartmentController::class);
 });
+Route::get('/departments-print', [DepartmentController::class, 'print'])
+    ->name('departments.print');
 /*
 |--------------------------------------------------------------------------
 | settings Routes

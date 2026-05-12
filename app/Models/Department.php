@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
 protected $fillable = [
+  
     'name',
     'name_ps',
     'name_fa',
     'code',
+    'type',
+    'level',
     'parent_id',
     'status',
     'description',
 ];
+
 
     protected $casts = [
         'status' => 'boolean',

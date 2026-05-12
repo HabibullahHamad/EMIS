@@ -29,6 +29,19 @@
                         <label class="form-label">{{ __('emis.dari_name') }}</label>
                         <input type="text" name="name_fa" class="form-control" value="{{ old('name_fa') }}">
                     </div>
+<div class="col-md-6 mb-3">
+    <label class="form-label">{{ __('emis.type') }}</label>
+    <select name="type" class="form-select" required>
+        <option value="general_directorate">{{ __('emis.A') }}</option>
+        <option value="directorate">{{ __('emis.B') }}</option>
+        <option value="department">{{ __('emis.C') }} </option>
+        <option value="directorate"> {{ __('emis.D') }}</option>
+         <option value="directorate">{{ __('emis.other') }}</option>
+
+        
+    </select>
+</div>
+
 
                     <div class="col-md-6">
                         <label class="form-label">{{ __('emis.parent_department') }}</label>

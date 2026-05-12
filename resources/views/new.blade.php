@@ -845,6 +845,8 @@ html[dir="rtl"] .submenu-link{
                     @endif
                     @if(auth()->check() && auth()->user()->canAccess('departments.create') && Route::has('departments.create'))
                     <li><a class="submenu-link {{ request()->routeIs('departments.create') ? 'active' : '' }}" href="{{ route('departments.create') }}"><i class="fa-solid fa-plus"></i><span>{{ __('emis.create_department') }}</span></a></li>
+
+ 
                     @endif  
                 </ul>
             </li>

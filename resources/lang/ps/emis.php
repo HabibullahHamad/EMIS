@@ -347,7 +347,46 @@ return [
 'pdf'=>'د پي ډي ایف',
 'emis.incoming'=>'وارده',
 
+'A'=>'عمومي ریاست',
+'B'=>'ریاست',
+'C'=>'آمریت',
+'D'=>'مدیریت',
+'other'=>'نور',
+'print Department'=>'دڅانګو راپور',
 
+'Reset'=>' تنظیمول',
 
+// report
+'document_pdf_title' => 'د سند رسمي راپور',
+'islamic_emirate' => 'د افغانستان اسلامي امارت',
+'ministry_finance' => 'د مالیې وزارت',
+'general_directorate_budget' => 'د بودجې عمومي ریاست',
+'executive_management_office' => 'د اجرائیوي مدیریت دفتر',
+
+'document_no' => 'د سند شمېره',
+'date' => 'نېټه',
+'from' => 'مرجع',
+'subject' => 'موضوع',
+'title' => 'عنوان',
+'current_status' => 'اوسنی حالت',
+
+'document_registered_text' => 'دغه سند د اجرائیوي مدیریت معلوماتي سیستم EMIS کې په رسمي ډول ثبت شوی او د اداري کاري بهیر مطابق پروسس شوی دی.',
+'document_tracking_text' => 'د دې سند ټول اړوند اجراآت، تأییدات، ځوابونه او بدلونونه په سیستم کې ثبت دي او د حساب ورکونې او شفافیت لپاره تعقیبېدلی شي.',
+
+'prepared_by' => 'ترتیب کوونکی',
+'reviewed_by' => 'بررسي کوونکی',
+'approved_by' => 'تایید کوونکی',
+'generated_by_emis' => 'د EMIS سیستم له خوا جوړ شوی',
+
+'emis_documents_report' => 'د EMIS د اسنادو راپور',
+'status' => 'حالت',
+'organization' => 'اداره',
+'registered_by' => 'ثبت کوونکی',
+'assigned_to' => 'سپارل شوی',
+'tracking_history' => 'د تعقیب تاریخچه',
+'action' => 'عمل',
+'to' => 'ته',
+'comment' => 'تبصره',
+'no_history_found' => 'هیڅ تاریخچه ونه موندل شوه',
 
 ];

@@ -348,6 +348,16 @@ return [
 'incoming' => 'Incoming',
 'outgoing' => 'Outgoing',
 
+'A'=>'Genera Derectorate',
+'B'=>'Directorate',
+'C'=>'Head Department',
+
+'other'=>'other',
+'emisـprint Department'=>'Department Report',
+
+
+
+
 
 
 

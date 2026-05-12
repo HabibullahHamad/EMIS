@@ -1,183 +1,263 @@
-
 <!DOCTYPE html>
 <html lang="ps" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 
 <style>
-body {
-    font-family: 'Noto Sans Arabic', sans-serif;
-    direction: rtl;
-    text-align: right;
-}
-@font-face {
-    font-family: 'NotoArabic';
-    src: url('{{ public_path('fonts/NotoSansArabic-Regular.ttf') }}') format('truetype');
+
+*{
+    font-family:notonaskh !important;
 }
 
-body {
-    font-family: 'NotoArabic', DejaVu Sans, sans-serif;
+body{
+    direction:rtl;
+    text-align:right;
+    font-size:13px;
+    color:#000;
+    margin:0;
+    padding:0;
 }
-</style>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
-<style>
-
+.page{
+    position:relative;
+    min-height:1000px;
+    padding:25px 35px 120px 35px;
+}
 
 /* HEADER */
-.header {
-    text-align: center;
-    margin-bottom: 10px;
-    margin-top:10px;
+
+.header{
+    text-align:center;
+    position:relative;
+    margin-bottom:15px;
 }
 
-.header h2 {
-    margin: 0;
-}
-.header h5 {
-    margin: 5px 0;
-}
-
-.header h6 {
-    margin: 5px 0;
-}
-.header h7 {
-    margin: 0;
-    font-weight: normal;
-    color: #555;
+.logo{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+    margin-bottom:6px;
 }
 
-
-.line {
-    border-bottom: 2px solid #000;
-    margin-top: 5px;
+.header h5,
+.header h6{
+    margin:2px 0;
+    font-weight:bold;
 }
 
-/* DOCUMENT INFO */
-lrft side 
+/* QR */
 
-.info {
-     margin-top: 30px;
-    line-height: 1.7;
-    text-align: left;
-    position: realative;
-
-
+.qr{
+    position:absolute;
+    top:0;
+    right:0;
 }
 
-.info p {
-    margin: 4px 0;
+/* LINE */
+
+.line{
+    border-top:2px solid #222;
+    margin:15px 0 20px;
+}
+
+/* INFO BLOCK */
+
+.info-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:25px;
+}
+
+.info-table td{
+    border:1px solid #333;
+    padding:8px;
+    vertical-align:middle;
+}
+
+.label{
+    background:#f1f1f1;
+    font-weight:bold;
+    width:18%;
+    text-align:center;
+}
+
+.value{
+    width:32%;
+}
+
+/* RTL + LTR */
+
+.rtl{
+    direction:rtl;
+    unicode-bidi:plaintext;
+    text-align:right;
+}
+
+.ltr{
+    direction:ltr;
+    unicode-bidi:plaintext;
+    text-align:left;
 }
 
 /* BODY */
-.content {
-    margin-top: 30px;
-    line-height: 1.7;
-    text-align: justify;
+
+.content{
+    margin-top:25px;
+    line-height:2.2;
+    text-align:justify;
+    font-size:14px;
 }
 
 /* SIGNATURE */
-.signature {
-    margin-top: 60px;
-    width: 100%;
+
+.signature{
+    width:100%;
+    margin-top:90px;
+    border:none;
 }
 
-.signature td {
-    text-align: center;
+.signature td{
+    border:none;
+    text-align:center;
+    vertical-align:top;
+    font-size:13px;
 }
 
 /* FOOTER */
-.footer {
-    position: fixed;
-    bottom: 20px;
-    text-align: center;
-    width: 100%;
-    font-size: 12px;
-}
-.logo{
-    width: 100px;
-    height: 80px;
-    padding-top:10px;
 
+.footer{
+    position:absolute;
+    bottom:15px;
+    left:35px;
+    right:35px;
+    border-top:1px solid #777;
+    padding-top:6px;
+    font-size:11px;
+    text-align:center;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
+<div class="page">
 
-    <img src="{{ public_path('images\logo.png') }}" class="logo">
+    {{-- HEADER --}}
+    <div class="header">
 
-    <h5>Islamic Emirate of Afghanistan</h5>
-    <H5>Ministry of Finance</h5>
-    <h6>General Directorate of Budget</h6>
-    <h7>Executive Management Office</h7>
-    
-    <!-- qr -->
-     <div style="position: absolute; top: 20px; right: 20px;">
-         <img src="data:image/png;base64,{{ $qr }}" width="120">
-     </div>
+        {{-- QR --}}
+        <div class="qr">
+            <img src="data:image/png;base64,{{ $qr }}" width="90">
+        </div>
+
+        {{-- LOGO --}}
+        <img src="{{ public_path('images/logo.png') }}" class="logo">
+
+        <h5>{{ __('emis.islamic_emirate') }}</h5>
+        <h5>{{ __('emis.ministry_finance') }}</h5>
+        <h6>{{ __('emis.general_directorate_budget') }}</h6>
+        <h6>{{ __('emis.executive_management_office') }}</h6>
+
+    </div>
+
+    {{-- HR LINE --}}
     <div class="line"></div>
-<!-- DOCUMENT INFO -->
- 
-<div class="info">
-    <p><strong>Document No:</strong> {{ $document->document_number }}</p>
-    <p><strong>Date:</strong> {{ $document->received_date }}</p>
-    <p><strong>From:</strong> {{ $document->organization }}</p>
-    <p><strong>Subject:</strong> {{ $document->subject }}</p>
-</div>
 
-<!-- BODY -->
- 
-<div class="content">
-    <p>
-        This document has been officially registered in the Executive Management
-        Information System (EMIS) and processed according to organizational workflow.
-    </p>
+    {{-- DOCUMENT INFO --}}
+    <table class="info-table">
 
-    <p>
-        Title: {{ $document->title }}
-    </p>
+        <tr>
+            <td class="label">{{ __('emis.document_no') }}</td>
+            <td class="value ltr">{{ $document->document_number }}</td>
 
-    <p>
-        Current Status: {{ strtoupper($document->status) }}
-    </p>
+            <td class="label">{{ __('emis.current_status') }}</td>
+            <td class="value ltr">{{ strtoupper($document->status) }}</td>
+        </tr>
 
-    <p>
-        All related actions, approvals, and responses are recorded in the system
-        and can be tracked for accountability and transparency.
-    </p>
-</div>
+        <tr>
+            <td class="label">{{ __('emis.date') }}</td>
+            <td class="value ltr">{{ $document->received_date }}</td>
 
-<!-- SIGNATURE -->
-<table class="signature">
-<tr>
-    <td>
-        Prepared By<br><br>
-        ____________________
-    </td>
+            <td class="label">{{ __('emis.from') }}</td>
+            <td class="value rtl">{{ $document->organization }}</td>
+        </tr>
 
-    <td>
-        Reviewed By<br><br>
-        ____________________
-    </td>
+        <tr>
+            <td class="label">{{ __('emis.subject') }}</td>
+            <td colspan="3" class="rtl">
+                {{ $document->subject }}
+            </td>
+        </tr>
 
-    <td>
-        Approved By<br><br>
-        ____________________
-    </td>
-</tr>
-</table>
+        <tr>
+            <td class="label">{{ __('emis.title') }}</td>
+            <td colspan="3" class="rtl">
+                {{ $document->title }}
+            </td>
+        </tr>
 
-<!-- FOOTER -->
-<div class="footer">
-    Generated by EMIS System | {{ date('Y-m-d') }}
+    </table>
+
+    {{-- MAIN BODY --}}
+    <div class="content">
+
+        <p class="rtl">
+            {{ __('emis.document_registered_text') }}
+        </p>
+
+        <p class="rtl">
+            {{ __('emis.document_tracking_text') }}
+        </p>
+
+    </div>
+
+    {{-- SIGNATURE --}}
+    <table class="signature">
+
+        <tr>
+
+            <td>
+                {{ __('emis.prepared_by') }}
+
+                <br><br><br>
+
+                ______________________
+            </td>
+
+            <td>
+                {{ __('emis.reviewed_by') }}
+
+                <br><br><br>
+
+                ______________________
+            </td>
+
+            <td>
+                {{ __('emis.approved_by') }}
+
+                <br><br><br>
+
+                ______________________
+            </td>
+
+        </tr>
+
+    </table>
+
+    {{-- FOOTER --}}
+    <div class="footer">
+
+        {{ __('emis.generated_by_emis') }}
+
+        |
+        
+        <span class="ltr">{{ date('Y-m-d') }}</span>
+
+    </div>
+
 </div>
 
 </body>
 </html>
-
