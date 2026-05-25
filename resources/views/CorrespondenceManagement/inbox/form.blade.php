@@ -1,171 +1,108 @@
 @extends('new')
+
 @section('content')
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<script>
-    $("#deadline").persianDatepicker({
-        format: 'YYYY/MM/DD',
-        altField: '#deadline_hidden',
-        altFormat: 'YYYY/MM/DD',
-        observer: true,
-        autoClose: true
-    });
-</script>
-<style>
-.tb{
- background-color: #074582;
- padding: 1px 8px 1px 8px;
- border-radius:6px;
- color:white;
- weight:10px;
- margin-right:3px;
- }
-    </style>
+<div class="container-fluid">
 
-<div class="d-flex justify-content-start mb-1 mt-0">
+    <div class="card shadow-sm border-0 rounded-4">
 
-    <a href="{{ route('inbox.form') }}" class="tb">
-        <i class="fa fa-plus"></i>
-    </a>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="fa fa-inbox"></i>
+                Create Incoming Document
+            </h5>
 
-    <a href="{{route('inbox.index')}}" class="tb">
-        <i class="fa fa-search"></i>
-    </a>
-</div>
-<hr>
-<style>
-    .form-card {
-        max-width: 1000px;
-        margin: 60px auto;
-        padding: 30px 40px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        font-family: 'Poppins', sans-serif;
-    }
-    .form-label {
-        font-weight: 600;
-        margin-bottom: 6px;
-    }
-    .input-group .form-control {
-        border-radius: 6px;
-        transition: box-shadow 0.3s;
-    }
-    .input-group .form-control:focus {
-        box-shadow: 0 0 0 1px #0685ed;
-    }
-    .save-btn {
-        background: #0685ed;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 24px;
-        font-weight: 600;
-        transition: background 0.2s;
-    }
-    .save-btn:hover {
-        background: #138496;
-    }
-    @media (max-width: 768px) {
-        .form-card {
-            padding: 15px 8px;
-        }
-    }
-</style>
-
-<form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <!-- All your input fields here -->
-
-<div class="container mt-0 mb-0 border-3 form-card">
-
-
-    <div class=".col-sm-3 .col-md-4 .col-lg-4">     
-       
-        <div class="row g-2">
-            {{-- Letter Number --}}
-            <div class="col-md-6 mb-0">
-                <label class="form-label">ګنه</label>
-                <div class="input-group">
-                   
-                    <input type="text" name="letter_no" class="form-control"
-                        value="{{ $inbox->letter_no ?? old('letter_no') }}">
-                </div>
-            </div>
-
-            {{-- Subject --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">موضوع</label>
-                <div class="input-group">
-                    
-                    <input type="text" name="subject" class="form-control"
-                        value="{{ $inbox->subject ?? old('subject') }}">
-                </div>
-            </div>
-
-            {{-- Sender Name --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">لېږونکی</label>
-                <div class="input-group">
-                  
-                    
-                        <input type="text" name="sender" class="form-control"
-                           value="{{ old('sender') }}">
-                </div>
-                
-            </div>
-  {{-- Reciver Name --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">ترلاسه کوونکې</label>
-                <div class="input-group">
-                  
-                    
-                        <input type="text" name="receiver" class="form-control"
-                           value="{{ old('receiver') }}">
-                </div>
-                
-            </div>
-            {{-- Date Received --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">ترلاسه کېدو نېټه</label>
-                <div class="input-group">
-                    
-                    <input type="date" name="received_date" class="form-control">
-                </div>
-            </div>
- {{-- summary --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">  تفصیل</label>
-                <div class="input-group">
-                    
-                        <textarea name="summary" class="form-control" rows="3">{{ old('summary') }}</textarea>
-                </div>
-                
-            </div>
-  
-    
-            {{-- File --}}
-            <div class="col-md-6 mb-1">
-                <label class="form-label">مل/ضمایم</label>
-                <div class="input-group">
-                   
-                    <input type="file" name="attachment" class="form-control">
-                </div>
-            </div>
-
-           
-
+            <a href="{{ route('inbox.index') }}" class="btn btn-sm btn-secondary">
+                Back
+            </a>
         </div>
-       
-        <div class="row mt-3">
-            <div class="col-md-12 text-center">             
-                <button type="submit" class="save-btn">
-                     لیک خوندي کړئ
+
+        <div class="card-body">
+
+            <form action="{{ route('inbox.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Letter No</label>
+                        <input type="text" name="letter_no" class="form-control" value="{{ old('letter_no') }}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">حکم نمبر / Order Number</label>
+                        <input type="text" name="order_number" class="form-control" value="{{ old('order_number') }}">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Received Date</label>
+                        <input type="date" name="received_date" class="form-control" value="{{ old('received_date') }}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Sender</label>
+                        <input type="text" name="sender" class="form-control" value="{{ old('sender') }}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Receiver</label>
+                        <input type="text" name="receiver" class="form-control" value="{{ old('receiver') }}" required>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Subject</label>
+                        <input type="text" name="subject" class="form-control" value="{{ old('subject') }}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Priority</label>
+                        <select name="priority" class="form-select">
+                            <option value="">Select</option>
+                            <option value="H">High</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="Unread">Unread</option>
+                            <option value="Read">Read</option>
+                            <option value="Assigned">Assigned</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Assigned To</label>
+                        <input type="text" name="assigned_to" class="form-control" value="{{ old('assigned_to') }}">
+                    </div>
+                         </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Summary</label>
+                        <textarea name="summary" class="form-control" rows="4">{{ old('summary') }}</textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Attachments</label>
+                        <input type="file" name="attachments[]" class="form-control" multiple>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    Save
                 </button>
 
-            </div>
+            </form>
+
+        </div>
+
     </div>
-    
+
 </div>
-</form>
+
 @endsection

@@ -1,4 +1,5 @@
 @extends('new')
+@section('page_title', __('emis.employees') ?? 'Employees')
 
 @section('content')
 

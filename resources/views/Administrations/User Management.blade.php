@@ -1,8 +1,7 @@
 @extends('new')
 @section('content')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">    
+
 <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
 <link rel="stylesheet" href="{{ asset('css/tabs.css') }}">
 <link rel="stylesheet" href="{{ asset('css/user-management.css') }}">
@@ -10,10 +9,8 @@
 
   
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         body {

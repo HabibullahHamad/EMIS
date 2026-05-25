@@ -16,5 +16,13 @@ class Outgoing extends Model
         'priority',
         'status',
         'attachment',
+        'attachment_names',
     ];
+    public function attachments()
+{
+    return $this->morphMany(
+        \App\Models\Attachment::class,
+        'attachable'
+    );
+}
 }   

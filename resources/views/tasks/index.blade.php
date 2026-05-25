@@ -2,7 +2,17 @@
 
 @section('content')
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
+    {{-- LOCAL FILES --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
 
 <style>
     /* Small compact stats cards */
@@ -212,7 +222,7 @@
         <a href="{{ route('tasks.charts') }}" class="text-decoration-none">
             <div class="card stats-card text-center small-card hover-card">
                 <div class="card-body py-1 d-flex flex-column justify-content-center align-items-center">
-                    <i class="bi bi-bar-chart-line text-danger mb-1" style="font-size:16px;"></i>
+                    <i class="fa fa-bar-chart-line text-danger mb-1" style="font-size:16px;"></i>
                     <h6 class="mb-0 text-danger">View in Charts</h6>
                 </div>
             </div>
@@ -274,7 +284,7 @@
         </select>
 
         <button type="submit" class="btn btn-sm btn-success" title="Update Status">
-            <i class="bi bi-check2"></i>
+            <i class="fa fa-check"></i>
         </button>
     </form>
 </td>
@@ -283,11 +293,11 @@
 
                             <td>
                                 <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info" title="View">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="fa fa-eye"></i>
                                 </a>
 
                                 <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning" title="Edit">
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="fa fa-pencil-square"></i>
                                 </a>
 
                                 <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline-block;">
@@ -297,7 +307,7 @@
                                             class="btn btn-sm btn-danger"
                                             title="Delete"
                                             onclick="return confirm('Delete this task?')">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
     
@@ -319,8 +329,7 @@
     </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <script>
     const statusChart = new Chart(document.getElementById('statusChart'), {

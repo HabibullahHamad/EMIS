@@ -1,7 +1,6 @@
 @extends('new')
 
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
     .custom-pagination .page-link {
@@ -202,7 +201,6 @@
     @endif
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('click', function (e) {
     const btn = e.target.closest('.delete-btn');

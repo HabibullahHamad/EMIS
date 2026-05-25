@@ -26,6 +26,20 @@ use App\Http\Controllers\WorkflowController;
 use App\Http\Controllers\AuditLogController;
 use app\http\controllers\logoutcontroller;
 
+use App\Http\Controllers\TrackingController;
+
+
+
+
+
+
+
+// tracking routes 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tracking', [TrackingController::class, 'index'])
+        ->name('tracking.index');
+});
 
 // protect routes with auth middleware
 Route::middleware(['auth'])->group(function () {
@@ -49,7 +63,6 @@ Route::get('/documents/report/export', [DocumentController::class, 'exportReport
     
 
     Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
-Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('documents.update');
 
 
 Route::get('/documents/{id}/pdf', [DocumentController::class, 'exportPdf'])
@@ -395,3 +408,59 @@ Route::get('/lang/fa', function () {
     return redirect()->back();
 })->name('lang.fa');
   });
+
+
+
+//   multiple attachs
+Route::get(
+
+'/inbox/{inbox}/combine-pdf',
+
+[InboxController::class,
+
+'combinePdf']
+
+)
+
+->name(
+
+'inbox.combinePdf'
+
+);
+
+Route::get(
+
+'/outbox/{outbox}/combine-pdf',
+
+[OutgoingDocumentController::class,
+
+'combinePdf']
+
+)
+
+->name(
+
+'outbox.combinePdf'
+
+);
+
+
+Route::get(
+
+'/outbox/{id}/combine-pdf',
+
+[
+
+OutgoingDocumentController::class,
+
+'combinePdf'
+
+]
+
+)
+
+->name(
+
+'outbox.combinePdf'
+
+);

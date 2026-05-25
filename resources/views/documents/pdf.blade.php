@@ -48,11 +48,19 @@ body{
 
 /* QR */
 
-.qr{
-    position:absolute;
-    top:0;
-    right:0;
+.qr-box {
+    position: absolute;
+    top: 135px;
+    right: 75px;
+    width: 90px;
+    height: 90px;
 }
+
+.qr-img {
+    width: 90px;
+    height: 90px;
+}
+
 
 /* LINE */
 
@@ -146,11 +154,19 @@ body{
 
     {{-- HEADER --}}
     <div class="header">
+    
+    <div class="qr-box">
 
-        {{-- QR --}}
-        <div class="qr">
-            <img src="data:image/png;base64,{{ $qr }}" width="90">
-        </div>
+    <img src="data:image/png;base64,{{ $qr }}"
+         class="qr-img">
+
+    <div class="qr-code-text">
+
+        کد: {{ $document->id }}
+
+    </div>
+
+</div>
 
         {{-- LOGO --}}
         <img src="{{ public_path('images/logo.png') }}" class="logo">

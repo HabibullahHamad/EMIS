@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+  use setasign\Fpdi\Fpdi;
 
 class OutgoingDocumentController extends Controller
 {
@@ -22,57 +23,82 @@ class OutgoingDocumentController extends Controller
         return view('CorrespondenceManagement.outbox.create', compact('users'));
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'doc_number'  => 'required',
-            'subject'     => 'required',
-            'sender'      => 'required',
-            'receiver'    => 'required',
-            'doc_date'    => 'required',
-            'priority'    => 'required',
-            'assigned_to' => 'required|exists:users,id',
-            'department'  => 'required',
-            'description' => 'nullable',
-            'attachment'  => 'nullable|file',
-        ]);
+public function store(Request $request)
+{
+$data = $request->validate([
+    'doc_number'  => 'required',
+    'subject'     => 'required',
+    'sender'      => 'required',
+    'receiver'    => 'required',
+    'doc_date'    => 'required',
+    'priority'    => 'nullable',
+    'assigned_to' => 'required',
+    'department'  => 'required',
+    'description' => 'nullable',
 
-        if ($request->hasFile('attachment')) {
-            $data['attachment'] = $request->file('attachment')->store('documents', 'public');
-        }
+    'attachments'   => 'nullable|array',
+    'attachments.*' => 'nullable|file|max:20480',
+]);
 
-        $document = OutgoingDocument::create($data);
+$files=[];
 
-        if (function_exists('audit_log')) {
-            audit_log('created', $document, null, $document->toArray());
-        }
+$names=[];
 
-        if (function_exists('notify_user')) {
-            notify_user(
-                $data['assigned_to'],
-                'New Outgoing Document',
-                'A new outgoing document has been assigned to you.',
-                'document',
-                $data['priority'] ?? 'normal',
-                $document
-            );
-        } else {
-            Notification::create([
-                'user_id' => $data['assigned_to'],
-                'title' => 'New Outgoing Document',
-                'message' => 'A new outgoing document has been assigned to you.',
-                'type' => 'document',
-                'priority' => $data['priority'] ?? 'normal',
-                'related_type' => OutgoingDocument::class,
-                'related_id' => $document->id,
-            ]);
-        }
+if(
 
-        return redirect()
-            ->route('CorrespondenceManagement.outbox.index')
-            ->with('success', 'Outgoing document created successfully.');
-    }
+$request->hasFile(
 
+'attachments'
+
+)
+
+){
+
+foreach(
+
+$request->file(
+
+'attachments'
+
+)
+
+as $file
+
+){
+
+$files[]=
+$file->store(
+'outbox',
+'public'
+);
+
+$names[]=
+$file->getClientOriginalName();
+
+}
+
+}
+
+$data['attachment']=
+json_encode($files);
+
+$data['attachment_names']=
+json_encode($names);
+
+OutgoingDocument::create($data);
+
+return redirect()
+
+->route(
+'outbox.index'
+)
+
+->with(
+'success',
+'Created'
+);
+
+}
     public function show($id)
     {
         $document = OutgoingDocument::findOrFail($id);
@@ -186,4 +212,97 @@ class OutgoingDocumentController extends Controller
             ->back()
             ->with('success', 'Outgoing document deleted successfully.');
     }
+  
+
+public function combinePdf($id)
+{
+    $document = OutgoingDocument::findOrFail($id);
+
+    $files = json_decode($document->attachment, true);
+
+    if (!is_array($files)) {
+        $files = $document->attachment
+            ? [$document->attachment]
+            : [];
+    }
+
+    $pdf = new Fpdi();
+
+    foreach ($files as $file) {
+
+        $path = storage_path(
+            'app/public/' . $file
+        );
+
+        if (!file_exists($path)) {
+            continue;
+        }
+
+        $ext = strtolower(
+            pathinfo(
+                $path,
+                PATHINFO_EXTENSION
+            )
+        );
+
+        // PDF
+        if ($ext == 'pdf') {
+
+            $count = $pdf->setSourceFile($path);
+
+            for ($i=1; $i <= $count; $i++) {
+
+                $tpl = $pdf->importPage($i);
+
+                $size = $pdf->getTemplateSize($tpl);
+
+                $pdf->AddPage(
+                    $size['orientation'],
+                    [
+                        $size['width'],
+                        $size['height']
+                    ]
+                );
+
+                $pdf->useTemplate($tpl);
+
+            }
+        }
+
+        // Images
+        elseif (
+            in_array(
+                $ext,
+                [
+                    'jpg',
+                    'jpeg',
+                    'png'
+                ]
+            )
+        ) {
+
+            $pdf->AddPage();
+
+            $pdf->Image(
+                $path,
+                10,
+                20,
+                180
+            );
+
+        }
+
+    }
+
+    return response(
+        $pdf->Output(
+            'S',
+            'combined.pdf'
+        )
+    )->header(
+        'Content-Type',
+        'application/pdf'
+    );
+}
+
 }

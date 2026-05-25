@@ -84,13 +84,33 @@
             <label>{{ __('emis.description') }}</label>
             <textarea name="description" class="form-control" placeholder="{{ __('emis.description') }}"></textarea>
         </div>
+<div class="col-md-12 mt-3">
 
-        <div class="col-md-4">
-            <label>{{ __('emis.attachment') }}</label>
-            <input type="file" name="attachment" class="form-control">
-        </div>
-    </div>
+<label class="form-label">
 
+مل / ضمایم
+
+</label>
+
+<input type="file"
+
+name="attachments[]"
+
+class="form-control"
+
+multiple
+
+accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png">
+
+<small class="text-muted">
+
+Multiple attachments supported
+
+</small>
+
+</div>
+
+</div>
     <center class="mt-3">
         <button type="submit" class="btn btn-primary">
             {{ __('emis.save') }}

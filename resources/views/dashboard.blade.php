@@ -4,7 +4,6 @@
 
 @section('content')
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 .dashboard-wrapper {
@@ -216,54 +215,28 @@
         </div>
     </div>
 
-    {{-- Charts --}}
-    <div class="chart-grid">
-        <div class="card-box">
-            <div class="card-title">{{ __('emis.outgoing_documents') }} {{ __('emis.charts') }}</div>
-            <div class="chart-box">
-                <canvas id="outboxChart"></canvas>
-            </div>
-        </div>
-
-        <div class="card-box">
-            <div class="card-title">{{ __('emis.tasks_management') }} {{ __('emis.charts') }}</div>
-            <div class="chart-box">
-                <canvas id="tasksChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    {{-- Recent Outbox --}}
+{{-- Charts --}}
+<div class="chart-grid">
     <div class="card-box">
-        <div class="card-title">{{ __('emis.recent_outgoing_documents') }}</div>
-
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{{ __('emis.document_number') }}</th>
-                    <th>{{ __('emis.subject') }}</th>
-                    <th>{{ __('emis.receiver') }}</th>
-                    <th>{{ __('emis.date') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($recentOutboxes as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->doc_number ?? '-' }}</td>
-                    <td>{{ $item->subject ?? '-' }}</td>
-                    <td>{{ $item->receiver ?? '-' }}</td>
-                    <td>{{ $item->doc_date ?? '-' }}</td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="text-center text-muted">{{ __('emis.no_data') }}</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="card-title">
+            د دننه اسنادو چارټونه
+        </div>
+        <div class="chart-box">
+            <canvas id="inboxStatusChart"></canvas>
+        </div>
     </div>
+
+    <div class="card-box">
+        <div class="card-title">
+            د صادره اسنادو چارټونه
+        </div>
+        <div class="chart-box">
+            <canvas id="outboxStatusChart"></canvas>
+        </div>
+    </div>
+</div>
+
+
 
     {{-- Recent Tasks --}}
     <div class="card-box">
@@ -312,60 +285,90 @@
 
 </div>
 
+@push('scripts')
 <script>
-const outboxCtx = document.getElementById('outboxChart');
-if (outboxCtx) {
-    new Chart(outboxCtx, {
-        type: 'bar',
-        data: {
-            labels: {!! json_encode($outboxChartLabels ?? []) !!},
-            datasets: [{
-                label: "{{ __('emis.outgoing_documents') }}",
-                data: {!! json_encode($outboxChartData ?? []) !!},
-                backgroundColor: '#0b3563',
-                borderRadius: 8,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
-            }
-        }
-    });
-}
+document.addEventListener('DOMContentLoaded', function () {
 
-const tasksCtx = document.getElementById('tasksChart');
-if (tasksCtx) {
-    new Chart(tasksCtx, {
-        type: 'doughnut',
-        data: {
-            labels: [
-                "{{ __('emis.pending_tasks') }}",
-                "{{ __('emis.in_progress') }}",
-                "{{ __('emis.completed_tasks') }}",
-                "{{ __('emis.overdue_tasks') }}"
-            ],
-            datasets: [{
-                data: {!! json_encode($taskStatusCounts ?? [0,0,0,0]) !!},
-                backgroundColor: ['#f59e0b', '#3b82f6', '#16a34a', '#dc2626'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            cutout: '68%',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom'
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js not loaded');
+        return;
+    }
+
+    const inboxLabels = @json($inboxStatus->keys() ?? []);
+    const inboxData   = @json($inboxStatus->values() ?? []);
+
+    const outboxLabels = @json($outboxStatus->keys() ?? []);
+    const outboxData   = @json($outboxStatus->values() ?? []);
+
+    const inboxCanvas = document.getElementById('inboxStatusChart');
+
+    if (inboxCanvas) {
+        new Chart(inboxCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: inboxLabels,
+                datasets: [{
+                    data: inboxData,
+                    backgroundColor: [
+                        '#7f94a7',
+                        '#0dcaf0',
+                        '#ffc107',
+                        '#198754',
+                        '#dc3545'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
             }
-        }
-    });
-}
+        });
+    }
+
+    const outboxCanvas = document.getElementById('outboxStatusChart');
+
+    if (outboxCanvas) {
+        new Chart(outboxCanvas, {
+            type: 'bar',
+            data: {
+                labels: outboxLabels,
+                datasets: [{
+                    label: 'Outgoing Documents',
+                    data: outboxData,
+                    backgroundColor: '#0b3563',
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+});
 </script>
+@endpush
 
 @endsection

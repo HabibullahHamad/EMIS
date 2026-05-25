@@ -131,6 +131,20 @@ class DashboardController extends Controller
             ]
             : [0, 0, 0, 0];
 
+
+            $inboxStatus = \App\Models\Inbox::selectRaw('status, COUNT(*) as total')
+    ->groupBy('status')
+    ->pluck('total', 'status');
+
+$outboxStatus = \App\Models\OutgoingDocument::selectRaw(
+'priority,
+COUNT(*) as total'
+)
+->groupBy('priority')
+->pluck(
+'total',
+'priority'
+);
         return view('dashboard', compact(
             'totalUsers',
             'totalEmployees',
@@ -149,7 +163,11 @@ class DashboardController extends Controller
             'recentTasks',
             'outboxChartLabels',
             'outboxChartData',
-            'taskStatusCounts'
+            'taskStatusCounts',
+            'inboxStatus',
+            'outboxStatus',
+            
         ));
     }
+    
 }

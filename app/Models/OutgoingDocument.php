@@ -10,21 +10,26 @@ class OutgoingDocument extends Model
     use HasFactory;
 
     protected $table = 'outgoingd'; // 👈 your real table name
+protected $fillable = [
 
-    protected $fillable = [
-        'doc_number',
-        'subject',
-        'sender',
-        'receiver',
-        'doc_date',
-        'priority',
-        'assigned_to',
-        'department',
-        'description',
-        'attachment'
-    ];
-    public function workflowTransactions()
-{
-    return $this->morphMany(\App\Models\WorkflowTransaction::class, 'workflowable');
-}
+'doc_number',
+'subject',
+'sender',
+'receiver',
+'doc_date',
+'priority',
+'assigned_to',
+'department',
+'description',
+
+'attachment',
+'attachment_names'
+
+];
+
+protected $casts = [
+
+'attachment_names'=>'array'
+
+];
 }

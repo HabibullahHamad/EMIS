@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}"
       dir="{{ in_array(app()->getLocale(), ['ps','fa','ar']) ? 'rtl' : 'ltr' }}">
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}"
+      dir="{{ in_array(app()->getLocale(), ['ps','fa','ar']) ? 'rtl' : 'ltr' }}">
+
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-       <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-    <!-- date -->
-<!-- CSS -->
-<link rel="stylesheet" href="https://unpkg.com/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
-<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
-<!-- JS -->
-
-<!-- Jalali Datepicker CSS -->
-    <!-- end -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-    {{ function_exists('setting') ? setting('system_name', __('emis.system_name')) : __('emis.system_name') }}
-    {{ View::hasSection('page_title') ? ' - ' . trim($__env->yieldContent('page_title')) : '' }}
-</title>
+    <title>
+        {{ function_exists('setting') ? setting('system_name', 'EMIS') : 'EMIS' }}
+        @hasSection('page_title')
+            - @yield('page_title')
+        @endif
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
+    {{-- LOCAL FILES --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+<link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
+
+    
+
+    <style>
+        @font-face {
+            font-family: 'NotoArabic';
+            src: url('{{ asset("fonts/NotoSansArabic-Regular.ttf") }}');
+        }
+
+        body {
+            font-family: 'NotoArabic', Tahoma, Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .pwt-datepicker-container {
+            border-radius: 12px !important;
+            overflow: hidden;
+            font-family: 'NotoArabic', Arial, sans-serif;
+        }
+
+        .pwt-datepicker-header,
+        .pwt-btn-selected,
+        .pwt-btn-submit {
+            background: #0a7a94 !important;
+            color: white !important;
+        }
+    </style>
+
+    @stack('styles')
+
  
     <style>
 
@@ -720,10 +745,6 @@ html[dir="rtl"] .submenu-link{
         }
     </style>
 
-
-</head>
-
-<body>
 @if(app()->getLocale() == 'ps' || app()->getLocale() == 'fa')
     <html lang="{{ app()->getLocale() }}" dir="rtl">
 @else
@@ -770,6 +791,10 @@ html[dir="rtl"] .submenu-link{
         
 
 @endphp
+</head>
+
+<body>
+
 
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -851,7 +876,14 @@ html[dir="rtl"] .submenu-link{
                 </ul>
             </li>
 @endif
-
+<li class="sidebar-item">
+    <a href="{{ route('tracking.index') }}" class="sidebar-link">
+        <span class="sidebar-icon">
+            <i class="fa-solid fa-location-crosshairs"></i>
+        </span>
+        <span class="sidebar-text">Tracking Center</span>
+    </a>
+</li>
 <!-- end department  -->
  <!-- employee -->
             @if($showEmployeesMenu)
@@ -1043,18 +1075,47 @@ html[dir="rtl"] .submenu-link{
                 <input type="text" placeholder="{{ __('emis.search') }}">
             </div>
 
-            @if(Route::has('language.switch'))
-            <div class="dropdown">
-                <button class="top-icon-btn" type="button" data-bs-toggle="dropdown" title="{{ __('emis.language') }}">
-                    <i class="fa-solid fa-language"></i>
-                </button>
-                <ul class="dropdown-menu shadow border-0 rounded-3">
-                    <li><button type="button" class="dropdown-item lang-option" data-lang="en">English</button></li>
-                    <li><button type="button" class="dropdown-item lang-option" data-lang="ps">پښتو</button></li>
-                    <li><button type="button" class="dropdown-item lang-option" data-lang="fa">دری</button></li>
-                </ul>
-            </div>
-            @endif
+        <div class="dropdown">
+
+    <button class="btn btn-sm btn-light dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+
+        <i class="fa-solid fa-language"></i>
+        {{ strtoupper(app()->getLocale()) }}
+
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li>
+            <button type="button"
+                    class="dropdown-item lang-option"
+                    data-lang="en">
+                English
+            </button>
+        </li>
+
+        <li>
+            <button type="button"
+                    class="dropdown-item lang-option"
+                    data-lang="ps">
+                پښتو
+            </button>
+        </li>
+
+        <li>
+            <button type="button"
+                    class="dropdown-item lang-option"
+                    data-lang="fa">
+                دری
+            </button>
+        </li>
+
+    </ul>
+
+</div>
 <!-- notification icon and button  -->
  @php
 $unread = \App\Models\Notification::where('user_id', auth()->id())
@@ -1090,34 +1151,43 @@ $unread = \App\Models\Notification::where('user_id', auth()->id())
 
 
 <!-- end workflow -->
-            <div class="dropdown">
-                <button class="user-dropdown-btn" type="button" data-bs-toggle="dropdown">
-                    <div class="user-dropdown-avatar"><i class="fa-solid fa-user"></i></div>
-                    <div class="user-dropdown-info">
-                        <div class="user-dropdown-name">{{ auth()->user()->name ?? 'User' }}</div>
-                        <div class="user-dropdown-role">{{ __('emis.logged_in') }}</div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-secondary small"></i>
-                </button>
+          <div class="dropdown">
 
-                <ul class="dropdown-menu shadow border-0 rounded-3">
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i> {{ __('emis.profile') }}</a></li>
-                    @if($canSettingsView && Route::has('admin.settings'))
-                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}"><i class="fa-solid fa-gear me-2"></i> {{ __('emis.settings') }}</a></li>
-                    @endif
-                    <li><hr class="dropdown-divider"></li>
-                    @if(Route::has('logout'))
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item text-danger">
-                                <i class="fa-solid fa-right-from-bracket me-2"></i> {{ __('emis.logout') }}
-                            </button>
-                        </form>
-                    </li>
-                    @endif
-                </ul>
-            </div>
+    <button class="btn btn-sm btn-light dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+
+        <i class="fa-solid fa-user"></i>
+        {{ auth()->user()->name ?? 'User' }}
+
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li>
+            <a class="dropdown-item" href="#">
+                <i class="fa-solid fa-user-circle"></i>
+                Profile
+            </a>
+        </li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <button type="submit" class="dropdown-item text-danger">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </button>
+            </form>
+        </li>
+
+    </ul>
+
+</div>
              
 
         </div>
@@ -1137,7 +1207,6 @@ $unread = \App\Models\Notification::where('user_id', auth()->id())
 </form>
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 const sidebar = document.getElementById('sidebar');
@@ -1349,16 +1418,69 @@ document.querySelectorAll('.lang-option').forEach(function (btn) {
     });
 });
 </script>
-<!-- jQuery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
-<!-- Persian Date -->
-<script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- Persian Datepicker -->
-<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
-<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+
+<script src="{{ asset('js/chart.umd.min.js') }}"></script>
+
+<script src="{{ asset('js/persian-date.min.js') }}"></script>
+<script src="{{ asset('js/persian-datepicker.min.js') }}"></script>
+
+
+
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+
+@stack('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.lang-option').forEach(function (btn) {
+
+        btn.addEventListener('click', function () {
+
+            const form = document.getElementById('language-switch-form');
+            const localeInput = document.getElementById('language-switch-locale');
+            const redirectInput = document.getElementById('language-switch-redirect');
+
+            if (form && localeInput && redirectInput) {
+                localeInput.value = this.dataset.lang;
+                redirectInput.value = window.location.href;
+                form.submit();
+            }
+
+        });
+
+    });
+
+});
+</script>
+<script>
+function confirmDelete(formId) {
+    if (typeof Swal === 'undefined') {
+        return confirm('Are you sure?');
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'This record will be deleted.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(formId).submit();
+        }
+    });
+
+    return false;
+}
+</script>
+<script src="{{ asset('js/chart.umd.min.js') }}"></script>
+
+@stack('scripts')
 </body>
 </html>

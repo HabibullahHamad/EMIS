@@ -1,7 +1,7 @@
 @extends('new')
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
 <div class="container">
 
 <h4 class="mb-3">  {{ __('emis.register') }}</h4>

@@ -1,8 +1,8 @@
 @extends('new')
+@section('page_title', __('emis.employees') ?? 'Employees')
 
 @section('content')
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
    .page-header {
     background: #fff;

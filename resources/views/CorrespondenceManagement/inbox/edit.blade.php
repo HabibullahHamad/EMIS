@@ -1,96 +1,329 @@
 @extends('new')
+
 @section('content')
 
+<div class="container-fluid">
 
+    <div class="card shadow-sm border-0 rounded-4">
 
-<div class="container mt-4">
-    <h2>Edit Correspondence</h2>
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+            <h5 class="mb-0">
+                <i class="fa fa-edit"></i>
+                Edit Incoming Document
+            </h5>
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            Please fix the following errors:
-            <ul>
-                @foreach($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <a href="{{ route('inbox.index') }}"
+               class="btn btn-sm btn-secondary">
 
-    <form action="{{ url('/CorrespondenceManagement/inbox/'.$letter->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+                <i class="fa fa-arrow-left"></i>
 
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <input id="subject" name="subject" type="text" class="form-control" value="{{ old('subject', $letter->subject) }}" required>
-            @error('subject') <small class="text-danger">{{ $message }}</small> @enderror
+                Back
+
+            </a>
+
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="sender">Sender</label>
-                <input id="sender" name="sender" type="text" class="form-control" value="{{ old('sender', $letter->sender) }}">
-                @error('sender') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-            <div class="form-group col-md-6">
-                <label for="recipient">Recipient</label>
-                <input id="recipient" name="recipient" type="text" class="form-control" value="{{ old('recipient', $letter->recipient) }}">
-                @error('recipient') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-        </div>
+        <div class="card-body">
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="reference_no">Reference No.</label>
-                <input id="reference_no" name="reference_no" type="text" class="form-control" value="{{ old('reference_no', $letter->reference_no) }}">
-                @error('reference_no') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-            <div class="form-group col-md-4">
-                <label for="date_sent">Date</label>
-                <input id="date_sent" name="date_sent" type="date" class="form-control" value="{{ old('date_sent', optional($letter->date_sent)->format('Y-m-d')) }}">
-                @error('date_sent') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-            <div class="form-group col-md-4">
-                <label for="status">Status</label>
-                <select id="status" name="status" class="form-control">
-                    <option value="pending" {{ old('status', $letter->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="in_progress" {{ old('status', $letter->status) == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                    <option value="closed" {{ old('status', $letter->status) == 'closed' ? 'selected' : '' }}>Closed</option>
-                </select>
-                @error('status') <small class="text-danger">{{ $message }}</small> @enderror
-            </div>
-        </div>
+            <form action="{{ route('inbox.update',$letter->id) }}"
+                  method="POST"
+                  enctype="multipart/form-data">
 
-        <div class="form-group">
-            <label for="body">Message / Body</label>
-            <textarea id="body" name="body" class="form-control" rows="6">{{ old('body', $letter->body) }}</textarea>
-            @error('body') <small class="text-danger">{{ $message }}</small> @enderror
-        </div>
+                @csrf
+                @method('PUT')
 
-        <div class="form-group">
-            <label for="attachment">Attachment (optional)</label>
-            @if($letter->attachment)
-                <div class="mb-2">
-                    Current file: <a href="{{ url($letter->attachment) }}" target="_blank">View</a>
-                </div>
-            @endif
-            <input id="attachment" name="attachment" type="file" class="form-control-file">
-            @error('attachment') <small class="text-danger">{{ $message }}</small> @enderror
-        </div>
+                <div class="row">
 
-        <div class="d-flex justify-content-between">
-            <div>
-                <a href="{{ url('/CorrespondenceManagement/inbox') }}" class="btn btn-secondary">Cancel</a>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </form>
+                    {{-- LETTER NUMBER --}}
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Letter No
+
+                        </label>
+
+                        <input type="text"
+                               name="letter_no"
+                               class="form-control"
+
+                               value="{{ old(
+                               'letter_no',
+                               $letter->letter_no
+                               ) }}"
+
+                               required>
+
+                    </div>
+
+                    {{-- ORDER NUMBER --}}
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            حکم نمبر / Order Number
+
+                        </label>
+
+                        <input type="text"
+                               name="order_number"
+                               class="form-control"
+
+                               value="{{ old(
+                               'order_number',
+                               $letter->order_number
+                               ) }}">
+
+                    </div>
+
+                    {{-- DATE --}}
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Received Date
+
+                        </label>
+
+                        <input type="date"
+
+                               name="received_date"
+
+                               class="form-control"
+
+                               value="{{ old(
+                               'received_date',
+                               $letter->received_date
+                               ) }}"
+
+                               required>
+
+                    </div>
+
+                    {{-- SENDER --}}
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Sender
+
+                        </label>
+
+                        <input type="text"
+
+                               name="sender"
+
+                               class="form-control"
+
+                               value="{{ old(
+                               'sender',
+                               $letter->sender
+                               ) }}"
+
+                               required>
+
+                    </div>
+
+                    {{-- RECEIVER --}}
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Receiver
+
+                        </label>
+
+                        <input type="text"
+
+                               name="receiver"
+
+                               class="form-control"
+
+                               value="{{ old(
+                               'receiver',
+                               $letter->receiver
+                               ) }}"
+
+                               required>
+
+                    </div>
+
+                    {{-- SUBJECT --}}
+                    <div class="col-md-12 mb-3">
+
+                        <label class="form-label">
+
+                            Subject
+
+                        </label>
+
+                        <input type="text"
+
+                               name="subject"
+
+                               class="form-control"
+
+                               value="{{ old(
+                               'subject',
+                               $letter->subject
+                               ) }}"
+
+                               required>
+
+                    </div>
+
+                  <div class="col-md-4 mb-3">
+    <label class="form-label">Priority</label>
+
+    <select name="priority" class="form-select" required>
+
+        <option value="High"
+            {{ old('priority')=='High' ? 'selected' : '' }}>
+            High
+        </option>
+
+        <option value="Medium"
+            {{ old('priority','Medium')=='Medium' ? 'selected' : '' }}>
+            Medium
+        </option>
+
+        <option value="Low"
+            {{ old('priority')=='Low' ? 'selected' : '' }}>
+            Low
+        </option>
+
+    </select>
 </div>
+                    {{-- STATUS --}}
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Status
+
+                        </label>
+
+                        <select name="status"
+                                class="form-select">
+
+                            <option value="Unread"
+
+                            {{ $letter->status=='Unread'
+                            ?'selected':'' }}>
+
+                                Unread
+
+                            </option>
+
+                            <option value="Read"
+
+                            {{ $letter->status=='Read'
+                            ?'selected':'' }}>
+
+                                Read
+
+                            </option>
+
+                            <option value="Assigned"
+
+                            {{ $letter->status=='Assigned'
+                            ?'selected':'' }}>
+
+                                Assigned
+
+                            </option>
+
+                            <option value="Completed"
+
+                            {{ $letter->status=='Completed'
+                            ?'selected':'' }}>
+
+                                Completed
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    {{-- ASSIGNED --}}
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Assigned To
+
+                        </label>
+
+                        <input type="text"
+
+                               name="assigned_to"
+
+                               class="form-control"
+
+                               value="{{ old(
+                               'assigned_to',
+                               $letter->assigned_to
+                               ) }}">
+
+                    </div>
+
+                    {{-- SUMMARY --}}
+                    <div class="col-md-12 mb-3">
+
+                        <label class="form-label">
+
+                            Summary
+
+                        </label>
+
+                        <textarea name="summary"
+
+                                  class="form-control"
+
+                                  rows="4">{{ old(
+                                  'summary',
+                                  $letter->summary
+                                  ) }}</textarea>
+
+                    </div>
+
+                    {{-- NEW ATTACHMENTS --}}
+                    <div class="col-md-12 mb-3">
+
+                        <label class="form-label">
+
+                            New Attachments
+
+                        </label>
+
+                        <input type="file"
+
+                               name="attachments[]"
+
+                               class="form-control"
+
+                               multiple>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary">
+
+                    <i class="fa fa-save"></i>
+
+                    Update
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 @endsection

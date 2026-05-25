@@ -1,227 +1,136 @@
 @extends('new')
+
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
 
-</div>
-<style>
-    .custom-pagination .page-link {
-        color: #0d6efd;
-        font-weight: 100;
-        border-radius: 6px;
-        padding: 1px 10px;
-        margin-top: 6px;
-    }
+<div class="container-fluid">
 
-    .custom-pagination .page-item.active .page-link {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-        color: white !important;
-        font-weight: normal;
-    }
+    <div class="card shadow-sm border-0 rounded-4">
 
-    .custom-pagination .page-item.disabled .page-link {
-        color: #6c757d;
-    }
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="fa fa-inbox"></i>
+                Incoming Documents
+            </h5>
 
-    .custom-pagination .page-link:hover {
-        background-color: #e9f0ff;
-    }
+            <a href="{{ route('inbox.create') }}" class="btn btn-sm btn-primary">
+                <i class="fa fa-plus"></i>
+                Add New
+            </a>
+        </div>
 
-    .table-emis {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 15px;
-        box-shadow: 0 0 5px 5px lightblue;
-    }
+        <div class="card-body">
 
-    .table-emis thead {
-        background-color: #074582;
-        color: #ffffff;
-        font-size: 15px;
-        text-align: right;
-    }
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    .table-emis thead th {
-        font-weight: bold;
-        padding: 6px 8px;
-        text-align: right;
-        border-bottom: 2px solid #dee2e6;
-    }
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
 
-    .table-emis tbody td {
-        padding: 6px 8px;
-        border-bottom: 0 solid #08519a;
-        vertical-align: middle;
-        text-align: right;
-    }
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Letter No</th>
+                            <th>حکم نمبر</th>
+                            <th>Subject</th>
+                            <th>Sender</th>
+                            <th>Receiver</th>
+                            <th>Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th width="180">Action</th>
+                        </tr>
+                    </thead>
 
-    .table-emis tbody tr:nth-child(even) {
-        background-color: #ffffff;
-    }
+                    <tbody>
+                        @forelse($inbox as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->letter_no }}</td>
+                                <td>{{ $item->order_number ?? '-' }}</td>
+                                <td>{{ $item->subject }}</td>
+                                <td>{{ $item->sender }}</td>
+                                <td>{{ $item->receiver }}</td>
+                                <td>{{ $item->received_date }}</td>
+                                <td class="text-center">
+    @php
+        $priorityClass = match($item->priority) {
+            'High' => 'bg-danger',
+            'Medium' => 'bg-warning text-dark',
+            'Low' => 'bg-success',
+            default => 'bg-secondary',
+        };
+    @endphp
 
-    .table-emis tbody tr:hover {
-        background-color: #f4f5f7;
-    }
+    <span class="badge {{ $priorityClass }}">
+        {{ $item->priority }}
+    </span>
+</td>
+                                <td class="text-center">
+    @php
+        $statusClass = match($item->status) {
+            'Unread' => 'bg-secondary',
+            'Read' => 'bg-info',
+            'Assigned' => 'bg-warning text-dark',
+            'Completed' => 'bg-success',
+            default => 'bg-dark',
+        };
+    @endphp
 
-    .table-emis tr {
-        height: 32px;
-    }
+    <span class="badge {{ $statusClass }}">
+        {{ $item->status }}
+    </span>
+</td>
 
-    .tb {
-        background-color: #074582;
-        padding: 4px 10px;
-        border-radius: 6px;
-        color: white;
-        margin-right: 3px;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .tb:hover {
-        color: #fff;
-        background-color: #0b5aa5;
-    }
-</style>
-
-<div class="d-flex justify-content-start mb-1 mt-0">
-
-    <a href="{{ route('inbox.form') }}" class="tb">
-        <i class="fa fa-plus"></i>
+                               <td class="text-center">
+    <a href="{{ route('inbox.show', $item->id) }}"
+       class="btn btn-sm btn-info"
+       title="View">
+        <i class="fa fa-eye"></i>
     </a>
 
-    <a href="{{route('inbox.index')}}" class="tb">
-        <i class="fa fa-search"></i>
+    <a href="{{ route('inbox.edit', $item->id) }}"
+       class="btn btn-sm btn-warning"
+       title="Edit">
+        <i class="fa fa-edit"></i>
     </a>
-</div>
-<h4>Inbox List</h4>
-<div class="table-responsive box-shoadow:3px">
-    <table class="table-emis">
-    <thead class="table-light">
-        <tr> 
-           <th>Letter No</th>
-            <th>Subject</th>
-            <th>Sender</th>
-            <th>Received</th>
-            <th>Status</th>
-            <th width="180">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach($inbox as $letter)
-        <tr>
-            <td>{{ $letter->letter_no }}</td>
-            <td>{{ $letter->subject }}</td>
-            <td>{{ $letter->sender }}</td>
-            <td>{{ $letter->received_date }}</td>
-            <td>{{ $letter->status }}</td>
-         <td class="text-center">
-    <!-- View -->
-    <a href="{{ route('inbox.show', $letter->id) }}"
-       title="View"
-       class="text-info me-2">
-        <i class="fa-solid fa-eye"></i>
-    </a>|
-    <!-- Edit -->
-    <a href="{{ route('inbox.edit', $letter->id) }}"
-       title="Edit"
-       class="text-warning me-2">
-        <i class="fa-solid fa-pen"></i>
-    </a>|
-    <!-- Delete -->
-    <form action="{{ route('inbox.destroy', $letter->id) }}"
+
+    <form action="{{ route('inbox.destroy', $item->id) }}"
           method="POST"
-          class="d-inline delete-form">
+          class="d-inline">
         @csrf
         @method('DELETE')
-        <a href="javascript:void(0)"
-           title="Delete"
-           class="text-danger delete-btn">
-            <i class="fa-solid fa-trash"></i>
-        </a>
+
+        <button class="btn btn-sm btn-danger"
+                title="Delete"
+                onclick="return confirm('Are you sure?')">
+            <i class="fa fa-trash"></i>
+        </button>
     </form>
 </td>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-muted py-4">
+                                    No incoming documents found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
 
-<script>
-document.addEventListener('click', function (e) {
-    const btn = e.target.closest('.delete-btn');
-    if (!btn) return;
+                </table>
+            </div>
 
-    const form = btn.closest('form');
-    const row  = btn.closest('tr');
+            <div class="mt-3">
+                {{ $inbox->links() }}
+            </div>
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'This action cannot be undone!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                },
-                body: new FormData(form)
-            })
-            .then(res => {
-                if (!res.ok) throw 'Delete failed';
-                row.remove();
-                Swal.fire('Deleted!', 'Record has been deleted.', 'success');
-            })
-            .catch(() => {
-                Swal.fire('Error', 'Something went wrong.', 'error');
-            });
-        }
-    });
-});
-</script>
+        </div>
 
-    @endforeach
-    </tbody>
-</table>
-<HR>
-<!-- Peganation -->
- 
- @if ($inbox->hasPages())
-    <nav>
-        <ul class="pagination justify-content-center custom-pagination">
-            {{-- Previous Page --}}
-            @if ($inbox->onFirstPage())
-                <li class="page-item disabled"><span class="page-link">«</span></li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $inbox->previousPageUrl() }}">«</a>
-                </li>
-            @endif
-            {{-- Page Numbers --}}
-            @foreach ($inbox->links()->elements[0] as $page => $url)
-                @if ($page == $inbox->currentPage())
-                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                @else
-                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                @endif
-            @endforeach
-            {{-- Next Page --}}
-            @if ($inbox->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $inbox->nextPageUrl() }}">»</a>
-                </li>
-            @else
+    </div>
 
-                <li class="page-item disabled"><span class="page-link">»</span></li>
-            @endif
-        </ul>
-    </nav>
-@endif
-<!-- End Peganation -->
+</div>
 
 @endsection
