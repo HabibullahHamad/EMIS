@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class RoleSeeder extends Seeder
 {
@@ -11,31 +12,41 @@ class RoleSeeder extends Seeder
     {
         $roles = [
             [
-                'name' => 'admin',
-                'display_name' => 'Administrator',
+                'name' => 'Super Admin',
                 'description' => 'Full system access',
             ],
             [
-                'name' => 'director',
-                'display_name' => 'Director General',
-                'description' => 'Executive approval and monitoring',
+                'name' => 'Admin',
+                'description' => 'System administration access',
             ],
             [
-                'name' => 'manager',
-                'display_name' => 'Manager',
-                'description' => 'Manage tasks and correspondence',
+                'name' => 'Manager',
+                'description' => 'Operational management access',
             ],
             [
-                'name' => 'staff',
-                'display_name' => 'Staff',
-                'description' => 'Basic operations',
+                'name' => 'User',
+                'description' => 'Normal system user',
             ],
         ];
 
         foreach ($roles as $role) {
-            Role::updateOrCreate(
+            $values = [];
+
+            if (Schema::hasColumn('roles', 'description')) {
+                $values['description'] = $role['description'];
+            }
+
+            if (Schema::hasColumn('roles', 'updated_at')) {
+                $values['updated_at'] = now();
+            }
+
+            if (Schema::hasColumn('roles', 'created_at')) {
+                $values['created_at'] = now();
+            }
+
+            DB::table('roles')->updateOrInsert(
                 ['name' => $role['name']],
-                $role
+                $values
             );
         }
     }

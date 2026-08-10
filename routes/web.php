@@ -1,8 +1,12 @@
 <?php 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\FocalPointController;
+use App\Http\Controllers\BudgetEntityController;
+use App\Http\Controllers\FocalPointIntroductionController;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\App;
@@ -27,7 +31,6 @@ use App\Http\Controllers\AuditLogController;
 use app\http\controllers\logoutcontroller;
 
 use App\Http\Controllers\TrackingController;
-
 
 
 
@@ -464,3 +467,138 @@ OutgoingDocumentController::class,
 'outbox.combinePdf'
 
 );
+
+// route for Focal point 
+
+/*
+|--------------------------------------------------------------------------
+| Focal Point Registration and Card Management
+|--------------------------------------------------------------------------
+|
+| The public verification route stays outside the auth group.
+| All administrative routes require authentication.
+|
+*/
+
+Route::get(
+    '/focal-point-cards/verify/{uuid}',
+    [FocalPointController::class, 'verifyCard']
+)->name('focal-point-cards.verify');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Single registration/card-management page
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/focal-point-registration/{focalPoint?}',
+        [FocalPointController::class, 'registration']
+    )->name('focal-points.registration');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Focal-point CRUD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource(
+        'focal-points',
+        FocalPointController::class
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Focal-point status actions
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post(
+        '/focal-points/{focalPoint}/approve',
+        [FocalPointController::class, 'approve']
+    )->name('focal-points.approve');
+
+    Route::post(
+        '/focal-points/{focalPoint}/suspend',
+        [FocalPointController::class, 'suspend']
+    )->name('focal-points.suspend');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Card generation, renewal and replacement
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post(
+        '/focal-points/{focalPoint}/cards/generate',
+        [FocalPointController::class, 'generateCard']
+    )->name('focal-points.cards.generate');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Card actions
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        '/focal-point-cards/{card}',
+        [FocalPointController::class, 'showCard']
+    )->name('focal-point-cards.show');
+
+    Route::get(
+        '/focal-point-cards/{card}/print',
+        [FocalPointController::class, 'printCard']
+    )->name('focal-point-cards.print');
+
+    Route::post(
+        '/focal-point-cards/{card}/mark-printed',
+        [FocalPointController::class, 'markPrinted']
+    )->name('focal-point-cards.mark-printed');
+
+    Route::post(
+        '/focal-point-cards/{card}/issue',
+        [FocalPointController::class, 'issueCard']
+    )->name('focal-point-cards.issue');
+
+    Route::post(
+        '/focal-point-cards/{card}/revoke',
+        [FocalPointController::class, 'revokeCard']
+    )->name('focal-point-cards.revoke');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Budget entity and introduction letter
+    |--------------------------------------------------------------------------
+    */
+
+    // Add a budget entity for a focal point
+
+
+
+Route::middleware('auth')->group(function (): void {
+    Route::resource(
+        'budget-entities',
+        BudgetEntityController::class
+    );
+
+    Route::patch(
+        '/focal-point-introductions/{focalPointIntroduction}/status',
+        [
+            FocalPointIntroductionController::class,
+            'updateStatus',
+        ]
+    )->name('focal-point-introductions.status');
+
+    Route::get(
+        '/focal-point-introductions/{focalPointIntroduction}/attachment',
+        [
+            FocalPointIntroductionController::class,
+            'downloadAttachment',
+        ]
+    )->name('focal-point-introductions.attachment');
+
+    Route::resource(
+        'focal-point-introductions',
+        FocalPointIntroductionController::class
+    );
+});

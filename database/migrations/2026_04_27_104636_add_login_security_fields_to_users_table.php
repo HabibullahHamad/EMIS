@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 return new class extends Migration
 {
     /**
@@ -20,12 +19,26 @@ return new class extends Migration
 
 public function down(): void
 {
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn([
+    if (!Schema::hasTable('users')) {
+        return;
+    }
+
+    $columns = array_values(array_filter(
+        [
             'failed_login_attempts',
             'is_blocked',
             'blocked_at',
-        ]);
+        ],
+        fn (string $column): bool =>
+            Schema::hasColumn('users', $column)
+    ));
+
+    if ($columns === []) {
+        return;
+    }
+
+    Schema::table('users', function (Blueprint $table) use ($columns): void {
+        $table->dropColumn($columns);
     });
 }
 
