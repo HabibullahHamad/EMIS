@@ -44,6 +44,6 @@
     </div>
     
     </div>
-    <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
+    <a href="{{ route('employees.index') }}" class="btn btn-secondary">{{ __('emis.back') }}</a>
 </div>
 @endsection

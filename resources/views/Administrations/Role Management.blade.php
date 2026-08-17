@@ -87,8 +87,8 @@
             <tr>
                 <th>#</th>
                 <th>Role Name</th>
-                <th>Description</th>
-                <th>Status</th>
+                <th>{{ __('emis.description') }}</th>
+                <th>{{ __('emis.status') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -96,19 +96,19 @@
                 <td>1</td>
                 <td>Administrator</td>
                 <td>Full system access</td>
-                <td>Active</td>
+                <td>{{ __('emis.active') }}</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Manager</td>
                 <td>Manage departments & users</td>
-                <td>Active</td>
+                <td>{{ __('emis.active') }}</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Operator</td>
                 <td>Limited data entry access</td>
-                <td>Active</td>
+                <td>{{ __('emis.active') }}</td>
             </tr>
         </tbody>
     </table>

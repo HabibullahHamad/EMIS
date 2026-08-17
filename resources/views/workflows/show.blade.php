@@ -63,7 +63,7 @@
     @endif
 
     <div class="mt-3">
-        <a href="{{ route('workflows.index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('workflows.index') }}" class="btn btn-secondary">{{ __('emis.back') }}</a>
     </div>
 </div>
 @endsection

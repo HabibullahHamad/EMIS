@@ -33,17 +33,17 @@
                         </tr>
 
                         <tr>
-                            <th>Subject</th>
+                            <th>{{ __('emis.subject') }}</th>
                             <td>{{ $inbox->subject }}</td>
                         </tr>
 
                         <tr>
-                            <th>Sender</th>
+                            <th>{{ __('emis.sender') }}</th>
                             <td>{{ $inbox->sender }}</td>
                         </tr>
 
                         <tr>
-                            <th>Receiver</th>
+                            <th>{{ __('emis.receiver') }}</th>
                             <td>{{ $inbox->receiver }}</td>
                         </tr>
 
@@ -53,12 +53,12 @@
                         </tr>
 
                         <tr>
-                            <th>Priority</th>
+                            <th>{{ __('emis.priority') }}</th>
                             <td>{{ $inbox->priority ?? '-' }}</td>
                         </tr>
 
                         <tr>
-                            <th>Status</th>
+                            <th>{{ __('emis.status') }}</th>
                             <td>{{ $inbox->status }}</td>
                         </tr>
 
@@ -87,7 +87,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <h5 class="mb-0 fw-bold">
                     <i class="fa fa-paperclip"></i>
-                    Attachments
+                    {{ __('emis.attachments') }}
                 </h5>
 
                 @if(count($files))
@@ -107,7 +107,7 @@
                             <th width="60">#</th>
                             <th class="text-start">File Name</th>
                             <th width="140">Preview</th>
-                            <th width="140">Download</th>
+                            <th width="140">{{ __('emis.download') }}</th>
                         </tr>
                     </thead>
 
@@ -133,7 +133,7 @@
                                     <a href="{{ asset('storage/'.$file) }}"
                                        download
                                        class="btn btn-sm btn-primary">
-                                        Download
+                                        {{ __('emis.download') }}
                                     </a>
                                 </td>
                             </tr>

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="report-actions no-print">
-    <button onclick="window.print()" class="btn btn-dark">Print</button>
+    <button onclick="window.print()" class="btn btn-dark">{{ __('emis.print') }}</button>
 
     <form method="POST" action="{{ route('department.reports.exportPdf') }}" class="d-inline">
         @csrf

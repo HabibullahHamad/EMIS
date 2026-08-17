@@ -32,7 +32,7 @@
         <h5 class="mb-0">Edit Task</h5>
 
         <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-secondary">
-            Back
+            {{ __('emis.back') }}
         </a>
     </div>
 
@@ -106,9 +106,9 @@
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Priority *</label>
                     <select name="priority" class="form-select" required>
-                        <option value="low" {{ old('priority', $task->priority) == 'low' ? 'selected' : '' }}>Low</option>
-                        <option value="medium" {{ old('priority', $task->priority) == 'medium' ? 'selected' : '' }}>Medium</option>
-                        <option value="high" {{ old('priority', $task->priority) == 'high' ? 'selected' : '' }}>High</option>
+                        <option value="low" {{ old('priority', $task->priority) == 'low' ? 'selected' : '' }}>{{ __('emis.low') }}</option>
+                        <option value="medium" {{ old('priority', $task->priority) == 'medium' ? 'selected' : '' }}>{{ __('emis.medium') }}</option>
+                        <option value="high" {{ old('priority', $task->priority) == 'high' ? 'selected' : '' }}>{{ __('emis.high') }}</option>
                         <option value="urgent" {{ old('priority', $task->priority) == 'urgent' ? 'selected' : '' }}>Urgent</option>
                     </select>
                 </div>
@@ -119,14 +119,14 @@
                         <option value="new" {{ old('status', $task->status) == 'new' ? 'selected' : '' }}>New</option>
                         <option value="assigned" {{ old('status', $task->status) == 'assigned' ? 'selected' : '' }}>Assigned</option>
                         <option value="in_progress" {{ old('status', $task->status) == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                        <option value="completed" {{ old('status', $task->status) == 'completed' ? 'selected' : '' }}>Completed</option>
+                        <option value="completed" {{ old('status', $task->status) == 'completed' ? 'selected' : '' }}>{{ __('emis.completed') }}</option>
                         <option value="overdue" {{ old('status', $task->status) == 'overdue' ? 'selected' : '' }}>Overdue</option>
                         <option value="cancelled" {{ old('status', $task->status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                 </div>
 
                 <div class="col-md-3 mb-3">
-                    <label class="form-label">Deadline</label>
+                    <label class="form-label">{{ __('emis.deadline') }}</label>
                     <input type="date"
                            name="deadline"
                            class="form-control"
@@ -134,14 +134,14 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Description</label>
+                    <label class="form-label">{{ __('emis.description') }}</label>
                     <textarea name="description"
                               class="form-control"
                               rows="3">{{ old('description', $task->description) }}</textarea>
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Remarks</label>
+                    <label class="form-label">{{ __('emis.remarks') }}</label>
                     <textarea name="remarks"
                               class="form-control"
                               rows="3">{{ old('remarks', $task->remarks) }}</textarea>

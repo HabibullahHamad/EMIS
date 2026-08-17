@@ -1,16 +1,27 @@
-<form method="GET" action="{{ url()->current() }}" class="flex items-center gap-2">
-    <input 
-        type="text" 
-        name="search" 
-        value="{{ request('search') }}"
-        placeholder="Search..."
-        class="border rounded px-3 py-2 w-64 focus:outline-none focus:ring focus:border-blue-300"
-    >
+@props([
+    'name' => 'search',
+    'placeholder' => null,
+])
 
-    <button 
-        type="submit"
-        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-    >
-        Search
+<form method="GET" action="{{ url()->current() }}"
+      {{ $attributes->class(['emis-filter-bar']) }}>
+    <div class="flex-grow-1">
+        <label for="emis-global-search" class="visually-hidden">
+            {{ __('emis.search') }}
+        </label>
+
+        <input
+            id="emis-global-search"
+            type="search"
+            name="{{ $name }}"
+            value="{{ request($name) }}"
+            placeholder="{{ $placeholder ?: __('emis.search') }}"
+            class="form-control"
+        >
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        {{ __('emis.search') }}
     </button>
 </form>

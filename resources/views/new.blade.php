@@ -21,7 +21,10 @@
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
+    @if(file_exists(public_path('css/persian-datepicker.min.css')))
+        <link rel="stylesheet" href="{{ asset('css/persian-datepicker.min.css') }}">
+    @endif
+    <link rel="stylesheet" href="{{ asset('css/emis-design-system.css') }}">
 
     <style>
         @font-face {
@@ -1260,7 +1263,6 @@
     */
 
     $adminOpen = request()->routeIs(
-        'dashboard',
         'users.*',
         'roles.*',
         'departments.*',
@@ -1295,6 +1297,27 @@
         'settings.*',
         'profile.*'
     );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Settings submenu
+    |--------------------------------------------------------------------------
+    |
+    | Every enabled section registered in config/emis-settings.php is shown
+    | beneath the single Settings parent menu. Disabled/future sections are
+    | not displayed until they are registered in the configuration file.
+    |
+    */
+
+    $sidebarSettingsSections = config('emis-settings.sections', []);
+
+    uasort(
+        $sidebarSettingsSections,
+        static fn (array $left, array $right): int =>
+            ($left['order'] ?? 999) <=> ($right['order'] ?? 999)
+    );
+
+    $currentSettingsSection = request()->route('section');
 
     /*
     |--------------------------------------------------------------------------
@@ -1345,6 +1368,28 @@
         <ul class="sidebar-nav">
 
             {{-- ========================================================= --}}
+            {{-- DASHBOARD --}}
+            {{-- A standalone primary destination, separate from all groups. --}}
+            {{-- ========================================================= --}}
+            @if($canDashboard && Route::has('dashboard'))
+                <li class="sidebar-item menu-level-1">
+                    <a href="{{ route('dashboard') }}"
+                       class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                       data-tooltip="{{ $m['dashboard'] }}"
+                       aria-current="{{ request()->routeIs('dashboard') ? 'page' : 'false' }}">
+
+                        <span class="sidebar-link-main">
+                            <span class="sidebar-icon">
+                                <i class="fa-solid fa-house"></i>
+                            </span>
+
+                            <span class="sidebar-text">{{ $m['dashboard'] }}</span>
+                        </span>
+                    </a>
+                </li>
+            @endif
+
+            {{-- ========================================================= --}}
             {{-- 1. ADMIN --}}
             {{-- ========================================================= --}}
             <li class="sidebar-item has-submenu menu-level-1 {{ $adminOpen ? 'open' : '' }}"
@@ -1369,17 +1414,6 @@
                 </button>
 
                 <ul class="submenu">
-
-                    @if($canDashboard && Route::has('dashboard'))
-                        <li>
-                            <a href="{{ route('dashboard') }}"
-                               class="submenu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-
-                                <i class="fa-solid fa-house"></i>
-                                <span>{{ $m['dashboard'] }}</span>
-                            </a>
-                        </li>
-                    @endif
 
                     @if($showUsersAccess)
                         <li class="sidebar-item has-submenu menu-level-2
@@ -1993,13 +2027,61 @@
 
                 <ul class="submenu">
 
-                    @if($canSettingsView && Route::has('admin.settings'))
+                    @if($canSettingsView && Route::has('settings.overview'))
                         <li>
-                            <a href="{{ route('admin.settings') }}"
-                               class="submenu-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                            <a href="{{ route('settings.overview') }}"
+                               class="submenu-link {{ request()->routeIs('settings.overview') ? 'active' : '' }}">
 
-                                <i class="fa-solid fa-sliders"></i>
+                                <i class="fa-solid fa-gauge-high"></i>
                                 <span>{{ $m['system_settings'] }}</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if($canSettingsView && Route::has('settings.section.edit'))
+                        @foreach($sidebarSettingsSections as $settingsSectionKey => $settingsSection)
+                            @php
+                                $settingsSectionTitleKey = $settingsSection['title'] ?? null;
+                                $settingsSectionTitle = is_string($settingsSectionTitleKey)
+                                    ? __($settingsSectionTitleKey)
+                                    : str($settingsSectionKey)->replace('_', ' ')->title();
+
+                                if ($settingsSectionTitle === $settingsSectionTitleKey) {
+                                    $settingsSectionTitle = str($settingsSectionKey)
+                                        ->replace('_', ' ')
+                                        ->title();
+                                }
+                            @endphp
+
+                            <li>
+                                <a href="{{ route('settings.section.edit', ['section' => $settingsSectionKey]) }}"
+                                   class="submenu-link {{ request()->routeIs('settings.section.*') && $currentSettingsSection === $settingsSectionKey ? 'active' : '' }}">
+
+                                    <i class="{{ $settingsSection['icon'] ?? 'fa-solid fa-sliders' }}"></i>
+                                    <span>{{ $settingsSectionTitle }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    @endif
+
+                    @if($canSettingsView && Route::has('settings.history'))
+                        <li>
+                            <a href="{{ route('settings.history') }}"
+                               class="submenu-link {{ request()->routeIs('settings.history') ? 'active' : '' }}">
+
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>{{ __('emis.settings_history') }}</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if($canSettingsView && Route::has('settings.about'))
+                        <li>
+                            <a href="{{ route('settings.about') }}"
+                               class="submenu-link {{ request()->routeIs('settings.about') ? 'active' : '' }}">
+
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>{{ __('emis.about_system') }}</span>
                             </a>
                         </li>
                     @endif
@@ -2204,23 +2286,20 @@
         @yield('content')
     </main>
 </div>
-
 @if(Route::has('language.switch'))
-    <form id="language-switch-form"
-          method="POST"
-          action="{{ route('language.switch') }}"
-          style="display: none;">
-
+    <form
+        id="language-switch-form"
+        method="POST"
+        action="{{ route('language.switch') }}"
+        class="d-none"
+    >
         @csrf
 
-        <input type="hidden"
-               name="locale"
-               id="language-switch-locale">
-
-        <input type="hidden"
-               name="redirect_to"
-               id="language-switch-redirect"
-               value="{{ url()->full() }}">
+        <input
+            type="hidden"
+            name="locale"
+            id="language-switch-locale"
+        >
     </form>
 @endif
 
@@ -2229,8 +2308,13 @@
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/chart.umd.min.js') }}"></script>
-<script src="{{ asset('js/persian-date.min.js') }}"></script>
-<script src="{{ asset('js/persian-datepicker.min.js') }}"></script>
+@if(file_exists(public_path('js/persian-date.min.js')))
+    <script src="{{ asset('js/persian-date.min.js') }}"></script>
+@endif
+
+@if(file_exists(public_path('js/persian-datepicker.min.js')))
+    <script src="{{ asset('js/persian-datepicker.min.js') }}"></script>
+@endif
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -2585,21 +2669,46 @@ document.addEventListener('DOMContentLoaded', function () {
     |--------------------------------------------------------------------------
     */
 
-    document.querySelectorAll('.lang-option').forEach(function (button) {
-        button.addEventListener('click', function () {
-            const form = document.getElementById('language-switch-form');
-            const localeInput = document.getElementById('language-switch-locale');
-            const redirectInput = document.getElementById('language-switch-redirect');
+  document.querySelectorAll('.lang-option').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
 
-            if (!form || !localeInput || !redirectInput) {
-                return;
-            }
+        const form =
+            document.getElementById('language-switch-form');
 
-            localeInput.value = button.dataset.lang;
-            redirectInput.value = window.location.href;
-            form.submit();
-        });
+        const localeInput =
+            document.getElementById('language-switch-locale');
+
+        const selectedLocale =
+            button.dataset.lang;
+
+        const supportedLocales = [
+            'en',
+            'ps',
+            'fa'
+        ];
+
+        if (
+            !form ||
+            !localeInput ||
+            !supportedLocales.includes(selectedLocale)
+        ) {
+            return;
+        }
+
+        /*
+         * Prevent repeated submissions.
+         */
+        document
+            .querySelectorAll('.lang-option')
+            .forEach(function (item) {
+                item.disabled = true;
+            });
+
+        localeInput.value = selectedLocale;
+        form.submit();
     });
+});
 
     /*
     |--------------------------------------------------------------------------

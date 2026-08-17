@@ -56,7 +56,7 @@
                                     @elseif($workflow->status == 'returned')
                                         <span class="badge bg-info">Returned</span>
                                     @elseif($workflow->status == 'completed')
-                                        <span class="badge bg-primary">Completed</span>
+                                        <span class="badge bg-primary">{{ __('emis.completed') }}</span>
                                     @else
                                         <span class="badge bg-dark">{{ ucfirst($workflow->status) }}</span>
                                     @endif
@@ -64,7 +64,7 @@
                                 <td>{{ $workflow->created_at?->format('Y-m-d') }}</td>
                                 <td>
                                     <a href="{{ route('workflows.show', $workflow) }}" class="btn btn-sm btn-info">
-                                        View
+                                        {{ __('emis.view') }}
                                     </a>
                                 </td>
                             </tr>

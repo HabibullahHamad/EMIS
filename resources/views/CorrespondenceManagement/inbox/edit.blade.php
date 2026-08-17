@@ -18,7 +18,7 @@
 
                 <i class="fa fa-arrow-left"></i>
 
-                Back
+                {{ __('emis.back') }}
 
             </a>
 
@@ -106,7 +106,7 @@
 
                         <label class="form-label">
 
-                            Sender
+                            {{ __('emis.sender') }}
 
                         </label>
 
@@ -130,7 +130,7 @@
 
                         <label class="form-label">
 
-                            Receiver
+                            {{ __('emis.receiver') }}
 
                         </label>
 
@@ -154,7 +154,7 @@
 
                         <label class="form-label">
 
-                            Subject
+                            {{ __('emis.subject') }}
 
                         </label>
 
@@ -174,23 +174,23 @@
                     </div>
 
                   <div class="col-md-4 mb-3">
-    <label class="form-label">Priority</label>
+    <label class="form-label">{{ __('emis.priority') }}</label>
 
     <select name="priority" class="form-select" required>
 
         <option value="High"
             {{ old('priority')=='High' ? 'selected' : '' }}>
-            High
+            {{ __('emis.high') }}
         </option>
 
         <option value="Medium"
             {{ old('priority','Medium')=='Medium' ? 'selected' : '' }}>
-            Medium
+            {{ __('emis.medium') }}
         </option>
 
         <option value="Low"
             {{ old('priority')=='Low' ? 'selected' : '' }}>
-            Low
+            {{ __('emis.low') }}
         </option>
 
     </select>
@@ -200,7 +200,7 @@
 
                         <label class="form-label">
 
-                            Status
+                            {{ __('emis.status') }}
 
                         </label>
 
@@ -239,7 +239,7 @@
                             {{ $letter->status=='Completed'
                             ?'selected':'' }}>
 
-                                Completed
+                                {{ __('emis.completed') }}
 
                             </option>
 
@@ -252,7 +252,7 @@
 
                         <label class="form-label">
 
-                            Assigned To
+                            {{ __('emis.assigned_to') }}
 
                         </label>
 
@@ -314,7 +314,7 @@
 
                     <i class="fa fa-save"></i>
 
-                    Update
+                    {{ __('emis.update') }}
 
                 </button>
 

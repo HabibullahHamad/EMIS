@@ -165,18 +165,18 @@
                        value="{{ request('search') }}">
             </div>
 <select name="status" class="form-select form-select-sm table-status-select" style="width:130px;">
-                <option value="">All Status</option>
+                <option value="">{{ __('emis.all_statuses') }}</option>
                 <option value="new" {{ request('status') == 'new' ? 'selected' : '' }}>New</option>
                 <option value="assigned" {{ request('status') == 'assigned' ? 'selected' : '' }}>Assigned</option>
                 <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>{{ __('emis.completed') }}</option>
                 <option value="overdue" {{ request('status') == 'overdue' ? 'selected' : '' }}>Overdue</option>
                 <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
             </select>
 
             <button type="submit" class="btn btn-outline-secondary btn-sm">Filter</button>
 
-            <a href="{{ route('tasks.index') }}" class="btn btn-outline-dark btn-sm">Reset</a>
+            <a href="{{ route('tasks.index') }}" class="btn btn-outline-dark btn-sm">{{ __('emis.reset') }}</a>
         </form>
 
         <div class="text-center flex-grow-1">
@@ -242,15 +242,15 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Task Code</th>
-                        <th>Title</th>
+                        <th>{{ __('emis.task_code') }}</th>
+                        <th>{{ __('emis.title') }}</th>
                         <th>Employee</th>
                         <th>Source Type</th>
                         <th>Reference</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Deadline</th>
-                        <th width="200">Actions</th>
+                        <th>{{ __('emis.priority') }}</th>
+                        <th>{{ __('emis.status') }}</th>
+                        <th>{{ __('emis.deadline') }}</th>
+                        <th width="200">{{ __('emis.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -278,7 +278,7 @@
             <option value="new" {{ $task->status == 'new' ? 'selected' : '' }}>New</option>
             <option value="assigned" {{ $task->status == 'assigned' ? 'selected' : '' }}>Assigned</option>
             <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
-            <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Completed</option>
+            <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>{{ __('emis.completed') }}</option>
             <option value="overdue" {{ $task->status == 'overdue' ? 'selected' : '' }}>Overdue</option>
             <option value="cancelled" {{ $task->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
         </select>
@@ -292,11 +292,11 @@
                             <td>{{ $task->deadline?->format('Y-m-d') ?? '-' }}</td>
 
                             <td>
-                                <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info" title="View">
+                                <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info" title="{{ __('emis.view') }}">
                                     <i class="fa fa-eye"></i>
                                 </a>
 
-                                <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning" title="Edit">
+                                <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning" title="{{ __('emis.edit') }}">
                                     <i class="fa fa-pencil-square"></i>
                                 </a>
 
@@ -305,7 +305,7 @@
                                     @method('DELETE')
                                     <button type="submit"
                                             class="btn btn-sm btn-danger"
-                                            title="Delete"
+                                            title="{{ __('emis.delete') }}"
                                             onclick="return confirm('Delete this task?')">
                                         <i class="fa fa-trash"></i>
                                     </button>

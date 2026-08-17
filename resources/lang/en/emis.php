@@ -709,4 +709,805 @@ return [
 'official_address' => 'Enter the official address',
 
 'additional_information' => 'Enter additional information',
+
+
+/*
+|--------------------------------------------------------------------------
+| Settings Center — Core Interface
+|--------------------------------------------------------------------------
+*/
+
+'settings' => 'Settings',
+'settings_center' => 'EMIS Settings Center',
+'settings_center_description' =>
+    'Manage system configuration, regional preferences and operational settings.',
+
+'system_configuration' => 'System Configuration',
+'settings_overview' => 'Overview & System Health',
+'settings_overview_short' => 'Status and diagnostics',
+'settings_overview_description' =>
+    'View the current application, database, storage and environment status.',
+
+'additional_sections' => 'Additional Sections',
+'upcoming_sections' => 'Additional Sections',
+'coming_soon' => 'Coming soon',
+
+'save_settings' => 'Save Settings',
+'cancel' => 'Cancel',
+'reset_changes' => 'Reset Changes',
+'no_unsaved_changes' => 'No unsaved changes',
+'unsaved_changes' => 'Unsaved changes',
+'select_option' => 'Select an option',
+
+'system_healthy' => 'System Healthy',
+'application' => 'Application',
+'database' => 'Database',
+'storage' => 'Storage',
+'environment' => 'Environment',
+'connected' => 'Connected',
+'disconnected' => 'Disconnected',
+'writable' => 'Writable',
+'not_writable' => 'Not writable',
+'enabled' => 'Enabled',
+'disabled' => 'Disabled',
+
+'application_information' => 'Application Information',
+'database_information' => 'Database Information',
+'storage_information' => 'Storage Information',
+'current_administrator' => 'Current Administrator',
+
+'application_name' => 'Application Name',
+'laravel_version' => 'Laravel Version',
+'php_version' => 'PHP Version',
+'timezone' => 'Timezone',
+'current_language' => 'Current Language',
+'debug_mode' => 'Debug Mode',
+'database_driver' => 'Database Driver',
+'database_name' => 'Database Name',
+'connection_status' => 'Connection Status',
+'storage_writable' => 'Storage Writable',
+'available_disk_space' => 'Available Disk Space',
+
+/*
+|--------------------------------------------------------------------------
+| Settings sections
+|--------------------------------------------------------------------------
+*/
+
+'general_settings' => 'General Settings',
+'general_settings_short' => 'Identity and support',
+'general_settings_description' =>
+    'Manage system identity, support information and default behavior.',
+
+'organization_profile' => 'Organization Profile',
+'organization_profile_description' =>
+    'Manage the official organization identity and contact information.',
+
+'localization_settings' => 'Localization & Regional Format',
+'localization_settings_description' =>
+    'Manage languages, timezone, calendar and regional display formats.',
+
+'security_settings' => 'Security & Access Control',
+'security_settings_description' =>
+    'Manage password policies, sessions and security preferences.',
+
+'notification_settings' => 'Notifications & Email',
+'notification_settings_description' =>
+    'Manage application alerts, email identities and notification preferences.',
+
+'correspondence_settings' => 'Correspondence Settings',
+'correspondence_settings_description' =>
+    'Manage incoming and outgoing document defaults and attachment rules.',
+
+'workflow_settings' => 'Workflow & Approvals',
+'workflow_settings_description' =>
+    'Manage review, approval, escalation and workflow behavior.',
+
+'budget_coordination_settings' => 'Budget Coordination',
+'budget_coordination_settings_description' =>
+    'Manage focal-point registration and identification-card rules.',
+
+'storage_settings' => 'Files & Storage',
+'storage_settings_description' =>
+    'Manage file types, upload limits, storage disks and retention.',
+
+'backup_settings' => 'Backup & Restore',
+'backup_settings_description' =>
+    'Manage safe backup scheduling, verification and retention preferences.',
+
+'reports_retention_settings' => 'Reports & Data Retention',
+'reports_retention_settings_description' =>
+    'Manage export formats, report options and data-retention periods.',
+
+'maintenance_settings' => 'Maintenance & Diagnostics',
+'maintenance_settings_description' =>
+    'Manage monitoring, diagnostic and maintenance preferences.',
+
+'settings_history' => 'Settings History',
+'settings_history_short' => 'Configuration audit trail',
+
+'about_system' => 'About System',
+'about_system_short' => 'Version and system information',
+
+
+/*
+|--------------------------------------------------------------------------
+| General Settings Fields
+|--------------------------------------------------------------------------
+*/
+
+'system_name_help' =>
+    'The official name displayed throughout EMIS.',
+
+'system_name_placeholder' =>
+    'Enter the full system name',
+
+'system_short_name' =>
+    'Short Name',
+
+'system_short_name_help' =>
+    'A short abbreviation used in compact areas.',
+
+'system_description' =>
+    'System Description',
+
+'system_description_help' =>
+    'A brief description of the system and its purpose.',
+
+'system_description_placeholder' =>
+    'Enter a brief system description',
+
+'default_landing_page' =>
+    'Default Landing Page',
+
+'default_landing_page_help' =>
+    'The first page displayed after a user signs in.',
+
+'system_status' =>
+    'System Status',
+
+'system_status_help' =>
+    'Controls the displayed operational status of EMIS.',
+
+'primary_color' =>
+    'Primary Color',
+
+'primary_color_help' =>
+    'The main brand color used by the interface.',
+
+'support_email' =>
+    'Support Email',
+
+'support_email_help' =>
+    'The email address users can contact for assistance.',
+
+'support_phone' =>
+    'Support Phone',
+
+'support_phone_help' =>
+    'The official telephone number for technical support.',
+
+'helpdesk_url' =>
+    'Helpdesk URL',
+
+'helpdesk_url_help' =>
+    'The web address of the support or ticketing portal.',
+
+'maintenance' =>
+    'Maintenance',
+
+'maintenance_message' =>
+    'Maintenance Message',
+
+'maintenance_message_help' =>
+    'The message shown when the system is unavailable for maintenance.',
+
+'system_logo' =>
+    'System Logo',
+
+'system_logo_help' =>
+    'Upload the main EMIS logo in JPG, PNG or WebP format.',
+
+'favicon' =>
+    'Favicon',
+
+'favicon_help' =>
+    'Upload the small icon displayed in browser tabs.',
+
+/*
+|--------------------------------------------------------------------------
+| Organization Profile Fields
+|--------------------------------------------------------------------------
+*/
+
+'organization_official_name' =>
+    'Official Name',
+
+'organization_official_name_help' =>
+    'The complete official name of the organization.',
+
+'organization_code' =>
+    'Organization Code',
+
+'organization_code_help' =>
+    'A unique abbreviation or administrative code.',
+
+'organization_name_ps' =>
+    'Pashto Name',
+
+'organization_name_ps_help' =>
+    'The official organization name in Pashto.',
+
+'organization_name_fa' =>
+    'Dari Name',
+
+'organization_name_fa_help' =>
+    'The official organization name in Dari.',
+
+'organization_type' =>
+    'Organization Type',
+
+'organization_type_help' =>
+    'Select the administrative category of the organization.',
+
+'organization_type_ministry' =>
+    'Ministry',
+
+'organization_type_general_directorate' =>
+    'General Directorate',
+
+'organization_type_directorate' =>
+    'Directorate',
+
+'organization_type_independent_agency' =>
+    'Independent Agency',
+
+'organization_type_other' =>
+    'Other',
+
+'organization_email' =>
+    'Official Email',
+
+'organization_email_help' =>
+    'The official public email address of the organization.',
+
+'organization_phone' =>
+    'Official Phone',
+
+'organization_phone_help' =>
+    'The official contact telephone number.',
+
+'organization_website' =>
+    'Website',
+
+'organization_website_help' =>
+    'The official organization website address.',
+
+'organization_address' =>
+    'Official Address',
+
+'organization_address_help' =>
+    'The complete physical address of the organization.',
+
+'organization_logo' =>
+    'Organization Logo',
+
+'organization_logo_help' =>
+    'Upload the official organization logo.',
+
+'organization_official_seal' =>
+    'Official Seal',
+
+'organization_official_seal_help' =>
+    'Upload the official seal for authorized internal use.',
+
+    /*
+|--------------------------------------------------------------------------
+| Localization & Regional Format
+|--------------------------------------------------------------------------
+*/
+
+'default_language' =>
+    'Default Language',
+
+'default_language_help' =>
+    'The default interface language used by EMIS.',
+
+'fallback_language' =>
+    'Fallback Language',
+
+'fallback_language_help' =>
+    'The language used when a translation is unavailable.',
+
+'default_timezone' =>
+    'Default Timezone',
+
+'default_timezone_help' =>
+    'The timezone used for system dates and times.',
+
+'calendar_type' =>
+    'Calendar Type',
+
+'calendar_type_help' =>
+    'The default calendar used to display dates.',
+
+'date_format' =>
+    'Date Format',
+
+'date_format_help' =>
+    'The standard format used when displaying dates.',
+
+'time_format' =>
+    'Time Format',
+
+'time_format_help' =>
+    'Select a 12-hour or 24-hour display format.',
+
+'first_day_of_week' =>
+    'First Day of Week',
+
+'first_day_of_week_help' =>
+    'The day used as the beginning of calendars and weekly reports.',
+
+'records_per_page' =>
+    'Records Per Page',
+
+'records_per_page_help' =>
+    'The default number of records displayed on list pages.',
+
+/*
+|--------------------------------------------------------------------------
+| Security & Access Control
+|--------------------------------------------------------------------------
+*/
+
+'session_timeout_minutes' =>
+    'Session Timeout (Minutes)',
+
+'maximum_login_attempts' =>
+    'Maximum Login Attempts',
+
+'lockout_minutes' =>
+    'Account Lockout (Minutes)',
+
+'password_minimum_length' =>
+    'Minimum Password Length',
+
+'password_expiry_days' =>
+    'Password Expiry (Days)',
+
+'require_uppercase' =>
+    'Require Uppercase Letter',
+
+'require_lowercase' =>
+    'Require Lowercase Letter',
+
+'require_number' =>
+    'Require Number',
+
+'require_special_character' =>
+    'Require Special Character',
+
+'two_factor_authentication' =>
+    'Two-Factor Authentication',
+
+'audit_retention_days' =>
+    'Security Audit Retention (Days)',
+    /*
+|--------------------------------------------------------------------------
+| Notifications & Email
+|--------------------------------------------------------------------------
+*/
+
+'email_notifications_enabled' =>
+    'Enable Email Notifications',
+
+'in_app_notifications_enabled' =>
+    'Enable In-App Notifications',
+
+'mail_from_name' =>
+    'Sender Name',
+
+'mail_from_address' =>
+    'Sender Email Address',
+
+'administrator_notification_email' =>
+    'Administrator Notification Email',
+
+'notify_incoming_document' =>
+    'Notify for Incoming Documents',
+
+'notify_task_assignment' =>
+    'Notify for Task Assignments',
+
+'notify_deadline_reminder' =>
+    'Send Deadline Reminders',
+
+'notify_backup_failure' =>
+    'Notify When Backup Fails',
+
+'notify_backup_success' =>
+    'Notify When Backup Succeeds',
+
+'daily_summary_enabled' =>
+    'Enable Daily Summary',
+
+'daily_summary_time' =>
+    'Daily Summary Time',
+
+/*
+|--------------------------------------------------------------------------
+| Correspondence Settings
+|--------------------------------------------------------------------------
+*/
+
+'incoming_number_format' =>
+    'Incoming Number Format',
+
+'outgoing_number_format' =>
+    'Outgoing Number Format',
+
+'default_document_priority' =>
+    'Default Document Priority',
+
+'default_document_status' =>
+    'Default Document Status',
+
+'maximum_attachment_size_mb' =>
+    'Maximum Attachment Size (MB)',
+
+'allowed_attachment_types' =>
+    'Allowed Attachment Types',
+
+'require_document_subject' =>
+    'Require Document Subject',
+
+'require_document_date' =>
+    'Require Official Document Date',
+
+'allow_multiple_attachments' =>
+    'Allow Multiple Attachments',
+
+'prevent_duplicate_document_numbers' =>
+    'Prevent Duplicate Document Numbers',
+
+'document_retention_years' =>
+    'Document Retention (Years)',
+
+/*
+|--------------------------------------------------------------------------
+| Workflow & Approvals
+|--------------------------------------------------------------------------
+*/
+
+'workflow_enabled' =>
+    'Enable Workflows',
+
+'incoming_requires_review' =>
+    'Incoming Documents Require Review',
+
+'outgoing_requires_approval' =>
+    'Outgoing Documents Require Approval',
+
+'card_requires_approval' =>
+    'Cards Require Approval',
+
+'allow_self_approval' =>
+    'Allow Self-Approval',
+
+'require_rejection_reason' =>
+    'Require Rejection Reason',
+
+'require_approval_comment' =>
+    'Require Approval Comment',
+
+'default_workflow_due_days' =>
+    'Default Due Period (Days)',
+
+'escalation_after_days' =>
+    'Escalate After (Days)',
+
+'maximum_workflow_revisions' =>
+    'Maximum Revisions',
+
+'auto_close_completed_workflows' =>
+    'Automatically Close Completed Workflows',
+
+    /*
+|--------------------------------------------------------------------------
+| Budget Coordination
+|--------------------------------------------------------------------------
+*/
+
+'focal_point_code_format' =>
+    'Focal-Point Code Format',
+
+'card_number_format' =>
+    'Card Number Format',
+
+'card_validity_months' =>
+    'Card Validity (Months)',
+
+'maximum_focal_points_per_entity' =>
+    'Maximum Focal Points Per Entity',
+
+'card_expiry_reminder_days' =>
+    'Card Expiry Reminder (Days)',
+
+'card_issuing_organization' =>
+    'Card-Issuing Organization',
+
+'card_print_language' =>
+    'Card Print Language',
+
+'require_introduction_letter' =>
+    'Require Introduction Letter',
+
+'require_approval_before_card' =>
+    'Require Approval Before Card Generation',
+
+'require_focal_point_photograph' =>
+    'Require Focal-Point Photograph',
+
+'require_focal_point_signature' =>
+    'Require Focal-Point Signature',
+
+'allow_card_renewal' =>
+    'Allow Card Renewal',
+
+'allow_card_replacement' =>
+    'Allow Card Replacement',
+
+'enable_qr_verification' =>
+    'Enable QR Verification',
+
+/*
+|--------------------------------------------------------------------------
+| Files & Storage
+|--------------------------------------------------------------------------
+*/
+
+'default_upload_disk' =>
+    'Default Upload Disk',
+
+'private_document_disk' =>
+    'Private Document Disk',
+
+'maximum_upload_size_mb' =>
+    'Maximum Upload Size (MB)',
+
+'allowed_document_formats' =>
+    'Allowed Document Formats',
+
+'allowed_image_formats' =>
+    'Allowed Image Formats',
+
+'temporary_file_retention_days' =>
+    'Temporary File Retention (Days)',
+
+'pdf_temporary_retention_days' =>
+    'Temporary PDF Retention (Days)',
+
+'storage_warning_percentage' =>
+    'Storage Warning Threshold (%)',
+
+'image_compression_enabled' =>
+    'Enable Image Compression',
+
+'image_compression_quality' =>
+    'Image Compression Quality',
+
+'generate_unique_filenames' =>
+    'Generate Unique Filenames',
+
+    /*
+|--------------------------------------------------------------------------
+| Backup Configuration
+|--------------------------------------------------------------------------
+*/
+
+'automatic_backup_enabled' =>
+    'Enable Automatic Backups',
+
+'backup_frequency' =>
+    'Backup Frequency',
+
+'backup_time' =>
+    'Backup Time',
+
+'backup_disk' =>
+    'Backup Storage Disk',
+
+'backup_retention_count' =>
+    'Number of Backups to Retain',
+
+'include_uploaded_files' =>
+    'Include Uploaded Files',
+
+'verify_backup_checksum' =>
+    'Verify Backup Checksum',
+
+'create_pre_restore_backup' =>
+    'Create Backup Before Restore',
+
+/*
+|--------------------------------------------------------------------------
+| Reports & Data Retention
+|--------------------------------------------------------------------------
+*/
+
+'default_export_format' =>
+    'Default Export Format',
+
+'pdf_page_size' =>
+    'PDF Page Size',
+
+'pdf_orientation' =>
+    'PDF Orientation',
+
+'include_organization_logo' =>
+    'Include Organization Logo',
+
+'include_generated_by' =>
+    'Include Generated-By User',
+
+'include_generation_date' =>
+    'Include Generation Date',
+
+'audit_log_retention_days' =>
+    'Audit Log Retention (Days)',
+
+'generated_report_retention_days' =>
+    'Generated Report Retention (Days)',
+
+'export_file_retention_days' =>
+    'Export File Retention (Days)',
+
+'allow_sensitive_data_export' =>
+    'Allow Sensitive Data Export',
+
+'watermark_confidential_reports' =>
+    'Watermark Confidential Reports',
+
+/*
+|--------------------------------------------------------------------------
+| Maintenance & Diagnostics
+|--------------------------------------------------------------------------
+*/
+
+'maintenance_allowed_ips' =>
+    'Maintenance Allowed IP Addresses',
+
+'log_level' =>
+    'Log Level',
+
+'log_retention_days' =>
+    'Log Retention (Days)',
+
+'diagnostics_retention_days' =>
+    'Diagnostics Retention (Days)',
+
+'queue_monitoring_enabled' =>
+    'Enable Queue Monitoring',
+
+'scheduler_monitoring_enabled' =>
+    'Enable Scheduler Monitoring',
+
+'database_monitoring_enabled' =>
+    'Enable Database Monitoring',
+
+'storage_monitoring_enabled' =>
+    'Enable Storage Monitoring',
+
+'daily_diagnostics_enabled' =>
+    'Enable Daily Diagnostics',
+
+'daily_diagnostics_time' =>
+    'Daily Diagnostics Time',
+
+
+    /*
+|--------------------------------------------------------------------------
+| Settings Overview and Validation
+|--------------------------------------------------------------------------
+*/
+
+'application_information_description' =>
+    'Safe runtime information about the current EMIS installation.',
+
+'database_information_description' =>
+    'Current database connectivity and driver status.',
+
+'storage_information_description' =>
+    'Storage write access and available disk capacity.',
+
+'current_administrator_description' =>
+    'The authenticated administrator currently viewing the Settings Center.',
+
+'attention_required' =>
+    'Attention Required',
+
+'database_unavailable' =>
+    'Database Unavailable',
+
+'database_unavailable_description' =>
+    'EMIS could not establish a connection to the configured database.',
+
+'storage_not_writable' =>
+    'Storage Is Not Writable',
+
+'storage_not_writable_description' =>
+    'The application cannot write to the required storage directory.',
+
+'debug_mode_enabled' =>
+    'Debug Mode Is Enabled',
+
+'debug_mode_warning' =>
+    'Debug mode should normally be disabled in a production environment.',
+
+'maintenance_mode_enabled' =>
+    'Maintenance Mode Is Enabled',
+
+'maintenance_mode_notice' =>
+    'The application is currently unavailable to ordinary users.',
+
+'settings_security_notice' =>
+    'Sensitive credentials such as the application key, database password and mail password are never displayed in the Settings Center.',
+
+'validation_errors' =>
+    'Please correct the following validation errors.',
+
+'close' => 'Close',
+
+// Shared legacy-module labels
+'login_attempts' => 'Login Attempts',
+'none' => 'None',
+'create_users' => 'Create User',
+'created' => 'Created',
+'updated' => 'Updated',
+'deleted' => 'Deleted',
+'refresh' => 'Refresh',
+'summary' => 'Summary',
+'document_no' => 'Document Number',
+'doc_title' => 'Document Title',
+'audit_logs' => 'Audit Logs',
+'adddepaerment' => 'Add Department',
+'search_department' => 'Search Departments',
+'print_department' => 'Print Departments',
+'no_departments_found' => 'No departments found.',
+'delete_department_confirm' => 'Are you sure you want to delete this department?',
+'organization_name' => 'Organization Name',
+'organization_desc' => 'Official organization identity and contact information.',
+'general_settings_desc' => 'Basic system identity and interface defaults.',
+'system_configuration_desc' => 'Manage the application configuration.',
+'manage_system_preferences' => 'Manage system preferences and operational defaults.',
+'security' => 'Security',
+'security_settings_desc' => 'Session, password, registration, and access settings.',
+'session_timeout' => 'Session Timeout',
+'minimum_password_length' => 'Minimum Password Length',
+'enable_user_registration' => 'Enable User Registration',
+'enable_user_registration_desc' => 'Allow authorized administrators to register users.',
+'maintenance_mode' => 'Maintenance Mode',
+'branding' => 'Branding',
+'branding_settings_desc' => 'Manage the system logo and visual identity.',
+'upload_logo_hint' => 'Upload a PNG, JPG, JPEG, or WebP image.',
+'email_notifications' => 'Email Notifications',
+'browser_notifications' => 'Browser Notifications',
+'browser_notifications_desc' => 'Show supported notifications in the browser.',
+'enable_task_notifications' => 'Task Notifications',
+'enable_task_notifications_desc' => 'Notify users about task assignments and deadlines.',
+'enable_document_tracking' => 'Document Tracking',
+'enable_document_tracking_desc' => 'Record and display document tracking events.',
+'replace_file_note' => 'Uploading a new file will replace the current file.',
+'save_budget_entity' => 'Save Budget Entity',
+'budget_entity_registration_description' => 'Register and maintain official budget entity information.',
+'basic_information' => 'Basic Information',
+'budget_entity_details' => 'Budget Entity Details',
+'edit_budget_entity' => 'Edit Budget Entity',
+'introduction_letter_details' => 'Introduction Letter Details',
+'edit_introduction_letter' => 'Edit Introduction Letter',
+'reviewed_at' => 'Reviewed At',
+'valid_card' => 'Valid Card',
+'invalid_card' => 'Invalid Card',
+'verification_code' => 'Verification Code',
     ];

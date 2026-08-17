@@ -92,4 +92,52 @@ return [
 'card_not_found' => 'کارت مورد نظر یافت نشد.',
 'introduction_entity_mismatch' => 'مکتوب معرفی انتخاب‌شده مربوط به واحد بودجوی انتخاب‌شده نیست.',
 
+
+// Settings Center
+'settings_updated' =>
+    'تنظیمات با موفقیت ذخیره شد.',
+
+'settings_update_failed' =>
+    'تنظیمات ذخیره نشد. لطفاً دوباره تلاش کنید.',
+
+'settings_not_found' =>
+    'بخش تنظیمات مورد نظر پیدا نشد.',
+
+'settings_access_denied' =>
+    'شما اجازه دسترسی به این بخش تنظیمات را ندارید.',
+
+'settings_validation_failed' =>
+    'لطفاً خطاهای فورم را اصلاح کرده و دوباره تلاش کنید.',
+
+'settings_file_uploaded' =>
+    'فایل تنظیمات با موفقیت بارگذاری شد.',
+
+'settings_file_upload_failed' =>
+    'فایل بارگذاری نشد. لطفاً نوع و حجم فایل را بررسی کنید.',
+
+'settings_file_invalid' =>
+    'فایل انتخاب‌شده معتبر نیست.',
+
+'settings_history_unavailable' =>
+    'تاریخچه تنظیمات در حال حاضر در دسترس نیست.',
+
+'settings_no_changes' =>
+    'هیچ تغییری برای ذخیره وجود ندارد.',
+
+
+    // د تنظیماتو مرکز اضافي پیغامونه
+'settings_not_found' =>
+    'د غوښتل شوې تنظیماتو برخه ونه موندل شوه.',
+
+'settings_file_uploaded' =>
+    'د تنظیماتو فایل په بریالیتوب سره پورته شو.',
+
+'settings_file_invalid' =>
+    'ټاکل شوی فایل سم نه دی.',
+
+'settings_history_unavailable' =>
+    'د تنظیماتو تاریخچه اوس مهال د لاسرسي وړ نه ده.',
+
+'settings_no_changes' =>
+    'د ذخیره کولو لپاره کوم بدلون نشته.',
 ];

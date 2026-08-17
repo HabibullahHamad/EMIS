@@ -157,11 +157,11 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>{{ __('emis.name') }}</th>
+            <th>{{ __('emis.email') }}</th>
+            <th>{{ __('emis.role') }}</th>
+            <th>{{ __('emis.status') }}</th>
+            <th>{{ __('emis.actions') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -194,20 +194,20 @@
     <div class="modal-content">
         <h3>Add User</h3>
         <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="email" placeholder="{{ __('emis.email') }}">
+        <input type="password" placeholder="{{ __('emis.password') }}">
         <select>
         <option>Super Admin</option>    
         <option>Admin</option>
             <option>Moderator</option>
             <option>Editor</option>
 
-            <option>User</option>
+            <option>{{ __('emis.user') }}</option>
             <option>Viewer</option>
             
         </select>
-        <button class="btn btn-primary" onclick="closeModals()">Save</button>
-        <button class="btn btn-secondary" onclick="closeModals()">Close</button>
+        <button class="btn btn-primary" onclick="closeModals()">{{ __('emis.save') }}</button>
+        <button class="btn btn-secondary" onclick="closeModals()">{{ __('emis.close') }}</button>
     </div>
     
 
@@ -221,9 +221,9 @@
         <input type="email" value="user@mail.com">
         <select>
             <option selected>Admin</option>
-            <option>User</option>
+            <option>{{ __('emis.user') }}</option>
         </select>
-        <button class="btn btn-warning" onclick="closeModals()">Update</button>
+        <button class="btn btn-warning" onclick="closeModals()">{{ __('emis.update') }}</button>
     </div>
 </div>
 

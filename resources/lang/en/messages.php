@@ -91,4 +91,43 @@ return [
 'card_revoke_failed' => 'The card could not be revoked.',
 'card_not_found' => 'The requested card was not found.',
 'introduction_entity_mismatch' => 'The selected introduction letter does not belong to the selected budget entity.',
+
+
+/*
+|--------------------------------------------------------------------------
+| Settings Center
+|--------------------------------------------------------------------------
+*/
+
+'settings_updated' =>
+    'Settings updated successfully.',
+
+'settings_update_failed' =>
+    'The settings could not be updated. Please try again.',
+
+'settings_validation_failed' =>
+    'Please correct the highlighted settings fields.',
+
+'settings_file_upload_failed' =>
+    'The Settings file could not be uploaded.',
+
+'settings_access_denied' =>
+    'You are not authorized to manage these settings.',
+
+
+    // Additional Settings Center messages
+'settings_not_found' =>
+    'The requested Settings section was not found.',
+
+'settings_file_uploaded' =>
+    'The Settings file was uploaded successfully.',
+
+'settings_file_invalid' =>
+    'The selected file is invalid.',
+
+'settings_history_unavailable' =>
+    'Settings history is currently unavailable.',
+
+'settings_no_changes' =>
+    'There are no changes to save.',
 ];

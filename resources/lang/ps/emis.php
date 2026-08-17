@@ -707,4 +707,965 @@ return [
 'budget_entity_registration_description' => 'د بودجوي واحد ثبتولو لپاره اړین معلومات دننه کړئي.',
 'save_budget_entity' => 'بودجوي واحد ثبتول',
 
+/*
+|--------------------------------------------------------------------------
+| د تنظیماتو مرکز — اساسي رابط
+|--------------------------------------------------------------------------
+*/
+
+'settings' =>
+    'تنظیمات',
+
+'settings_center' =>
+    'د EMIS تنظیماتو مرکز',
+
+'settings_center_description' =>
+    'د سیستم عمومي، سیمه‌ییز او عملیاتي تنظیمات مدیریت کړئ.',
+
+'system_configuration' =>
+    'د سیستم تنظیمات',
+
+'settings_overview' =>
+    'عمومي کتنه او د سیستم روغتیا',
+
+'settings_overview_short' =>
+    'حالت او تشخیص',
+
+'settings_overview_description' =>
+    'د اپلېکېشن، ډیټابېس، ذخیرې او چاپېریال اوسنی حالت وګورئ.',
+
+'additional_sections' =>
+    'اضافي برخې',
+
+'upcoming_sections' =>
+    'اضافي برخې',
+
+'coming_soon' =>
+    'ژر به فعال شي',
+
+'save_settings' =>
+    'تنظیمات خوندي کړئ',
+
+'cancel' =>
+    'لغوه کول',
+
+'reset_changes' =>
+    'بدلونونه بېرته وګرځوئ',
+
+'no_unsaved_changes' =>
+    'ناخوندي بدلون نشته',
+
+'unsaved_changes' =>
+    'ناخوندي بدلونونه شته',
+
+'select_option' =>
+    'یو انتخاب وټاکئ',
+
+'system_healthy' =>
+    'سیستم روغ دی',
+
+'application' =>
+    'اپلېکېشن',
+
+'database' =>
+    'ډیټابېس',
+
+'storage' =>
+    'ذخیره',
+
+'environment' =>
+    'چاپېریال',
+
+'connected' =>
+    'وصل دی',
+
+'disconnected' =>
+    'وصل نه دی',
+
+'writable' =>
+    'د لیکلو وړ دی',
+
+'not_writable' =>
+    'د لیکلو وړ نه دی',
+
+'enabled' =>
+    'فعال',
+
+'disabled' =>
+    'غیرفعال',
+
+'application_information' =>
+    'د اپلېکېشن معلومات',
+
+'database_information' =>
+    'د ډیټابېس معلومات',
+
+'storage_information' =>
+    'د ذخیرې معلومات',
+
+'current_administrator' =>
+    'اوسنی مدیر',
+
+'application_name' =>
+    'د اپلېکېشن نوم',
+
+'laravel_version' =>
+    'د Laravel نسخه',
+
+'php_version' =>
+    'د PHP نسخه',
+
+'timezone' =>
+    'وخت‌سیمه',
+
+'current_language' =>
+    'اوسنۍ ژبه',
+
+'debug_mode' =>
+    'د Debug حالت',
+
+'database_driver' =>
+    'د ډیټابېس ډرایور',
+
+'database_name' =>
+    'د ډیټابېس نوم',
+
+'connection_status' =>
+    'د اتصال حالت',
+
+'storage_writable' =>
+    'ذخیره د لیکلو وړ ده',
+
+'available_disk_space' =>
+    'په ډیسک کې شته ځای',
+
+
+    /*
+|--------------------------------------------------------------------------
+| د تنظیماتو برخې
+|--------------------------------------------------------------------------
+*/
+
+'general_settings' =>
+    'عمومي تنظیمات',
+
+'general_settings_short' =>
+    'د سیستم پېژندنه او ملاتړ',
+
+'general_settings_description' =>
+    'د سیستم پېژندنه، د ملاتړ معلومات او اصلي چلند مدیریت کړئ.',
+
+'organization_profile' =>
+    'د ادارې پېژندپاڼه',
+
+'organization_profile_description' =>
+    'د ادارې رسمي هویت او د اړیکو معلومات مدیریت کړئ.',
+
+'localization_settings' =>
+    'ژبه او سیمه‌ییزه بڼه',
+
+'localization_settings_description' =>
+    'ژبې، وخت‌سیمه، کلیزه او د نېټې سیمه‌ییزې بڼې مدیریت کړئ.',
+
+'security_settings' =>
+    'امنیت او د لاسرسي کنټرول',
+
+'security_settings_description' =>
+    'د پټنوم تګلارې، ناستې او امنیتي غوره‌توبونه مدیریت کړئ.',
+
+'notification_settings' =>
+    'خبرتیاوې او برېښنالیک',
+
+'notification_settings_description' =>
+    'د سیستم خبرتیاوې، د برېښنالیک هویت او د خبرتیا غوره‌توبونه مدیریت کړئ.',
+
+'correspondence_settings' =>
+    'د مکاتباتو تنظیمات',
+
+'correspondence_settings_description' =>
+    'د وارده او صادره اسنادو اصلي ارزښتونه او د ضمیمو اصول مدیریت کړئ.',
+
+'workflow_settings' =>
+    'کاري بهیر او منظورۍ',
+
+'workflow_settings_description' =>
+    'د بیاکتنې، منظورۍ، لوړولو او کاري بهیر چلند مدیریت کړئ.',
+
+'budget_coordination_settings' =>
+    'د بودجې همغږي',
+
+'budget_coordination_settings_description' =>
+    'د فوکل‌پاینټ ثبت او د پېژندپاڼو اصول مدیریت کړئ.',
+
+'storage_settings' =>
+    'فایلونه او ذخیره',
+
+'storage_settings_description' =>
+    'د فایلونو ډولونه، د پورته کولو حدونه، ذخیره او ساتنې موده مدیریت کړئ.',
+
+'backup_settings' =>
+    'بک‌اپ او بېرته راګرځول',
+
+'backup_settings_description' =>
+    'د بک‌اپ مهالوېش، تصدیق او د ساتنې غوره‌توبونه مدیریت کړئ.',
+
+'reports_retention_settings' =>
+    'راپورونه او د معلوماتو ساتنه',
+
+'reports_retention_settings_description' =>
+    'د صادرولو بڼې، د راپورونو تنظیمات او د معلوماتو ساتنې مودې مدیریت کړئ.',
+
+'maintenance_settings' =>
+    'ساتنه او تشخیص',
+
+'maintenance_settings_description' =>
+    'د څارنې، تشخیص او تخنیکي ساتنې غوره‌توبونه مدیریت کړئ.',
+
+'settings_history' =>
+    'د تنظیماتو تاریخچه',
+
+'settings_history_short' =>
+    'د تنظیماتو د بدلونونو ریکارډ',
+
+'about_system' =>
+    'د سیستم په اړه',
+
+'about_system_short' =>
+    'نسخه او د سیستم معلومات',
+
+    /*
+|--------------------------------------------------------------------------
+| عمومي تنظیمات
+|--------------------------------------------------------------------------
+*/
+
+'system_name_help' =>
+    'د سیستم رسمي نوم چې د EMIS په بېلابېلو برخو کې ښودل کېږي.',
+
+'system_name_placeholder' =>
+    'د سیستم بشپړ نوم ولیکئ',
+
+'system_short_name' =>
+    'لنډ نوم',
+
+'system_short_name_help' =>
+    'هغه لنډ نوم چې په محدودو برخو کې کارول کېږي.',
+
+'system_description' =>
+    'د سیستم تشریح',
+
+'system_description_help' =>
+    'د سیستم او د هغه د موخې په اړه لنډ معلومات.',
+
+'system_description_placeholder' =>
+    'د سیستم لنډه تشریح ولیکئ',
+
+'default_landing_page' =>
+    'اصلي پیل پاڼه',
+
+'default_landing_page_help' =>
+    'هغه لومړنۍ پاڼه چې کاروونکي ته له ننوتلو وروسته ښکاري.',
+
+'system_status' =>
+    'د سیستم حالت',
+
+'system_status_help' =>
+    'د EMIS څرګند عملیاتي حالت کنټرولوي.',
+
+'primary_color' =>
+    'اصلي رنګ',
+
+'primary_color_help' =>
+    'هغه اصلي رنګ چې د سیستم په رابط کې کارول کېږي.',
+
+'support_email' =>
+    'د ملاتړ برېښنالیک',
+
+'support_email_help' =>
+    'هغه برېښنالیک چې کاروونکي د مرستې لپاره ورسره اړیکه نیسي.',
+
+'support_phone' =>
+    'د ملاتړ ټیلیفون',
+
+'support_phone_help' =>
+    'د تخنیکي ملاتړ رسمي ټیلیفون شمېره.',
+
+'helpdesk_url' =>
+    'د مرستې مرکز پته',
+
+'helpdesk_url_help' =>
+    'د تخنیکي ملاتړ یا ټکټ سیستم انټرنېټي پته.',
+
+'maintenance' =>
+    'تخنیکي ساتنه',
+
+'maintenance_message' =>
+    'د ساتنې پیغام',
+
+'maintenance_message_help' =>
+    'هغه پیغام چې د تخنیکي ساتنې پر مهال کاروونکو ته ښودل کېږي.',
+
+'system_logo' =>
+    'د سیستم لوګو',
+
+'system_logo_help' =>
+    'د EMIS اصلي لوګو د JPG، PNG یا WebP په بڼه پورته کړئ.',
+
+'favicon' =>
+    'د براوزر نښه',
+
+'favicon_help' =>
+    'هغه کوچنۍ نښه چې د براوزر په ټب کې ښکاري.',
+
+/*
+|--------------------------------------------------------------------------
+| د ادارې پېژندپاڼه
+|--------------------------------------------------------------------------
+*/
+
+'organization_official_name' =>
+    'رسمي نوم',
+
+'organization_official_name_help' =>
+    'د ادارې بشپړ او رسمي نوم.',
+
+'organization_code' =>
+    'د ادارې کوډ',
+
+'organization_code_help' =>
+    'د ادارې ځانګړی لنډیز یا اداري کوډ.',
+
+'organization_name_ps' =>
+    'پښتو نوم',
+
+'organization_name_ps_help' =>
+    'د ادارې رسمي نوم په پښتو ژبه.',
+
+'organization_name_fa' =>
+    'دري نوم',
+
+'organization_name_fa_help' =>
+    'د ادارې رسمي نوم په دري ژبه.',
+
+'organization_type' =>
+    'د ادارې ډول',
+
+'organization_type_help' =>
+    'د ادارې اداري کټګوري وټاکئ.',
+
+'organization_type_ministry' =>
+    'وزارت',
+
+'organization_type_general_directorate' =>
+    'عمومي ریاست',
+
+'organization_type_directorate' =>
+    'ریاست',
+
+'organization_type_independent_agency' =>
+    'خپلواکه اداره',
+
+'organization_type_other' =>
+    'نور',
+
+'organization_email' =>
+    'رسمي برېښنالیک',
+
+'organization_email_help' =>
+    'د ادارې رسمي عامه برېښنالیک.',
+
+'organization_phone' =>
+    'رسمي ټیلیفون',
+
+'organization_phone_help' =>
+    'د ادارې رسمي اړیکې شمېره.',
+
+'organization_website' =>
+    'وېب‌سایټ',
+
+'organization_website_help' =>
+    'د ادارې رسمي وېب‌سایټ پته.',
+
+'organization_address' =>
+    'رسمي پته',
+
+'organization_address_help' =>
+    'د ادارې بشپړه فزیکي پته.',
+
+'organization_logo' =>
+    'د ادارې لوګو',
+
+'organization_logo_help' =>
+    'د ادارې رسمي لوګو پورته کړئ.',
+
+'organization_official_seal' =>
+    'رسمي مهر',
+
+'organization_official_seal_help' =>
+    'د داخلي او مجاز استعمال لپاره رسمي مهر پورته کړئ.',
+
+
+    // Localization Settings
+'default_language' => 'اصلي ژبه',
+'default_language_help' => 'هغه ژبه چې سیسټم به یې په اصلي ډول کاروي.',
+
+'fallback_language' => 'بدیله ژبه',
+'fallback_language_help' => 'که د اصلي ژبې ژباړه موجوده نه وي، دا ژبه به وکارول شي.',
+
+'default_timezone' => 'اصلي وخت‌سیمه',
+'default_timezone_help' => 'د سیسټم د نېټو او وختونو لپاره اصلي وخت‌سیمه.',
+
+'calendar_type' => 'د کلیزې ډول',
+'calendar_type_help' => 'د نېټو د ښودلو لپاره د کلیزې سیستم وټاکئ.',
+
+'date_format' => 'د نېټې بڼه',
+'date_format_help' => 'په سیسټم کې د نېټو د ښودلو بڼه.',
+
+'time_format' => 'د وخت بڼه',
+'time_format_help' => 'د ۱۲ یا ۲۴ ساعته وخت بڼه وټاکئ.',
+
+'first_day_of_week' => 'د اونۍ لومړۍ ورځ',
+'first_day_of_week_help' => 'هغه ورځ وټاکئ چې اونۍ ترې پیلېږي.',
+
+'records_per_page' => 'په هره پاڼه کې ریکارډونه',
+'records_per_page_help' => 'په لېستونو او جدولونو کې د هرې پاڼې د ریکارډونو شمېر.',
+
+
+// Security Settings
+'session_timeout_minutes' => 'د ناستې د پای وخت په دقیقو',
+'session_timeout_minutes_help' => 'د نه فعالیت په صورت کې د کاروونکي ناسته له څو دقیقو وروسته پای ته ورسېږي.',
+
+'maximum_login_attempts' => 'د ننوتلو اعظمي هڅې',
+'maximum_login_attempts_help' => 'د حساب له لنډمهاله بندېدو مخکې د ناکامو ننوتلو اعظمي شمېر.',
+
+'lockout_minutes' => 'د حساب د بندېدو موده',
+'lockout_minutes_help' => 'له ډېرو ناکامو هڅو وروسته حساب د څو دقیقو لپاره بند پاتې شي.',
+
+'password_minimum_length' => 'د پټنوم لږ تر لږه اوږدوالی',
+'password_minimum_length_help' => 'د پټنوم لپاره د تورو لږ تر لږه شمېر.',
+
+'password_expiry_days' => 'د پټنوم د اعتبار ورځې',
+'password_expiry_days_help' => 'کاروونکی باید له ټاکلو ورځو وروسته خپل پټنوم بدل کړي.',
+
+'require_uppercase' => 'لوی انګلیسي توری اړین دی',
+'require_lowercase' => 'کوچنی انګلیسي توری اړین دی',
+'require_number' => 'شمېره اړینه ده',
+'require_special_character' => 'ځانګړی نښه اړینه ده',
+
+'two_factor_authentication' => 'دوه پړاوه تصدیق',
+'two_factor_authentication_help' => 'د کاروونکو حسابونو لپاره د امنیت دوهم پړاو فعالوي.',
+
+'audit_retention_days' => 'د پلټنې د معلوماتو ساتلو ورځې',
+'audit_retention_days_help' => 'د سیسټم د پلټنې ریکارډونه به څو ورځې وساتل شي.',
+
+
+
+// Notifications & Email Settings
+'email_notifications_enabled' => 'برېښنالیکي خبرتیاوې فعالې کړئ',
+'in_app_notifications_enabled' => 'د سیسټم دننه خبرتیاوې فعالې کړئ',
+
+'mail_from_address' => 'د لېږونکي برېښنالیک',
+'mail_from_name' => 'د برېښنالیک لېږونکي نوم',
+
+'administrator_notification_email' =>
+    'د مدیر د خبرتیا برېښنالیک',
+
+'notify_incoming_document' =>
+    'د راتلونکي سند خبرتیا',
+
+'notify_task_assignment' =>
+    'د دندې سپارلو خبرتیا',
+
+'notify_deadline_reminder' =>
+    'د وروستۍ نېټې یادونې خبرتیا',
+
+'daily_summary_enabled' =>
+    'ورځنی لنډیز فعال کړئ',
+
+'daily_summary_time' =>
+    'د ورځني لنډیز وخت',
+
+
+// Correspondence Settings
+'incoming_number_format' =>
+    'د راتلونکو اسنادو د شمېرې بڼه',
+
+'outgoing_number_format' =>
+    'د وتونکو اسنادو د شمېرې بڼه',
+
+'default_document_status' =>
+    'د سند اصلي حالت',
+
+'default_document_priority' =>
+    'د سند اصلي لومړیتوب',
+
+'require_document_subject' =>
+    'د سند موضوع اړینه ده',
+
+'require_document_date' =>
+    'د سند نېټه اړینه ده',
+
+'prevent_duplicate_document_numbers' =>
+    'د سند د تکراري شمېرو مخنیوی',
+
+'incoming_requires_review' =>
+    'راتلونکی سند بیاکتنې ته اړتیا لري',
+
+'outgoing_requires_approval' =>
+    'وتونکی سند تایید ته اړتیا لري',
+
+'allow_multiple_attachments' =>
+    'د څو ضمیمو پورته کول فعال کړئ',
+
+'maximum_attachment_size_mb' =>
+    'د ضمیمې اعظمي اندازه په مېګابایټ',
+
+'allowed_attachment_types' =>
+    'د ضمیمو اجازه لرونکي ډولونه',
+
+
+    /*
+|--------------------------------------------------------------------------
+| Workflow & Approval Settings
+|--------------------------------------------------------------------------
+*/
+
+'workflow_enabled' =>
+    'کاري بهیر فعال کړئ',
+
+'default_workflow_due_days' =>
+    'د کاري بهیر اصلي مهلت په ورځو',
+
+'escalation_after_days' =>
+    'له څو ورځو وروسته لوړ مقام ته راجع کول',
+
+'maximum_workflow_revisions' =>
+    'د کاري بهیر د اصلاحاتو اعظمي شمېر',
+
+'allow_self_approval' =>
+    'د خپل ریکارډ تایید ته اجازه ورکول',
+
+'require_approval_comment' =>
+    'د تایید تبصره اړینه ده',
+
+'require_rejection_reason' =>
+    'د ردولو دلیل اړین دی',
+
+'auto_close_completed_workflows' =>
+    'بشپړ شوي کاري بهیرونه په اوتومات ډول وتړئ',
+
+
+/*
+|--------------------------------------------------------------------------
+| Budget Coordination Settings
+|--------------------------------------------------------------------------
+*/
+
+'focal_point_code_format' =>
+    'د ارتباطي استازي د کوډ بڼه',
+
+'card_number_format' =>
+    'د پېژندپاڼې د شمېرې بڼه',
+
+'card_validity_months' =>
+    'د پېژندپاڼې د اعتبار موده په میاشتو',
+
+'require_introduction_letter' =>
+    'معرفي لیک اړین دی',
+
+'require_approval_before_card' =>
+    'د پېژندپاڼې له جوړولو مخکې تایید اړین دی',
+
+'card_requires_approval' =>
+    'د پېژندپاڼې تایید اړین دی',
+
+'require_focal_point_photograph' =>
+    'د ارتباطي استازي عکس اړین دی',
+
+'require_focal_point_signature' =>
+    'د ارتباطي استازي لاسلیک اړین دی',
+
+'maximum_focal_points_per_entity' =>
+    'د هرې ادارې لپاره د ارتباطي استازو اعظمي شمېر',
+
+'allow_card_renewal' =>
+    'د پېژندپاڼې نوي کولو ته اجازه ورکول',
+
+'allow_card_replacement' =>
+    'د پېژندپاڼې بدلولو ته اجازه ورکول',
+
+'enable_qr_verification' =>
+    'د QR کوډ له لارې تصدیق فعال کړئ',
+
+'card_expiry_reminder_days' =>
+    'د پېژندپاڼې د پای یادونې ورځې',
+
+'card_issuing_organization' =>
+    'د پېژندپاڼې صادروونکې اداره',
+
+'card_print_language' =>
+    'د پېژندپاڼې د چاپ ژبه',
+
+
+/*
+|--------------------------------------------------------------------------
+| Files & Storage Settings
+|--------------------------------------------------------------------------
+*/
+
+'default_upload_disk' =>
+    'د فایلونو د پورته کولو اصلي ډیسک',
+
+'private_document_disk' =>
+    'د محرمو اسنادو ډیسک',
+
+'backup_disk' =>
+    'د بیک‌اپ ډیسک',
+
+'maximum_upload_size_mb' =>
+    'د فایل اعظمي اندازه په مېګابایټ',
+
+'allowed_document_formats' =>
+    'د اسنادو اجازه لرونکي ډولونه',
+
+'allowed_image_formats' =>
+    'د انځورونو اجازه لرونکي ډولونه',
+
+'temporary_file_retention_days' =>
+    'د لنډمهاله فایلونو د ساتلو ورځې',
+
+'pdf_temporary_retention_days' =>
+    'د لنډمهاله PDF فایلونو د ساتلو ورځې',
+
+'image_compression_enabled' =>
+    'د انځورونو فشرده کول فعال کړئ',
+
+'image_compression_quality' =>
+    'د انځور د فشرده کولو کیفیت',
+
+'generate_unique_filenames' =>
+    'د فایلونو ځانګړي نومونه په اوتومات ډول جوړ کړئ',
+
+'storage_warning_percentage' =>
+    'د ذخیرې د خبرداري سلنه',
+
+
+/*
+|--------------------------------------------------------------------------
+| Backup & Restore Settings
+|--------------------------------------------------------------------------
+*/
+
+'automatic_backup_enabled' =>
+    'اوتومات بیک‌اپ فعال کړئ',
+
+'backup_frequency' =>
+    'د بیک‌اپ تکرار',
+
+'backup_time' =>
+    'د بیک‌اپ وخت',
+
+'backup_retention_count' =>
+    'د ساتل کېدونکو بیک‌اپونو شمېر',
+
+'verify_backup_checksum' =>
+    'د بیک‌اپ چک‌سم تصدیق کړئ',
+
+'notify_backup_success' =>
+    'د بریالي بیک‌اپ خبرتیا',
+
+'notify_backup_failure' =>
+    'د ناکام بیک‌اپ خبرتیا',
+
+'create_pre_restore_backup' =>
+    'له بېرته راګرځولو مخکې بیک‌اپ جوړ کړئ',
+
+
+/*
+|--------------------------------------------------------------------------
+| Reports & Data Retention Settings
+|--------------------------------------------------------------------------
+*/
+
+'default_export_format' =>
+    'د صادرولو اصلي بڼه',
+
+'pdf_page_size' =>
+    'د PDF پاڼې اندازه',
+
+'pdf_orientation' =>
+    'د PDF پاڼې جهت',
+
+'include_organization_logo' =>
+    'په راپور کې د ادارې لوګو شامل کړئ',
+
+'include_generated_by' =>
+    'د راپور جوړوونکي معلومات شامل کړئ',
+
+'include_generation_date' =>
+    'د راپور د جوړېدو نېټه شامله کړئ',
+
+'watermark_confidential_reports' =>
+    'په محرمو راپورونو کې واټرمارک واچوئ',
+
+'allow_sensitive_data_export' =>
+    'د حساسو معلوماتو صادرولو ته اجازه ورکول',
+
+'document_retention_years' =>
+    'د اسنادو د ساتلو موده په کلونو',
+
+'audit_log_retention_days' =>
+    'د پلټنې د ثبتونو د ساتلو ورځې',
+
+'generated_report_retention_days' =>
+    'د جوړو شویو راپورونو د ساتلو ورځې',
+
+'export_file_retention_days' =>
+    'د صادر شوو فایلونو د ساتلو ورځې',
+
+'include_uploaded_files' =>
+    'پورته شوي فایلونه شامل کړئ',
+
+
+/*
+|--------------------------------------------------------------------------
+| Maintenance & Diagnostics Settings
+|--------------------------------------------------------------------------
+*/
+
+'maintenance' =>
+    'ساتنه او مراقبت',
+
+'maintenance_allowed_ips' =>
+    'د ساتنې پر مهال اجازه لرونکي IP پتې',
+
+'daily_diagnostics_enabled' =>
+    'ورځنی تشخیص فعال کړئ',
+
+'daily_diagnostics_time' =>
+    'د ورځني تشخیص وخت',
+
+'database_monitoring_enabled' =>
+    'د ډیټابېس څارنه فعاله کړئ',
+
+'queue_monitoring_enabled' =>
+    'د کتار څارنه فعاله کړئ',
+
+'scheduler_monitoring_enabled' =>
+    'د مهالویش څارنه فعاله کړئ',
+
+'storage_monitoring_enabled' =>
+    'د ذخیرې څارنه فعاله کړئ',
+
+'diagnostics_retention_days' =>
+    'د تشخیصي معلوماتو د ساتلو ورځې',
+
+'log_retention_days' =>
+    'د سیسټم د ثبتونو د ساتلو ورځې',
+
+'log_level' =>
+    'د ثبت کچه',
+
+
+/*
+|--------------------------------------------------------------------------
+| System Health and Overview
+|--------------------------------------------------------------------------
+*/
+
+'application_information_description' =>
+    'د EMIS سیسټم د اجرا خوندي او عمومي معلومات.',
+
+'database_information_description' =>
+    'د ډیټابېس د اتصال او ډرایور معلومات.',
+
+'storage_information_description' =>
+    'د ذخیرې د لیکلو اجازه او موجود ظرفیت.',
+
+'current_administrator_description' =>
+    'هغه مدیر چې اوس د تنظیماتو مرکز ګوري.',
+
+'attention_required' =>
+    'پاملرنه اړینه ده',
+
+'database_unavailable' =>
+    'ډیټابېس ته لاسرسی نشته',
+
+'database_unavailable_description' =>
+    'سیسټم ونه شو کولای له ډیټابېس سره اړیکه ټینګه کړي.',
+
+'storage_not_writable' =>
+    'ذخیره د لیکلو وړ نه ده',
+
+'storage_not_writable_description' =>
+    'سیسټم په ټاکل شوې ذخیره کې د فایل لیکلو اجازه نه لري.',
+
+'debug_mode_enabled' =>
+    'د Debug حالت فعال دی',
+
+'debug_mode_warning' =>
+    'په تولیدي چاپېریال کې باید د Debug حالت غیرفعال وي.',
+
+'maintenance_mode_enabled' =>
+    'د ساتنې حالت فعال دی',
+
+'maintenance_mode_notice' =>
+    'سیسټم اوس د ساتنې په حالت کې دی.',
+
+'settings_security_notice' =>
+    'حساس معلومات لکه APP_KEY، د ډیټابېس پټنوم او د برېښنالیک پټنوم په دې پاڼه کې نه ښودل کېږي.',
+
+'validation_errors' =>
+    'مهرباني وکړئ لاندې تېروتنې سمې کړئ.',
+
+
+/*
+|--------------------------------------------------------------------------
+| Common Option Labels
+|--------------------------------------------------------------------------
+*/
+
+'enabled' =>
+    'فعال',
+
+'disabled' =>
+    'غیرفعال',
+
+'yes' =>
+    'هو',
+
+'no' =>
+    'نه',
+
+'day' =>
+    'ورځ',
+
+'days' =>
+    'ورځې',
+
+'week' =>
+    'اونۍ',
+
+'weekly' =>
+    'اونیز',
+
+'daily' =>
+    'ورځنی',
+
+'monthly' =>
+    'میاشتنی',
+
+'yearly' =>
+    'کلنی',
+
+'gregorian' =>
+    'میلادي',
+
+'solar_hijri' =>
+    'لمریز هجري',
+
+'lunar_hijri' =>
+    'سپوږمیز هجري',
+
+'english' =>
+    'انګلیسي',
+
+'pashto' =>
+    'پښتو',
+
+'dari' =>
+    'دري',
+
+'saturday' =>
+    'شنبه',
+
+'sunday' =>
+    'یکشنبه',
+
+'monday' =>
+    'دوشنبه',
+
+'tuesday' =>
+    'سه‌شنبه',
+
+'wednesday' =>
+    'چهارشنبه',
+
+'thursday' =>
+    'پنجشنبه',
+
+'friday' =>
+    'جمعه',
+
+'portrait' =>
+    'عمودي',
+
+'landscape' =>
+    'افقي',
+
+'low' =>
+    'ټیټ',
+
+'medium' =>
+    'منځنی',
+
+'high' =>
+    'لوړ',
+
+'critical' =>
+    'بحراني',
+
+'close' => 'تړل',
+
+// د پخوانیو ماډیولونو ګډ سرلیکونه
+'login_attempts' => 'د ننوتلو هڅې',
+'none' => 'هیڅ یو',
+'create_users' => 'کاروونکی جوړول',
+'created' => 'جوړ شوی',
+'updated' => 'نوی شوی',
+'deleted' => 'حذف شوی',
+'refresh' => 'تازه کول',
+'summary' => 'لنډیز',
+'document_no' => 'د سند شمېره',
+'doc_title' => 'د سند سرلیک',
+'audit_logs' => 'د پلټنې ثبتونه',
+'adddepaerment' => 'څانګه اضافه کول',
+'search_department' => 'د څانګو لټون',
+'print_department' => 'د څانګو چاپ',
+'no_departments_found' => 'کومه څانګه ونه موندل شوه.',
+'delete_department_confirm' => 'ایا د دې څانګې له حذفولو ډاډه یاست؟',
+'organization_name' => 'د ادارې نوم',
+'organization_desc' => 'د ادارې رسمي هویت او د اړیکو معلومات.',
+'general_settings_desc' => 'د سیسټم بنسټیز هویت او د انٹرفېس اصلي تنظیمات.',
+'system_configuration_desc' => 'د سیسټم تنظیمات اداره کړئ.',
+'manage_system_preferences' => 'د سیسټم خوښې او عملیاتي اصلي ارزښتونه اداره کړئ.',
+'security' => 'امنیت',
+'security_settings_desc' => 'د ناستې، پټنوم، ثبت او لاسرسي تنظیمات.',
+'session_timeout' => 'د ناستې د پای وخت',
+'minimum_password_length' => 'د پټنوم لږ تر لږه اوږدوالی',
+'enable_user_registration' => 'د کاروونکو ثبت فعالول',
+'enable_user_registration_desc' => 'مجازو مدیرانو ته د کاروونکو د ثبت اجازه ورکوي.',
+'maintenance_mode' => 'د ساتنې حالت',
+'branding' => 'بصري هویت',
+'branding_settings_desc' => 'د سیسټم لوګو او بصري هویت اداره کړئ.',
+'upload_logo_hint' => 'د PNG، JPG، JPEG یا WebP انځور پورته کړئ.',
+'email_notifications' => 'برېښنالیکي خبرتیاوې',
+'browser_notifications' => 'د براوزر خبرتیاوې',
+'browser_notifications_desc' => 'په براوزر کې ملاتړ شوې خبرتیاوې ښکاره کوي.',
+'enable_task_notifications' => 'د دندو خبرتیاوې',
+'enable_task_notifications_desc' => 'د دندې سپارلو او وروستۍ نېټې په اړه کاروونکو ته خبر ورکوي.',
+'enable_document_tracking' => 'د اسنادو تعقیب',
+'enable_document_tracking_desc' => 'د سند د تعقیب پېښې ثبت او ښکاره کوي.',
+'replace_file_note' => 'د نوي فایل پورته کول اوسنی فایل بدلوي.',
+'save_budget_entity' => 'بودجوي اداره ذخیره کول',
+'budget_entity_registration_description' => 'د بودجوي ادارې رسمي معلومات ثبت او اداره کړئ.',
+'basic_information' => 'بنسټیز معلومات',
+'budget_entity_details' => 'د بودجوي ادارې معلومات',
+'edit_budget_entity' => 'د بودجوي ادارې سمون',
+'introduction_letter_details' => 'د معرفي لیک معلومات',
+'edit_introduction_letter' => 'د معرفي لیک سمون',
+'reviewed_at' => 'د ارزونې وخت',
+'valid_card' => 'معتبر کارت',
+'invalid_card' => 'نامعتبر کارت',
+'verification_code' => 'د تصدیق کوډ',
 ];

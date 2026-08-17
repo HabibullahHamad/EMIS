@@ -1,17 +1,22 @@
-<div class="overflow-x-auto">
-    <table class="min-w-full border border-gray-200 rounded-lg">
-        
-        {{-- Table Head --}}
-        <thead class="bg-gray-100">
-            <tr>
-                {{ $head }}
-            </tr>
-        </thead>
+@props([
+    'striped' => false,
+    'hover' => true,
+    'responsive' => true,
+])
 
-        {{-- Table Body --}}
-        <tbody>
-            {{ $slot }}
-        </tbody>
+<div @class(['emis-table-responsive' => $responsive])>
+    <table {{ $attributes->class([
+        'table',
+        'emis-table',
+        'table-striped' => $striped,
+        'table-hover' => $hover,
+    ]) }}>
+        @isset($head)
+            <thead>
+                <tr>{{ $head }}</tr>
+            </thead>
+        @endisset
 
+        <tbody>{{ $slot }}</tbody>
     </table>
 </div>

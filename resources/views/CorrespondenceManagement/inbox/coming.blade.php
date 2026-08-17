@@ -68,7 +68,7 @@
                 <th>لیږونکی</th>
                 <th>ترلاسه کوونکی</th>
                 <th>حالت</th>
-                <th>Deadline</th>
+                <th>{{ __('emis.deadline') }}</th>
                 <th>عملیات</th>
             </tr>
         </thead>

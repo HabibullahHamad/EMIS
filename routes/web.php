@@ -19,7 +19,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CorrespondenceManagement\InboxController;
 use App\Http\Controllers\OutgoingDocumentController;
-use App\Http\Controllers\SettingsController;
 
 use App\Http\Middleware\SetLocale;
 use App\Http\Controllers\AdminSettingsController;
@@ -81,11 +80,6 @@ Route::get('/documents/{id}/view', [DocumentController::class, 'view'])->name('d
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth'])->group(function () {
-    Route::get('/notifications', [NotificationController::class, 'index'])
-        ->name('notifications.index');
-});
-
-Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::get('/notifications/unread', [NotificationController::class, 'unread'])->name('notifications.unread');
 
@@ -100,8 +94,6 @@ Route::middleware(['auth'])->group(function () {
 });
 // end//  Notifications Routes /////////////////////////////
 
-Route::patch('/users/{user}/block', [UserController::class, 'block'])->name('users.block');
-Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])->name('users.unblock');
 // for audit logs export /////////////////////////////
 Route::patch('/users/{user}/block', [UserController::class, 'block'])
     ->name('users.block')
@@ -124,10 +116,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
-    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit.show');
-});
 /*
 |--------------------------------------------------------------------------
 | // Workflow routes
@@ -171,10 +159,6 @@ Route::get('/departments-print', [DepartmentController::class, 'print'])
 | settings Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
-    Route::put('/admin/settings', [AdminSettingsController::class, 'update'])->name('admin.settings.update');
-});
 
 
 /*
@@ -193,17 +177,27 @@ Route::middleware([SetLocale::class])->group(function () {
 // languages 
 
 
-Route::post('/language-switch', function (Request $request) {
+/*
+|--------------------------------------------------------------------------
+| Language Switch
+|--------------------------------------------------------------------------
+*/
 
-    $request->validate([
-        'locale' => 'required|in:en,ps,fa',
-        'redirect_to' => 'nullable|string',
+Route::post('/language-switch', function (Request $request) {
+    $validated = $request->validate([
+        'locale' => [
+            'required',
+            'string',
+            'in:en,ps,fa',
+        ],
     ]);
 
-    session(['locale' => $request->locale]);
+    $request->session()->put(
+        'locale',
+        $validated['locale']
+    );
 
-    return redirect()->to($request->redirect_to ?? url()->previous());
-
+    return redirect()->back();
 })->name('language.switch');
     // all My  EMIS routes here
 /*
@@ -219,6 +213,12 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+/* Public QR verification; no login is required. */
+Route::get(
+    '/focal-point-cards/verify/{uuid}',
+    [FocalPointController::class, 'verifyCard']
+)->name('focal-point-cards.verify');
 
 /*
 |--------------------------------------------------------------------------
@@ -328,10 +328,6 @@ Route::middleware(['auth'])->group(function () {
     | Administration 
     |--------------------------------------------------------------------------
     */
-    Route::patch('/users/{user}/unblock', [UserController::class, 'unblock'])
-    ->name('users.unblock')
-    ->middleware(['auth']);
-
       Route::get('/administrations/users/create', [UserController::class, 'create'])->name('Administrations.create');
       Route::get('/administrations/roles', [RoleController::class, 'index'])->name('Administrations.Roles');
       Route::get('/administrations/role-management', [RoleController::class, 'index'])->name('Administrations.Role Management');
@@ -350,8 +346,6 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/settings', [SettingsController::class, 'index'])->name('admin.settings');
-    Route::post('/admin/settings', [SettingsController::class, 'update'])->name('admin.settings.update');   
    /*
     |--------------------------------------------------------------------------
     | settings
@@ -363,15 +357,7 @@ Route::middleware(['auth'])->group(function () {
     | Languages
     |--------------------------------------------------------------------------
     */  
-     route::get('lang/ps',function (){
-     return view('lang.ps');
-     })->name('lang.ps'); 
-
-
-     route::get('lang/fa',function (){
-     return view('lang.fa');
-     })->name('lang.fa');
-
+    
      /*
     |--------------------------------------------------------------------------
     | Clock
@@ -388,30 +374,6 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */ 
    
-
-Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'ps', 'fa'])) {
-        Session::put('locale', $locale);
-    }
-    return redirect()->back();
-})->name('lang.switch');
-
-Route::get('/lang/en', function () {
-    Session::put('locale', 'en');
-    return redirect()->back();
-})->name('lang.en');
-
-Route::get('/lang/ps', function () {
-    Session::put('locale', 'ps');
-    return redirect()->back();
-})->name('lang.ps');
-
-Route::get('/lang/fa', function () {
-    Session::put('locale', 'fa');
-    return redirect()->back();
-})->name('lang.fa');
-  });
-
 
 
 //   multiple attachs
@@ -448,26 +410,6 @@ Route::get(
 );
 
 
-Route::get(
-
-'/outbox/{id}/combine-pdf',
-
-[
-
-OutgoingDocumentController::class,
-
-'combinePdf'
-
-]
-
-)
-
-->name(
-
-'outbox.combinePdf'
-
-);
-
 // route for Focal point 
 
 /*
@@ -479,11 +421,6 @@ OutgoingDocumentController::class,
 | All administrative routes require authentication.
 |
 */
-
-Route::get(
-    '/focal-point-cards/verify/{uuid}',
-    [FocalPointController::class, 'verifyCard']
-)->name('focal-point-cards.verify');
 
     /*
     |--------------------------------------------------------------------------
@@ -597,8 +534,18 @@ Route::middleware('auth')->group(function (): void {
         ]
     )->name('focal-point-introductions.attachment');
 
-    Route::resource(
+       Route::resource(
         'focal-point-introductions',
         FocalPointIntroductionController::class
     );
 });
+
+/*
+|--------------------------------------------------------------------------
+| Close the main authenticated routes group opened at line 234
+|--------------------------------------------------------------------------
+*/
+
+});
+
+require __DIR__.'/settings.php';

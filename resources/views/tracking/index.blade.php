@@ -215,7 +215,7 @@ Print All
                     <button type="button"
                             onclick="resetTrackingSearch()"
                             class="btn btn-secondary w-100">
-                        Reset
+                        {{ __('emis.reset') }}
                     </button>
                 </div>
 
@@ -452,12 +452,12 @@ Overdue
                                     <th>#</th>
                                     <th>Letter No</th>
                                     <th>Order No</th>
-                                    <th>Subject</th>
-                                    <th>Sender</th>
-                                    <th>Receiver</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th class="no-print">Action</th>
+                                    <th>{{ __('emis.subject') }}</th>
+                                    <th>{{ __('emis.sender') }}</th>
+                                    <th>{{ __('emis.receiver') }}</th>
+                                    <th>{{ __('emis.status') }}</th>
+                                    <th>{{ __('emis.date') }}</th>
+                                    <th class="no-print">{{ __('emis.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -530,12 +530,12 @@ Overdue
                                     <th>#</th>
                                     <th>Doc No</th>
                                     <th>Order No</th>
-                                    <th>Subject</th>
-                                    <th>Sender</th>
-                                    <th>Receiver</th>
-                                    <th>Priority</th>
-                                    <th>Date</th>
-                                    <th class="no-print">Action</th>
+                                    <th>{{ __('emis.subject') }}</th>
+                                    <th>{{ __('emis.sender') }}</th>
+                                    <th>{{ __('emis.receiver') }}</th>
+                                    <th>{{ __('emis.priority') }}</th>
+                                    <th>{{ __('emis.date') }}</th>
+                                    <th class="no-print">{{ __('emis.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -614,12 +614,12 @@ Overdue
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Task Code</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Deadline</th>
-                                    <th class="no-print">Action</th>
+                                    <th>{{ __('emis.task_code') }}</th>
+                                    <th>{{ __('emis.title') }}</th>
+                                    <th>{{ __('emis.status') }}</th>
+                                    <th>{{ __('emis.priority') }}</th>
+                                    <th>{{ __('emis.deadline') }}</th>
+                                    <th class="no-print">{{ __('emis.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -710,14 +710,14 @@ Overdue
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Title</th>
+                                <th>{{ __('emis.title') }}</th>
                                 <th>From User</th>
                                 <th>To User</th>
-                                <th>Department</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th class="no-print">Action</th>
+                                <th>{{ __('emis.department') }}</th>
+                                <th>{{ __('emis.priority') }}</th>
+                                <th>{{ __('emis.status') }}</th>
+                                <th>{{ __('emis.date') }}</th>
+                                <th class="no-print">{{ __('emis.action') }}</th>
                             </tr>
                         </thead>
 
@@ -821,13 +821,13 @@ Overdue
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Department</th>
+                                <th>{{ __('emis.department') }}</th>
                                 <th>Pashto Name</th>
                                 <th>Dari Name</th>
-                                <th>Code</th>
+                                <th>{{ __('emis.code') }}</th>
                                 <th>Sub Departments</th>
-                                <th>Status</th>
-                                <th class="no-print">Action</th>
+                                <th>{{ __('emis.status') }}</th>
+                                <th class="no-print">{{ __('emis.action') }}</th>
                             </tr>
                         </thead>
 
@@ -854,9 +854,9 @@ Overdue
 
                                     <td>
                                         @if($item->status)
-                                            <span class="badge bg-success">Active</span>
+                                            <span class="badge bg-success">{{ __('emis.active') }}</span>
                                         @else
-                                            <span class="badge bg-danger">Inactive</span>
+                                            <span class="badge bg-danger">{{ __('emis.inactive') }}</span>
                                         @endif
                                     </td>
 

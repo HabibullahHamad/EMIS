@@ -517,24 +517,24 @@
                     <div class="col-md-4">
                         <label class="form-label">{{ __('emis.email_notifications') ?? 'Email Notifications' }}</label>
                         <select name="email_notifications" class="form-select">
-                            <option value="1" {{ old('email_notifications', $settings->email_notifications ?? false) ? 'selected' : '' }}>Enabled</option>
-                            <option value="0" {{ !old('email_notifications', $settings->email_notifications ?? false) ? 'selected' : '' }}>Disabled</option>
+                            <option value="1" {{ old('email_notifications', $settings->email_notifications ?? false) ? 'selected' : '' }}>{{ __('emis.enabled') }}</option>
+                            <option value="0" {{ !old('email_notifications', $settings->email_notifications ?? false) ? 'selected' : '' }}>{{ __('emis.disabled') }}</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">{{ __('emis.maintenance_mode') ?? 'Maintenance Mode' }}</label>
                         <select name="maintenance_mode" class="form-select">
-                            <option value="0" {{ !old('maintenance_mode', $settings->maintenance_mode ?? false) ? 'selected' : '' }}>Disabled</option>
-                            <option value="1" {{ old('maintenance_mode', $settings->maintenance_mode ?? false) ? 'selected' : '' }}>Enabled</option>
+                            <option value="0" {{ !old('maintenance_mode', $settings->maintenance_mode ?? false) ? 'selected' : '' }}>{{ __('emis.disabled') }}</option>
+                            <option value="1" {{ old('maintenance_mode', $settings->maintenance_mode ?? false) ? 'selected' : '' }}>{{ __('emis.enabled') }}</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">{{ __('emis.debug_mode') ?? 'Debug Mode' }}</label>
                         <select name="debug_mode" class="form-select">
-                            <option value="0" {{ !old('debug_mode', $settings->debug_mode ?? false) ? 'selected' : '' }}>Disabled</option>
-                            <option value="1" {{ old('debug_mode', $settings->debug_mode ?? false) ? 'selected' : '' }}>Enabled</option>
+                            <option value="0" {{ !old('debug_mode', $settings->debug_mode ?? false) ? 'selected' : '' }}>{{ __('emis.disabled') }}</option>
+                            <option value="1" {{ old('debug_mode', $settings->debug_mode ?? false) ? 'selected' : '' }}>{{ __('emis.enabled') }}</option>
                         </select>
                     </div>
                 </div>

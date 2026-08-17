@@ -1,19 +1,19 @@
-<div class="bg-white shadow-md rounded-lg p-4 border">
-    
-    @isset($title)
-        <h2 class="text-lg font-semibold mb-2">
-            {{ $title }}
-        </h2>
-    @endisset
+<div {{ $attributes->class(['emis-card']) }}>
+    @if(isset($title) || isset($actions))
+        <div class="emis-card__header">
+            @isset($title)
+                <h2 class="h6 mb-0">{{ $title }}</h2>
+            @endisset
 
-    <div class="text-gray-700">
-        {{ $slot }}
-    </div>
+            @isset($actions)
+                <div class="emis-page-actions">{{ $actions }}</div>
+            @endisset
+        </div>
+    @endif
+
+    <div class="emis-card__body">{{ $slot }}</div>
 
     @isset($footer)
-        <div class="mt-4 border-t pt-2 text-sm text-gray-500">
-            {{ $footer }}
-        </div>
+        <div class="emis-card__footer">{{ $footer }}</div>
     @endisset
-
 </div>

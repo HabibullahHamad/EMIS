@@ -709,4 +709,720 @@ return [
 'additional_information' => 'معلومات اضافی را وارد کنید',
 'save_budget_entity' => 'ذخیره واحد بودجوی',
 
+
+/*
+|--------------------------------------------------------------------------
+| مرکز تنظیمات و رابط عمومی
+|--------------------------------------------------------------------------
+*/
+
+'settings_center' => 'مرکز تنظیمات',
+'settings_center_description' => 'تنظیم و مدیریت گزینه‌های سیستم EMIS.',
+'system_configuration' => 'تنظیمات سیستم',
+
+'settings_overview' => 'نمای کلی و سلامت سیستم',
+'settings_overview_short' => 'وضعیت و تشخیص سیستم',
+'settings_overview_description' =>
+    'وضعیت فعلی برنامه، پایگاه داده، ذخیره‌سازی و محیط سیستم را مشاهده کنید.',
+
+'general_settings' => 'تنظیمات عمومی',
+'general_settings_short' => 'هویت و پشتیبانی سیستم',
+'general_settings_description' =>
+    'هویت عمومی، وضعیت و معلومات پشتیبانی سیستم را مدیریت کنید.',
+
+'organization_profile' => 'مشخصات اداره',
+'organization_profile_description' =>
+    'نام، نوع، معلومات تماس، لوگو و مهر رسمی اداره را مدیریت کنید.',
+
+'localization_settings' => 'تنظیمات زبان و منطقه',
+'localization_settings_description' =>
+    'زبان، منطقه زمانی، تقویم و قالب نمایش تاریخ و وقت را مدیریت کنید.',
+
+'security_settings' => 'امنیت و کنترل دسترسی',
+'security_settings_description' =>
+    'سیاست‌های نشست، ورود، رمز عبور و امنیت حساب‌ها را مدیریت کنید.',
+
+'notification_settings' => 'اطلاعیه‌ها و ایمیل',
+'notification_settings_description' =>
+    'اطلاعیه‌های داخل سیستم و تنظیمات عمومی ایمیل را مدیریت کنید.',
+
+'correspondence_settings' => 'تنظیمات مکاتبات',
+'correspondence_settings_description' =>
+    'شماره‌گذاری، بررسی، تأیید و ضمایم اسناد را مدیریت کنید.',
+
+'workflow_settings' => 'گردش کار و تأییدات',
+'workflow_settings_description' =>
+    'مهلت‌ها، تأیید، رد و مراحل گردش کار را مدیریت کنید.',
+
+'budget_coordination_settings' => 'تنظیمات هماهنگی بودجه',
+'budget_coordination_settings_description' =>
+    'قواعد نمایندگان ارتباطی و صدور کارت‌های شناسایی را مدیریت کنید.',
+
+'storage_settings' => 'فایل‌ها و ذخیره‌سازی',
+'storage_settings_description' =>
+    'محل ذخیره فایل‌ها، محدودیت حجم و انواع مجاز فایل را مدیریت کنید.',
+
+'backup_settings' => 'پشتیبان‌گیری و بازیابی',
+'backup_settings_description' =>
+    'برنامه، نگهداری و بررسی فایل‌های پشتیبان را مدیریت کنید.',
+
+'reports_retention_settings' => 'گزارش‌ها و نگهداری اطلاعات',
+'reports_retention_settings_description' =>
+    'قالب گزارش و دوره نگهداری اسناد و فایل‌های صادرشده را مدیریت کنید.',
+
+'maintenance_settings' => 'نگهداری و تشخیص سیستم',
+'maintenance_settings_description' =>
+    'نظارت، ثبت رویدادها و تشخیص روزانه سیستم را مدیریت کنید.',
+
+'settings_history' => 'تاریخچه تنظیمات',
+'settings_history_short' => 'مشاهده تغییرات تنظیمات',
+
+'about_system' => 'درباره سیستم',
+'about_system_short' => 'نسخه و معلومات برنامه',
+
+'additional_sections' => 'بخش‌های اضافی',
+
+'save_settings' => 'ذخیره تنظیمات',
+'reset_changes' => 'بازنشانی تغییرات',
+'unsaved_changes' => 'تغییرات ذخیره‌نشده وجود دارد',
+'no_unsaved_changes' => 'تغییر ذخیره‌نشده وجود ندارد',
+'validation_errors' => 'لطفاً خطاهای زیر را اصلاح کنید.',
+
+
+/*
+|--------------------------------------------------------------------------
+| نمای کلی و سلامت سیستم
+|--------------------------------------------------------------------------
+*/
+
+'application' => 'برنامه',
+'application_name' => 'نام برنامه',
+'application_information' => 'معلومات برنامه',
+'application_information_description' =>
+    'معلومات عمومی و امن محیط اجرایی سیستم EMIS.',
+
+'database' => 'پایگاه داده',
+'database_information' => 'معلومات پایگاه داده',
+'database_information_description' =>
+    'وضعیت اتصال و معلومات درایور پایگاه داده.',
+'database_driver' => 'درایور پایگاه داده',
+'database_name' => 'نام پایگاه داده',
+'connection_status' => 'وضعیت اتصال',
+'connected' => 'متصل',
+'disconnected' => 'قطع‌شده',
+'database_unavailable' => 'پایگاه داده در دسترس نیست',
+'database_unavailable_description' =>
+    'سیستم نتوانست با پایگاه داده ارتباط برقرار کند.',
+
+'storage' => 'ذخیره‌سازی',
+'storage_information' => 'معلومات ذخیره‌سازی',
+'storage_information_description' =>
+    'دسترسی نوشتن و ظرفیت موجود ذخیره‌سازی.',
+'storage_writable' => 'ذخیره‌سازی قابل نوشتن است',
+'storage_not_writable' => 'ذخیره‌سازی قابل نوشتن نیست',
+'storage_not_writable_description' =>
+    'سیستم اجازه نوشتن فایل در محل ذخیره‌سازی تعیین‌شده را ندارد.',
+'writable' => 'قابل نوشتن',
+'not_writable' => 'غیرقابل نوشتن',
+'available_disk_space' => 'فضای موجود دیسک',
+
+'environment' => 'محیط',
+'laravel_version' => 'نسخه Laravel',
+'php_version' => 'نسخه PHP',
+'timezone' => 'منطقه زمانی',
+'debug_mode' => 'حالت اشکال‌زدایی',
+
+'current_administrator' => 'مدیر فعلی',
+'current_administrator_description' =>
+    'مدیری که اکنون مرکز تنظیمات را مشاهده می‌کند.',
+
+'system_healthy' => 'سیستم سالم است',
+'attention_required' => 'نیاز به توجه',
+
+'enabled' => 'فعال',
+'disabled' => 'غیرفعال',
+
+'debug_mode_enabled' => 'حالت اشکال‌زدایی فعال است',
+'debug_mode_warning' =>
+    'حالت اشکال‌زدایی باید در محیط عملیاتی غیرفعال باشد.',
+
+'maintenance_mode_enabled' => 'حالت نگهداری فعال است',
+'maintenance_mode_notice' =>
+    'سیستم در حال حاضر در حالت نگهداری قرار دارد.',
+
+'settings_security_notice' =>
+    'معلومات حساس مانند APP_KEY، رمز پایگاه داده و رمز ایمیل در مرکز تنظیمات نمایش داده نمی‌شوند.',
+
+
+/*
+|--------------------------------------------------------------------------
+| تنظیمات عمومی
+|--------------------------------------------------------------------------
+*/
+
+'system_name_help' =>
+    'نام کامل سیستم که در عنوان‌ها و گزارش‌ها نمایش داده می‌شود.',
+
+'system_name_placeholder' =>
+    'نام کامل سیستم را وارد کنید',
+
+'system_short_name' => 'نام کوتاه سیستم',
+'system_short_name_help' =>
+    'نام مختصر سیستم برای منوها و بخش‌های کوچک.',
+
+'system_description' => 'توضیحات سیستم',
+'system_description_help' =>
+    'توضیح کوتاهی درباره هدف و وظایف سیستم.',
+
+'system_description_placeholder' =>
+    'توضیحات سیستم را وارد کنید',
+
+'default_landing_page' => 'صفحه اصلی پیش‌فرض',
+'default_landing_page_help' =>
+    'صفحه‌ای که کاربر پس از ورود به سیستم مشاهده می‌کند.',
+
+'system_status' => 'وضعیت سیستم',
+'system_status_help' =>
+    'وضعیت عمومی فعالیت سیستم.',
+
+'primary_color' => 'رنگ اصلی',
+'primary_color_help' =>
+    'رنگ اصلی مورد استفاده در رابط سیستم.',
+
+'support_email' => 'ایمیل پشتیبانی',
+'support_email_help' =>
+    'آدرس ایمیل برای دریافت درخواست‌های پشتیبانی.',
+
+'support_phone' => 'شماره تماس پشتیبانی',
+'support_phone_help' =>
+    'شماره تماس بخش پشتیبانی سیستم.',
+
+'helpdesk_url' => 'نشانی مرکز پشتیبانی',
+'helpdesk_url_help' =>
+    'نشانی اینترنتی مرکز خدمات و پشتیبانی.',
+
+'maintenance_message' => 'پیام نگهداری',
+'maintenance_message_help' =>
+    'پیامی که در زمان غیرفعال بودن موقت سیستم نمایش داده می‌شود.',
+
+'system_logo' => 'لوگوی سیستم',
+'system_logo_help' =>
+    'لوگوی اصلی مورد استفاده در سیستم و گزارش‌ها.',
+
+'favicon' => 'نماد مرورگر',
+'favicon_help' =>
+    'نماد کوچک سیستم که در تب مرورگر نمایش داده می‌شود.',
+
+
+/*
+|--------------------------------------------------------------------------
+| مشخصات اداره
+|--------------------------------------------------------------------------
+*/
+
+'organization_official_name' => 'نام رسمی اداره',
+'organization_official_name_help' =>
+    'نام کامل و رسمی اداره.',
+
+'organization_code' => 'کُد اداره',
+'organization_code_help' =>
+    'کُد مختصر و یکتای اداره.',
+
+'organization_name_ps' => 'نام پشتوی اداره',
+'organization_name_ps_help' =>
+    'نام رسمی اداره به زبان پشتو.',
+
+'organization_name_fa' => 'نام دری اداره',
+'organization_name_fa_help' =>
+    'نام رسمی اداره به زبان دری.',
+
+'organization_type' => 'نوع اداره',
+'organization_type_help' =>
+    'نوع تشکیلاتی اداره را انتخاب کنید.',
+
+'organization_type_ministry' => 'وزارت',
+'organization_type_general_directorate' => 'ریاست عمومی',
+'organization_type_directorate' => 'ریاست',
+'organization_type_independent_agency' => 'اداره مستقل',
+'organization_type_other' => 'سایر',
+
+'organization_email' => 'ایمیل رسمی',
+'organization_email_help' =>
+    'آدرس ایمیل رسمی اداره.',
+
+'organization_phone' => 'شماره تماس رسمی',
+'organization_phone_help' =>
+    'شماره تماس رسمی اداره.',
+
+'organization_website' => 'وب‌سایت اداره',
+'organization_website_help' =>
+    'نشانی وب‌سایت رسمی اداره.',
+
+'organization_address' => 'آدرس اداره',
+'organization_address_help' =>
+    'آدرس رسمی و کامل اداره.',
+
+'organization_logo' => 'لوگوی اداره',
+'organization_logo_help' =>
+    'لوگوی رسمی اداره.',
+
+'organization_official_seal' => 'مهر رسمی اداره',
+'organization_official_seal_help' =>
+    'تصویر مهر رسمی اداره.',
+
+
+/*
+|--------------------------------------------------------------------------
+| تنظیمات زبان و منطقه
+|--------------------------------------------------------------------------
+*/
+
+'default_language' => 'زبان پیش‌فرض',
+'default_language_help' =>
+    'زبانی که سیستم به‌صورت پیش‌فرض استفاده می‌کند.',
+
+'fallback_language' => 'زبان جایگزین',
+'fallback_language_help' =>
+    'اگر ترجمه زبان اصلی موجود نباشد، این زبان استفاده می‌شود.',
+
+'default_timezone' => 'منطقه زمانی پیش‌فرض',
+'default_timezone_help' =>
+    'منطقه زمانی پیش‌فرض برای تاریخ و وقت سیستم.',
+
+'calendar_type' => 'نوع تقویم',
+'calendar_type_help' =>
+    'سیستم تقویم مورد استفاده برای نمایش تاریخ‌ها.',
+
+'date_format' => 'قالب تاریخ',
+'date_format_help' =>
+    'قالب نمایش تاریخ در سیستم.',
+
+'time_format' => 'قالب وقت',
+'time_format_help' =>
+    'قالب ۱۲ یا ۲۴ ساعته نمایش وقت.',
+
+'first_day_of_week' => 'اولین روز هفته',
+'first_day_of_week_help' =>
+    'روزی که هفته کاری از آن آغاز می‌شود.',
+
+'records_per_page' => 'تعداد رکورد در هر صفحه',
+'records_per_page_help' =>
+    'تعداد رکوردهایی که در هر صفحه جدول نمایش داده می‌شود.',
+
+
+/*
+|--------------------------------------------------------------------------
+| تنظیمات امنیت
+|--------------------------------------------------------------------------
+*/
+
+'session_timeout_minutes' =>
+    'زمان پایان نشست به دقیقه',
+
+'maximum_login_attempts' =>
+    'حداکثر تلاش برای ورود',
+
+'lockout_minutes' =>
+    'مدت قفل حساب به دقیقه',
+
+'password_minimum_length' =>
+    'حداقل طول رمز عبور',
+
+'password_expiry_days' =>
+    'مدت اعتبار رمز عبور به روز',
+
+'require_uppercase' =>
+    'حرف بزرگ انگلیسی الزامی باشد',
+
+'require_lowercase' =>
+    'حرف کوچک انگلیسی الزامی باشد',
+
+'require_number' =>
+    'عدد الزامی باشد',
+
+'require_special_character' =>
+    'علامت ویژه الزامی باشد',
+
+'two_factor_authentication' =>
+    'تأیید هویت دومرحله‌ای',
+
+'audit_retention_days' =>
+    'مدت نگهداری سوابق تفتیش به روز',
+
+
+/*
+|--------------------------------------------------------------------------
+| اطلاعیه‌ها و ایمیل
+|--------------------------------------------------------------------------
+*/
+
+'email_notifications_enabled' =>
+    'اطلاعیه‌های ایمیلی فعال باشد',
+
+'in_app_notifications_enabled' =>
+    'اطلاعیه‌های داخل سیستم فعال باشد',
+
+'mail_from_address' =>
+    'آدرس ایمیل فرستنده',
+
+'mail_from_name' =>
+    'نام فرستنده ایمیل',
+
+'administrator_notification_email' =>
+    'ایمیل اطلاع‌رسانی مدیر',
+
+'notify_incoming_document' =>
+    'اطلاعیه سند وارده',
+
+'notify_task_assignment' =>
+    'اطلاعیه تعیین وظیفه',
+
+'notify_deadline_reminder' =>
+    'یادآوری مهلت انجام',
+
+'daily_summary_enabled' =>
+    'خلاصه روزانه فعال باشد',
+
+'daily_summary_time' =>
+    'زمان ارسال خلاصه روزانه',
+
+
+/*
+|--------------------------------------------------------------------------
+| تنظیمات مکاتبات
+|--------------------------------------------------------------------------
+*/
+
+'incoming_number_format' =>
+    'قالب شماره اسناد وارده',
+
+'outgoing_number_format' =>
+    'قالب شماره اسناد صادره',
+
+'default_document_status' =>
+    'وضعیت پیش‌فرض سند',
+
+'default_document_priority' =>
+    'اولویت پیش‌فرض سند',
+
+'require_document_subject' =>
+    'موضوع سند الزامی باشد',
+
+'require_document_date' =>
+    'تاریخ سند الزامی باشد',
+
+'prevent_duplicate_document_numbers' =>
+    'جلوگیری از شماره‌های تکراری اسناد',
+
+'incoming_requires_review' =>
+    'سند وارده نیاز به بررسی داشته باشد',
+
+'outgoing_requires_approval' =>
+    'سند صادره نیاز به تأیید داشته باشد',
+
+'allow_multiple_attachments' =>
+    'اجازه بارگذاری چند ضمیمه',
+
+'maximum_attachment_size_mb' =>
+    'حداکثر حجم ضمیمه به مگابایت',
+
+'allowed_attachment_types' =>
+    'انواع مجاز ضمیمه',
+
+
+/*
+|--------------------------------------------------------------------------
+| گردش کار و تأییدات
+|--------------------------------------------------------------------------
+*/
+
+'workflow_enabled' =>
+    'گردش کار فعال باشد',
+
+'default_workflow_due_days' =>
+    'مهلت پیش‌فرض گردش کار به روز',
+
+'escalation_after_days' =>
+    'ارجاع به مقام بالاتر پس از چند روز',
+
+'maximum_workflow_revisions' =>
+    'حداکثر دفعات اصلاح گردش کار',
+
+'allow_self_approval' =>
+    'اجازه تأیید رکورد توسط ایجادکننده',
+
+'require_approval_comment' =>
+    'تبصره تأیید الزامی باشد',
+
+'require_rejection_reason' =>
+    'دلیل رد الزامی باشد',
+
+'auto_close_completed_workflows' =>
+    'بستن خودکار گردش کارهای تکمیل‌شده',
+
+
+/*
+|--------------------------------------------------------------------------
+| هماهنگی بودجه و کارت
+|--------------------------------------------------------------------------
+*/
+
+'focal_point_code_format' =>
+    'قالب کُد نماینده ارتباطی',
+
+'card_number_format' =>
+    'قالب شماره کارت',
+
+'card_validity_months' =>
+    'مدت اعتبار کارت به ماه',
+
+'require_introduction_letter' =>
+    'مکتوب معرفی الزامی باشد',
+
+'require_approval_before_card' =>
+    'تأیید پیش از ساخت کارت الزامی باشد',
+
+'card_requires_approval' =>
+    'کارت نیاز به تأیید داشته باشد',
+
+'require_focal_point_photograph' =>
+    'عکس نماینده ارتباطی الزامی باشد',
+
+'require_focal_point_signature' =>
+    'امضای نماینده ارتباطی الزامی باشد',
+
+'maximum_focal_points_per_entity' =>
+    'حداکثر نمایندگان ارتباطی برای هر اداره',
+
+'allow_card_renewal' =>
+    'اجازه تمدید کارت',
+
+'allow_card_replacement' =>
+    'اجازه تعویض کارت',
+
+'enable_qr_verification' =>
+    'فعال‌سازی تصدیق با QR',
+
+'card_expiry_reminder_days' =>
+    'روزهای یادآوری انقضای کارت',
+
+'card_issuing_organization' =>
+    'اداره صادرکننده کارت',
+
+'card_print_language' =>
+    'زبان چاپ کارت',
+
+
+/*
+|--------------------------------------------------------------------------
+| فایل‌ها و ذخیره‌سازی
+|--------------------------------------------------------------------------
+*/
+
+'default_upload_disk' =>
+    'دیسک پیش‌فرض بارگذاری',
+
+'private_document_disk' =>
+    'دیسک اسناد محرمانه',
+
+'backup_disk' =>
+    'دیسک پشتیبان',
+
+'maximum_upload_size_mb' =>
+    'حداکثر حجم بارگذاری به مگابایت',
+
+'allowed_document_formats' =>
+    'قالب‌های مجاز اسناد',
+
+'allowed_image_formats' =>
+    'قالب‌های مجاز تصاویر',
+
+'temporary_file_retention_days' =>
+    'مدت نگهداری فایل‌های موقت به روز',
+
+'pdf_temporary_retention_days' =>
+    'مدت نگهداری PDF موقت به روز',
+
+'image_compression_enabled' =>
+    'فشرده‌سازی تصویر فعال باشد',
+
+'image_compression_quality' =>
+    'کیفیت فشرده‌سازی تصویر',
+
+'generate_unique_filenames' =>
+    'ایجاد نام یکتای فایل‌ها',
+
+'storage_warning_percentage' =>
+    'درصد هشدار ظرفیت ذخیره‌سازی',
+
+
+/*
+|--------------------------------------------------------------------------
+| پشتیبان‌گیری و بازیابی
+|--------------------------------------------------------------------------
+*/
+
+'automatic_backup_enabled' =>
+    'پشتیبان‌گیری خودکار فعال باشد',
+
+'backup_frequency' =>
+    'تکرار پشتیبان‌گیری',
+
+'backup_time' =>
+    'زمان پشتیبان‌گیری',
+
+'backup_retention_count' =>
+    'تعداد فایل‌های پشتیبان قابل نگهداری',
+
+'verify_backup_checksum' =>
+    'بررسی چک‌سم فایل پشتیبان',
+
+'notify_backup_success' =>
+    'اطلاعیه موفقیت پشتیبان‌گیری',
+
+'notify_backup_failure' =>
+    'اطلاعیه شکست پشتیبان‌گیری',
+
+'create_pre_restore_backup' =>
+    'ساخت پشتیبان پیش از بازیابی',
+
+
+/*
+|--------------------------------------------------------------------------
+| گزارش‌ها و نگهداری اطلاعات
+|--------------------------------------------------------------------------
+*/
+
+'default_export_format' =>
+    'قالب پیش‌فرض صدور',
+
+'pdf_page_size' =>
+    'اندازه صفحه PDF',
+
+'pdf_orientation' =>
+    'جهت صفحه PDF',
+
+'include_organization_logo' =>
+    'شامل‌کردن لوگوی اداره',
+
+'include_generated_by' =>
+    'شامل‌کردن نام تهیه‌کننده',
+
+'include_generation_date' =>
+    'شامل‌کردن تاریخ تهیه گزارش',
+
+'watermark_confidential_reports' =>
+    'افزودن نشان محرمانه به گزارش‌ها',
+
+'allow_sensitive_data_export' =>
+    'اجازه صدور معلومات حساس',
+
+'document_retention_years' =>
+    'مدت نگهداری اسناد به سال',
+
+'audit_log_retention_days' =>
+    'مدت نگهداری رویدادهای تفتیش به روز',
+
+'generated_report_retention_days' =>
+    'مدت نگهداری گزارش‌های تولیدشده به روز',
+
+'export_file_retention_days' =>
+    'مدت نگهداری فایل‌های صادرشده به روز',
+
+'include_uploaded_files' =>
+    'شامل‌کردن فایل‌های بارگذاری‌شده',
+
+
+/*
+|--------------------------------------------------------------------------
+| نگهداری و تشخیص
+|--------------------------------------------------------------------------
+*/
+
+'maintenance' =>
+    'نگهداری',
+
+'maintenance_allowed_ips' =>
+    'آدرس‌های IP مجاز هنگام نگهداری',
+
+'daily_diagnostics_enabled' =>
+    'تشخیص روزانه فعال باشد',
+
+'daily_diagnostics_time' =>
+    'زمان تشخیص روزانه',
+
+'database_monitoring_enabled' =>
+    'نظارت پایگاه داده فعال باشد',
+
+'queue_monitoring_enabled' =>
+    'نظارت صف فعال باشد',
+
+'scheduler_monitoring_enabled' =>
+    'نظارت زمان‌بندی فعال باشد',
+
+'storage_monitoring_enabled' =>
+    'نظارت ذخیره‌سازی فعال باشد',
+
+'diagnostics_retention_days' =>
+    'مدت نگهداری نتایج تشخیص به روز',
+
+'log_retention_days' =>
+    'مدت نگهداری گزارش رویدادها به روز',
+
+'log_level' =>
+    'سطح ثبت رویداد',
+
+'close' => 'بستن',
+
+// برچسب‌های مشترک بخش‌های قدیمی
+'login_attempts' => 'تلاش‌های ورود',
+'none' => 'هیچ‌کدام',
+'create_users' => 'ایجاد کاربر',
+'created' => 'ایجادشده',
+'updated' => 'به‌روزشده',
+'deleted' => 'حذف‌شده',
+'refresh' => 'تازه‌سازی',
+'summary' => 'خلاصه',
+'document_no' => 'شماره سند',
+'doc_title' => 'عنوان سند',
+'audit_logs' => 'سوابق تفتیش',
+'adddepaerment' => 'افزودن بخش',
+'search_department' => 'جستجوی بخش‌ها',
+'print_department' => 'چاپ بخش‌ها',
+'no_departments_found' => 'هیچ بخشی یافت نشد.',
+'delete_department_confirm' => 'آیا از حذف این بخش اطمینان دارید؟',
+'organization_name' => 'نام اداره',
+'organization_desc' => 'هویت رسمی و معلومات تماس اداره.',
+'general_settings_desc' => 'هویت اساسی سیستم و تنظیمات پیش‌فرض رابط.',
+'system_configuration_desc' => 'تنظیمات برنامه را مدیریت کنید.',
+'manage_system_preferences' => 'ترجیحات سیستم و مقادیر عملیاتی پیش‌فرض را مدیریت کنید.',
+'security' => 'امنیت',
+'security_settings_desc' => 'تنظیمات نشست، رمز عبور، ثبت و دسترسی.',
+'session_timeout' => 'زمان پایان نشست',
+'minimum_password_length' => 'حداقل طول رمز عبور',
+'enable_user_registration' => 'فعال‌سازی ثبت کاربران',
+'enable_user_registration_desc' => 'به مدیران مجاز اجازه ثبت کاربران را می‌دهد.',
+'maintenance_mode' => 'حالت نگهداری',
+'branding' => 'هویت بصری',
+'branding_settings_desc' => 'لوگو و هویت بصری سیستم را مدیریت کنید.',
+'upload_logo_hint' => 'یک تصویر PNG، JPG، JPEG یا WebP بارگذاری کنید.',
+'email_notifications' => 'اطلاعیه‌های ایمیلی',
+'browser_notifications' => 'اطلاعیه‌های مرورگر',
+'browser_notifications_desc' => 'اطلاعیه‌های پشتیبانی‌شده را در مرورگر نمایش می‌دهد.',
+'enable_task_notifications' => 'اطلاعیه‌های وظایف',
+'enable_task_notifications_desc' => 'کاربران را از تعیین وظیفه و مهلت‌ها آگاه می‌کند.',
+'enable_document_tracking' => 'پیگیری اسناد',
+'enable_document_tracking_desc' => 'رویدادهای پیگیری اسناد را ثبت و نمایش می‌دهد.',
+'replace_file_note' => 'بارگذاری فایل جدید، فایل فعلی را جایگزین می‌کند.',
+'save_budget_entity' => 'ذخیره اداره بودجوی',
+'budget_entity_registration_description' => 'معلومات رسمی اداره بودجوی را ثبت و مدیریت کنید.',
+'basic_information' => 'معلومات اساسی',
+'budget_entity_details' => 'جزئیات اداره بودجوی',
+'edit_budget_entity' => 'ویرایش اداره بودجوی',
+'introduction_letter_details' => 'جزئیات مکتوب معرفی',
+'edit_introduction_letter' => 'ویرایش مکتوب معرفی',
+'reviewed_at' => 'زمان بررسی',
+'valid_card' => 'کارت معتبر',
+'invalid_card' => 'کارت نامعتبر',
+'verification_code' => 'کُد تصدیق',
     ];

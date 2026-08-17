@@ -31,22 +31,22 @@
                         </tr>
 
                         <tr>
-                            <th>Date</th>
+                            <th>{{ __('emis.date') }}</th>
                             <td>{{ $document->doc_date }}</td>
                         </tr>
 
                         <tr>
-                            <th>Receiver</th>
+                            <th>{{ __('emis.receiver') }}</th>
                             <td>{{ $document->receiver }}</td>
                         </tr>
 
                         <tr>
-                            <th>Subject</th>
+                            <th>{{ __('emis.subject') }}</th>
                             <td>{{ $document->subject }}</td>
                         </tr>
 
                         <tr>
-                            <th>Description</th>
+                            <th>{{ __('emis.description') }}</th>
                             <td>{{ $document->description ?? '-' }}</td>
                         </tr>
                     </tbody>
@@ -71,7 +71,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <h5 class="mb-0 fw-bold">
                     <i class="fa fa-paperclip"></i>
-                    Attachments
+                    {{ __('emis.attachments') }}
                 </h5>
 
                 @if(count($files))
@@ -92,7 +92,7 @@
                             <th width="60">#</th>
                             <th class="text-start">File Name</th>
                             <th width="140">Preview</th>
-                            <th width="140">Download</th>
+                            <th width="140">{{ __('emis.download') }}</th>
                         </tr>
                     </thead>
 
@@ -120,7 +120,7 @@
                                        download
                                        class="btn btn-sm btn-primary">
                                         <i class="fa fa-download"></i>
-                                        Download
+                                        {{ __('emis.download') }}
                                     </a>
                                 </td>
                             </tr>

@@ -33,7 +33,7 @@
         <h5 class="mb-0">Create Task</h5>
 
         <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-secondary">
-            Back
+            {{ __('emis.back') }}
         </a>
     </div>
 
@@ -114,9 +114,9 @@
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Priority *</label>
                     <select name="priority" class="form-select" required>
-                        <option value="low">Low</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="high">High</option>
+                        <option value="low">{{ __('emis.low') }}</option>
+                        <option value="medium" selected>{{ __('emis.medium') }}</option>
+                        <option value="high">{{ __('emis.high') }}</option>
                         <option value="urgent">Urgent</option>
                     </select>
                 </div>
@@ -128,7 +128,7 @@
                         <option value="new">New</option>
                         <option value="assigned">Assigned</option>
                         <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
+                        <option value="completed">{{ __('emis.completed') }}</option>
                         <option value="overdue">Overdue</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
@@ -136,7 +136,7 @@
 
                 {{-- Deadline --}}
                 <div class="col-md-3 mb-3">
-                    <label class="form-label">Deadline</label>
+                    <label class="form-label">{{ __('emis.deadline') }}</label>
                     <input type="date"
                            name="deadline"
                            class="form-control"
@@ -145,7 +145,7 @@
 
                 {{-- Description --}}
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Description</label>
+                    <label class="form-label">{{ __('emis.description') }}</label>
                     <textarea name="description"
                               class="form-control"
                               rows="3">{{ old('description') }}</textarea>
@@ -153,7 +153,7 @@
 
                 {{-- Remarks --}}
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Remarks</label>
+                    <label class="form-label">{{ __('emis.remarks') }}</label>
                     <textarea name="remarks"
                               class="form-control"
                               rows="3">{{ old('remarks') }}</textarea>

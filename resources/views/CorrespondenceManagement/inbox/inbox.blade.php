@@ -20,10 +20,10 @@
     <thead style="background-color: #04AA6D; color: #fbfcfcff;">
                <tr style="color:#0d6efd; font-weight:bold;">
 
-                <th>Sender</th> 
-                <th>Subject</th>
+                <th>{{ __('emis.sender') }}</th> 
+                <th>{{ __('emis.subject') }}</th>
                 <th>Date Received</th>
-                <th>Actions</th>
+                <th>{{ __('emis.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -33,11 +33,11 @@
                     <td>{{ $message->subject }}</td>
                     <td>{{ $message->created_at->format('d M Y, H:i') }}</td>
                     <td>
-                        <a href="{{ route('correspondence.show', $message->id) }}" class="btn btn-primary btn-sm">View</a>
+                        <a href="{{ route('correspondence.show', $message->id) }}" class="btn btn-primary btn-sm">{{ __('emis.view') }}</a>
                         <form action="{{ route('correspondence.delete', $message->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this message?')">Delete</button>
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this message?')">{{ __('emis.delete') }}</button>
                         </form>
                     </td>
                 </tr>

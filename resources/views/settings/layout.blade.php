@@ -464,6 +464,8 @@
 
 @push('scripts')
 
+@push('scripts')
+
 <script>
     document.addEventListener(
         'DOMContentLoaded',
@@ -474,11 +476,13 @@
              * JavaScript behavior.
              *
              * Individual Settings sections may add
-             * their own scripts using @push('scripts').
+             * their own scripts through the scripts stack.
              */
 
         }
     );
 </script>
+
+@endpush
 
 @endpush

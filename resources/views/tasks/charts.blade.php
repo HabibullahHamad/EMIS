@@ -97,7 +97,7 @@
         <div class="col-md-2 mb-2">
             <div class="card stats-card">
                 <div class="card-body">
-                    <h6 class="text-success">Completed</h6>
+                    <h6 class="text-success">{{ __('emis.completed') }}</h6>
                     <h3 class="text-success">{{ $stats['completed'] ?? 0 }}</h3>
                 </div>
             </div>

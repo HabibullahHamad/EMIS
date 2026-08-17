@@ -49,8 +49,8 @@
 
                 <div class="col-md-3">
                     <select name="blocked_status" class="form-select form-select-sm">
-                        <option value="">All Status</option>
-                        <option value="active" {{ request('blocked_status') == 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="">{{ __('emis.all_statuses') }}</option>
+                        <option value="active" {{ request('blocked_status') == 'active' ? 'selected' : '' }}>{{ __('emis.active') }}</option>
                         <option value="blocked" {{ request('blocked_status') == 'blocked' ? 'selected' : '' }}>Blocked</option>
                     </select>
                 </div>
@@ -61,7 +61,7 @@
                     </button>
 
                     <a href="{{ route('users.index') }}" class="btn btn-sm btn-secondary w-100">
-                        Reset
+                        {{ __('emis.reset') }}
                     </a>
                 </div>
             </form>
@@ -71,14 +71,14 @@
                     <thead class="table-light">
                         <tr>
 
-                            <th>{{ __('emis.No.') }}</th>
-                            <th>{{ __('emis.Name') }}</th>
-                            <th>{{ __('emis.Email') }}</th>
-                            <th>{{ __('emis.Role') }}</th>
-                            <th>{{ __('emis.Attempts') }}</th>
-                            <th>{{ __('emis.Status') }}</th>
-                            <th>{{ __('emis.Blocked At') }}</th>
-                            <th width="220">{{ __('emis.Actions') }}</th>
+                            <th>{{ __('emis.number') }}</th>
+                            <th>{{ __('emis.name') }}</th>
+                            <th>{{ __('emis.email') }}</th>
+                            <th>{{ __('emis.role') }}</th>
+                            <th>{{ __('emis.login_attempts') }}</th>
+                            <th>{{ __('emis.status') }}</th>
+                            <th>{{ __('emis.blocked_at') }}</th>
+                            <th width="220">{{ __('emis.actions') }}</th>
                         </tr>
                     </thead>
 
@@ -107,7 +107,7 @@
                                     @if((int) $user->is_blocked === 1)
                                         <span class="badge bg-danger">Blocked</span>
                                     @else
-                                        <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-success">{{ __('emis.active') }}</span>
                                     @endif
                                 </td>
 

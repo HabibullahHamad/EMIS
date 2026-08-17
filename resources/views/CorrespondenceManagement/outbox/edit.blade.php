@@ -17,17 +17,17 @@
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Subject</label>
+                <label>{{ __('emis.subject') }}</label>
                 <input type="text" name="subject" class="form-control" value="{{ $document->subject }}" required>
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Sender</label>
+                <label>{{ __('emis.sender') }}</label>
                 <input type="text" name="sender" class="form-control" value="{{ $document->sender }}" required>
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Receiver</label>
+                <label>{{ __('emis.receiver') }}</label>
                 <input type="text" name="receiver" class="form-control" value="{{ $document->receiver }}" required>
             </div>
 
@@ -37,26 +37,26 @@
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Priority</label>
+                <label>{{ __('emis.priority') }}</label>
                 <select name="priority" class="form-control">
-                    <option value="Low" {{ $document->priority == 'Low' ? 'selected' : '' }}>Low</option>
-                    <option value="Medium" {{ $document->priority == 'Medium' ? 'selected' : '' }}>Medium</option>
-                    <option value="High" {{ $document->priority == 'High' ? 'selected' : '' }}>High</option>
+                    <option value="Low" {{ $document->priority == 'Low' ? 'selected' : '' }}>{{ __('emis.low') }}</option>
+                    <option value="Medium" {{ $document->priority == 'Medium' ? 'selected' : '' }}>{{ __('emis.medium') }}</option>
+                    <option value="High" {{ $document->priority == 'High' ? 'selected' : '' }}>{{ __('emis.high') }}</option>
                 </select>
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Assigned To</label>
+                <label>{{ __('emis.assigned_to') }}</label>
                 <input type="text" name="assigned_to" class="form-control" value="{{ $document->assigned_to }}">
             </div>
 
             <div class="col-md-4 mb-3">
-                <label>Department</label>
+                <label>{{ __('emis.department') }}</label>
                 <input type="text" name="department" class="form-control" value="{{ $document->department }}">
             </div>
 
             <div class="col-md-12 mb-3">
-                <label>Description</label>
+                <label>{{ __('emis.description') }}</label>
                 <textarea name="description" class="form-control">{{ $document->description }}</textarea>
             </div>
 
@@ -81,7 +81,7 @@
         </button>
 
         <a href="{{ route('CorrespondenceManagement.outbox.index') }}" class="btn btn-secondary">
-            Back
+            {{ __('emis.back') }}
         </a>
 
     </form>

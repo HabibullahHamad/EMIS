@@ -222,6 +222,52 @@
     .sidebar.collapsed ~ .content {
         margin-right: 70px;
     }
+
+    .language-switch-form {
+    width: 100%;
+    margin: 0;
+}
+
+.language-switch-button {
+    width: 100%;
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 8px 14px;
+
+    border: 0;
+    background: transparent;
+    color: #263248;
+
+    font: inherit;
+    font-size: 13px;
+    text-align: start;
+
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.language-switch-button:hover {
+    background: #edf4ff;
+    color: #173d7a;
+}
+
+.language-switch-button.active {
+    background: #e8f1ff;
+    color: #173d7a;
+    font-weight: 700;
+}
+
+.language-switch-button i {
+    color: #198754;
+    font-size: 11px;
+}
 </style>
 
 
@@ -323,13 +369,94 @@
 <input type="text" placeholder="په EMIS کې لټون...">
 </div>
 
-<div class="nav-item dropdown">
-<i class="fa-solid fa-globe"></i>
-<div class="dropdown-menu">
-<a href="#">English</a>
-<a href="{{ route('lang.ps') }}">پښتو</a>
-<a href="{{ route('lang.fa') }}">دری</a>
-</div>
+<div class="nav-item dropdown language-dropdown">
+
+    <i class="fa-solid fa-globe"></i>
+
+    <div class="dropdown-menu">
+
+        <form
+            method="POST"
+            action="{{ route('language.switch') }}"
+            class="language-switch-form"
+        >
+            @csrf
+
+            <input
+                type="hidden"
+                name="locale"
+                value="en"
+            >
+
+            <button
+                type="submit"
+                class="language-switch-button
+                    {{ app()->getLocale() === 'en' ? 'active' : '' }}"
+            >
+                <span>English</span>
+
+                @if(app()->getLocale() === 'en')
+                    <i class="fa-solid fa-check"></i>
+                @endif
+            </button>
+        </form>
+
+
+        <form
+            method="POST"
+            action="{{ route('language.switch') }}"
+            class="language-switch-form"
+        >
+            @csrf
+
+            <input
+                type="hidden"
+                name="locale"
+                value="ps"
+            >
+
+            <button
+                type="submit"
+                class="language-switch-button
+                    {{ app()->getLocale() === 'ps' ? 'active' : '' }}"
+            >
+                <span>پښتو</span>
+
+                @if(app()->getLocale() === 'ps')
+                    <i class="fa-solid fa-check"></i>
+                @endif
+            </button>
+        </form>
+
+
+        <form
+            method="POST"
+            action="{{ route('language.switch') }}"
+            class="language-switch-form"
+        >
+            @csrf
+
+            <input
+                type="hidden"
+                name="locale"
+                value="fa"
+            >
+
+            <button
+                type="submit"
+                class="language-switch-button
+                    {{ app()->getLocale() === 'fa' ? 'active' : '' }}"
+            >
+                <span>دری</span>
+
+                @if(app()->getLocale() === 'fa')
+                    <i class="fa-solid fa-check"></i>
+                @endif
+            </button>
+        </form>
+
+    </div>
+
 </div>
 
 <div class="nav-item dropdown">

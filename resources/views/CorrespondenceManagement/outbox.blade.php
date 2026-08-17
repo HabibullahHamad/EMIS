@@ -9,7 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Recipient</th>
-                <th>Subject</th>
+                <th>{{ __('emis.subject') }}</th>
                 <th>Date Sent</th>
             </tr>
         </thead>

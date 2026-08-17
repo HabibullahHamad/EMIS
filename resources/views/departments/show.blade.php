@@ -15,9 +15,9 @@
                 <div class="col-md-6">
                     <strong>Status:</strong>
                     @if($department->status)
-                        <span class="badge bg-success">Active</span>
+                        <span class="badge bg-success">{{ __('emis.active') }}</span>
                     @else
-                        <span class="badge bg-danger">Inactive</span>
+                        <span class="badge bg-danger">{{ __('emis.inactive') }}</span>
                     @endif
                 </div>
                 <div class="col-12"><strong>Description:</strong> {{ $department->description ?? '-' }}</div>
@@ -34,8 +34,8 @@
             @endif
 
             <div class="mt-3">
-                <a href="{{ route('departments.edit', $department) }}" class="btn btn-warning">Edit</a>
-                <a href="{{ route('departments.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('departments.edit', $department) }}" class="btn btn-warning">{{ __('emis.edit') }}</a>
+                <a href="{{ route('departments.index') }}" class="btn btn-secondary">{{ __('emis.back') }}</a>
             </div>
         </div>
     </div>

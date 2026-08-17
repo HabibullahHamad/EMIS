@@ -89,8 +89,8 @@
             <tr>
                 <th>#</th>
                 <th>Role Name</th>
-                <th>Description</th>
-                <th>Status</th>
+                <th>{{ __('emis.description') }}</th>
+                <th>{{ __('emis.status') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -98,19 +98,19 @@
                 <td>1</td>
                 <td>Administrator</td>
                 <td>Full access to the system</td>
-                <td>Active</td>
+                <td>{{ __('emis.active') }}</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Manager</td>
                 <td>Manage departments and reports</td>
-                <td>Active</td>
+                <td>{{ __('emis.active') }}</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Operator</td>
                 <td>Limited operational access</td>
-                <td>Inactive</td>
+                <td>{{ __('emis.inactive') }}</td>
             </tr>
         </tbody>
     </table>
@@ -126,15 +126,15 @@
         </div>
 
         <div class="form-group">
-            <label>Description</label>
+            <label>{{ __('emis.description') }}</label>
             <input type="text" placeholder="Describe role responsibility">
         </div>
 
         <div class="form-group">
-            <label>Status</label>
+            <label>{{ __('emis.status') }}</label>
             <select>
-                <option>Active</option>
-                <option>Inactive</option>
+                <option>{{ __('emis.active') }}</option>
+                <option>{{ __('emis.inactive') }}</option>
                 <option>Delayed</option>
             </select>
         </div>
@@ -163,15 +163,15 @@
         </div>
 
         <div class="form-group">
-            <label>Description</label>
+            <label>{{ __('emis.description') }}</label>
             <input type="text" value="Manage departments and reports">
         </div>
 
         <div class="form-group">
-            <label>Status</label>
+            <label>{{ __('emis.status') }}</label>
             <select>
-                <option selected>Active</option>
-                <option>Inactive</option>
+                <option selected>{{ __('emis.active') }}</option>
+                <option>{{ __('emis.inactive') }}</option>
             </select>
         </div>
 

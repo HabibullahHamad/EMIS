@@ -34,13 +34,13 @@
                             <th>#</th>
                             <th>Letter No</th>
                             <th>حکم نمبر</th>
-                            <th>Subject</th>
-                            <th>Sender</th>
-                            <th>Receiver</th>
-                            <th>Date</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th width="180">Action</th>
+                            <th>{{ __('emis.subject') }}</th>
+                            <th>{{ __('emis.sender') }}</th>
+                            <th>{{ __('emis.receiver') }}</th>
+                            <th>{{ __('emis.date') }}</th>
+                            <th>{{ __('emis.priority') }}</th>
+                            <th>{{ __('emis.status') }}</th>
+                            <th width="180">{{ __('emis.action') }}</th>
                         </tr>
                     </thead>
 
@@ -87,13 +87,13 @@
                                <td class="text-center">
     <a href="{{ route('inbox.show', $item->id) }}"
        class="btn btn-sm btn-info"
-       title="View">
+       title="{{ __('emis.view') }}">
         <i class="fa fa-eye"></i>
     </a>
 
     <a href="{{ route('inbox.edit', $item->id) }}"
        class="btn btn-sm btn-warning"
-       title="Edit">
+       title="{{ __('emis.edit') }}">
         <i class="fa fa-edit"></i>
     </a>
 
@@ -104,7 +104,7 @@
         @method('DELETE')
 
         <button class="btn btn-sm btn-danger"
-                title="Delete"
+                title="{{ __('emis.delete') }}"
                 onclick="return confirm('Are you sure?')">
             <i class="fa fa-trash"></i>
         </button>

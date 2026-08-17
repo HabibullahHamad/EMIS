@@ -79,10 +79,10 @@
 
         <div class="d-flex gap-2">
             <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning">
-                Edit
+                {{ __('emis.edit') }}
             </a>
             <a href="{{ route('tasks.index') }}" class="btn btn-sm btn-secondary">
-                Back
+                {{ __('emis.back') }}
             </a>
         </div>
     </div>
@@ -113,12 +113,12 @@
         <div class="row">
 
             <div class="col-md-3">
-                <div class="detail-label">Task Code</div>
+                <div class="detail-label">{{ __('emis.task_code') }}</div>
                 <div class="detail-value">{{ $task->task_code }}</div>
             </div>
 
             <div class="col-md-6">
-                <div class="detail-label">Title</div>
+                <div class="detail-label">{{ __('emis.title') }}</div>
                 <div class="detail-value">{{ $task->title }}</div>
             </div>
 
@@ -128,7 +128,7 @@
             </div>
 
             <div class="col-md-3">
-                <div class="detail-label">Priority</div>
+                <div class="detail-label">{{ __('emis.priority') }}</div>
                 <div class="detail-value">
                     <span class="priority-badge priority-{{ $task->priority }}">
                         {{ ucfirst($task->priority) }}
@@ -137,7 +137,7 @@
             </div>
 
             <div class="col-md-3">
-                <div class="detail-label">Status</div>
+                <div class="detail-label">{{ __('emis.status') }}</div>
                 <div class="detail-value">
                     <span class="status-badge status-{{ $task->status }}">
                         {{ ucfirst(str_replace('_', ' ', $task->status)) }}
@@ -146,7 +146,7 @@
             </div>
 
             <div class="col-md-3">
-                <div class="detail-label">Deadline</div>
+                <div class="detail-label">{{ __('emis.deadline') }}</div>
                 <div class="detail-value">
                     {{ optional($task->deadline)->format('Y-m-d') ?? '-' }}
                 </div>
@@ -176,17 +176,17 @@
             </div>
 
             <div class="col-md-3">
-                <div class="detail-label">Created At</div>
+                <div class="detail-label">{{ __('emis.created_at') }}</div>
                 <div class="detail-value">{{ optional($task->created_at)->format('Y-m-d H:i') }}</div>
             </div>
 
             <div class="col-md-12">
-                <div class="detail-label">Description</div>
+                <div class="detail-label">{{ __('emis.description') }}</div>
                 <div class="detail-value">{{ $task->description ?? '-' }}</div>
             </div>
 
             <div class="col-md-12">
-                <div class="detail-label">Remarks</div>
+                <div class="detail-label">{{ __('emis.remarks') }}</div>
                 <div class="detail-value">{{ $task->remarks ?? '-' }}</div>
             </div>
 

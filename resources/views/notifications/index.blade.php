@@ -23,12 +23,12 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Title</th>
+                    <th>{{ __('emis.title') }}</th>
                     <th>Message</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Action</th>
+                    <th>{{ __('emis.type') }}</th>
+                    <th>{{ __('emis.status') }}</th>
+                    <th>{{ __('emis.date') }}</th>
+                    <th>{{ __('emis.action') }}</th>
                 </tr>
             </thead>
 

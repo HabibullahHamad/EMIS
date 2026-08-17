@@ -75,16 +75,16 @@
                                 <option value="">All Types</option>
                                 <option value="general_directorate">General Directorate</option>
                                 <option value="directorate">Directorate</option>
-                                <option value="department">Department</option>
+                                <option value="department">{{ __('emis.department') }}</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Status</label>
+                            <label class="form-label">{{ __('emis.status') }}</label>
                             <select name="status" class="form-select">
-                                <option value="">All Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
+                                <option value="">{{ __('emis.all_statuses') }}</option>
+                                <option value="1">{{ __('emis.active') }}</option>
+                                <option value="0">{{ __('emis.inactive') }}</option>
                             </select>
                         </div>
 
@@ -159,24 +159,24 @@
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Show Logo</label>
                                 <select name="show_logo" class="form-select">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="1">{{ __('emis.yes') }}</option>
+                                    <option value="0">{{ __('emis.no') }}</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Show Prepared By</label>
                                 <select name="show_prepared_by" class="form-select">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="1">{{ __('emis.yes') }}</option>
+                                    <option value="0">{{ __('emis.no') }}</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Show Date</label>
                                 <select name="show_date" class="form-select">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="1">{{ __('emis.yes') }}</option>
+                                    <option value="0">{{ __('emis.no') }}</option>
                                 </select>
                             </div>
 

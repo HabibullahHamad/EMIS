@@ -32,11 +32,10 @@
 <div class="col-md-6 mb-3">
     <label class="form-label">{{ __('emis.type') }}</label>
     <select name="type" class="form-select" required>
-        <option value="general_directorate">{{ __('emis.A') }}</option>
-        <option value="directorate">{{ __('emis.B') }}</option>
-        <option value="department">{{ __('emis.C') }} </option>
-        <option value="directorate"> {{ __('emis.D') }}</option>
-         <option value="directorate">{{ __('emis.other') }}</option>
+        <option value="general_directorate">{{ __('emis.general_directorate') }}</option>
+        <option value="directorate">{{ __('emis.directorate') }}</option>
+        <option value="department">{{ __('emis.department') }}</option>
+        <option value="other">{{ __('emis.other') }}</option>
 
         
     </select>

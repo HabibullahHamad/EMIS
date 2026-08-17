@@ -57,8 +57,8 @@
 
             <hr>
 
-            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning">Edit</a>
-            <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning">{{ __('emis.edit') }}</a>
+            <a href="{{ route('employees.index') }}" class="btn btn-secondary">{{ __('emis.back') }}</a>
 
         </div>
     </div>

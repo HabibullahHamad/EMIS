@@ -1,0 +1,560 @@
+/*
+ * EMIS shared interface system
+ * Loaded by resources/views/new.blade.php only. Print and PDF templates remain
+ * isolated so their physical page dimensions are not changed.
+ */
+
+:root {
+    --emis-primary: #173f73;
+    --emis-primary-hover: #0f315d;
+    --emis-primary-soft: #edf4ff;
+    --emis-success: #16845b;
+    --emis-warning: #b96a05;
+    --emis-danger: #c33d4a;
+    --emis-info: #1676a3;
+    --emis-surface: #ffffff;
+    --emis-surface-muted: #f7f9fc;
+    --emis-border: #dce4ee;
+    --emis-text: #172033;
+    --emis-text-muted: #68768b;
+    --emis-radius-sm: 7px;
+    --emis-radius: 11px;
+    --emis-radius-lg: 15px;
+    --emis-shadow: 0 5px 18px rgba(28, 52, 84, .07);
+    --emis-control-height: 40px;
+}
+
+/* Page structure */
+.content-area {
+    padding: 22px;
+    background: #edf2f7;
+}
+
+.content-area > .container,
+.content-area > .container-fluid,
+.content-area > section,
+.content-area > form,
+.content-area > .card,
+.content-area > .page-shell,
+.emis-page {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+.emis-page-header,
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.emis-page-header__identity {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+}
+
+.emis-page-header__icon {
+    display: inline-flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: var(--emis-primary);
+    background: var(--emis-primary-soft);
+    border: 1px solid #d7e6fb;
+    border-radius: 10px;
+}
+
+.emis-page-title {
+    margin: 0;
+    color: var(--emis-text);
+    font-size: 20px;
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+.emis-page-description {
+    max-width: 780px;
+    margin: 4px 0 0;
+    color: var(--emis-text-muted);
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.emis-page-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Cards */
+.content-area .card,
+.emis-card {
+    color: var(--emis-text);
+    background: var(--emis-surface);
+    border: 1px solid var(--emis-border);
+    border-radius: var(--emis-radius);
+    box-shadow: var(--emis-shadow);
+}
+
+.content-area .card-header,
+.emis-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 54px;
+    padding: 13px 17px;
+    color: var(--emis-text);
+    background: var(--emis-surface-muted);
+    border-bottom: 1px solid var(--emis-border);
+    border-start-start-radius: var(--emis-radius);
+    border-start-end-radius: var(--emis-radius);
+}
+
+.content-area .card-header h1,
+.content-area .card-header h2,
+.content-area .card-header h3,
+.content-area .card-header h4,
+.content-area .card-header h5,
+.content-area .card-header h6 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.content-area .card-body,
+.emis-card__body {
+    padding: 18px;
+}
+
+.content-area .card-footer,
+.emis-card__footer {
+    padding: 12px 17px;
+    background: var(--emis-surface-muted);
+    border-top: 1px solid var(--emis-border);
+}
+
+/* Forms */
+.content-area .form-label,
+.content-area label:not(.form-check-label) {
+    margin-bottom: 6px;
+    color: #344157;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.content-area .form-control,
+.content-area .form-select,
+.emis-control {
+    min-height: var(--emis-control-height);
+    color: var(--emis-text);
+    background-color: #fff;
+    border: 1px solid #ccd7e5;
+    border-radius: var(--emis-radius-sm);
+    box-shadow: none;
+    font-size: 13px;
+}
+
+.content-area textarea.form-control {
+    min-height: 96px;
+    resize: vertical;
+}
+
+.content-area .form-control:focus,
+.content-area .form-select:focus,
+.emis-control:focus {
+    border-color: #5d8fc8;
+    box-shadow: 0 0 0 3px rgba(43, 106, 177, .13);
+}
+
+.content-area .form-control::placeholder {
+    color: #98a5b6;
+    opacity: 1;
+}
+
+.content-area .form-text,
+.emis-help-text {
+    color: var(--emis-text-muted);
+    font-size: 11.5px;
+}
+
+.content-area .invalid-feedback,
+.emis-field-error {
+    display: block;
+    color: var(--emis-danger);
+    font-size: 11.5px;
+}
+
+/* Buttons: one size, shape, focus state, and icon alignment */
+.content-area .btn,
+.emis-btn,
+.content-area .action-button,
+.content-area .form-action-btn,
+.content-area .table-action-btn,
+.content-area .tb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 14px;
+    border-width: 1px;
+    border-radius: var(--emis-radius-sm);
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: none;
+    transition: background-color .16s ease, border-color .16s ease,
+        color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.content-area .btn:hover,
+.emis-btn:hover,
+.content-area .action-button:hover,
+.content-area .form-action-btn:hover,
+.content-area .table-action-btn:hover,
+.content-area .tb:hover {
+    transform: translateY(-1px);
+}
+
+.content-area .btn:focus-visible,
+.emis-btn:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(43, 106, 177, .18);
+}
+
+.content-area .btn-sm,
+.emis-btn-sm {
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 11.5px;
+}
+
+.content-area .btn-lg,
+.emis-btn-lg {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 14px;
+}
+
+.content-area .btn-primary,
+.emis-btn-primary {
+    color: #fff;
+    background: var(--emis-primary);
+    border-color: var(--emis-primary);
+}
+
+.content-area .btn-primary:hover,
+.emis-btn-primary:hover {
+    color: #fff;
+    background: var(--emis-primary-hover);
+    border-color: var(--emis-primary-hover);
+}
+
+.content-area .btn-secondary,
+.content-area .btn-light,
+.emis-btn-secondary {
+    color: #40506a;
+    background: #fff;
+    border-color: #cdd8e5;
+}
+
+.content-area .btn-secondary:hover,
+.content-area .btn-light:hover,
+.emis-btn-secondary:hover {
+    color: var(--emis-primary);
+    background: #f1f6fc;
+    border-color: #afc3da;
+}
+
+.content-area .btn-success,
+.emis-btn-success {
+    color: #fff;
+    background: var(--emis-success);
+    border-color: var(--emis-success);
+}
+
+.content-area .btn-warning,
+.emis-btn-warning {
+    color: #fff;
+    background: var(--emis-warning);
+    border-color: var(--emis-warning);
+}
+
+.content-area .btn-danger,
+.emis-btn-danger {
+    color: #fff;
+    background: var(--emis-danger);
+    border-color: var(--emis-danger);
+}
+
+.content-area .btn-info,
+.emis-btn-info {
+    color: #fff;
+    background: var(--emis-info);
+    border-color: var(--emis-info);
+}
+
+.content-area .btn-outline-primary {
+    color: var(--emis-primary);
+    background: #fff;
+    border-color: #9db7d4;
+}
+
+.content-area .btn-outline-primary:hover {
+    color: #fff;
+    background: var(--emis-primary);
+    border-color: var(--emis-primary);
+}
+
+.content-area .btn:disabled,
+.content-area .btn.disabled,
+.emis-btn:disabled {
+    pointer-events: none;
+    opacity: .56;
+    transform: none;
+}
+
+.emis-icon-btn {
+    width: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0;
+}
+
+.content-area .action-button,
+.content-area .form-action-btn,
+.content-area .table-action-btn,
+.content-area .tb {
+    color: #fff;
+    background: var(--emis-primary);
+    border: 1px solid var(--emis-primary);
+}
+
+.content-area .table-action-btn,
+.content-area .tb {
+    width: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0;
+}
+
+/* Tables */
+.content-area .table-responsive,
+.emis-table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--emis-border);
+    border-radius: var(--emis-radius);
+    background: #fff;
+}
+
+.content-area table.table,
+.content-area .table-emis,
+.content-area .emis-table {
+    width: 100%;
+    margin: 0;
+    color: #263449;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12.5px;
+    vertical-align: middle;
+}
+
+.content-area table.table > thead > tr > th,
+.content-area .table-emis > thead > tr > th,
+.content-area .emis-table > thead > tr > th {
+    padding: 11px 12px;
+    color: #34445b;
+    background: #f2f6fb;
+    border: 0;
+    border-bottom: 1px solid var(--emis-border);
+    font-size: 11.5px;
+    font-weight: 750;
+    line-height: 1.45;
+    white-space: nowrap;
+}
+
+.content-area table.table > tbody > tr > td,
+.content-area table.table > tbody > tr > th,
+.content-area .table-emis > tbody > tr > td,
+.content-area .emis-table > tbody > tr > td {
+    padding: 11px 12px;
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #e8edf4;
+}
+
+.content-area table.table > tbody > tr:last-child > td,
+.content-area .table-emis > tbody > tr:last-child > td,
+.content-area .emis-table > tbody > tr:last-child > td {
+    border-bottom: 0;
+}
+
+.content-area table.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: transparent;
+    color: inherit;
+    background: #f7faff;
+}
+
+.content-area table.table-bordered > :not(caption) > * > * {
+    border-inline: 0;
+}
+
+.emis-table-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+/* Filters and action bars */
+.emis-filter-bar,
+.content-area .filter-card,
+.content-area .filters-card {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding: 14px;
+    background: var(--emis-surface);
+    border: 1px solid var(--emis-border);
+    border-radius: var(--emis-radius);
+}
+
+.emis-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border: 1px solid var(--emis-border);
+    border-radius: var(--emis-radius);
+}
+
+/* Alerts, badges, pagination, and empty states */
+.content-area .alert,
+.emis-alert {
+    padding: 11px 14px;
+    border-width: 1px;
+    border-radius: var(--emis-radius-sm);
+    font-size: 12.5px;
+}
+
+.content-area .badge,
+.emis-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 23px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 750;
+}
+
+.content-area .pagination {
+    gap: 4px;
+    margin: 16px 0 0;
+}
+
+.content-area .page-link {
+    min-width: 34px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #40516a;
+    background: #fff;
+    border: 1px solid var(--emis-border);
+    border-radius: 7px !important;
+    font-size: 12px;
+}
+
+.content-area .page-item.active .page-link {
+    color: #fff;
+    background: var(--emis-primary);
+    border-color: var(--emis-primary);
+}
+
+.emis-empty-state {
+    padding: 42px 20px;
+    color: var(--emis-text-muted);
+    text-align: center;
+}
+
+.emis-empty-state__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 12px;
+    color: var(--emis-primary);
+    background: var(--emis-primary-soft);
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+/* Direction-aware details */
+html[dir="rtl"] .content-area .form-select {
+    background-position: left .75rem center;
+    padding-right: .75rem;
+    padding-left: 2.25rem;
+}
+
+html[dir="rtl"] .content-area input[type="email"],
+html[dir="rtl"] .content-area input[type="url"],
+html[dir="rtl"] .content-area input[type="tel"],
+html[dir="rtl"] .content-area input[type="number"] {
+    direction: ltr;
+    text-align: right;
+}
+
+@media (max-width: 767.98px) {
+    .content-area {
+        padding: 14px;
+    }
+
+    .emis-page-header,
+    .page-header {
+        flex-direction: column;
+    }
+
+    .emis-page-actions,
+    .emis-page-actions .btn {
+        width: 100%;
+    }
+
+    .content-area .card-body,
+    .emis-card__body {
+        padding: 14px;
+    }
+
+    .content-area table.table,
+    .content-area .table-emis,
+    .content-area .emis-table {
+        min-width: 680px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .content-area .btn,
+    .emis-btn {
+        transition: none;
+    }
+}

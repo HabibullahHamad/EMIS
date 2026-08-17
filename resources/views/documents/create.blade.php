@@ -25,7 +25,7 @@
         <select name="type" class="form-control">
             <option value="incoming">{{ __('emis.incoming') }}</option>
             <option value="outgoing">{{ __('emis.outgoing') }}</option>
-            <option value="other">{{ __('emis.Other') }}</option>
+            <option value="other">{{ __('emis.other') }}</option>
         </select>
     </div>
 

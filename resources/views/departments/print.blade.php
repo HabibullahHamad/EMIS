@@ -45,7 +45,7 @@
 </head>
 <body>
 
-<button onclick="window.print()" class="no-print">Print</button>
+<button onclick="window.print()" class="no-print">{{ __('emis.print') }}</button>
 
 <h3>Departments Report</h3>
 

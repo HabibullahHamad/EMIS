@@ -25,15 +25,15 @@
             <option value="">All Types</option>
             <option value="general_directorate" {{ request('type') == 'general_directorate' ? 'selected' : '' }}>General Directorate</option>
             <option value="directorate" {{ request('type') == 'directorate' ? 'selected' : '' }}>Directorate</option>
-            <option value="department" {{ request('type') == 'department' ? 'selected' : '' }}>Department</option>
+            <option value="department" {{ request('type') == 'department' ? 'selected' : '' }}>{{ __('emis.department') }}</option>
         </select>
     </div>
 
     <div class="col-md-2">
         <select name="status" class="form-select">
-            <option value="">All Status</option>
-            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
-            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
+            <option value="">{{ __('emis.all_statuses') }}</option>
+            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>{{ __('emis.active') }}</option>
+            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>{{ __('emis.inactive') }}</option>
         </select>
     </div>
 
@@ -54,7 +54,7 @@
         </button>
 
         <a href="{{ route('departments.index') }}" class="btn btn-secondary">
-            {{ __('emis.Reset') }}
+            {{ __('emis.reset') }}
         </a>
     </div>
 </form>

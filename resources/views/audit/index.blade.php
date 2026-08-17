@@ -118,7 +118,7 @@
                 </button>
 
                 <a href="{{ route('audit.index') }}" class="btn btn-sm btn-secondary">
-                    Reset
+                    {{ __('emis.reset') }}
                 </a>
             </form>
         </div>
@@ -129,13 +129,13 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>User</th>
-                            <th>Action</th>
+                            <th>{{ __('emis.user') }}</th>
+                            <th>{{ __('emis.action') }}</th>
                             <th>Module</th>
                             <th>Record ID</th>
                             <th>IP Address</th>
-                            <th>Date</th>
-                            <th width="90">View</th>
+                            <th>{{ __('emis.date') }}</th>
+                            <th width="90">{{ __('emis.view') }}</th>
                         </tr>
                     </thead>
 
@@ -155,7 +155,7 @@
                                 <td>{{ $log->created_at?->timezone('Asia/Kabul')->format('d-m-Y h:i A') }}</td>
                                 <td>
                                     <a href="{{ route('audit.show', $log) }}" class="btn btn-sm btn-info">
-                                        View
+                                        {{ __('emis.view') }}
                                     </a>
                                 </td>
                             </tr>

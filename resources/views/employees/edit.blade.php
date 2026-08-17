@@ -44,7 +44,7 @@
 
             {{-- Email --}}
             <div class="col-md-6 mb-3">
-                <label>Email</label>
+                <label>{{ __('emis.email') }}</label>
                 <input type="email" name="email" class="form-control"
                        value="{{ old('email', $employee->email) }}">
             </div>
@@ -64,17 +64,17 @@
   {{-- selelect --}}
             {{-- Phone --}}
             <div class="col-md-6 mb-3">
-                <label>Phone</label>
+                <label>{{ __('emis.phone') }}</label>
                 <input type="text" name="phone" class="form-control"
                        value="{{ old('phone', $employee->phone) }}">
             </div>
 
             {{-- Status --}}
             <div class="col-md-6 mb-3">
-                <label>Status</label>
+                <label>{{ __('emis.status') }}</label>
                 <select name="status" class="form-control">
-                    <option value="active" {{ $employee->status == 'active' ? 'selected' : '' }}>Active</option>
-                    <option value="inactive" {{ $employee->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                    <option value="active" {{ $employee->status == 'active' ? 'selected' : '' }}>{{ __('emis.active') }}</option>
+                    <option value="inactive" {{ $employee->status == 'inactive' ? 'selected' : '' }}>{{ __('emis.inactive') }}</option>
                 </select>
             </div>
 
@@ -92,8 +92,8 @@
 
         </div>
 
-        <button class="btn btn-primary">Update</button>
-        <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back</a>
+        <button class="btn btn-primary">{{ __('emis.update') }}</button>
+        <a href="{{ route('employees.index') }}" class="btn btn-secondary">{{ __('emis.back') }}</a>
     </form>
 </div>
 @endsection

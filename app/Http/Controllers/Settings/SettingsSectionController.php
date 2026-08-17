@@ -175,6 +175,8 @@ class SettingsSectionController extends Controller
         UpdateSettingsSectionRequest $request,
         string $section
     ): RedirectResponse {
+
+
         /*
         |--------------------------------------------------------------------------
         | Normalize and verify route section
